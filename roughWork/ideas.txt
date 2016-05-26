@@ -1,0 +1,8 @@
+Features that we think should be inside
+- Uploading Option
+- Different Calendar Integration
+- To-Do List integration
+- Calendar
+- Chat System
+- Social Calendar
+- Facebook/LinkedIn/Google Plus/Twitter integration
