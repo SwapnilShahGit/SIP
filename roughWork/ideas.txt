@@ -6,3 +6,9 @@ Features that we think should be inside
 - Chat System
 - Social Calendar
 - Facebook/LinkedIn/Google Plus/Twitter integration
+
+
+Technologies to Use
+
+Teams to make
+
