@@ -1,1 +1,3 @@
 In this meeting, we decided between Pinterest for Sports and the syllabus parser. This decision had to be made as the google forms vote had turned out to be 50/50 with an exception to the one vote that voted for the third option (Inventory Counter). After much discussion and debating, we decided on the syllabus parser.
+
+P.S. We need to remember to clean off the whiteboard after the meeting to keep everything private
