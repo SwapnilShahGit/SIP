@@ -23,7 +23,7 @@ Parser for syllabus
 	- Google drive, oneoffice integration  
 	- Upload all the syllabus to one repository and let users search through their syllabus  
 	- This would be open to everyone, can be used for meetings etc.  
-	- You can put in any type of document (.pdf, .word, .txt, .html) and the service will check for dates and automatically add the dates to your google calendar and potentially other to-do list applications like onenote  
+	- You can put in any type of document (.pdf, .word, .txt, .html) and the service will check for dates and automatically add     the dates to your google calendar and potentially other to-do list applications like onenote  
 	- Would be very useful for students and would help the productivity of workers  
 	- We can also have an option to SMS or EMAIL the users to remind them of the event  
 
