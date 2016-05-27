@@ -27,3 +27,12 @@ Parser for syllabus
 	- Would be very useful for students and would help the productivity of workers  
 	- We can also have an option to SMS or EMAIL the users to remind them of the event  
 
+Schedule Maker/Calendar  
+- Length of Tasks  
+- Creating a schedule for different things  
+- Can schedule around events and specified breaks  
+- Include reminders   
+- Social media aspect where you can share your calendar and others view it, or create a shared calendar where group members can edit and update.  
+- Maybe link it to university/enterprise use  
+
+
