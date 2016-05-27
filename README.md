@@ -17,9 +17,9 @@ Zach Medeiros (Zach.Medeiros@soti.net)
 
 Here is the original idea list for this project:
 
-Parser for syllabus
+Parser for syllabus  
 	- Add important dates from syllabus to course calendars  
-	- Chrome Extension, Desktop Application, Mobile Application, and can receive notifications through multiple platforms
+	- Chrome Extension, Desktop Application, Mobile Application, and can receive notifications through multiple platforms  
 	- Google drive, oneoffice integration
 	- Upload all the syllabus to one repository and let users search through their syllabus
 	- This would be open to everyone, can be used for meetings etc.
