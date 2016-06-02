@@ -17,7 +17,7 @@ Zach Medeiros (Zach.Medeiros@soti.net)
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
-Here is the original idea list for this project:
+Here are the original ideas for this project:
 
 Parser for syllabus  
 - Add important dates from syllabus to course calendars  
