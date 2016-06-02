@@ -1,1 +1,29 @@
---Decide how to approach the software development
+Intern Meeting 6:
+  Making/Deciding on Teams:
+    Hybrid: Adam
+    - Frontend
+      Members : Zach, Pavlo, Doga
+        > Angular 2
+        > Typescript/Javascript
+          - Intuitive to use
+          - Easy to learn
+        > MeanJS
+        - Frameworks
+          > Facebook Login/Chat
+          > Google Calendar
+    
+    - Backend
+      Members: Darren, Swapnil, Pranali
+      -Parser (What will it be built in?)
+        > Python
+        > Java
+          - Adam/Swapnil/Darren have background knowledge 
+      -Talk to Cloud team when in production
+      - Frameworks
+        > Spring Framework
+        > Apache Lucene <=Adams Spelling
+      
+    - Unknown Frameworks
+      > Skype Chat (Maybe)
+      > Maybe Personal Chat
+      > Slack (Maybe) 
