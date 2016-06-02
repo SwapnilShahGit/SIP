@@ -15,6 +15,8 @@ Swapnil Shah (Swapnil.Shah@soti.net)
 
 Zach Medeiros (Zach.Medeiros@soti.net)
 
+---------------------------------------------------------------------------------------------------------------------------------
+
 Here is the original idea list for this project:
 
 Parser for syllabus  
