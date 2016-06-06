@@ -20,21 +20,13 @@ Zach Medeiros (Zach.Medeiros@soti.net)
 Here are the original ideas for this project:
 
 Parser for syllabus  
-- Add important dates from syllabus to course calendars  
-- Chrome Extension, Desktop Application, Mobile Application, and can receive notifications through multiple platforms  
-- Google drive, oneoffice integration  
+- A scalable web-application that adds important dates from syllabus to the calendar system (maybe google calendar)  
+- Will have Google Drive and OneOffice integrated to help mobile users
+- Calendars that are built into the application will be shareable with friends 
+- An integrated chatting system that will let students discuss
+- Have the option to make a new calendar for social clubs
 - Upload all the syllabus to one repository and let users search through their syllabus  
-- This would be open to everyone, can be used for meetings etc.  
-- You can put in any type of document (.pdf, .word, .txt, .html) and the service will check for dates and automatically add     the dates to your google calendar and potentially other to-do list applications like onenote  
-- Would be very useful for students and would help the productivity of workers  
-- We can also have an option to SMS or EMAIL the users to remind them of the event  
-
-Schedule Maker/Calendar  
-- Length of Tasks  
-- Creating a schedule for different things  
-- Can schedule around events and specified breaks  
-- Include reminders   
-- Social media aspect where you can share your calendar and others view it, or create a shared calendar where group members can edit and update.  
-- Maybe link it to university/enterprise use  
+- You can put in any type of document (.pdf, .word, .txt, .html) and the service will check for dates and automatically add the dates to your google calendar and potentially other to-do list applications like onenote  
+- Other integrated apps will potentially be included such as reminders using SMS and/or email, skype chat/slack integration, GPA Calculator, Course Mark Calculator, etc. The options are limitless.
 
 
