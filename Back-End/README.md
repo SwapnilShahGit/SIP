@@ -1,7 +1,6 @@
 ![cover](https://proctorexam.com/2015/wp-content/uploads/2016/01/back-end.jpg)
-<p align="center">
+
 # Back-End Team
-</p>
 This folder contains our code. Our current goal is to implement the parser with use of either Java and/or Python. 
 This parser will be the back-bone of the entire project as it will need to work with a high level of accuracy for better user experience. Future goals include:   
 1. Set up a server that will accept requests from the front-end and potential mobile applications   
