@@ -1,8 +1,8 @@
 ![cover](https://proctorexam.com/2015/wp-content/uploads/2016/01/back-end.jpg)
 
 # Back-End Team
-This folder contains the code from the Back-End team. Our current goal is to implement the parser with use of either Java or Python. 
-This parser will be the back-bone of the entire project as it will need to work with a high level of accuracy for better user experience. Future goals will include:   
+This folder contains our code. Our current goal is to implement the parser with use of either Java and/or Python. 
+This parser will be the back-bone of the entire project as it will need to work with a high level of accuracy for better user experience. Future goals include:   
 1. Set up a server that will accept requests from the front-end and potential mobile applications   
 2. Google Calendar API Integration  
 3. Establish a database to store user information and manage the existing syllabus  
