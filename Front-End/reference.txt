@@ -1,0 +1,10 @@
+Some websites:
+
+We can learn how to use the Google Calendar API on this website that Google provides for Google developers:
+https://developers.google.com/google-apps/calendar/
+
+Try this to learn about calendars that are provided by Microsoft:
+https://www.microsoft.com/web/webapptoolkits#calendars
+
+Maybe some TypeScript on this page:
+https://www.typescriptlang.org/docs/tutorial.html
