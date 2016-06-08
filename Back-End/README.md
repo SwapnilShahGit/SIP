@@ -8,7 +8,7 @@ This parser will be the primary focus of the entire project as it will need to w
 |---------------------------------------------------------------------------------------------------------------------------------|
 | Finish a basic version of the parser that works with 10 sample syllabi from UTM                                                 |
 | Set up a server that will accept requests from the front-end and potential mobile applications                                  |
-| Google Calendar API Integration                                                                                                 |
+| Google Calendar API Integration using CalDev                                                                                    |
 | Establish a database to store user information and manage the existing syllabus                                                 |
 | A smarter system that will detect if the information from a specific syllabus has already been parsed (similar to a dictionary) |
 | Ensure the parser works with 10 sample syllabi from UofT St.George                                                              |
