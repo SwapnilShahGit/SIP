@@ -3,6 +3,7 @@
 # Back-End Team
 This folder contains our code. Our main goal is to implement the parser with use of either Java and/or Python. 
 This parser will be the primary focus of the entire project as it will need to work with a high level of accuracy for a better user experience. We have included a high level to-do list for this project below.
+
 | Name    | Current Tasks                                                                            |
 | ------- | ---------------------------------------------------------------------------------------- |
 | Pranali | Pdf to Text conversion                                                                   |
