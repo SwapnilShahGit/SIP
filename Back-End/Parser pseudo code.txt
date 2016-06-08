@@ -1,0 +1,34 @@
+
+ create a hashtable for each possible date type/keyword ()
+
+ from the begining of charcter string to the end
+ {
+		for each possible date type/keyword, where index is i
+		{
+			case (i): // -- each case represents a date type and how to parse for it
+			.
+			.
+			.
+			
+			// -- when a type has been found, break the loop
+			store the count of the found date, and its begining
+			and	ending index into a hastable
+			-> use chaining hastable 
+		}
+ }
+ 
+ 
+ for each element in hashtable
+ {
+	within a given chracter limit, search for keyword strings (project, labs, quiz, test, etc.)
+
+	If found -> run any type-specific checks to ensure it could possibly be that assignment type
+	and store the type, and index of the beginning and and end of the keyword. 
+		-> If multiple found, store all types and store that object into a "multipleAssigment" list
+		-> If none found, store this item into a "noAssignment" list 
+ }
+ 
+  optional: Run a fast sorting alogrithm on multipleAssigment list based on the count of the date  
+  
+	present this list to the user, and let them decide which assignments fall for each day.
+	Present the noassignment list and ask the 
