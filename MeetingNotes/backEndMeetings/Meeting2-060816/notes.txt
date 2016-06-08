@@ -1,0 +1,25 @@
+- input = string, parses for dates and relevant information, output = [[[date, assignment name, location, repeat boolean, office hours, professor name]
+    - syllabus class (maybe)
+        - Null if can’t find information
+- one understands the dates by processing it and outputting text to proper format 
+    - taking pdf to text and check to see if syllabus already exists on the system
+
+
+Step 1: 
+Step 2:
+Step 3:
+
+
+1. Pdf to Text conversion
+2. Check if class currently exists in the database
+    1. if not
+        1. look for anomalies in the pdf (things that might be wrong with the formatting)
+        2. send pdf to darren
+    2. go through different date formats and find the relevant dates in the document
+    3. search around the date to find relevant information about the date
+    4. generate an object that has attributes of the found characteristics
+    5. Pass object to swapnil 
+    6. Identify the date and information given
+    7. Process information for google calendar API
+    8. send information to google and send an acknowledgement to the front-end with information
+
