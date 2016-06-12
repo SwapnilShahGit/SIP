@@ -17,6 +17,8 @@ This parser will be the primary focus of the entire project as it will need to w
 | Swapnil | Identify the date and information given                                                  |
 |         | Process information for google calendar API                                              |
 |         | send information to google and send an acknowledgement to the front-end with information |
+|         | store Syllabus information on the database for future reference                          |
+
 
 | End Goals                                                                                                                           |
 |---------------------------------------------------------------------------------------------------------------------------------|
