@@ -30,6 +30,7 @@ This parser will be the primary focus of the entire project as it will need to w
 | Ensure the parser works with 10 sample syllabi from UofT St.George                                                              |
 | Ensure the parser works with syllabi from any university in Canada                                                              |  
 | Support multiple types of documents (.pdf, .word, .txt, .html)                                                                  |  
+
 The Back-End team consists of: 
 
 Darren Hobin (Darren.Hobin@soti.net)
