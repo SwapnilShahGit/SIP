@@ -6,6 +6,7 @@ The goal is to create a clean and smoothe UI for the user to interact with which
 
 | TODO                                                                                                                            |
 |---------------------------------------------------------------------------------------------------------------------------------|
+| Creating personas (6/14/2016)                                                                                                   |
 | Implement the skeleton for the UI                                                                                               |
 | Set up mongo-db and implement simple fetch and store commands                                                                   |
 | Integrate existing log in options as well as create our own with a clean layout                                                 |
