@@ -1,1 +1,0 @@
-just as a side note, git does not like empty folders, so Doja you will have to put something inside for it to show up on the repository. 
