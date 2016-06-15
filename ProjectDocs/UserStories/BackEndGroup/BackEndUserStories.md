@@ -1,5 +1,5 @@
 Calendar
-	- View my calendars
+	- View my calendar
 	- Add events to my calendar
 	- View other calendars
 	- Modify events to my calendar
