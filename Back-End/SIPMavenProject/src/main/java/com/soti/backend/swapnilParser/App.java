@@ -29,7 +29,7 @@ public class App
        PdfToText pdfManager = new PdfToText();
        pdfManager.setFilePath(System.getProperty("user.dir") + "/src/main/java/com/soti/backend/swapnilParser/Syllabus.pdf");
        String rawtext = pdfManager.ToText();
-       
+       //pranali test comment
        System.out.println(rawtext);
        DateTimeParser[] parsers = { 
     		   DateTimeFormat.forPattern("yyyy-MM-dd").getParser(),
