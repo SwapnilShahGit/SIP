@@ -27,7 +27,6 @@ public class Syllabus {
 	ArrayList<ArrayList<String>> officeHoursTimes = new ArrayList<ArrayList<String>>();
 	//Semester the course is in (Fall, Winter, Summer)
 	String semester;
-	//list of graded evaluations in the course [Name, Due Date, Weight]
-	//sample entry is [Midterm, [03/07/2016], 20]
-	ArrayList<ArrayList<String>> gradedEvaluations = new ArrayList<ArrayList<String>>();
+	//list of gradedEvaluation objects in the course
+	ArrayList<GradedEvaluation> gradedEvaluations = new ArrayList<GradedEvaluation>();
 }
