@@ -34,5 +34,10 @@
        <artifactId>prettytime</artifactId>
        <version>3.2.7.Final</version>
     </dependency>
+	<dependency> 
+	  <groupId>com.joestelmach</groupId>
+	  <artifactId>natty</artifactId>
+	  <version>0.11</version>
+	</dependency>
   </dependencies>
 </project>
