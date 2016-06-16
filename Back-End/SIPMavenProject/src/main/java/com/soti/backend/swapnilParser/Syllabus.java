@@ -1,7 +1,6 @@
 package com.soti.backend.swapnilParser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Syllabus {
 	//University Name

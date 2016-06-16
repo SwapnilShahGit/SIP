@@ -8,6 +8,8 @@ import java.util.Formatter;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDate.Property;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -15,6 +17,8 @@ import org.joda.time.format.DateTimeParser;
 import org.joda.time.format.ISODateTimeFormat;
 import org.ocpsoft.prettytime.PrettyTime;
 
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 import com.mdimension.jchronic.Chronic;
 import com.mdimension.jchronic.utils.Span;
 import com.soti.backend.swapnilParser.PdfToText;
@@ -29,36 +33,30 @@ public class App
        PdfToText pdfManager = new PdfToText();
        pdfManager.setFilePath(System.getProperty("user.dir") + "/src/main/java/com/soti/backend/swapnilParser/Syllabus.pdf");
        String rawtext = pdfManager.ToText();
-       //pranali test comment
-       System.out.println(rawtext);
        DateTimeParser[] parsers = { 
     		   DateTimeFormat.forPattern("yyyy-MM-dd").getParser(),
-    		   DateTimeFormat.forPattern("yyyy/MM/dd").getParser()
+    		   DateTimeFormat.forPattern("yyyy/MM/dd").getParser(),
+    		   DateTimeFormat.forPattern("MM/dd/yyyy").getParser(),
+    		   DateTimeFormat.forPattern("MM-dd-yyyy").getParser(),
+    		   DateTimeFormat.forPattern("MMddyyyy").getParser(),
+    		   DateTimeFormat.forPattern("yyyyMMdd").getParser(),
+
        };
        
-       DateTimeFormatter formatter = new DateTimeFormatterBuilder().append(null, parsers).toFormatter();
-       DateTime date1 = formatter.parseDateTime("2016/03/02");
+       Parser parser = new Parser();
+       List<DateGroup> group = parser.parse("two weeks after September 4 2012");
+       List<Date> date = (group.get(0)).getDates();
+       Date sampledate = date.get(0);
+       DateTime dt = new DateTime(sampledate);
+       System.out.println(dt.getMonthOfYear() + "-" + dt.getDayOfMonth() + "-" + dt.getYear());
 
-       System.out.println(date1);
+       DateTimeFormatter formatter = new DateTimeFormatterBuilder().append(null, parsers).toFormatter();
+       //LocalDate date1 = formatter.parseLocalDate("Mon May 4");
+       //System.out.println(date1.toDate());
        
        
 }
-    
-    public static String createRegex(String s) {
-        StringBuilder b = new StringBuilder();
-        for(int i=0; i<s.length(); ++i) {
-            char ch = s.charAt(i);
-            if ("\\.^$|?*+[]{}()".indexOf(ch) != -1)
-                b.append('\\').append(ch);
-            else if (Character.isLetter(ch))
-                b.append("[A-Za-z]");
-            else if (Character.isDigit(ch))
-                b.append("\\d");
-            else
-                b.append(ch);
-        }
-        return b.toString();
-    }
+ 
 }
 
 //SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd"); 
