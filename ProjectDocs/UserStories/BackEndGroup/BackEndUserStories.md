@@ -44,3 +44,11 @@ Other
 	- view previously uploaded documents
 	- personalie styling of page
 	- personalie page based on school attended
+
+
+Things to bring up
+	- Don't add updates as it will distract users
+	- stick to the notification icon that we can experience on github
+	- For chat, make it so it only covers a portion of the screen, it should never overlook the calendar (will describe in person)
+	- group chats are still ok 
+	- what kinds of events should we be able to share
