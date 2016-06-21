@@ -3,25 +3,25 @@ package com.soti.backend.swapnilParser;
 import java.util.ArrayList;
 
 public class Syllabus {
-	//University Name
+	//University Name (e.g. University of Toronto)
 	String nameOfUniversity;
-	//Represents the course code
+	//Represents the course code (e.g. CSC108)
 	String courseCode;
-	//Name of the Course
+	//Name of the Course (e.g. Introduction to Algorithms)
 	String courseName;
-	//Lecture Section
+	//Lecture Section (LEC0102, etc.)
 	String lectureSection;
-	//List of Lecture Times, insert [Day of the Week, Location, Start Time in 24 hour format, End Time in 24 hour format]
-	ArrayList<ClassEvent> lectureTimes = new ArrayList<ClassEvent>();
-	//Name of the professor
+	//List of lecture times, tutorial times, and practical times that are outlined in a ClassEvent object
+	ArrayList<ClassEvent> classTimes = new ArrayList<ClassEvent>();
+	//Name of the professor (e.g. Daniel Zingaro)
 	String professorName;
-	//Email address of Professor
+	//Email address of Professor (e.g. Daniel.Zingaro@mail.utoronto.ca)
 	String professorEmail;
-	//Website URL of Professor
+	//Website URL of Professor (e.g. www.google.com)
 	String professorWebsite;
-	//The location of the office
+	//The location of the office (e.g. DH 3080)
 	String officeLocation;
-	//represents the office hours in format [Location, Day of the Week, Start Time in 24 hour format, End Time in 24 hour format]
+	//A list of ClassEvents that represent office hours
 	ArrayList<ClassEvent> officeHoursTimes = new ArrayList<ClassEvent>();
 	//Semester the course is in (Fall, Winter, Summer)
 	String semester;
