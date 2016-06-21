@@ -1,3 +1,18 @@
 find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
 
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
 .DS_Store
+
+# Maven
+log/
+target/
