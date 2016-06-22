@@ -6,17 +6,16 @@ This parser will be the primary focus of the entire project as it will need to w
 
 | Name    | Current Tasks                                                                            |
 | ------- | ---------------------------------------------------------------------------------------- |
-| Pranali | Pdf to Text conversion                                                                   |
+| Swapnil | Pdf to Text conversion                                                                   |
 |         | Check if class currently exists in the database                                          |
 |         | look for anomalies in the pdf (things that might be wrong with the formatting)           |
 |         | send raw string to darren                                                                |
-| Darren  | go through different date formats and find the relevant dates in the document            |
+|         | go through different date formats and find the relevant dates in the document            |
 |         | search around the date to find relevant information about the date                       |
 |         | generate an object that has attributes of the found characteristics                      |
-|         | Pass object to Swapnil                                                                   |
-| Swapnil | Identify the date and information given                                                  |
-|         | Process information for google calendar API                                              |
-|         | send information to google and send an acknowledgement to the front-end with information |
+|         | Identify the date and information given                                                  |
+|         | Process information for calendar API                                                     |
+|         | send information to calendar and send an acknowledgement to the front-end with information |
 |         | store Syllabus information on the database for future reference                          |
 
 
