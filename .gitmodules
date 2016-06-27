@@ -1,0 +1,3 @@
+[submodule "Back-End/mean"]
+	path = Back-End/mean
+	url = https://github.com/meanjs/mean.git
