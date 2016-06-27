@@ -19,10 +19,6 @@ printf "\n${UNDERLINE}Running installer...${NORMAL}\n"
 msiexec -i node-installer.msi
 msiexec -i mongo-installer.msi
 
-printf "\n${UNDERLINE}Getting MEAN git repo...${NORMAL}\n"
-git submodule init
-git submodule update
-
 printf "\n${UNDERLINE}Installing dependencies...${NORMAL}\n"
 cd ../mean
 npm install -g bower
