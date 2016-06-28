@@ -2,9 +2,10 @@
 
 var defaultEnvConfig = require('./default');
 
-//our db, which is hosted on mLab
-//process.env.MONGOLAB_URI = 'mongodb://<dbuser>:<dbpassword>@ds021994.mlab.com:21994/soti_intern';
 /*
+our db, which is hosted on mLab
+process.env.MONGOLAB_URI = 'mongodb://<dbuser>:<dbpassword>@ds021994.mlab.com:21994/soti_intern';
+
 //Github
 process.env.GITHUB_ID = '';
 process.env.GITHUB_SECRET = '';
@@ -21,7 +22,7 @@ process.env.GOOGLE_SECRET = '';
 process.env.TWITTER_ID = '';
 process.env.TWITTER_SECRET = '';
 
-//Linkedin 
+//Linkedin
 process.env.LINKEDIN_ID = '';
 process.env.LINKEDIN_SECRET = '';
 */
