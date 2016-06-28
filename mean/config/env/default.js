@@ -2,13 +2,13 @@
 
 module.exports = {
   app: {
-    title: 'MEAN.JS',
-    description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
-    keywords: 'mongodb, express, angularjs, node.js, mongoose, passport',
+    title: 'SIP',
+    description: 'A scalable web-application that adds important dates from syllabus to the calendar system',
+    keywords: 'syllabus, parser, calendar, GPA calculator, SIP',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   port: process.env.PORT || 3000,
-  host: process.env.HOST || '0.0.0.0',
+  // host: process.env.HOST || '0.0.0.0',
   templateEngine: 'swig',
   // Session Cookie settings
   sessionCookie: {
