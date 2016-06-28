@@ -1,16 +1,16 @@
+Step 1: Go to terminal and write:
 ```bash
 npm install
 ```
-
-(root/superuser access is needed), and then type
-
-
+Step 2: You need to access the super user (su for mac, should be sudo) and then type 
 ```bash
 bower install
+```
+Step 3: Write
+```bash
 bower update
 ```
-
-to get the front-end code, and finally, run the server with 
+Finally, run the server with 
 
 ```bash
 gulp
