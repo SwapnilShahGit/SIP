@@ -1,13 +1,21 @@
 #!/bin/bash
 
-if [ $# -eq 1 ]; then
+mongo="C:/Program Files/MongoDB"
+
+if [ $# -eq 1 -a "$1" != "skip" ]; then
 	data=$1
-	mongo="C:/Program Files/MongoDB"
 elif [ $# -eq 2 ]; then
-	mongo=$1
-	data=$2
+	if [ "$1" == "skip" ]; then
+		data=$2
+	else
+		mongo=$1
+		data=$2
+	fi
+elif [ $# -eq 3 -a "$1" == "skip" ]; then
+	mongo=$2
+	data=$3
 else
-	echo "win_x64.sh [mongo_location] <database>|<skip>"
+	echo "win_x64.sh [skip] [mongo_location] <database>"
 	exit 1
 fi
 
@@ -15,7 +23,7 @@ RED=$(tput setaf 1)
 UNDERLINE=$(tput smul)
 NORMAL=$(tput sgr0)
 
-if [ "$data" != "skip" ]; then
+if [ "$1" != "skip" ]; then
 	printf "${UNDERLINE}Downloading some stuff...${NORMAL}\n"
 	curl -o node-installer.msi https://nodejs.org/download/release/latest-v4.x/node-v4.4.6-x64.msi
 	curl -o mongo-installer.msi http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-3.2.7-signed.msi
@@ -43,11 +51,6 @@ if [ "$data" != "skip" ]; then
 	cd ../installer
 	rm node-installer.msi mongo-installer.msi
 fi
-
-printf "\n${RED}${UNDERLINE}WARNING: MongoDB will keep running until the terminal is closed.${NORMAL}\n\n"
-
-# Sleep to ensure user has time to read warning message
-sleep 5
 
 "$mongo/Server/3.2/bin/mongod.exe" --dbpath "$data" &
 cd ../mean
