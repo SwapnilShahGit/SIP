@@ -25,6 +25,20 @@
             <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
           </div>
         </div>
+
+        <div class="form-group" show-errors>
+          <label for="classes">Classes</label>
+          <input  id="classes0"  ng-pattern="/[a-zA-Z]{3}\d{3}/i" ng-required="true" name="classes0" class="form-control" ng-model="credentials.classes[0]" placeholder="Classes">
+          <input  id="classes1" ng-pattern="/[a-zA-Z]{3}\d{3}/i" name="classes1" class="form-control" ng-model="credentials.classes[1]" placeholder="Classes">
+          <input  id="classes2" ng-pattern="/[a-zA-Z]{3}\d{3}/i" name="classes2" class="form-control" ng-model="credentials.classes[2]" placeholder="Classes">
+          <input  id="classes3" ng-pattern="/[a-zA-Z]{3}\d{3}/i" name="classes3" class="form-control" ng-model="credentials.classes[3]" placeholder="Classes">
+          <input  id="classes4" ng-pattern="/[a-zA-Z]{3}\d{3}/i" name="classes4" class="form-control" ng-model="credentials.classes[4]" placeholder="Classes">
+          <input id="classes5" ng-pattern="/[a-zA-Z]{3}\d{3}/i" name="classes5" class="form-control" ng-model="credentials.classes[5]" placeholder="Classes">
+          <div ng-if="!userForm.classes5.test('/[a-zA-Z]{3}\d{3}/i')" || "userForm.classes0.$error.required">
+            <p class="help-block">Enter a classes in a format like CSC309, for example.</p>
+          </div>
+        </div>
+
         <div class="form-group" show-errors>
           <label for="username">Username</label>
           <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" placeholder="Username" lowercase required>
@@ -50,6 +64,9 @@
           <button type="submit" class="btn btn-primary">Sign up</button>
           &nbsp; or&nbsp;
           <a ui-sref="authentication.signin" class="show-signup">Sign in</a>
+        </div>
+        <div ng-show="!success && !userForm.$valid" class="text-center text-danger">
+          <b class='our-error'>Please check the pinned areas with red.</b>
         </div>
         <div ng-show="vm.error" class="text-center text-danger">
           <strong ng-bind="vm.error"></strong>
