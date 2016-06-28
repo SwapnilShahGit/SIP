@@ -45,7 +45,6 @@ if [ "$1" != "skip" ]; then
 	cd ../mean
 	npm install -g bower
 	npm install -g grunt-cli
-	npm install
 
 	printf "\n${UNDERLINE}Cleaning up...${NORMAL}\n"
 	cd ../installer
@@ -54,4 +53,5 @@ fi
 
 "$mongo/Server/3.2/bin/mongod.exe" --dbpath "$data" &
 cd ../mean
+npm install
 grunt
