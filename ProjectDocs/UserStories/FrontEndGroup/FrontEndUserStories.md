@@ -24,23 +24,23 @@ Chat
 	- create a event from the users already in the chat
  	- view the status of the members in the chat
 	- drop documents in the chat system to share
-	- 
 
 UI
 	- Log in
 	- Sign up
+	- Web style
+	- user expects a clean interface
 
 Parser
 	- upload any document and expect the dates to be parsed into my calendar
-	- i expect to receive alerts if certain dates could not be added and be able to 	edit them
+	- i expect to receive alerts if certain dates could not be added and be able to edit them
 
 Profile
 	- upload a picture to represent myself
-	-  
+	- Personal info
+	- settings
 Other
 	- friends list
 	- reminders for events
 	- get notifications
 	- view previously uploaded documents
-	- personalie styling of page
-	- personalie page based on school attended
