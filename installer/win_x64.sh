@@ -25,7 +25,7 @@ NORMAL=$(tput sgr0)
 
 if [ "$1" != "skip" ]; then
 	printf "${UNDERLINE}Downloading some stuff...${NORMAL}\n"
-	curl -o node-installer.msi https://nodejs.org/download/release/latest-v4.x/node-v4.4.6-x64.msi
+	curl -o node-installer.msi https://nodejs.org/download/release/v4.4.6/node-v4.4.6-x64.msi
 	curl -o mongo-installer.msi http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-3.2.7-signed.msi
 
 	printf "\n${UNDERLINE}Checking sha256sums...${NORMAL}\n"
