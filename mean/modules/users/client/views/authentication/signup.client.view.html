@@ -1,0 +1,77 @@
+<div>
+  <h3 class="col-md-12 text-center">Or sign up using your email</h3>
+  <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+    <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.firstName" placeholder="First Name" required>
+          <div ng-messages="vm.userForm.firstName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">First name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.lastName" placeholder="Last Name" required>
+          <div ng-messages="vm.userForm.lastName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Last name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" class="form-control" ng-model="vm.credentials.email" placeholder="Email" lowercase required>
+          <div ng-messages="vm.userForm.email.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Email address is required.</p>
+            <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label for="classes">Classes</label>
+          <input  id="classes0"  ng-pattern="/[a-zA-Z]{3}\d{3}/i" ng-required="true" name="classes0" class="form-control" ng-model="credentials.classes[0]" placeholder="Classes">
+          <input  id="classes1" ng-pattern="/[a-zA-Z]{3}\d{3}/i" name="classes1" class="form-control" ng-model="credentials.classes[1]" placeholder="Classes">
+          <input  id="classes2" ng-pattern="/[a-zA-Z]{3}\d{3}/i" name="classes2" class="form-control" ng-model="credentials.classes[2]" placeholder="Classes">
+          <input  id="classes3" ng-pattern="/[a-zA-Z]{3}\d{3}/i" name="classes3" class="form-control" ng-model="credentials.classes[3]" placeholder="Classes">
+          <input  id="classes4" ng-pattern="/[a-zA-Z]{3}\d{3}/i" name="classes4" class="form-control" ng-model="credentials.classes[4]" placeholder="Classes">
+          <input id="classes5" ng-pattern="/[a-zA-Z]{3}\d{3}/i" name="classes5" class="form-control" ng-model="credentials.classes[5]" placeholder="Classes">
+          <div ng-if="!userForm.classes5.test('/[a-zA-Z]{3}\d{3}/i')" || "userForm.classes0.$error.required">
+            <p class="help-block">Enter a classes in a format like CSC309, for example.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" placeholder="Username" lowercase required>
+          <div ng-messages="vm.userForm.username.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Username is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="Password" uib-popover="{{vm.getPopoverMsg()}}" uib-popover-trigger="focus" password-validator required>
+          <div ng-messages="vm.userForm.password.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Password is required.</p>
+            <div ng-repeat="passwordError in passwordErrors">
+              <p class="help-block error-text" ng-show="vm.userForm.password.$error.requirements">{{passwordError}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" ng-show="!vm.userForm.password.$error.required">
+          <label>Password Requirements</label>
+          <uib-progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
+        </div>
+        <div class="text-center form-group">
+          <button type="submit" class="btn btn-primary">Sign up</button>
+          &nbsp; or&nbsp;
+          <a ui-sref="authentication.signin" class="show-signup">Sign in</a>
+        </div>
+        <div ng-show="!success && !userForm.$valid" class="text-center text-danger">
+          <b class='our-error'>Please check the pinned areas with red.</b>
+        </div>
+        <div ng-show="vm.error" class="text-center text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

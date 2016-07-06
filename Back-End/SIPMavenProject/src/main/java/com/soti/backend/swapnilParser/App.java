@@ -30,13 +30,11 @@ import com.soti.backend.swapnilParser.PdfToText;
 public class App 
 {
     public static void main(String[] args) throws IOException {
-       ////Pranali's section
-    	PdfToText pdfManager = new PdfToText();
-       pdfManager.setFilePath(System.getProperty("user.dir") + "/src/main/java/com/soti/backend/swapnilParser/Syllabus.pdf");
+       PdfToText pdfManager = new PdfToText();
+       pdfManager.setFilePath(System.getProperty("user.dir") + "/src/main/java/com/soti/backend/swapnilParser/csSyllabus.pdf");
        String rawtext = pdfManager.ToText();
-       ////Darren's section
+       System.out.println(rawtext);
        String lines[] = rawtext.split("\\r?\\n");
-       System.out.println(lines.length);
        String pattern = "(?<!\\S)(?:(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]|(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\\1|"
        		+ "(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\\2))"
        		+ "(?:(?:1[6-9]|[2-9]\\d)?\\d{2})|(?:(?:1[6-9]|[2-9]\\d)?\\d{2})(\\/|-|\\.)(?:(?:(?:0?[13578]|1[02]|"
@@ -49,28 +47,21 @@ public class App
        		+ "(?:0?[1-9]|1\\d|2[0-8]))(?!\\S)";
        Pattern r = Pattern.compile(pattern);
        List<String> matchedcharacters = new ArrayList<String>();
-       
+
+       int count = 0;
        for (String x : lines){
     	   Matcher m = r.matcher(x);
-           int count = 0;
     	   while (m.find()){
     		   count++;
-    		   System.out.println("Match number " + count);
-    		   System.out.println("start(): " + m.start());
-    		   System.out.println("end(): " + m.end());
     		   matchedcharacters.add(x);
-    		   System.out.println(x);
     	   }   
        }
        
        
 
-       ////Pranali check here to make sure all dates are valid
        //what do we do if the date is not valid?
        
-       ////Swapnil's section
        //properly parse the date into the correct format
-       //
        List<DateTime> outputdates = new ArrayList<DateTime>();
        Parser parser = new Parser();
        for (String x : matchedcharacters){
@@ -87,7 +78,7 @@ public class App
        
        for (DateTime dt : outputdates){
            System.out.println(dt.getMonthOfYear() + "-" + dt.getDayOfMonth() + "-" + dt.getYear());
-           System.out.println(dt.getHourOfDay());
+           //System.out.println(dt.getHourOfDay());
        }
        
 

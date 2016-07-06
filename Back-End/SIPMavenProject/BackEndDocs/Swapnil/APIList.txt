@@ -1,0 +1,23 @@
+Total List: http://university.stack.network/universities/
+
+University of Guelph: http://guelphdev-api-service.readthedocs.io/en/latest/resources.html#id3
+
+University of Toronto: https://cobalt.qas.im/documentation/getting-started/introduction
+					   http://www.sis.utoronto.ca/web_services/
+
+University of Waterloo: https://api.uwaterloo.ca/
+
+McMaster University: 
+
+University of Ottawa: 
+
+Carleton University: 
+
+University of Western Ontario:
+
+MIT: https://developer.mit.edu/apis-courses
+
+York University: http://data.info.yorku.ca/courses/
+
+Rutgers University: http://api.rutgers.edu/
+
