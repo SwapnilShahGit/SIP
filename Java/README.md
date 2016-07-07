@@ -1,7 +1,7 @@
 ![cover](https://proctorexam.com/2015/wp-content/uploads/2016/01/back-end.jpg)
 
 # The Parser
-This folder contains my code for the Parser. My main goal is to implement the parser with Java with the help of existing API's provided by the open source community. The goal is to obtain the available information given to us by the API's and then parse the rest from the syllabus given to me by the user.
+This folder contains code for the Parser. The main goal is to implement the parser with Java with the help of existing API's provided by the open source community. The end goal is to use these API's and then parse the rest of the required information from the syllabus given by the user.
 
 | Current Tasks                                                                                                                   |
 | ---------------------------------------------------------------------------------------- |
