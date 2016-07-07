@@ -9,7 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,7 +41,8 @@ public class App
 		 File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
 		 File[] listOfFiles = folder.listFiles();
 	     PdfToText pdfManager = new PdfToText();
-		 for (int i = 4; i < listOfFiles.length; i++){
+	     
+		 for (int i = 0; i < listOfFiles.length; i++){
 			 JSONObject obj = new JSONObject();
 			 pdfManager.setFilePath(listOfFiles[i].toString());
 			 String rawtext = pdfManager.ToText();
@@ -66,20 +69,58 @@ public class App
 		     		   matchedcharacters.add(x);
 		     	   }   
 		        }
+		    
+		     //course code
+		     String coursecodepattern = "[A-Z]{3}[0-9]{3}[H|Y][1|5][F|S|Y]?";
+		     Pattern coursecode = Pattern.compile(coursecodepattern);
+		     Map<String, Integer> results = new HashMap<String, Integer>();
 		     
-		     obj.put("university", "");
-		     obj.put("code", "");
+		     count = 0;
+		     Matcher m = coursecode.matcher(rawtext);
+		     String finalcoursecode = "hi";
+		     int maxcoursecode = 0;
+		     while (m.find()){
+		     	count++;
+		     	if (results.containsKey(m.group())){
+		     		results.put(m.group(), results.get(m.group()) + 1);
+		     		if (results.get(m.group()) > maxcoursecode){
+		     			finalcoursecode = m.group();
+		     			maxcoursecode = results.get(m.group());
+		     		}
+		     	} else{
+		     		results.put(m.group(), 1);
+		     	}
+		     	   }   
+
+		     obj.put("code", finalcoursecode);
+		     
+		     //name of the university
+		     String universitycampus = "";
+		     System.out.println(Character.toString(finalcoursecode.charAt(7)));
+		     if (Character.toString(finalcoursecode.charAt(7)).equals("5")){
+		    	 universitycampus = "UTM";
+		    	 System.out.println(universitycampus);
+		     } else {
+		    	 universitycampus = "UTSG";
+		     }
+		     obj.put("university", universitycampus);
+		     
+		     //name of the course
 		     obj.put("name", "");
+		     //description of the course
 		     obj.put("description", "");
+		     //division of the course
 		     obj.put("division", "");
-		     obj.put("professorname", "");
-		     obj.put("professoremail", "");
-		     obj.put("professorwebsite", "");
-		     obj.put("officelocation", "");
-		     obj.put("officehourstimes", "");
-		     obj.put("semester", "");
-		     obj.put("gradedevaluations", "");
-		     obj.put("coursecode", "");
+		     //department the course is from
+		     obj.put("department", "");
+		     //prerequisities of the course
+		     obj.put("prerequisites", "");
+		     obj.put("exclusions", "");
+		     obj.put("level", "");
+		     obj.put("campus", "");
+		     obj.put("term", "");
+		     obj.put("meeting_sections", "");
+		     obj.put("graded_evaluations", "");
 		     obj.put("coursecode", "");
 
 
@@ -87,7 +128,7 @@ public class App
 		        
 		        
 			 try{
-				 FileWriter file = new FileWriter(System.getProperty("user.dir") + "/PDFS/JSONOutput/testfile.json");
+				 FileWriter file = new FileWriter(System.getProperty("user.dir") + "/PDFS/JSONOutput/" + finalcoursecode + ".json");
 				 file.write(obj.toJSONString());
 				 file.flush();
 				 file.close();
@@ -96,6 +137,7 @@ public class App
 			 } catch (IOException e){
 				 e.printStackTrace();
 			 }
+			 
 		 }
 
 	 }
