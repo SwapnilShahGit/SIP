@@ -6,7 +6,6 @@ This folder contains my code for the Parser. My main goal is to implement the pa
 | Current Tasks                                                                                                                   |
 | ---------------------------------------------------------------------------------------- |
 | Pdf to Text conversion                                                                   |
-| Check if class currently exists in the database                                          |
 | look for anomalies in the pdf (things that might be wrong with the formatting)           |
 | save raw string                                                                          |
 | go through different date formats and find the relevant dates in the document            |
@@ -22,14 +21,11 @@ This folder contains my code for the Parser. My main goal is to implement the pa
 |---------------------------------------------------------------------------------------------------------------------------------|
 | Finish a basic version of the parser that works with all UofT campuses                                                          |
 | Set up a RESTful API for potential mobile application usage                                                                     |
-| Google Calendar API Integration using CalDev                                                                                    |
-| A smarter system that will detect if the information from a specific syllabus has already been parsed (similar to a dictionary) |
 | Ensure the parser works with syllabi from any university in Canada                                                              |  
-| Support multiple types of documents (.pdf, .word, .txt, .html)                                                                  |  
+| Support multiple types of documents (.pdf, .word, .txt, .html)                                                                  |
+| Have a clean code base that is readable and follows the java software development principles|  
 
-The Parser is done by: 
 
-Swapnil Shah (Swapnil.Shah@soti.net)
 
 
 
