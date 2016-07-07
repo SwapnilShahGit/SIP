@@ -91,20 +91,23 @@ public class App
 		     		results.put(m.group(), 1);
 		     	}
 		     	   }   
-
+		     System.out.println(finalcoursecode);
 		     obj.put("code", finalcoursecode);
 		     
 		     //name of the university
 		     String universitycampus = "";
-		     System.out.println(Character.toString(finalcoursecode.charAt(7)));
+		     //System.out.println(Character.toString(finalcoursecode.charAt(7)));
 		     if (Character.toString(finalcoursecode.charAt(7)).equals("5")){
 		    	 universitycampus = "UTM";
-		    	 System.out.println(universitycampus);
+		    	 //System.out.println(universitycampus);
 		     } else {
 		    	 universitycampus = "UTSG";
 		     }
 		     obj.put("university", universitycampus);
 		     
+		     //id of the course
+		     obj.put("id", "");
+
 		     //name of the course
 		     obj.put("name", "");
 		     //description of the course
@@ -120,8 +123,47 @@ public class App
 		     obj.put("campus", "");
 		     obj.put("term", "");
 		     obj.put("meeting_sections", "");
-		     obj.put("graded_evaluations", "");
-		     obj.put("coursecode", "");
+		     
+		     //list of graded evaluations
+		     List<String> assignmentlines = new ArrayList<String>();
+		     int assignmentcount = 0;
+		        for (String x : lines){
+		     	   if (x.contains("%")){
+		     		   if (x.contains("Total 100%")){
+		     			   continue;
+		     		   }
+		     		   assignmentcount += 1;
+		     		   assignmentlines.add(x);
+		     	   }
+		        }
+		     System.out.println(assignmentlines.size());
+		        Parser parser = new Parser();
+		        List<DateTime> outputdates = new ArrayList<DateTime>();
+		        int counter = 0;
+		        JSONArray markedlist = new JSONArray();
+		        for (String y : assignmentlines){
+		           List<DateGroup> group = parser.parse(y);
+		      	   if (group.toString() == "[]"){
+		      		   continue;
+		      	   }
+		      	   List<Date> date = (group.get(0)).getDates();
+		             Date sampledate = date.get(0);
+		             DateTime dt = new DateTime(sampledate);
+		             outputdates.add(dt);
+		             JSONArray minilist = new JSONArray();
+		             minilist.add(dt);
+		             minilist.add(y);
+		             markedlist.add(minilist);
+		             System.out.println(dt);
+		             System.out.println(y);
+		        }
+		        
+		        for (DateTime dt : outputdates){
+		            System.out.println(dt.getMonthOfYear() + "-" + dt.getDayOfMonth() + "-" + dt.getYear());
+		        }
+		       
+		        
+		     obj.put("graded_evaluations", markedlist);
 
 
 		        
