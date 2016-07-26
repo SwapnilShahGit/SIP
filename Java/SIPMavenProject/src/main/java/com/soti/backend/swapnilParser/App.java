@@ -3,6 +3,7 @@ package com.soti.backend.swapnilParser;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
@@ -41,80 +42,101 @@ import org.json.simple.parser.JSONParser;
 
 
 
-public class SyllabusParser 
+public class SyllabusParser
 {
+	public static String rawtext;
+	public static String lines[];
+	public static String finalcoursecode;
+    public static String currentyear;
+	public static String session;
+    public static String optionalcharacter = "";
+    public static JSONObject obj;
+
 	 public static void main(String[] args) throws IOException {
 		 File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
 		 File[] listOfFiles = folder.listFiles();
 	     PdfToText pdfManager = new PdfToText();
-	     
-		 for (int i = 0; i < listOfFiles.length; i++){
-			 JSONObject obj = new JSONObject();
-			 pdfManager.setFilePath(listOfFiles[i].toString());
-			 String rawtext = pdfManager.ToText();
-			 obj.put("rawtext", rawtext);
-		     String lines[] = rawtext.split("\\r?\\n");
-		     String pattern = "(?<!\\S)(?:(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]|(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\\1|"
-		        		+ "(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\\2))"
-		        		+ "(?:(?:1[6-9]|[2-9]\\d)?\\d{2})|(?:(?:1[6-9]|[2-9]\\d)?\\d{2})(\\/|-|\\.)(?:(?:(?:0?[13578]|1[02]|"
-		        		+ "(?:Jan|Mar|May|Jul|Aug|Oct|Dec))\\3(?:31))|(?:(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"
-		        		+ ")\\3(?:29|30)))|(?:29(\\/|-|\\.)(?:0?2|(?:Feb))\\4(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|"
-		        		+ "(?:(?:16|[2468][048]|[3579][26])00))))|(?:(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|"
-		        		+ "[2468][048]|[3579][26])00)))(\\/|-|\\.)(?:0?2|(?:Feb))\\5(?:29))|(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9]|"
-		        		+ "(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\\6(?:(?:1[6-9]|[2-9]\\d)?\\d{2})|(?:(?:1[6-9]|"
-		        		+ "[2-9]\\d)?\\d{2})(\\/|-|\\.)(?:(?:0?[1-9]|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\\7"
-		        		+ "(?:0?[1-9]|1\\d|2[0-8]))(?!\\S)";
-		        Pattern r = Pattern.compile(pattern);
-		        List<String> matchedcharacters = new ArrayList<String>();
 
-		        int count = 0;
-		        for (String x : lines){
-		     	   Matcher m = r.matcher(x);
-		     	   while (m.find()){
-		     		   count++;
-		     		   matchedcharacters.add(x);
-		     	   }   
-		        }
-		    
-		     //course code
-		     String coursecodepattern = "[A-Z]{3}\\s?[0-9]{3}[H|Y][1|5][F|S|Y]?";
-		     Pattern coursecode = Pattern.compile(coursecodepattern);
-		     Map<String, Integer> results = new HashMap<String, Integer>();
-		     
-		     count = 0;
-		     Matcher m = coursecode.matcher(rawtext);
-		     String finalcoursecode = "";
-		     int maxcoursecode = 0;
-		     while (m.find()){
-		     	count++;
-		     	if (results.containsKey(m.group())){
-		     		results.put(m.group(), results.get(m.group()) + 1);
-		     		if (results.get(m.group()) > maxcoursecode){
-		     			finalcoursecode = m.group();
-		     			maxcoursecode = results.get(m.group());
-		     		}
-		     	} else{
-		     		results.put(m.group(), 1);
-		     		finalcoursecode = m.group();
-		     	}
-		     	   }
-		     if (finalcoursecode.length() == 8){
-		    	 finalcoursecode += "Y";
-		     }
-		     finalcoursecode = finalcoursecode.replaceAll("\\s+","");
+
+		 for (int i = 0; i < listOfFiles.length; i++){
+			 obj = new JSONObject();
+			 pdfManager.setFilePath(listOfFiles[i].toString());
+			 rawtext = pdfManager.ToText();
+			 obj.put("rawtext", rawtext);
+		     lines = rawtext.split("\\r?\\n");
+		     //UofT course code format
+		     finalcoursecode = coursecodefinder();
 		     obj.put("code", finalcoursecode);
-		     
-		     //name of the university
-		     String universitycampus = "";
-		     if (Character.toString(finalcoursecode.charAt(7)).equals("5")){
-		    	 universitycampus = "UTM";
-		     } else {
-		    	 universitycampus = "UTSG";
+		     //obtains the university campus based on the course code
+		     obj.put("university", getUniversityCampus());
+		     //use information processed above to find corresponding course in API
+		     JSONObject json = null;
+		     try{
+			     json = connecttoCobalt();
+		     }catch (Exception e){
+		    	 //information not available in cobalt API
+		    	 e.printStackTrace();
+		    	 saveAsJSON();
+		    	 continue;
 		     }
-		     obj.put("university", universitycampus);
-		     String session;
-		     String optionalcharacter = "";
-		     
+		     //id of the course
+		     obj.put("id",json.get("id").toString());
+		     //name of the course
+		     obj.put("name", json.get("name").toString());
+		     //description of the course
+		     obj.put("description", json.get("description").toString());
+		     //division of the course
+		     obj.put("division", json.get("division").toString());
+		     //department the course is from
+		     obj.put("department", json.get("department").toString());
+		     //prerequisities of the course
+		     obj.put("prerequisites", json.get("prerequisites").toString());
+		     //exclusions from the course
+		     obj.put("exclusions", json.get("exclusions").toString());
+		     //grade level of the course
+		     obj.put("level", json.get("level").toString());
+		     //campus the course is being taught on
+		     obj.put("campus", json.get("campus").toString());
+		     //the term the course is being taught in
+		     obj.put("term", json.get("term").toString());
+		     //the meeting sections of the course
+		     obj.put("meeting_sections", json.get("meeting_sections").toString());
+		     //list of graded evaluations
+		     obj.put("graded_evaluations", getassignments());
+		     saveAsJSON();
+
+		 }
+	 }
+
+	 public static String coursecodefinder() {
+		    String coursecodepattern = "[A-Z]{3}\\s?[0-9]{3}[H|Y][1|5][F|S|Y]?";
+		 		Pattern coursecode = Pattern.compile(coursecodepattern);
+				Map<String, Integer> results = new HashMap<String, Integer>();
+
+				int count = 0;
+				Matcher m = coursecode.matcher(rawtext);
+				String finalcoursecode = "";
+				int maxcoursecode = 0;
+				while (m.find()){
+				 count++;
+				 if (results.containsKey(m.group())){
+					 results.put(m.group(), results.get(m.group()) + 1);
+					 if (results.get(m.group()) > maxcoursecode){
+						 finalcoursecode = m.group();
+						 maxcoursecode = results.get(m.group());
+					 }
+				 } else{
+					 results.put(m.group(), 1);
+					 finalcoursecode = m.group();
+				 }
+						}
+				if (finalcoursecode.length() == 8){
+					finalcoursecode += "Y";
+				}
+				return finalcoursecode.replaceAll("\\s+","");
+	 }
+
+	 public static JSONObject connecttoCobalt() throws IOException{
 		     if (rawtext.contains("Summer") | rawtext.contains("summer")){
 		    	 session = "5";
 		    	 if (finalcoursecode.endsWith("F") | finalcoursecode.endsWith("S")){
@@ -135,7 +157,6 @@ public class SyllabusParser
 		    	 }
 		     }
 		     int year = Calendar.getInstance().get(Calendar.YEAR);
-		     String currentyear;
 		     if (rawtext.contains(Integer.toString(year))){
 		    	 currentyear = Integer.toString(year);
 		     }else {
@@ -152,13 +173,13 @@ public class SyllabusParser
 			     scanner = new Scanner(uoftRequest.openStream());
 		     } catch (Exception e){
 		    	 year += 1;
-		         currentyear = Integer.toString(year);			 
+		         currentyear = Integer.toString(year);
 		    	 requestURL = "http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter;
 		    	 uoftRequest = new URL(requestURL);
-			     connection = uoftRequest.openConnection();  
+			     connection = uoftRequest.openConnection();
 			     scanner = new Scanner(uoftRequest.openStream());
 		     }
-			connection.setDoOutput(true);  
+			connection.setDoOutput(true);
 		     String response = scanner.useDelimiter("\\Z").next();
 		     JSONParser parser2 = new JSONParser();
 		     JSONObject json = null;
@@ -170,32 +191,11 @@ public class SyllabusParser
 				e1.printStackTrace();
 			}
 		     scanner.close();
-		    
-		     
-		     
-		     
-		     
-		     //id of the course
-		     obj.put("id",json.get("id").toString());
+		     return json;
+	 }
 
-		     //name of the course
-		     obj.put("name", json.get("name").toString());
-		     //description of the course
-		     obj.put("description", json.get("description").toString());
-		     //division of the course
-		     obj.put("division", json.get("division").toString());
-		     //department the course is from
-		     obj.put("department", json.get("department").toString());
-		     //prerequisities of the course
-		     obj.put("prerequisites", json.get("prerequisites").toString());
-		     obj.put("exclusions", json.get("exclusions").toString());
-		     obj.put("level", json.get("level").toString());
-		     obj.put("campus", json.get("campus").toString());
-		     obj.put("term", json.get("term").toString());
-		     obj.put("meeting_sections", json.get("meeting_sections").toString());
-		     
-		     //list of graded evaluations
-		     List<String> assignmentlines = new ArrayList<String>();
+	 public static JSONArray getassignments(){
+		 List<String> assignmentlines = new ArrayList<String>();
 		     int assignmentcount = 0;
 		        for (String x : lines){
 		     	   if (x.contains("%")){
@@ -225,49 +225,54 @@ public class SyllabusParser
 		             markedlist.add(minilist);
 
 		        }
-		       
-		        
-		     obj.put("graded_evaluations", markedlist);
+		return markedlist;
 
+		/*
+		 * String pattern = "(?<!\\S)(?:(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]|(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\\1|"
+		        		+ "(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\\2))"
+		        		+ "(?:(?:1[6-9]|[2-9]\\d)?\\d{2})|(?:(?:1[6-9]|[2-9]\\d)?\\d{2})(\\/|-|\\.)(?:(?:(?:0?[13578]|1[02]|"
+		        		+ "(?:Jan|Mar|May|Jul|Aug|Oct|Dec))\\3(?:31))|(?:(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"
+		        		+ ")\\3(?:29|30)))|(?:29(\\/|-|\\.)(?:0?2|(?:Feb))\\4(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|"
+		        		+ "(?:(?:16|[2468][048]|[3579][26])00))))|(?:(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|"
+		        		+ "[2468][048]|[3579][26])00)))(\\/|-|\\.)(?:0?2|(?:Feb))\\5(?:29))|(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9]|"
+		        		+ "(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\\6(?:(?:1[6-9]|[2-9]\\d)?\\d{2})|(?:(?:1[6-9]|"
+		        		+ "[2-9]\\d)?\\d{2})(\\/|-|\\.)(?:(?:0?[1-9]|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\\7"
+		        		+ "(?:0?[1-9]|1\\d|2[0-8]))(?!\\S)";
+		        Pattern r = Pattern.compile(pattern);
+		        List<String> matchedcharacters = new ArrayList<String>();
 
-		        
-		        
-		        
+		        int count = 0;
+		        for (String x : lines){
+		     	   Matcher m = r.matcher(x);
+		     	   while (m.find()){
+		     		   count++;
+		     		   matchedcharacters.add(x);
+		     	   }
+		        }
+		 */
+	 }
+
+	 public static void saveAsJSON(){
+		 //create a new JSON file with the information and save to filesystem
 			 try{
 				 FileWriter file = new FileWriter(System.getProperty("user.dir") + "/PDFS/JSONOutput/" + finalcoursecode + currentyear + session + optionalcharacter + ".json");
 				 file.write(obj.toJSONString());
 				 file.flush();
 				 file.close();
-						 
-						 	
 			 } catch (IOException e){
 				 e.printStackTrace();
 			 }
-			 
-		 }
-		 /*
-		 for (int i = 0; i < listOfFiles.length; i++){
-		 try{
-			 Files.move(Paths.get(listOfFiles[i].toString()), Paths.get(System.getProperty("user.dir") + "\\PDFS\\Syllabi\\" + listOfFiles[i].getName()));
-		 } catch (Exception e){
-			e.printStackTrace();
-		 }
-		 }
-		*/
 	 }
-	 /*
-	 public static void Move(File startingFile, String endinglocation){
-		 try{
-			 if(startingFile.renameTo(new File(endinglocation + startingFile.getName()))){
-				 System.out.println("File move successful!");
-			 } else{
-				 System.out.println("File move not successful");
-			 };
-		 } catch (Exception e){
-			 e.printStackTrace();;
-		 }
+
+	 public static String getUniversityCampus(){
+		 //name of the university
+		     String universitycampus = "";
+				 System.out.println(finalcoursecode);
+		     if (Character.toString(finalcoursecode.charAt(7)).equals("5")){
+		    	 universitycampus = "UTM";
+		     } else {
+		    	 universitycampus = "UTSG";
+		     }
+				 return universitycampus;
 	 }
-	 */
 }
-
-
