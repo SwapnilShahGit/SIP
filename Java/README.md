@@ -1,42 +1,31 @@
 ![cover](https://proctorexam.com/2015/wp-content/uploads/2016/01/back-end.jpg)
 
-# Back-End Team
-This folder contains our code. Our main goal is to implement the parser with use of either Java and/or Python. 
-This parser will be the primary focus of the entire project as it will need to work with a high level of accuracy for a better user experience. We have included a high level to-do list for this project below.
+# The Parser
+This folder contains code for the Parser. The main goal is to implement the parser with Java with the help of existing API's provided by the open source community. The end goal is to use these API's and then parse the rest of the required information from the syllabus given by the user.
 
-| Name    | Current Tasks                                                                            |
-| ------- | ---------------------------------------------------------------------------------------- |
-| Swapnil | Pdf to Text conversion                                                                   |
-|         | Check if class currently exists in the database                                          |
-|         | look for anomalies in the pdf (things that might be wrong with the formatting)           |
-|         | send raw string to darren                                                                |
-|         | go through different date formats and find the relevant dates in the document            |
-|         | search around the date to find relevant information about the date                       |
-|         | generate an object that has attributes of the found characteristics                      |
-|         | Identify the date and information given                                                  |
-|         | Process information for calendar API                                                     |
-|         | send information to calendar and send an acknowledgement to the front-end with information |
-|         | store Syllabus information on the database for future reference                          |
+| Current Tasks                                                                                                                   |
+| ---------------------------------------------------------------------------------------- |
+| ~~Pdf to Text conversion~~                                                                  |
+| look for anomalies in the pdf (things that might be wrong with the formatting)           |
+| ~~save raw string~~                                                                          |
+| ~~go through different date formats and find the relevant dates in the document~~            |
+| search around the date to find relevant information about the date                       |
+| ~~generate an object that has attributes of the found characteristics~~                      |
+| ~~Identify the date and information given~~                                                  |
+| Process information in JSON                                                              |
+| send JSON back to the node team                                                          |
+| potentially create a public API                                                          |
 
 
-| End Goals                                                                                                                           |
+| End Goals                                                                                                                       |
 |---------------------------------------------------------------------------------------------------------------------------------|
-| Finish a basic version of the parser that works with 10 sample syllabi from UTM                                                 |
-| Set up a server that will accept requests from the front-end and potential mobile applications                                  |
-| Google Calendar API Integration using CalDev                                                                                    |
-| Establish a database to store user information and manage the existing syllabus                                                 |
-| A smarter system that will detect if the information from a specific syllabus has already been parsed (similar to a dictionary) |
-| Ensure the parser works with 10 sample syllabi from UofT St.George                                                              |
+| Finish a basic version of the parser that works with all UofT campuses                                                          |
+| Set up a RESTful API for potential mobile application usage                                                                     |
 | Ensure the parser works with syllabi from any university in Canada                                                              |  
-| Support multiple types of documents (.pdf, .word, .txt, .html)                                                                  |  
+| Support multiple types of documents (.pdf, .word, .txt, .html)                                                                  |
+| Have a clean code base that is readable and follows the java software development principles|  
 
-The Back-End team consists of: 
 
-Darren Hobin (Darren.Hobin@soti.net)
 
-Pranali Rathi (Pranali.Rathi@soti.net)
 
-Swapnil Shah (Swapnil.Shah@soti.net)
-
-Doga Ister (Doga.ister@soti.net)
 

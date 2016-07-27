@@ -4,7 +4,7 @@ var defaultEnvConfig = require('./default');
 
 /*
 our db, which is hosted on mLab
-process.env.MONGOLAB_URI = 'mongodb://<dbuser>:<dbpassword>@ds021994.mlab.com:21994/soti_intern';
+process.env.MONGOLAB_URI = 'mongodb.mobicontrolcloud.com'; //internsteam@mongodb...
 
 //Github
 process.env.GITHUB_ID = '';
