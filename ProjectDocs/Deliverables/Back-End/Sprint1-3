@@ -1,0 +1,39 @@
+Back End Deliverables
+    Sprints:
+        Tasking: Last Thursday of the 3 week sprint
+                 Separate tasking for front end and back end
+                 Story Points shall be measured in shirt sizes to avoid confusion between complexity and time of tasks
+                 
+    Sprint 1: July 18th - August 5th
+        Set up the cloud mongoDB
+        Get third party login credentials (facbook, google+ etc.)
+        local mongoDB set up (during development) 
+        tutorials/reading on mean stack, RESTful API
+        communicate with front end for what will be stored in database
+        
+    Sprint2: August 8th - August 26th
+        Start creating database
+        database creation for signup/login (front end)
+        start designing/implementing node/express interface from front end and database
+        
+    Sprint3: August 29th - September 16th
+        continue with database creation for signup/login (mongoose?)
+        continue with designing/implementing node/express interface from front end and database
+        
+        
+Parser Deliverables:
+    
+    Sprint1:
+        Implement UofT syllabi
+        Process JSON objects for Front-End Calendar
+    
+    Sprint2:
+        Refactor Code (Separate classes, commenting, etc.)
+        
+    Sprint3:
+        Implement a RESTful API for the parser
+        Use Spring Framework (https://spring.io/guides/gs/rest-service/)
+    
+    Sprint4:
+        Implement UWaterloo syllabi
+        Use https://api.uwaterloo.ca/ (similar to cobalt)
