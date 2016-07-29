@@ -64,11 +64,14 @@ public class SyllabusParser
 			 rawtext = pdfManager.ToText();
 			 obj.put("rawtext", rawtext);
 		     lines = rawtext.split("\\r?\\n");
+		     
 		     //UofT course code format
 		     finalcoursecode = coursecodefinder();
 		     obj.put("code", finalcoursecode);
+		    
 		     //obtains the university campus based on the course code
 		     obj.put("university", getUniversityCampus());
+		     
 		     //use information processed above to find corresponding course in API
 		     JSONObject json = null;
 		     try{
@@ -79,8 +82,10 @@ public class SyllabusParser
 		    	 saveAsJSON();
 		    	 continue;
 		     }
+		     
 		     //id of the course
 		     obj.put("id",json.get("id").toString());
+		    
 		     //name of the course
 		     obj.put("name", json.get("name").toString());
 		     //description of the course
@@ -167,6 +172,7 @@ public class SyllabusParser
 		     URL uoftRequest;
 		     Scanner scanner;
 		     try{
+		    	 System.out.println("http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter);
 		    	 requestURL = "http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter;
 		    	 uoftRequest = new URL(requestURL);
 			     connection = uoftRequest.openConnection();
