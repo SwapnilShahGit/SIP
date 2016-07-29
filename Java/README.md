@@ -6,14 +6,14 @@ This folder contains code for the Parser. The main goal is to implement the pars
 | Current Tasks                                                                                                                   |
 | ---------------------------------------------------------------------------------------- |
 | ~~Pdf to Text conversion~~                                                                  |
-| look for anomalies in the pdf (things that might be wrong with the formatting)           |
+| ~~look for anomalies in the pdf (things that might be wrong with the formatting)~~           |
 | ~~save raw string~~                                                                          |
 | ~~go through different date formats and find the relevant dates in the document~~            |
-| search around the date to find relevant information about the date                       |
+| ~~search around the date to find relevant information about the date~~                       |
 | ~~generate an object that has attributes of the found characteristics~~                      |
 | ~~Identify the date and information given~~                                                  |
-| Process information in JSON                                                              |
-| send JSON back to the node team                                                          |
+| ~~Process information in JSON~~                                                              |
+| ~~send JSON back to the node team~~                                                          |
 | potentially create a public API                                                          |
 
 
