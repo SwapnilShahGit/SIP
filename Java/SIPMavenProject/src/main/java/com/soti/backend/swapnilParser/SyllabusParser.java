@@ -144,7 +144,7 @@ public class SyllabusParser
 		    	 }
 		     }else if (rawtext.contains("Winter")| rawtext.contains("winter")) {
 		    	 session = "1";
-		     } else if (rawtext.contains("Winter")| rawtext.contains("winter")){
+		     } else if (rawtext.contains("Fall")| rawtext.contains("fall")){
 		    	 session = "9";
 		     } else {
 		    	 int month = Calendar.getInstance().get(Calendar.MONTH);
@@ -210,22 +210,28 @@ public class SyllabusParser
 		        List<DateTime> outputdates = new ArrayList<DateTime>();
 		        int counter = 0;
 		        JSONArray markedlist = new JSONArray();
+		        JSONArray minilist = new JSONArray();
 		        for (String y : assignmentlines){
+	        	     minilist = new JSONArray();
 		           List<DateGroup> group = parser.parse(y);
-		      	   if (group.toString() == "[]"){
-		      		   continue;
-		      	   }
+		           if (y.contains("Final Exam")){
+		        	   	 minilist.add(y);
+			             markedlist.add(minilist);
+			             continue;
+			      	   }
+		      	   else if (group.toString() == "[]"){
+			      		   continue;
+			      	   } 
 		      	   List<Date> date = (group.get(0)).getDates();
 		             Date sampledate = date.get(0);
 		             DateTime dt = new DateTime(sampledate);
 		             outputdates.add(dt);
-		             JSONArray minilist = new JSONArray();
 		             minilist.add(dt);
 		             minilist.add(y);
 		             markedlist.add(minilist);
 
 		        }
-		return markedlist;
+		        return markedlist;
 
 		/*
 		 * String pattern = "(?<!\\S)(?:(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]|(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\\1|"
