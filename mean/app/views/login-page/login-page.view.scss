@@ -3,8 +3,7 @@
 }
 .logo {
   text-align: center;
-  position: relative;
-  top: 200px;
+  position: static;
   display: block;
   margin: auto;
   width: 50%;
@@ -13,10 +12,16 @@
   font-size: 30px;
 }
 
+.spore-logo {
+  width: 336px;
+  height: 350px;
+  margin-top: 50px;
+}
+
 .email-div {
   position: relative;
   display: block;
-  top: 300px;
+  top: 0px;
   right: 150px;
   margin: auto;
   border-radius: 4px;
@@ -28,7 +33,7 @@
 .password-div {
   position: relative;
   display: block;
-  top: 310px;
+  top: 10px;
   right: 150px;
   margin: auto;
   border-radius: 4px;
@@ -40,7 +45,7 @@
 .remember-me-box {
   position: relative;
   display: block;
-  top: 320px;
+  top: 20px;
   text-align: center;
   right: 208px;
   z-index: 2;
@@ -59,7 +64,7 @@
 .forgot-password {
   position: relative;
   display: block;
-  top: 306px;
+  top: 6px;
   text-align: center;
   right: 92px;
   z-index: 2;
@@ -68,55 +73,74 @@
   font-style: italic;
 }
 
+.spore-login {
+  position: relative;
+  display: block;
+  top: 20px;
+  right: 205px;
+  text-align: center;
+  z-index: 2;
+}
+
+.login-button {
+  border: none;
+  border-radius: 4px;
+}
+
+.spore-sign-up {
+  position: relative;
+  display: block;
+  bottom: 17px;
+  right: 89px;
+  text-align: center;
+  z-index: 2;
+}
+
+.sign-up-button {
+  border: none;
+  border-radius: 4px;
+}
+
 .facebook-login {
   position: relative;
   display: block;
-  top: 177px;
+  bottom: 197px;
   left: 125px;
   text-align: center;
   z-index: 2;
 }
 
 .facebook-button {
-  background-color: blue;
   border: none;
   border-radius: 4px;
-  color: white;
-  padding: 12px;
 }
 
 .google-login {
   position: relative;
   display: block;
-  top: 187px;
-  left: 117px;
+  bottom: 187px;
+  left: 125px;
   text-align: center;
   z-index: 2;
 }
 
 .google-button {
-  background-color: red;
   border: none;
   border-radius: 4px;
-  color: white;
-  padding: 12px;
 }
 
 .linkedin-login {
   position: relative;
   display: block;
-  top: 197px;
-  left: 121px;
+  bottom: 177px;
+  left: 125px;
   text-align: center;
   z-index: 2;
 }
 
 .linkedin-button {
-  background-color: #0b93d5;
   border: none;
   border-radius: 4px;
-  color: white;
-  padding: 12px;
 }
 
 * {
