@@ -33,7 +33,6 @@
 .password-div {
   position: relative;
   display: block;
-  top: 10px;
   right: 150px;
   margin: auto;
   border-radius: 4px;
@@ -73,74 +72,58 @@
   font-style: italic;
 }
 
-.spore-login {
-  position: relative;
-  display: block;
-  top: 20px;
-  right: 205px;
-  text-align: center;
-  z-index: 2;
-}
-
 .login-button {
+  position: relative;
+  display: inline-block;
+  left: 55px;
+  width: 100px;
   border: none;
   border-radius: 4px;
-}
-
-.spore-sign-up {
-  position: relative;
-  display: block;
-  bottom: 17px;
-  right: 89px;
-  text-align: center;
-  z-index: 2;
 }
 
 .sign-up-button {
+  position: relative;
+  display: inline-block;
+  left: 55px;
+  width: 100px;
   border: none;
   border-radius: 4px;
 }
 
-.facebook-login {
+.spore-login-section {
   position: relative;
   display: block;
-  bottom: 197px;
-  left: 125px;
-  text-align: center;
+  left: 650px;
   z-index: 2;
 }
 
 .facebook-button {
-  border: none;
-  border-radius: 4px;
-}
-
-.google-login {
-  position: relative;
-  display: block;
-  bottom: 187px;
-  left: 125px;
-  text-align: center;
-  z-index: 2;
+  color: #fff;
+  background-color: #3b5998;
+  border-color: rgba(0,0,0,0.2);
 }
 
 .google-button {
-  border: none;
-  border-radius: 4px;
-}
-
-.linkedin-login {
-  position: relative;
-  display: block;
-  bottom: 177px;
-  left: 125px;
-  text-align: center;
-  z-index: 2;
+  color: #fff;
+  background-color: #dd4b39;
+  border-color: rgba(0,0,0,0.2);
 }
 
 .linkedin-button {
-  border: none;
-  border-radius: 4px;
+  color: #fff;
+  background-color: #005983;
+  border-color: rgba(0,0,0,0.2);
+}
+
+.third-party-login {
+  position: relative;
+  display: block;
+  left: 350px;
+  z-index: 2;
+}
+
+.btn-third-party {
+  width: 200px;
 }
 
 * {
