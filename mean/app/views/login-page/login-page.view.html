@@ -1,6 +1,18 @@
-<link href="../.././../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="../.././../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="../.././../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../.././../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
 <div class="login-section">
     <div class="input-panel">
         <div class="logo">
@@ -45,35 +57,59 @@
     </ul>
 </div>
 
-<div class="body-section">
-    <div class="info-section">
-        <div class="top-half-section">
-            <div class="left-section">
-                <img class="circle-shape-left"/>
-                <p>This is some left text, asfafsa asfaasf asfaaa aa aaa </p>
-            </div>
-            <div class="right-section">
-                <img class="circle-shape-right"/>
-                <p>This is some right text, asfafsa asfaasf asfaaa aa aaa asfaf </p>
-            </div>
-            <div class="mid-section">
-                <img class="circle-shape-mid"/>
-                <p>This is some text in the middle, asfafsa asfaasf asfaaa aa aaa</p>
-            </div>
+<div id="body" class="container-fluid text-center">
+    <h2>HEADER NAME</h2>
+    <div class="row slideanim">
+        <div id="body-column" class="col-sm-4 col-xs-12">
+            <h1>FIRST PANEL</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <img class="img-responsive center-block" src="http://placekitten.com/400/300" alt="LEFT CAT"/>
+            <p><strong>400x300 Centered</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
-
-        <div class="bottom-half-section">
-            FIX THIS NEXT
+        <div id="body-column" class="col-sm-4 col-xs-12">
+            <h1>SECOND PANEL</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <img class="img-responsive img-circle center-block" src="http://placekitten.com/500/400" alt="MIDDLE CAT"/>
+            <p><strong>500x400 Circle Centered</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
-
-    </div>
-</div>
-
-<div class="footer-section">
-    <div class="footer-section-interior">
-        <img class="footer-logo"/>
-        <div class="footer-section-text">
-            This is some other text. Team SIP.
+        <div id="body-column" class="col-sm-4 col-xs-12">
+            <h1>THIRD PANEL</h1>
+            <p>Lorem ipsum do  lor sit amet, sonsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <img class="img-responsive img-rounded center-block" src="http://placekitten.com/200/200" alt="RIGHT CAT"/>
+            <p><strong>200x200 Rounded Centered</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
     </div>
+    <div class="row slideanim">
+        <h2>HEADER NAME</h2>
+        <div id="body-column" class="col-sm-8">
+            <h1>BIG BOX</h1>
+            <img class="img-responsive img-rounded center-block" src="http://placekitten.com/1200/900" alt="BIG CAT"/>
+            <p><strong>1200x900 Rounded Centered</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div id="body-column" class="col-sm-4">
+            <h1>SMALL BOX</h1>
+            <p class="text-center text-info"> <strong>Info Text Centered</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+            <p class="text-left text-warning"> <strong>Warning Text Left-Aligned</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p class="text-right text-danger"><strong>Danger Text Right-Aligned</strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, comcectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
 </div>
+<footer id="footer" class="container-fluid text-center">
+    <p>Take me away:
+        <a href="https://github.com/SwapnilShahGit/SIP" title="Git Link">Git</a> or
+        <a href="https://sipteamtalk.slack.com" title="Slack Link">Slack</a>
+        <img class="img-responsive img-rounded" src="http://placekitten.com/60/60" alt="TINY CAT" style="float: right;"/>
+        <img class="img-responsive img-rounded" src="http://placekitten.com/60/60" alt="TINY CAT" style="float: left;"/>
+    </p>
+</footer>
+</body>
+</html>
