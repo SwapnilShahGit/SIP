@@ -60,27 +60,12 @@
 <div id="body" class="container-fluid text-center">
     <h2>HEADER NAME</h2>
     <div class="row slideanim">
-        <div id="body-column" class="col-sm-4 col-xs-12">
-            <h1>FIRST PANEL</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <img class="img-responsive center-block" src="http://placekitten.com/400/300" alt="LEFT CAT"/>
-            <p><strong>400x300 Centered</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-        <div id="body-column" class="col-sm-4 col-xs-12">
-            <h1>SECOND PANEL</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <img class="img-responsive img-circle center-block" src="http://placekitten.com/500/400" alt="MIDDLE CAT"/>
-            <p><strong>500x400 Circle Centered</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-        <div id="body-column" class="col-sm-4 col-xs-12">
-            <h1>THIRD PANEL</h1>
-            <p>Lorem ipsum do  lor sit amet, sonsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <img class="img-responsive img-rounded center-block" src="http://placekitten.com/200/200" alt="RIGHT CAT"/>
-            <p><strong>200x200 Rounded Centered</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
+        <sip-info-panel [panelName]="'FIRST PANEL'" [panelDescription]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'"
+                        [imageUrl]="'http://placekitten.com/400/300'"></sip-info-panel>
+        <sip-info-panel [panelName]="'SECOND PANEL'" [panelDescription]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'"
+                        [imageUrl]="'http://placekitten.com/500/400'"></sip-info-panel>
+        <sip-info-panel [panelName]="'THIRD PANEL'" [panelDescription]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'"
+                        [imageUrl]="'http://placekitten.com/200/200'"></sip-info-panel>
     </div>
     <div class="row slideanim">
         <h2>HEADER NAME</h2>
