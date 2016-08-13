@@ -54,9 +54,10 @@ public class SyllabusParser
     public static JSONObject obj;
 
 	 public static void main(String[] args) throws IOException {
+	 	//get list of files in the PDF directory
 		 File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
 		 File[] listOfFiles = folder.listFiles();
-	     PdfToText pdfManager = new PdfToText();
+	     	PdfToText pdfManager = new PdfToText();
 
 
 		 for (int i = 0; i < listOfFiles.length; i++){
@@ -185,7 +186,6 @@ public class SyllabusParser
 		     JSONParser parser2 = new JSONParser();
 		     JSONObject json = null;
 			try {
-				//object = parser2.parse(response);
 				json = (JSONObject)parser2.parse(response);
 
 			} catch (org.json.simple.parser.ParseException e1) {
@@ -233,30 +233,6 @@ public class SyllabusParser
 
 		        }
 		        return markedlist;
-
-		/*
-		 * String pattern = "(?<!\\S)(?:(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]|(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\\1|"
-		        		+ "(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\\2))"
-		        		+ "(?:(?:1[6-9]|[2-9]\\d)?\\d{2})|(?:(?:1[6-9]|[2-9]\\d)?\\d{2})(\\/|-|\\.)(?:(?:(?:0?[13578]|1[02]|"
-		        		+ "(?:Jan|Mar|May|Jul|Aug|Oct|Dec))\\3(?:31))|(?:(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"
-		        		+ ")\\3(?:29|30)))|(?:29(\\/|-|\\.)(?:0?2|(?:Feb))\\4(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|"
-		        		+ "(?:(?:16|[2468][048]|[3579][26])00))))|(?:(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|"
-		        		+ "[2468][048]|[3579][26])00)))(\\/|-|\\.)(?:0?2|(?:Feb))\\5(?:29))|(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9]|"
-		        		+ "(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\\6(?:(?:1[6-9]|[2-9]\\d)?\\d{2})|(?:(?:1[6-9]|"
-		        		+ "[2-9]\\d)?\\d{2})(\\/|-|\\.)(?:(?:0?[1-9]|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\\7"
-		        		+ "(?:0?[1-9]|1\\d|2[0-8]))(?!\\S)";
-		        Pattern r = Pattern.compile(pattern);
-		        List<String> matchedcharacters = new ArrayList<String>();
-
-		        int count = 0;
-		        for (String x : lines){
-		     	   Matcher m = r.matcher(x);
-		     	   while (m.find()){
-		     		   count++;
-		     		   matchedcharacters.add(x);
-		     	   }
-		        }
-		 */
 	 }
 
 	 public static void saveAsJSON(){
