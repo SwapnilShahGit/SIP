@@ -69,6 +69,7 @@
   color: #0a0a0a;
   left: 165px;
   bottom: 43px;
+  cursor: pointer;
 }
 
 .login-button {
@@ -171,8 +172,8 @@
   background-color: rgba(255, 255, 255, 0.15);
   bottom: -160px;
   border-radius: 50%;
-  -webkit-animation: pulse 25s infinite;
-  animation: pulse 25s infinite;
+  -webkit-animation: pulse 5s infinite;
+  animation: pulse 5s infinite;
   -webkit-transition-timing-function: linear;
   transition-timing-function: linear;
 }
