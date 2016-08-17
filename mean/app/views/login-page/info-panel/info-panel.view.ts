@@ -1,9 +1,6 @@
 /**
  * Created by anatale on 8/12/2016.
  */
-/**
- * Created by anatale on 7/25/2016.
- */
 import {Component, Input} from 'angular2/core';
 
 @Component({
