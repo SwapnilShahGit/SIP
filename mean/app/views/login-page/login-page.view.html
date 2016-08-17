@@ -13,39 +13,29 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="login-section">
-    <div class="input-panel">
-        <div class="logo">
-            <img src="app/resources/icons/logos/spore-logo-login.png" class="spore-logo"/>
-        </div>
-        <div class="spore-login-section">
-            <div class="col-md-4">
-                <input type="text" placeholder="EMAIL" class="email-div" id="username"><br>
-                <input type="password" placeholder="PASSWORD" class="password-div" id="password"><br>
-                <div class="checkbox remember-checkbox" (click)="rememberMe()"><label><input type="checkbox" style="bottom: 5px;"> Remember me</label></div>
-                <label class="checkbox forgot-password" (click)="forgotPassword()">Forgot Password?</label>
-                <a href="#" class="btn btn-warning login-button" (click)="sporeLogin()">Log in</a>
-                <a href="#" class="btn btn-primary sign-up-button" (click)="sporeSignUp()">Sign Up</a>
+<div id="login-body">
+    <div class="jumbotron-large text-center">
+        <img src="app/resources/icons/logos/spore-logo-login.png" class="spore-logo" style="padding:15px;" />
+        <div class="row">
+            <div class="col-sm-6 text-right center-when-small" style="padding:15px 25px 15px 15px;line-height:1.8;z-index:2;">
+                    <input style="padding:5px;border-radius:5px;margin:5px;" type="text" placeholder="EMAIL" id="username"/><br>
+                    <input style="padding:5px;border-radius:5px;margin:5px;" type="password" placeholder="PASSWORD" id="password"/><br>
+                    <input type="checkbox"/><a style="padding-left:5px;margin:5px;">Remember Me</a><br>
+                    <a style="margin:5px;">Forget password?</a><br>
+                    <button class="btn btn-danger" style="width:75px;margin:5px;">Log In</button><br>
+                    <button class="btn btn-danger" style="width:75px;margin:5px;">Sign Up</button><br>
             </div>
-        </div>
-        <div class="third-party-login">
-            <div class="col-md-4">
-                <a class="btn btn-block btn-third-party facebook-button">
-                    <span class="fa fa-facebook"></span> Sign in with Facebook
-                </a>
-
-                <a class="btn btn-block btn-third-party linkedin-button">
-                    <span class="fa fa-linkedin"></span> Sign in with LinkedIn
-                </a>
-
-                <a class="btn btn-block btn-third-party google-button">
-                    <span class="fa fa-google"></span> Sign in with Google
-                </a>
+            <div class="col-sm-6 text-left center-when-small" style="padding:15px 15px 15px 25px;line-height:1.8;z-index:2;">
+                <a class="btn btn-third-party facebook-button" style="margin:5px;">
+                    <span class="fa fa-facebook"></span>  Sign in with Facebook</a> <br>
+                <a class="btn btn-third-party linkedin-button" style="margin:5px;">
+                    <span class="fa fa-linkedin"></span>  Sign in with LinkedIn</a> <br>
+                <a class="btn btn-third-party google-button" style="margin:5px;">
+                    <span class="fa fa-google"></span>  Sign in with Google</a > <br>
             </div>
         </div>
     </div>
-
-    <ul class="shapes-background">
+     <ul class="shapes-background">
         <li></li>
         <li></li>
         <li></li>
@@ -61,7 +51,7 @@
 
 <div id="body" class="container-fluid text-center">
     <h2>HEADER NAME</h2>
-    <div class="row slideanim">
+    <div class="row">
         <sip-info-panel [panelName]="'FIRST PANEL'" [panelDescription]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'"
                         [imageUrl]="'http://placekitten.com/200/200'"></sip-info-panel>
         <sip-info-panel [panelName]="'SECOND PANEL'" [panelDescription]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'"
@@ -69,7 +59,7 @@
         <sip-info-panel [panelName]="'THIRD PANEL'" [panelDescription]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'"
                         [imageUrl]="'http://placekitten.com/200/200'"></sip-info-panel>
     </div>
-    <div class="row slideanim">
+    <div class="row">
         <h2>HEADER NAME</h2>
         <div id="body-column" class="col-sm-8">
             <h1>BIG BOX</h1>

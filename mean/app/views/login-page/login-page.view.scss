@@ -284,3 +284,16 @@
   color: #FFFFFF;
   padding: 25px 100px 25px 100px;
 }
+#login-body {
+  line-height: 1.8;
+  color: #818181;
+  padding: 15px 100px 15px 100px;
+  background: #eda856;
+  //height: 700px;
+  position: relative;
+}
+@media (max-width: 768px) {
+  .center-when-small {
+    text-align: center;
+  }
+}
