@@ -4,12 +4,13 @@
 import {Component} from 'angular2/core';
 import {Schedule} from 'primeng/primeng';
 import {InfoPanelView} from './info-panel/info-panel.view';
+import {FooterBarView} from '../footer-bar/footer-bar.view';
 
 @Component({
     selector: 'sip-login-page',
     templateUrl: 'app/views/login-page/login-page.view.html',
     styleUrls: ['app/views/login-page/login-page.view.scss'],
-    directives: [Schedule, InfoPanelView]
+    directives: [Schedule, InfoPanelView, FooterBarView]
 })
 export class LoginPageView {
     public username:string;
