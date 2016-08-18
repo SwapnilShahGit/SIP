@@ -33,7 +33,6 @@
 .password-div {
   position: relative;
   display: block;
-  top: 10px;
   right: 150px;
   margin: auto;
   border-radius: 4px;
@@ -53,7 +52,10 @@
 }
 
 .remember-checkbox {
-
+  left: 52px;
+  bottom: 20px;
+  font-size: 13px;
+  width: 19%;
 }
 
 .checkbox-label {
@@ -62,85 +64,68 @@
 }
 
 .forgot-password {
-  position: relative;
-  display: block;
-  top: 6px;
-  text-align: center;
-  right: 92px;
-  z-index: 2;
-  color: #0a0a0a;
   font-size: 10px;
-  font-style: italic;
-}
-
-.spore-login {
-  position: relative;
-  display: block;
-  top: 20px;
-  right: 205px;
-  text-align: center;
-  z-index: 2;
+  font-style:italic;
+  color: #0a0a0a;
+  left: 165px;
+  bottom: 43px;
+  cursor: pointer;
 }
 
 .login-button {
+  position: relative;
+  display: inline-block;
+  left: 55px;
+  bottom: 45px;
+  width: 100px;
   border: none;
   border-radius: 4px;
-}
-
-.spore-sign-up {
-  position: relative;
-  display: block;
-  bottom: 17px;
-  right: 89px;
-  text-align: center;
-  z-index: 2;
 }
 
 .sign-up-button {
+  position: relative;
+  display: inline-block;
+  left: 55px;
+  bottom: 45px;
+  width: 100px;
   border: none;
   border-radius: 4px;
 }
 
-.facebook-login {
+.spore-login-section {
   position: relative;
   display: block;
-  bottom: 197px;
-  left: 125px;
-  text-align: center;
+  left: 650px;
   z-index: 2;
 }
 
 .facebook-button {
-  border: none;
-  border-radius: 4px;
-}
-
-.google-login {
-  position: relative;
-  display: block;
-  bottom: 187px;
-  left: 125px;
-  text-align: center;
-  z-index: 2;
+  color: #fff;
+  background-color: #3b5998;
+  border-color: rgba(0,0,0,0.2);
 }
 
 .google-button {
-  border: none;
-  border-radius: 4px;
-}
-
-.linkedin-login {
-  position: relative;
-  display: block;
-  bottom: 177px;
-  left: 125px;
-  text-align: center;
-  z-index: 2;
+  color: #fff;
+  background-color: #dd4b39;
+  border-color: rgba(0,0,0,0.2);
 }
 
 .linkedin-button {
-  border: none;
-  border-radius: 4px;
+  color: #fff;
+  background-color: #005983;
+  border-color: rgba(0,0,0,0.2);
+}
+
+.third-party-login {
+  position: relative;
+  display: block;
+  left: 350px;
+  z-index: 2;
+}
+
+.btn-third-party {
+  width: 200px;
 }
 
 * {
@@ -156,7 +141,7 @@
   position: relative;
   left: 0;
   width: 100%;
-  height: 500px;
+  height: 700px;
   overflow: hidden;
 }
 .login-section.form-success .container h1 {
@@ -282,121 +267,35 @@
   }
 }
 
-
-.info-section {
-  width: 100%;
+/* Pauls stuff... tread lightly */
+#body {
+  font: 400 15px Lato, sans-serif;
+  line-height: 1.8;
+  color: #818181;
+  padding: 15px 100px 15px 100px;
+}
+#body-column {
+  padding: 15px;
+}
+#footer {
+  font: 400 15px Lato, sans-serif;
+  line-height: 4;
+  background: -webkit-linear-gradient(top, #2c5268 70%, #182c38 100%);
+  color: #FFFFFF;
+  padding: 25px 100px 25px 100px;
+}
+#login-body {
+  line-height: 1.8;
+  color: #818181;
+  padding: 15px 100px 15px 100px;
+  background: #eda856;
+  background: -webkit-linear-gradient(top left, #eda856 0%, #fad565 100%);
+  background: linear-gradient(to bottom right, #eda856 0%, #fad565 100%);
+  //height: 700px;
   position: relative;
-  ////height: 100%;
 }
-.container-section {
-  min-height: 100%;
-  position: relative;
-}
-.body-section {
-  position: relative;
-  height: 80%;            /* Height of the body */
-  padding: 10px;
-  padding-bottom: 80px;   /* Height of the footer */
-}
-.top-half-section, .bottom-half-section {
-  position: relative;
-  text-overflow: ellipsis;
-  display: flex;
-  flex-direction: column;
-  min-height: 40vh;
-  
-
-  padding: 10px;
-  left: 10%;
-  width: 80%;
-}
-.top-half-section {
-  background: rgba(255, 255, 179, .5); //#ffffb3
-}
-.bottom-half-section {
-  background: rgba(255, 140, 102, .5); //#ff8c66
-}
-.footer-section {
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  height: 80px;   /* Height of the footer */
-  background: #ffe699;
-}
-.footer-section-interior {
-  position: relative;
-  width: 70%;
-  left: 15%;
-}
-.footer-section-text {
-  position: relative;
-  vertical-align: middle;
-  line-height: 80px;
-  left: 70px;
-  width: 80%;
-  font-size: 20px;
-}
-.footer-logo {
-  position: absolute;
-  top: 10px;
-  width: 60px;
-  height: 60px;
-  background-image: url(http://placekitten.com/241/200);
-  border-radius: 50%;
-}
-.left-section, .right-section, .mid-section {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-
-  top: 10%;
-  width: 25%;
-  bottom: 10%;
-  text-align: center;
-  font-size: 20px;
-}
-.left-section {
-  left: 10%;
-}
-.right-section {
-  left: 65%;
-}
-.mid-section {
-  left: 37.5%;
-}
-.circle-shape-left, .circle-shape-mid, .circle-shape-right {
-  width: 200px;
-  height: 200px;
-  text-align: center;
-  background: transparent;
-  transition: background-image .4s ease;
-
-  border-radius: 50%;
-  margin: auto; //bad if big div, fix later.
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, .4), 4px 4px  4px rgba(0, 0, 0,.4);
-}
-.circle-shape-left { background-image: url(http://placekitten.com/241/200); }
-.circle-shape-mid { background-image: url(http://placekitten.com/241/201); }
-.circle-shape-right { background-image: url(http://placekitten.com/241/202); }
-.circle-shape-left:hover { 
-  background-image: url(http://placekitten.com/241/240);
-  transition: background-image .4s ease;
-}
-.circle-shape-mid:hover { 
-  background-image: url(http://placekitten.com/241/241);
-  transition: background-image .4s ease;
-}
-.circle-shape-right:hover { 
-  background-image: url(http://placekitten.com/241/242);
-  transition: background-image .4s ease;
-}
-
-//// ----GOOD FOR SETTING SIDE BY SIDE DIVS!!!----
-#div-1, #div-2, #div-3 {
-    width: 100px;
-    height: 100px;
-    border: 1px solid red;
-    margin-right: 10px;
-    float: left;
-    margin: 5px;
+@media (max-width: 768px) {
+  .center-when-small {
+    text-align: center;
+  }
 }
