@@ -258,7 +258,6 @@
   font: 400 15px Lato, sans-serif;
   line-height: 1.8;
   color: #818181;
-  padding: 15px 100px 15px 100px;
 }
 #body-column {
   padding: 15px;
@@ -284,4 +283,9 @@
   .center-when-small {
     text-align: center;
   }
+}
+#divider-custom {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
