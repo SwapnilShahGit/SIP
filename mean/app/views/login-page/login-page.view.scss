@@ -289,7 +289,7 @@
   background: linear-gradient(to bottom right, #ed811e, #fae03f); /* Standard syntax (must be last) */
   position: relative;
 }
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .center-when-small {
     text-align: center;
   }
