@@ -11,13 +11,6 @@
   font-family: "Arial Black", Gadget, sans-serif;
   font-size: 30px;
 }
-
-.spore-logo {
-  width: 336px;
-  height: 350px;
-  margin-top: 50px;
-}
-
 .email-div {
   position: relative;
   display: block;
@@ -123,11 +116,6 @@
   left: 350px;
   z-index: 2;
 }
-
-.btn-third-party {
-  width: 200px;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -156,11 +144,9 @@
   text-align: center;
 }
 .shapes-background {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   z-index: 1;
 }
 .shapes-background li {
@@ -272,7 +258,6 @@
   font: 400 15px Lato, sans-serif;
   line-height: 1.8;
   color: #818181;
-  padding: 15px 100px 15px 100px;
 }
 #body-column {
   padding: 15px;
@@ -286,16 +271,21 @@
 }
 #login-body {
   line-height: 1.8;
-  color: #818181;
-  padding: 15px 100px 15px 100px;
-  background: #eda856;
-  background: -webkit-linear-gradient(top left, #eda856 0%, #fad565 100%);
-  background: linear-gradient(to bottom right, #eda856 0%, #fad565 100%);
-  //height: 700px;
-  position: relative;
+  padding: 15px 0px 15px 0px;
+  background: #eda856; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #ed811e, #FAE03F); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #ed811e, #FAE03F); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #ed811e, #FAE03F); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #ed811e, #fae03f); /* Standard syntax (must be last) */
+  osition: relative;
 }
 @media (max-width: 768px) {
   .center-when-small {
     text-align: center;
   }
+}
+#divider-custom {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
