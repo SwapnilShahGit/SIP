@@ -2,6 +2,7 @@ var restify = require('restify');
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/test');
+var exec = require('child_process').exec;
 var Cat = mongoose.model('Cat', { name: String });
 
 function respond(req, res, next) {
@@ -24,11 +25,22 @@ function fetchCat(req, res, next) {
   });
 }
 
+function java(req, res, next) {
+  var child = exec('java -jar ../Java/parser/target/parser-1.0-SNAPSHOT-jar-with-dependencies.jar');
+  child.stdout.on('data', function(data) {
+	    console.log(data);
+
+	  res.send(data);
+  });
+}
+
 var server = restify.createServer();
 server.get('/save/:name', respond);
 server.head('/save/:name', respond);
 server.get('/get/:name', fetchCat);
 server.head('/get/:name', fetchCat);
+server.get('/parse', java);
+server.head('/parse', java);
 
 server.listen(8080, function() {
   console.log('%s listening at %s', server.name, server.url);
