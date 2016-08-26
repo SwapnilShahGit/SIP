@@ -17,6 +17,8 @@ find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
 log/
 target/
 
+node_modules
+
 # Installers
 mongo-installer.msi
 node-installer.msi
