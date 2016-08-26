@@ -1,24 +1,5 @@
 var restify = require('restify');
 var mongoose = require('mongoose');
-var express = require('express');
-var cobalt = require('cobalt-uoft');
-
-var app = express();
-
-var port = process.env.PORT || 4242;
-
-// Serve the Cobalt APIs on the /cobalt URL prefix
-app.use('/cobalt', cobalt.Server);
-
-// Hello world
-app.get('/', function(req, res) {
-  res.status(200).send('Hello, world!');
-});
-
-app.listen(port, function() {
-  console.log('Server running on port ' + port + '.');
-});
-mongoose.connect('mongodb://localhost/test');
 
 var exec = require('child_process').exec;
 var Cat = mongoose.model('Cat', { name: String });
@@ -44,7 +25,7 @@ function fetchCat(req, res, next) {
 }
 
 function java(req, res, next) {
-  var child = exec('java -jar ../Java/parser/target/parser-1.0-SNAPSHOT-jar-with-dependencies.jar');
+  var child = exec('java -jar Parser-jar-with-dependencies.jar');
   child.stdout.on('data', function(data) {
 	    console.log(data);
 
