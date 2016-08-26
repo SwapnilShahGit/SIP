@@ -56,6 +56,7 @@ public class SyllabusParser
 	 public static void main(String[] args) throws IOException {
 	 	//get list of files in the PDF directory
 		 File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
+		 System.out.println(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
 		 File[] listOfFiles = folder.listFiles();
 	     	PdfToText pdfManager = new PdfToText();
 
