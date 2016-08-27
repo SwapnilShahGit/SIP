@@ -1,6 +1,8 @@
 var restify = require('restify');
 var mongoose = require('mongoose');
 
+mongoose.connect('mongodb://localhost/test');
+
 var exec = require('child_process').exec;
 var Cat = mongoose.model('Cat', { name: String });
 
