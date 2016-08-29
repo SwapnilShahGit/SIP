@@ -1,11 +1,15 @@
 var restify = require('restify');
 var mongoose = require('mongoose');
+var exec = require('child_process').exec;
 Schema = mongoose.Schema;
+autoIncrement = require('mongoose-auto-increment');
 
 var connection = mongoose.connect('mongodb://localhost/test');
+autoIncrement.initialize(connection);
 
+//Create schema for table that will hold user information
 var usersTable = new Schema({
-   UserID: Number,
+   UserID: String,
    FirstName: String,
    LastName: String,
    Email: String,
@@ -15,7 +19,8 @@ var usersTable = new Schema({
    Courses: [String]
 });
 
-var SyllabusLibrary = new Schema({
+//Create schema that will hold course information
+var syllabusLibrary = new Schema({
    Hash: String,
    CourseID: String,
    ParsedInfo: String,
@@ -24,8 +29,8 @@ var SyllabusLibrary = new Schema({
    ExamEventID: Number
 });
 
-var EventLibrary = new Schema({
-   EventID: Number,
+//Create schema that will hold event information
+var eventLibrary = new Schema({
    StartTime: Number,
    EndTime: Number,
    Title: String,
@@ -34,39 +39,54 @@ var EventLibrary = new Schema({
    DerivedFrom: Number
 });
 
-var exec = require('child_process').exec;
+eventLibrary.plugin(autoIncrement.plugin, {
+    model: 'Event',
+    field: 'EventID',
+    startAt: 0,
+    incrementBy: 1
+});
+
 var usersTable = connection.model('userstable', usersTable);
-var syllabusLibrary = connection.model('syllabuslibrary', SyllabusLibrary);
+var syllabusLibrary = connection.model('syllabuslibrary', syllabusLibrary);
 var eventLibrary = connection.model('eventlibrary', eventLibrary);
 
+//save user information in UserTable
 function saveUser(req, res, next) {
   var newUserEntry = new usersTable({
-    UserID: 1,
-    FirstName: req.params.name,
-    LastName: req.params.name,
-    Email: req.params.name,
-    School: req.params.name,
-    Password: req.params.name,
-    EventID: [1,2],
-    Courses: [req.params.name, 'Darren']
+    UserID: req.params.UserName,
+    FirstName: req.params.FirstName,
+    LastName: req.params.LastName,
+    Email: req.params.Email,
+    School: req.params.School,
+    Password: req.params.Password,
+    EventID: [1],
+    Courses: ["hi"]
 });
   newUserEntry.save(function (err) {
-  if (err) {
-    res.send(err);
-  } else {
-    res.send('User Not Successfully Saved');
-  }
-});
+    if (err) {
+      res.send(err);
+    } else {
+      res.send('User Not Successfully Saved');
+    }
+  });
   res.send('User Saved');
   next();
+};
+
+//save JSON information from OutputFile into MongoDB and then move to Archive folder
+function parseJSONFile(req, res, next){
+
 }
 
+//fetch user information for their calendar
 function fetchInformation(req, res, next) {
-  usersTable.find({UserID: req.params.name}, function(err, cats){
+  usersTable.find({UserID: req.params.UserName}, function(err, cats){
        if (err) return res.send(err);
        res.send(cats);
   });
+}
 
+//execute the parser to process JSON files
 function java(req, res, next) {
   var child = exec('java -jar Parser-jar-with-dependencies.jar');
   child.stdout.on('data', function(data) {
@@ -75,15 +95,48 @@ function java(req, res, next) {
   });
 }
 
+//create an event
+function createEvent(req, res, next){
+  var newEventEntry = new eventLibrary({
+   StartTime: 1200,
+   EndTime: 1400,
+   Title: 'Swapnil',
+   Description: 'Shah',
+   Type: 'N',
+   DerivedFrom: 2
+   });
+  newEventEntry.save(function (err) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send('Event Not Successfully Saved');
+    }
+  });
+  res.send('Event Saved');
+  next();
+};
 
+function showEvent(req, res, next){
+  eventLibrary.find({EventID: req.params.EventID}, function(err, cats){
+       if (err) return res.send(err);
+       res.send(cats);
+  });
+}
+
+
+
+//handle proper requests from user
 var server = restify.createServer();
-server.get('/save/:FirstName/:LastName/:Email/:School/:Password', saveUser);
-server.head('/save/:FirstName/:LastName/:Email/:School/:Password', saveUser);
-server.get('/get/:username', fetchInformation);
-server.head('/get/:username', fetchInformation);
+server.get('/save/:UserName/:FirstName/:LastName/:Email/:School/:Password', saveUser);
+server.head('/save/:UserName/:FirstName/:LastName/:Email/:School/:Password', saveUser);
+server.get('/get/:UserName', fetchInformation);
+server.head('/get/:UserName', fetchInformation);
 server.get('/parse', java);
 server.head('/parse', java);
-
+server.get('/createEvent', createEvent);
+server.head('/createEvent', createEvent);
+server.get('/showEvent/:EventID', showEvent);
+server.head('/showEvent/:EventID', showEvent);
 
 
 server.listen(8080, function() {
