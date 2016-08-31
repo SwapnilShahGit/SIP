@@ -88,10 +88,10 @@ function fetchInformation(req, res, next) {
 
 //execute the parser to process JSON files
 function java(req, res, next) {
-  var child = exec('java -jar Parser-jar-with-dependencies.jar');
+  var child = exec('java -jar ../parser/Parser-jar-with-dependencies.jar');
   child.stdout.on('data', function(data) {
-	  console.log(foo);
-	  res.send(foo);
+	  console.log(data.toString('utf8'));
+	  res.send(data.toString('utf8'));
   });
 }
 
