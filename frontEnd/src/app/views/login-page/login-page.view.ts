@@ -8,8 +8,8 @@ import {FooterBarView} from '../footer-bar/footer-bar.view';
 
 @Component({
     selector: 'sip-login-page',
-    templateUrl: 'login-page.view.html',
-    styleUrls: ['login-page.view.scss'],
+    templateUrl: '/app/views/login-page/login-page.view.html',
+    styleUrls: ['/app/views/login-page/login-page.view.scss'],
     directives: [InfoPanelView, FooterBarView]
 })
 export class LoginPageView {
