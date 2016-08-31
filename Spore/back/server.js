@@ -90,8 +90,8 @@ function fetchInformation(req, res, next) {
 function java(req, res, next) {
   var child = exec('java -jar ../parser/Parser-jar-with-dependencies.jar');
   child.stdout.on('data', function(data) {
-	  console.log(data);
-	  res.send(data);
+	  console.log(data.toString('utf8'));
+	  res.send(data.toString('utf8'));
   });
 }
 
