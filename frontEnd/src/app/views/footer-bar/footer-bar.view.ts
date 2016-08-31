@@ -5,8 +5,8 @@ import {Component, Input} from '@angular/core';
 
 @Component({
     selector: 'sip-footer-bar',
-    templateUrl: 'app/views/footer-bar/footer-bar.view.html',
-    styleUrls: ['app/views/footer-bar/footer-bar.view.scss'],
+    templateUrl: '/app/views/footer-bar/footer-bar.view.html',
+    styleUrls: ['/app/views/footer-bar/footer-bar.view.scss'],
     directives: []
 })
 export class FooterBarView {
