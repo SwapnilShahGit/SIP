@@ -1,0 +1,77 @@
+<link href="/app/resources/icons/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<div id="login-body">
+  <div class="jumbotron-large text-center container-fluid">
+    <img src="\app\resources\icons\logos\spore-logo-login.png" style="max-height:275px;max-width:275px;margin-top:25px;" />
+    <div class="row">
+      <div class="col-sm-6 text-right center-when-small" style="padding:25px;line-height:1.5;z-index:2;">
+        <input style="padding:5px;border-radius:5px;margin:5px;width:225px;" type="text" placeholder="EMAIL" id="username"/><br>
+        <input style="padding:5px;border-radius:5px;margin:5px;width:225px;" type="password" placeholder="PASSWORD" id="password"/><br>
+        <input style="transform:scale(1.5);" type="checkbox"/><element style="padding-right:8px;margin:5px;">Remember Me</element>
+        <a target="_blank" href="https://johnsmith:smith123@www.example.com" style="margin:5px;font-size:x-small;">Forgot password?</a><br>
+        <button class="btn btn-primary" style="width:110px;margin:5px 5px 5px 5px;">Log In</button>
+        <button class="btn btn-primary" style="width:110px;margin:5px 0px 5px 0px;">Sign Up</button><br>
+      </div>
+      <div class="col-sm-6 text-left center-when-small" style="padding:25px;line-height:1.8;z-index:2;">
+        <a class="btn facebook-button" style="margin:5px;width:225px;text-align:left;padding-left:35px;">
+          <span class="fa fa-facebook"></span>    Sign in with Facebook</a> <br>
+        <a class="btn linkedin-button" style="margin:5px;width:225px;text-align:left;padding-left:35px;">
+          <span class="fa fa-linkedin"></span>    Sign in with LinkedIn</a> <br>
+        <a class="btn google-button" style="margin:5px;width:225px;text-align:left;padding-left:35px;">
+          <span class="fa fa-google"></span>    Sign in with Google</a > <br>
+      </div>
+    </div>
+  </div>
+  <ul class="shapes-background">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</div>
+<div id="body" class="container-fluid text-center">
+  <div class="row" style="background-color:rgba(0,0,0,.03);padding:15px 100px 15px 100px;">
+    <app-spore-info-card [panelName]="'PARSER'" [panelDescription]="'Spore comes equipped with a parser, which is able to automatically convert the important information such as lecture times, due dates, etc. and place them in your calendar. We are currently supporting Univeristy of Toronto with functionality for other universities coming very soon!'"
+                    [imageUrl]="'app/resources/icons/icons/login-page/blue-background/icons2-01.jpg'"></app-spore-info-card>
+    <app-spore-info-card [panelName]="'CALENDAR'" [panelDescription]="'Spore calendar is one of few which grants students the privilege of being able to manage their time, become more organized and socialize in a productive manner without any distractions. Including many modern qualities, Spore allows students to personalize their page with school colours, logos, or however they please.'"
+
+                    [imageUrl]="'app/resources/icons/icons/login-page/blue-background/icons2-02.jpg'"></app-spore-info-card>
+    <app-spore-info-card [panelName]="'SOCIAL'" [panelDescription]="'Spore social contains multiple great features that provide particular support to students who are intereseted in using the calendar in a social and school mode. Students can plan events, study sessions, share their calendar, chat and much more while remaining organized.'"
+                    [imageUrl]="'app/resources/icons/icons/login-page/blue-background/icons2-03.jpg'"></app-spore-info-card>
+  </div>
+  <hr id="divider-custom"/>
+  <div class="row" style="padding:15px 100px 15px 100px;">
+    <div id="body-column" class="col-sm-8">
+      <h1>BIG BOX</h1>
+      <img class="img-responsive img-rounded center-block" src="http://placekitten.com/900/500" alt="BIG CAT"/>
+      <p><strong>900x500 Rounded Centered</strong></p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div id="body-column" class="col-sm-4">
+      <h1>SMALL BOX</h1>
+      <p class="text-center text-info"> <strong>Info Text Centered</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+      <p class="text-left text-warning"> <strong>Warning Text Left-Aligned</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p class="text-right text-danger"><strong>Danger Text Right-Aligned</strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, comcectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+  </div>
+</div>
+<app-spore-footer-bar [footerText]="'Spore 2016'" [imageUrl]="'http://placekitten.com/60/60'"></app-spore-footer-bar>
