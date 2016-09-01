@@ -36,6 +36,8 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
+  'app/viewsTemp/login-page/spore-login-page',
+  'app/viewsTemp/login-page/spore-info-card',
   /** @cli-barrel */
 ];
 

@@ -14,7 +14,7 @@ import {FooterBarView} from '../footer-bar/footer-bar.view';
 })
 export class LoginPageView {
     public username:string;
-    public password:string;
+  public password:string;
 
     public sporeLogin(event: Event) {
         console.log('Spore Login');
