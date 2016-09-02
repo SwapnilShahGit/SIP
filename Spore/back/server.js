@@ -127,8 +127,8 @@ function showEvent(req, res, next){
 
 //handle proper requests from user
 var server = restify.createServer();
-server.get('/', restify.serveStatic({
-  directory: '../front/dist',
+server.get(/\/?.*/, restify.serveStatic({
+  directory: __dirname.concat('/../front/dist'),
   default: 'index.html'
 }))
 server.get('/save/:UserName/:FirstName/:LastName/:Email/:School/:Password', saveUser);
