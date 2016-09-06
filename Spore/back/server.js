@@ -123,10 +123,15 @@ function showEvent(req, res, next){
   });
 }
 
-
+function returnValue(req, res, next) {
+  res.send(req.query.value);
+  next();
+}
 
 //handle proper requests from user
 var server = restify.createServer();
+server.use(restify.queryParser({ mapParams: false }));
+
 server.get('/save/:UserName/:FirstName/:LastName/:Email/:School/:Password', saveUser);
 server.head('/save/:UserName/:FirstName/:LastName/:Email/:School/:Password', saveUser);
 server.get('/get/:UserName', fetchInformation);
@@ -137,6 +142,8 @@ server.get('/createEvent', createEvent);
 server.head('/createEvent', createEvent);
 server.get('/showEvent/:EventID', showEvent);
 server.head('/showEvent/:EventID', showEvent);
+server.get('/echo', returnValue);
+server.head('/echo', returnValue);
 
 server.get(/\/?.*/, restify.serveStatic({
   directory: __dirname.concat('/../front/dist'),
