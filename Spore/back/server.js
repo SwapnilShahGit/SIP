@@ -53,12 +53,12 @@ var eventLibrary = connection.model('eventlibrary', eventLibrary);
 //save user information in UserTable
 function saveUser(req, res, next) {
   var newUserEntry = new usersTable({
-    UserID: req.params.UserName,
-    FirstName: req.params.FirstName,
-    LastName: req.params.LastName,
-    Email: req.params.Email,
-    School: req.params.School,
-    Password: req.params.Password,
+    UserID: req.query.user,
+    FirstName: req.query.fname,
+    LastName: req.query.lname,
+    Email: req.query.email,
+    School: req.query.school,
+    Password: req.query.pass,
     EventID: [1],
     Courses: ["hi"]
 });
@@ -80,7 +80,7 @@ function parseJSONFile(req, res, next){
 
 //fetch user information for their calendar
 function fetchInformation(req, res, next) {
-  usersTable.find({UserID: req.params.UserName}, function(err, cats){
+  usersTable.find({UserID: req.query.user}, function(err, cats){
        if (err) return res.send(err);
        res.send(cats);
   });
@@ -117,30 +117,38 @@ function createEvent(req, res, next){
 };
 
 function showEvent(req, res, next){
-  eventLibrary.find({EventID: req.params.EventID}, function(err, cats){
+  eventLibrary.find({EventID: req.query.eventid}, function(err, cats){
        if (err) return res.send(err);
        res.send(cats);
   });
 }
 
-
+function returnValue(req, res, next) {
+  res.send(req.query.value);
+  next();
+}
 
 //handle proper requests from user
 var server = restify.createServer();
-server.get(/\/?.*/, restify.serveStatic({
-  directory: __dirname.concat('/../front/dist'),
-  default: 'index.html'
-}))
-server.get('/save/:UserName/:FirstName/:LastName/:Email/:School/:Password', saveUser);
-server.head('/save/:UserName/:FirstName/:LastName/:Email/:School/:Password', saveUser);
-server.get('/get/:UserName', fetchInformation);
-server.head('/get/:UserName', fetchInformation);
+server.use(restify.queryParser({ mapParams: false }));
+
+server.get('/save', saveUser);
+server.head('/save', saveUser);
+server.get('/get', fetchInformation);
+server.head('/get', fetchInformation);
 server.get('/parse', java);
 server.head('/parse', java);
 server.get('/createEvent', createEvent);
 server.head('/createEvent', createEvent);
-server.get('/showEvent/:EventID', showEvent);
-server.head('/showEvent/:EventID', showEvent);
+server.get('/showEvent', showEvent);
+server.head('/showEvent', showEvent);
+server.get('/echo', returnValue);
+server.head('/echo', returnValue);
+
+server.get(/\/?.*/, restify.serveStatic({
+  directory: __dirname.concat('/../front/dist'),
+  default: 'index.html'
+}))
 
 server.listen(8080, function() {
   console.log('%s listening at %s', server.name, server.url);
