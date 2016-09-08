@@ -4,6 +4,9 @@
 #mainBody {
   background: #dd8d74;
 }
+.header-container {
+  padding: 2px 250px;
+}
 .footer {
   padding:0 50px 0 50px;
   margin:20px 0;
