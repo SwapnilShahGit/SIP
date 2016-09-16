@@ -26,7 +26,8 @@ Parser for syllabus
 - An integrated chatting system that will let students discuss
 - Have the option to make a new calendar for social clubs
 - Upload all the syllabus to one repository and let users search through their syllabus  
-- You can put in any type of document (.pdf, .word, .txt, .html) and the service will check for dates and automatically add the dates to your google calendar and potentially other to-do list applications like onenote  
+- You can put in any type of document (.pdf, .word, .txt, .html) and the service will check for dates and automatically add the dates to your google calendar and potentially other to-do list applications like onenote
+- Set up a way for users to buy/sell textbooks easily
 - Other integrated apps will potentially be included such as reminders using SMS and/or email, skype chat/slack integration, GPA Calculator, Course Mark Calculator, etc. The options are limitless.
 
 
