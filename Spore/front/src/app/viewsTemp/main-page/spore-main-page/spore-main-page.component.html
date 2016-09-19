@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="../.././../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../.././../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="header-container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-              aria-expanded="false" aria-controls="navbar">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="header-container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+        aria-expanded="false" aria-controls="navbar">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
       </button>
@@ -27,8 +25,8 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-             aria-expanded="false" style="font-size:28px;font-weight:bold;color:orange;">S P O R E <span
-            class="caret"></span></a>
+          aria-expanded="false" style="font-size:28px;font-weight:bold;color:orange;">S P O R E <span
+          class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Action</a></li>
             <li><a href="#">Another action</a></li>
@@ -40,10 +38,25 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+        <li>
+          <a class="btn profile-button-style" href="#">
+            <img class="profile-image-style" src="https://placekitten.com/45/45">
+            <span class="caret"></span>
+          </a>
+        </li>      
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="navbar-form"><input type="text" class="form-control" placeholder="Search"></li>
+        <li>
+          <a class="btn notification-button-style" href="#">
+            <i class="fa fa-bell-o fa-2x notification-icon-style" number-of-notifications="24"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-form">
+          <span class="fa fa-search search-box-icon-style"></span>
+          <input type="text" class="form-control search-box-style" placeholder="Search">
+        </li>
       </ul>
     </div>
   </div>
@@ -59,32 +72,32 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
           et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.</p>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-4 panel panel-default" style="background: lightsteelblue;">
+        <div class="well-lg">
+          <h2 align="center">Calendar Section</h2>
+        </div>
+        <hr/>
+        <p-schedule [events]="events"></p-schedule>
+        <hr/>
+      </div>
+      <div class="col-md-2 col-sm-4 panel panel-default" style="background: lightgoldenrodyellow;">
+        <div class="panel-heading" style="background: transparent;">
+          <h2>Right Column</h2>
+        </div>
+        <div class="panel-body">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-8 col-sm-4 panel panel-default" style="background: lightsteelblue;">
-      <div class="well-lg">
-        <h2 align="center">Calendar Section</h2>
-      </div>
-      <hr/>
-      <p-schedule [events]="events"></p-schedule>
-      <hr/>
-    </div>
-    <div class="col-md-2 col-sm-4 panel panel-default" style="background: lightgoldenrodyellow;">
-      <div class="panel-heading" style="background: transparent;">
-        <h2>Right Column</h2>
-      </div>
-      <div class="panel-body">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-          et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.</p>
-      </div>
-    </div>
-  </div>
-</div>
 
-<footer class="footer">
-  <p class="text-muted">This is some text in the footer</p>
-</footer>
+    <footer class="footer">
+      <p class="text-muted">This is some text in the footer</p>
+    </footer>
 
-</body>
-</html>
+  </body>
+  </html>
