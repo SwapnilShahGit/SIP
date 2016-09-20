@@ -1,301 +1,286 @@
-.input-panel {
-
-}
-.logo {
-  text-align: center;
-  position: static;
-  display: block;
-  margin: auto;
-  width: 50%;
-  color: #FFFFFF;
-  font-family: "Arial Black", Gadget, sans-serif;
-  font-size: 30px;
-}
-.email-div {
-  position: relative;
-  display: block;
-  top: 0px;
-  right: 150px;
-  margin: auto;
-  border-radius: 4px;
-  border: none;
-  padding: 12px;
-  z-index: 2;
-}
-
-.password-div {
-  position: relative;
-  display: block;
-  right: 150px;
-  margin: auto;
-  border-radius: 4px;
-  border: none;
-  padding: 12px;
-  z-index: 2;
-}
-
-.remember-me-box {
-  position: relative;
-  display: block;
-  top: 20px;
-  text-align: center;
-  right: 208px;
-  z-index: 2;
-
-}
-
-.remember-checkbox {
-  left: 52px;
-  bottom: 20px;
-  font-size: 13px;
-  width: 19%;
-}
-
-.checkbox-label {
-  color: #FFFFFF;
-  font-size: 10px;
-}
-
-.forgot-password {
-  font-size: 10px;
-  font-style:italic;
-  color: #0a0a0a;
-  left: 165px;
-  bottom: 43px;
-  cursor: pointer;
-}
-
-.login-button {
-  position: relative;
-  display: inline-block;
-  left: 55px;
-  bottom: 45px;
-  width: 100px;
-  border: none;
-  border-radius: 4px;
-}
-
-.sign-up-button {
-  position: relative;
-  display: inline-block;
-  left: 55px;
-  bottom: 45px;
-  width: 100px;
-  border: none;
-  border-radius: 4px;
-}
-
-.spore-login-section {
-  position: relative;
-  display: block;
-  left: 650px;
-  z-index: 2;
-}
-
-.facebook-button {
-  color: #fff;
-  background-color: #3b5998;
-  border-color: rgba(0,0,0,0.2);
-}
-
-.google-button {
-  color: #fff;
-  background-color: #dd4b39;
-  border-color: rgba(0,0,0,0.2);
-}
-
-.linkedin-button {
-  color: #fff;
-  background-color: #005983;
-  border-color: rgba(0,0,0,0.2);
-}
-
-.third-party-login {
-  position: relative;
-  display: block;
-  left: 350px;
-  z-index: 2;
-}
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-weight: 300;
-}
-.login-section {
-  background: #eda856;
-  background: -webkit-linear-gradient(top left, #eda856 0%, #fad565 100%);
-  background: linear-gradient(to bottom right, #eda856 0%, #fad565 100%);
-  position: relative;
-  left: 0;
-  width: 100%;
-  height: 700px;
-  overflow: hidden;
-}
-.login-section.form-success .container h1 {
-  -webkit-transform: translateY(85px);
-  transform: translateY(85px);
-}
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 80px 0;
-  height: 400px;
-  text-align: center;
-}
-.shapes-background {
-  position: relative;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-.shapes-background li {
-  position: absolute;
-  list-style: none;
-  display: block;
-  width: 40px;
-  height: 40px;
-  background-color: rgba(255, 255, 255, 0.15);
-  bottom: -160px;
-  border-radius: 50%;
-  -webkit-animation: pulse 25s infinite;
-  animation: pulse 25s infinite;
-  -webkit-transition-timing-function: linear;
-  transition-timing-function: linear;
-}
-.shapes-background li:nth-child(1) {
-  left: 10%;
-  right: 10%;
-}
-.shapes-background li:nth-child(2) {
-  left: 20%;
-  right: 20%;
-  width: 80px;
-  height: 80px;
-  -webkit-animation-delay: 2s;
-  animation-delay: 2s;
-  -webkit-animation-duration: 17s;
-  animation-duration: 17s;
-}
-.shapes-background li:nth-child(3) {
-  left: 25%;
-  right: 25%;
-  -webkit-animation-delay: 4s;
-  animation-delay: 4s;
-}
-.shapes-background li:nth-child(4) {
-  left: 40%;
-  right: 40%;
-  width: 60px;
-  height: 60px;
-  -webkit-animation-duration: 22s;
-  animation-duration: 22s;
-  background-color: rgba(255, 255, 255, 0.25);
-}
-.shapes-background li:nth-child(5) {
-  left: 70%;
-  right: 70%;
-}
-.shapes-background li:nth-child(6) {
-  left: 80%;
-  right: 80%;
-  width: 120px;
-  height: 120px;
-  -webkit-animation-delay: 3s;
-  animation-delay: 3s;
-  background-color: rgba(255, 255, 255, 0.2);
-}
-.shapes-background li:nth-child(7) {
-  left: 32%;
-  right: 32%;
-  width: 160px;
-  height: 160px;
-  -webkit-animation-delay: 7s;
-  animation-delay: 7s;
-}
-.shapes-background li:nth-child(8) {
-  left: 55%;
-  right: 55%;
-  width: 20px;
-  height: 20px;
-  -webkit-animation-delay: 15s;
-  animation-delay: 15s;
-  -webkit-animation-duration: 40s;
-  animation-duration: 40s;
-}
-.shapes-background li:nth-child(9) {
-  left: 25%;
-  right: 25%;
-  width: 10px;
-  height: 10px;
-  -webkit-animation-delay: 2s;
-  animation-delay: 2s;
-  -webkit-animation-duration: 40s;
-  animation-duration: 40s;
-  background-color: rgba(255, 255, 255, 0.3);
-}
-.shapes-background li:nth-child(10) {
-  left: 90%;
-  right: 90%;
-  width: 160px;
-  height: 160px;
-  -webkit-animation-delay: 11s;
-  animation-delay: 11s;
-}
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-  100% {
-    -webkit-transform: translateY(-700px) rotate(600deg);
-    transform: translateY(-700px) rotate(600deg);
-  }
-}
-@keyframes pulse {
-  0% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-  100% {
-    -webkit-transform: translateY(-700px) rotate(600deg);
-    transform: translateY(-700px) rotate(600deg);
-  }
-}
-
-/* Pauls stuff... tread lightly */
-#body {
-  font: 400 15px Lato, sans-serif;
-  line-height: 1.8;
-  color: #818181;
-}
-#body-column {
-  padding: 15px;
-}
-#footer {
-  font: 400 15px Lato, sans-serif;
-  line-height: 4;
-  background: -webkit-linear-gradient(top, #2c5268 70%, #182c38 100%);
-  color: #FFFFFF;
-  padding: 25px 100px 25px 100px;
-}
 #login-body {
   line-height: 1.8;
   padding: 15px 0px 15px 0px;
-  background: #eda856; /* For browsers that do not support gradients */
+  background: #eb9c3f; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(left top, #ed811e, #FAE03F); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(bottom right, #ed811e, #FAE03F); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, #ed811e, #FAE03F); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, #ed811e, #fae03f); /* Standard syntax (must be last) */
   position: relative;
 }
-@media screen and (max-width: 768px) {
-  .center-when-small {
-    text-align: center;
-  }
+/*Bubbles*/
+html,
+body,
+#bubbles { height: 100% }
+body { overflow: hidden }
+#bubbles { padding: 100px 0 }
+.bubble {
+    width: 60px;
+    height: 60px;
+    background: #ffb200;
+    border-radius: 1500px;
+    -moz-border-radius: 500px;
+    -webkit-border-radius: 500px;
+    position: absolute;
+}
+
+.x1 {
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    transform: scale(0.9);
+    opacity: 0.2;
+    -webkit-animation: moveclouds 15s linear infinite, sideWays 4s ease-in-out infinite alternate;
+    -moz-animation: moveclouds 15s linear infinite, sideWays 4s ease-in-out infinite alternate;
+    -o-animation: moveclouds 15s linear infinite, sideWays 4s ease-in-out infinite alternate;
+}
+
+.x2 {
+    left: 500px;
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    transform: scale(0.6);
+    opacity: 0.2;
+    -webkit-animation: moveclouds 25s linear infinite, sideWays 5s ease-in-out infinite alternate;
+    -moz-animation: moveclouds 25s linear infinite, sideWays 5s ease-in-out infinite alternate;
+    -o-animation: moveclouds 25s linear infinite, sideWays 5s ease-in-out infinite alternate;
+}
+.x3 {
+    left: 1350px;
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0.3;
+    -webkit-animation: moveclouds 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
+    -moz-animation: moveclouds 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
+    -o-animation: moveclouds 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
+}
+.x4 {
+    left: 970px;
+    -webkit-transform: scale(0.75);
+    -moz-transform: scale(0.75);
+    transform: scale(0.75);
+    opacity: 0.2;
+    -webkit-animation: moveclouds 18s linear infinite, sideWays 2s ease-in-out infinite alternate;
+    -moz-animation: moveclouds 18s linear infinite, sideWays 2s ease-in-out infinite alternate;
+    -o-animation: moveclouds 18s linear infinite, sideWays 2s ease-in-out infinite alternate;
+}
+.x5 {
+    left: 850px;
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0.2; 
+    -webkit-animation: moveclouds 7s linear infinite, sideWays 1s ease-in-out infinite alternate;
+    -moz-animation: moveclouds 7s linear infinite, sideWays 1s ease-in-out infinite alternate;
+    -o-animation: moveclouds 7s linear infinite, sideWays 1s ease-in-out infinite alternate;
+}
+.x6 {
+    left: 900px;
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    transform: scale(0.6);
+    opacity: 0.23;
+    -webkit-animation: moveclouds 25s linear infinite, sideWays 5s ease-in-out infinite alternate;
+    -moz-animation: moveclouds 25s linear infinite, sideWays 5s ease-in-out infinite alternate;
+    -o-animation: moveclouds 25s linear infinite, sideWays 5s ease-in-out infinite alternate;
+}
+.x7 {
+    left: 1200px;
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0.28;
+    -webkit-animation: moveclouds 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
+    -moz-animation: moveclouds 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
+    -o-animation: moveclouds 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
+}
+.x8 {
+    left: 870px;
+    -webkit-transform: scale(0.75);
+    -moz-transform: scale(0.75);
+    transform: scale(0.75);
+    opacity: 0.35;
+    -webkit-animation: moveclouds 18s linear infinite, sideWays 2s ease-in-out infinite alternate;
+    -moz-animation: moveclouds 18s linear infinite, sideWays 2s ease-in-out infinite alternate;
+    -o-animation: moveclouds 18s linear infinite, sideWays 2s ease-in-out infinite alternate;
+}
+.x9 {
+    left: 1500px;
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0.3; 
+    -webkit-animation: moveclouds 7s linear infinite, sideWays 1s ease-in-out infinite alternate;
+    -moz-animation: moveclouds 7s linear infinite, sideWays 1s ease-in-out infinite alternate;
+    -o-animation: moveclouds 7s linear infinite, sideWays 1s ease-in-out infinite alternate;
+}
+
+
+
+@-webkit-keyframes moveclouds { 
+    0% { 
+        top: 500px;
+    }
+    100% { 
+        top: -500px;
+    }
+}
+
+@-webkit-keyframes sideWays { 
+    0% { 
+        margin-left:0px;
+    }
+    100% { 
+        margin-left:50px;
+    }
+}
+
+@-moz-keyframes moveclouds {     
+    0% { 
+        top: 500px;
+    }
+
+    100% { 
+        top: -500px;
+    }
+}
+
+@-moz-keyframes sideWays {
+    0% {
+        margin-left:0px;
+    }
+    100% {
+        margin-left:70px;
+    }
+}
+@-o-keyframes moveclouds {
+    0% { 
+        top: 500px;
+    }
+    100% { 
+        top: -500px;
+    }
+}
+
+@-o-keyframes sideWays {
+    0% {
+        margin-left:0px;
+    }
+    100% {
+        margin-left:150px;
+    }
+}
+
+#logo {
+  text-align: center;
+  position: center;
+  width: 275px;
+  height: 275px;
+}
+#sign-in{
+  padding:25px;
+  text-align: right;
+}
+#email{
+  text-align: left;
+  padding:5px;
+  border-radius:5px;
+  margin:5px;
+  width:225px;
+}
+#password{
+  text-align: left;
+  padding:5px;
+  border-radius:5px;
+  margin:5px;
+  width:225px;"
+}
+#checkbox{
+  transform:scale(1.5);
+}
+#remember-me{
+  padding-right:8px;
+  margin:5px;
+}
+#forgot-password{
+  margin:5px;
+  font-size:x-small;
+}
+#log-in{
+  width:110px;
+  margin:5px 5px 5px 5px;
+}
+#sign-up{
+  width:110px;
+  margin:5px 0px 5px 0px;
+}
+#sign-in-buttons{
+  padding:25px;
+  line-height:1.8;
+}
+#facebook-button{
+  margin:5px;
+  width:225px;
+  text-align:left;
+  padding-left:35px;
+  color: #fff;
+  background-color: #3b5998;
+  border-color: rgba(0,0,0,0.2);
+}
+#linkedin-button{
+  margin:5px;
+  width:225px;
+  text-align:left;
+  padding-left:35px;
+  color: #fff;
+  background-color: #005983;
+  border-color: rgba(0,0,0,0.2);
+}
+#google-button{
+  margin:5px;
+  width:225px;
+  text-align:left;
+  padding-left:35px;
+  color: #fff;
+  background-color: #dd4b39;
+  border-color: rgba(0,0,0,0.2);
+}
+#components{
+  padding-right: 100px;
+  padding-left: 100px;
+  background-color:rgba(0,0,0,.03);
+  text-align:center;"
 }
 #divider-custom {
   border: 0;
   height: 1px;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+#bottom-pic{
+  text-align: center;
+  position: center;
+  width: 100px;
+  height: 100px;
+}
+footer {
+  font: 700 15px Lato, sans-serif;
+  line-height: 4;
+  background-color: #2c5268;
+  color: #FFFFFF;
+  padding: 0px 100px 0px 100px;
+}
+/*media query*/
+@media screen and (max-width: 768px) {
+  #sign-in, #sign-in-buttons {
+    text-align: center;
+  }
+  #components {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  footer{
+    padding-right: 30px;
+    padding-left: 30px;
+    text-align: center;
+  }
 }
