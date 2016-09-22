@@ -3,27 +3,25 @@
 }
 #mainBody {
 	background:#dd8d74;
-}
-.header-container {
-  	padding:2px 100px;
+  min-height:1100px;
+  padding-top:80px;
 }
 .footer {
-  	padding:0 50px 0 50px;
-  	margin:20px 0;
+  	margin:25px 17.5%;
 }
 .search-box-style {
-	border:1px solid #aaa; 
-	border-radius:5px; 
-	box-shadow:0 0 3px #ccc, 0 10px 15px #ebebeb inset; 
+	border:1px solid #aaa;
+	border-radius:5px;
+	box-shadow:0 0 3px #ccc, 0 10px 15px #ebebeb inset;
 	text-indent:20px; background:#fcfcfc;
 }
 .search-box-icon-style {
-	left:25px; 
-	top:10px; 
+	left:25px;
+	top:10px;
 	position:absolute;
 }
 .notification-button-style {
-	margin:10px 25px 10px 10px; 
+	margin:10px 25px 10px 10px;
 	padding:2px;
 }
 .notification-icon-style {
@@ -52,6 +50,67 @@
 }
 .profile-image-style {
 	border-radius:50%;
-	border-style:solid;
-	border-width:2px;
+  border:2px solid;
 }
+.slideout {
+  background:#cccccc;
+  box-shadow:0 0 5px rgba(0,0,0,.3);
+  color:#333;
+  position:fixed;
+  top:75px; /* height of header */
+  width:16.5%; /* 2-12th of the screen */
+  min-height:1025px;
+}
+.left-slide {
+  left:0;
+}
+.right-slide {
+  right:0;
+}
+.slideout form {
+  display:block;
+  padding:20px;
+}
+.slideout textarea {
+  display:block;
+  margin-bottom:6px;
+}
+.row {
+  display:flex;
+}
+.column {
+  flex:1;
+  padding:10px;
+}
+.sporeButtonStyle {
+  font-size:28px;
+  font-weight:bold;
+  color:orange;
+}
+.leftDropButtonStyle {
+  margin-right:50px;
+}
+.rightDropButtonStyle {
+  margin-left:50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
