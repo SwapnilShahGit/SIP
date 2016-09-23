@@ -7,6 +7,9 @@
   <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -14,7 +17,7 @@
   <div id="navbar" class="navbar-collapse collapse" style="margin:5px 10px;">
     <ul class="nav navbar-nav">
       <li>
-        <a class="btn notification-button-style leftDropButtonStyle" href="#" (click)="leftSlideButton()">
+        <a class="btn notification-button-style leftDropButtonStyle" (click)="leftSlideButton()">
           <i class="fa fa-angle-double-down fa-2x" [style.visibility]="setLeftSlide()"></i>
           <i class="fa fa-angle-double-right fa-2x" [style.visibility]="setLeftDownSlide()"></i>
         </a>
@@ -24,13 +27,16 @@
           <button class="btn btn-default dropdown-toggle sporeButtonStyle" type="button" id="dropdownSpore"
                   data-toggle="dropdown">S P O R E <span class="caret"></span></button>
           <ul class="dropdown-menu" aria-labelledby="dropdownSpore">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a>Action</a></li>
+            <li><a>Another action</a></li>
+            <li><a>Something else here</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a>Separated link</a></li>
           </ul>
         </div>
+      </li>
+      <li>
+        <a class="navbar-brand" (click)="navigateToLoginPage()" style="cursor: pointer">SIP Home Page</a>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
@@ -39,19 +45,18 @@
         <input type="text" class="form-control search-box-style" placeholder="Search">
       </li>
       <li>
-        <a class="btn notification-button-style" href="#" (click)="setNotificationsVisibility()">
-          <i class="fa fa-bell-o fa-2x notification-icon-style" number-of-notifications="9+"
-             [style.visibility]="notificationsVisibility()"></i>
+        <a class="btn notification-button-style">
+          <i class="fa fa-bell-o fa-2x notification-icon-style" (click)="notifiedUser($event)">{{temp()}}</i>
         </a>
       </li>
       <li>
-        <a class="btn profile-button-style" href="#">
+        <a class="btn profile-button-style">
           <img class="profile-image-style" src="https://placekitten.com/45/45">
           <span class="caret"></span>
         </a>
       </li>
       <li>
-        <a class="btn notification-button-style rightDropButtonStyle" href="#" (click)="rightSlideButton()">
+        <a class="btn notification-button-style rightDropButtonStyle" (click)="rightSlideButton()">
           <i class="fa fa-angle-double-left fa-2x" [style.visibility]="setRightDownSlide()"></i>
           <i class="fa fa-angle-double-down fa-2x" [style.visibility]="setRightSlide()"></i>
         </a>

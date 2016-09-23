@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -12,8 +13,9 @@ export class SporeMainPageComponent implements OnInit {
   private _leftSlideOut: boolean = false;
   private _rightSlideOut: boolean = false;
   private _notificationsVisible: boolean = true;
+  private _notificationCount: number = 0;
 
-  constructor() {
+  constructor(private _router: Router) {
   }
 
   events: any[];
@@ -30,6 +32,21 @@ export class SporeMainPageComponent implements OnInit {
           "end": "2016-01-10"
         }
       ]
+  }
+
+  public navigateToLoginPage() {
+    this._router.navigate(['/login']);
+  }
+
+  public notifiedUser($event: Event) {
+    this._notificationCount += 1;
+  }
+
+  public temp() {
+    if (this._notificationCount > 9) {
+      return '9+';
+    }
+    return this._notificationCount.toString();
   }
 
   public setLeftSlide(): string {

@@ -43,6 +43,7 @@
 	border-radius:50%;
 	box-shadow:0 0 1px #333;
 	font-size:14px;
+  visibility: visible;
 }
 .profile-button-style {
 	padding:2px;
