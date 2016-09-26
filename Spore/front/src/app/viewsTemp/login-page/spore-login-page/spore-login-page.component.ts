@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SporeFooterBarComponent } from '../../spore-footer-bar/spore-footer-bar.component';
 import { SporeInfoCardComponent } from '../spore-info-card/spore-info-card.component';
+import {Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -14,12 +15,13 @@ export class SporeLoginPageComponent implements OnInit {
   public username:string;
   public password:string;
 
-  constructor() { }
+  constructor(private _router: Router) { }
 
   ngOnInit() {
   }
 
   public sporeLogin(event: Event) {
+    this._router.navigate(['/main-page']);
     console.log('Spore Login');
   }
 
