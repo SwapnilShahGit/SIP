@@ -6,6 +6,11 @@ import {SporeLoginPageComponent} from "./viewsTemp/login-page/spore-login-page/s
 import {SporeMainPageComponent} from "./viewsTemp/main-page/spore-main-page/spore-main-page.component";
 export const loginRoutes: RouterConfig = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login'
+  },
+  {
     canActivate: [],
     path: 'login',
     component: SporeLoginPageComponent
