@@ -8,7 +8,7 @@
   background: linear-gradient(to bottom right, #ed811e, #fae03f); /* Standard syntax (must be last) */
   position: relative;
 }
-/*Bubbles*/
+/*Bubbles
 html,
 body,
 #bubbles { height: 100% }
@@ -18,11 +18,8 @@ body { overflow: hidden }
     width: 60px;
     height: 60px;
     background: #ffb200;
-    border-radius: 1500px;
+    border-radius: 0px;
     animation-duration: 22s;
-    display: none;
-    display: flex;
-
     -moz-border-radius: 500px;
     -webkit-border-radius: 500px;
     background-color: rgba(255, 255, 255, 0.35);
@@ -67,6 +64,7 @@ body { overflow: hidden }
     -moz-animation: moveclouds 25s linear infinite, sideWays 2s ease-in-out infinite alternate;
     -o-animation: moveclouds 25s linear infinite, sideWays 2s ease-in-out infinite alternate;
     animation-delay: 3s;
+
 
 
 }
@@ -263,7 +261,7 @@ body { overflow: hidden }
     100% {
         margin-left:150px;
     }
-}
+}*/
 
 #logo {
   text-align: center;
