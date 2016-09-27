@@ -1,10 +1,117 @@
 #dropDownButton {
-  background: #dc7e16;
+  	background:#dc7e16;
 }
 #mainBody {
-  background: #dd8d74;
+	background:#dd8d74;
+  min-height:1100px;
+  padding-top:80px;
 }
 .footer {
-  padding:0 50px 0 50px;
-  margin:20px 0;
+  	margin:25px 17.5%;
 }
+.search-box-style {
+	border:1px solid #aaa;
+	border-radius:5px;
+	box-shadow:0 0 3px #ccc, 0 10px 15px #ebebeb inset;
+	text-indent:20px; background:#fcfcfc;
+}
+.search-box-icon-style {
+	left:25px;
+	top:10px;
+	position:absolute;
+}
+.notification-button-style {
+	margin:10px 25px 10px 10px;
+	padding:2px;
+}
+.notification-icon-style {
+	position:relative;
+}
+.notification-icon-style[number-of-notifications]:after {
+	margin:10px;
+	padding:2px 10px 2px 0px;
+	content:attr(number-of-notifications);
+	position:absolute;
+	background:#ff9900;
+	color:white;
+	width:22px;
+	height:22px;
+	text-align:center;
+	text-indent:4px;
+	left:10px;
+	line-height:18px;
+	border-radius:50%;
+	box-shadow:0 0 1px #333;
+	font-size:14px;
+  visibility: visible;
+}
+.profile-button-style {
+	padding:2px;
+	margin:5px;
+}
+.profile-image-style {
+	border-radius:50%;
+  border:2px solid;
+}
+.slideout {
+  background:#cccccc;
+  box-shadow:0 0 5px rgba(0,0,0,.3);
+  color:#333;
+  position:fixed;
+  top:75px; /* height of header */
+  width:16.5%; /* 2-12th of the screen */
+  min-height:1025px;
+}
+.left-slide {
+  left:0;
+}
+.right-slide {
+  right:0;
+}
+.slideout form {
+  display:block;
+  padding:20px;
+}
+.slideout textarea {
+  display:block;
+  margin-bottom:6px;
+}
+.row {
+  display:flex;
+}
+.column {
+  flex:1;
+  padding:10px;
+}
+.sporeButtonStyle {
+  font-size:28px;
+  font-weight:bold;
+  color:orange;
+}
+.leftDropButtonStyle {
+  margin-right:50px;
+}
+.rightDropButtonStyle {
+  margin-left:50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
