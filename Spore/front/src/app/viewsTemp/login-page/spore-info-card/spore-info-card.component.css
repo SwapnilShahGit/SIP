@@ -15,5 +15,7 @@
 }
 
 .info-panel-icon {
-  width: 50%;
+  background-color: transparent;
+  max-width: 200px;
+  max-height: 200px;
 }
