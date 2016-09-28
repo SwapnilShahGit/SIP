@@ -1,3 +1,7 @@
+#Starting Spore Instructions
+
+Go to Command Prompt in this directory and then type "./start.sh" followed by the path to your mongoDB database. The default path is "/c/data". 
+
 # SIP
 This is a project that was created by the PEY Interns of the 2016-2017 year at SOTI. The contributers are:
 
