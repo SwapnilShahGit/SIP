@@ -1,1 +1,10 @@
 https://www.git-tower.com/blog/git-cheat-sheet/
+
+
+to rename a branch:
+  
+   git branch -m new_name
+   
+to add (local) branch to git:
+
+  git push -u origin branch_name
