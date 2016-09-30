@@ -8,3 +8,11 @@ to rename a branch:
 to add (local) branch to git:
 
   git push -u origin branch_name
+
+to delete (remote) branch:
+
+  git push origin --delete branch_name
+  
+to delete (local) branch:
+
+  git branch -d branch_name
