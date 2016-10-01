@@ -4,5 +4,6 @@
         "**/.git": true,
         "**/.DS_Store": true
     }, 
-    "files.autoSave": "afterDelay"
+    "files.autoSave": "afterDelay",
+    "**/*.js": { "when": "$(basename).ts"}
 }
