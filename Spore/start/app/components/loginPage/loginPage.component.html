@@ -1,3 +1,33 @@
-<div class="login">
-    <h1>This is the log in page!</h1>
+<div id="login-body">
+    <div class="jumbotron-large text-center container-fluid">
+        <img id="logo" src="./app/assets/spore-logo-login.png" draggable="false" />
+        <div id="blah" class="row">
+            <div id="sign-in" class="col-sm-6">
+                <input id="email" type="email" name="email" placeholder="EMAIL"><br>
+                <input id="password" type="password" placeholder="PASSWORD" /><br>
+                <input id="checkbox" type="checkbox" />
+                <element id="remember-me">Remember Me</element>
+                <a id="forgot-password" target="_blank" href="https://johnsmith:smith123@www.example.com">Forgot password?</a><br>
+                <button id="log-in" class="btn-primary" (click)="sporeLogin()">Log In</button>
+                <button id="sign-up" class="btn-primary">Sign Up</button> <br>
+            </div>
+            <div id="sign-in-buttons" class="col-sm-6 text-left">
+                <a id="facebook-button" class="btn facebook-button">Sign in with Facebook</a> <br>
+                <a id="linkedin-button" src="https://static.licdn.com/scds/common/u/img/webpromo/btn_in_20x15.png" class="btn linkedin-button">Sign in with LinkedIn </a>
+                <br>
+                <a id="google-button" class="btn google-button">Sign in with Google</a> <br>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div id="components" class="row">
+    <app-spore-info-card [panelName]="'PARSER'" [panelDescription]="'Spore comes equipped with a parser, which is able to automatically convert the important information such as lecture times, due dates, etc. and place them in your calendar. We are currently supporting Univeristy of Toronto with functionality for other universities coming very soon!'"
+        [imageUrl]="'./app/assets/icons2-01.jpg'"></app-spore-info-card>
+    <app-spore-info-card [panelName]="'CALENDAR'" [panelDescription]="'Spore calendar is one of few which grants students the privilege of being able to manage their time, become more organized and socialize in a productive manner without any distractions. Including many modern qualities, Spore allows students to personalize their page with school colours, logos, or however they please.'"
+        [imageUrl]="'./app/assets/icons2-02.jpg'"></app-spore-info-card>
+    <app-spore-info-card [panelName]="'SOCIAL'" [panelDescription]="'Spore social contains multiple great features that provide particular support to students who are intereseted in using the calendar in a social and school mode. Students can plan events, study sessions, share their calendar, chat and much more while remaining organized.'"
+        [imageUrl]="'./app/assets/icons2-03.jpg'"></app-spore-info-card>
+</div>
+
+<spore-footer></spore-footer>
