@@ -27,8 +27,7 @@ System.register(['angular2/core', '../spore-info-card/spore-info-card.component'
             LoginPageComponent = (function () {
                 function LoginPageComponent() {
                 }
-                LoginPageComponent.prototype.ngOnInit = function () {
-                };
+                LoginPageComponent.prototype.ngOnInit = function () { };
                 LoginPageComponent.prototype.sporeLogin = function (event) {
                     console.log('Spore Login');
                 };

@@ -12,8 +12,7 @@ export class LoginPageComponent implements OnInit {
   public username:string;
   public password:string;
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   public sporeLogin(event: Event) {
     console.log('Spore Login');
