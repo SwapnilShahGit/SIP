@@ -1,4 +1,4 @@
-System.register(['angular2/core', './components/loginPage/loginPage.component'], function(exports_1, context_1) {
+System.register(['angular2/core', './components/loginPage/loginPage.component', './components/mainPage/mainPage.component', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './components/loginPage/loginPage.component'],
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, loginPage_component_1;
+    var core_1, loginPage_component_1, mainPage_component_1, router_1;
     var AppComponent;
     return {
         setters:[
@@ -19,16 +19,27 @@ System.register(['angular2/core', './components/loginPage/loginPage.component'],
             },
             function (loginPage_component_1_1) {
                 loginPage_component_1 = loginPage_component_1_1;
+            },
+            function (mainPage_component_1_1) {
+                mainPage_component_1 = mainPage_component_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
                 }
                 AppComponent = __decorate([
+                    router_1.RouteConfig([
+                        { path: '/loginPage', name: 'Login', component: loginPage_component_1.LoginPageComponent, useAsDefault: true },
+                        { path: '/mainPage', name: 'Main', component: mainPage_component_1.MainPageComponent }
+                    ]),
                     core_1.Component({
                         selector: 'main-component-app',
                         templateUrl: './app/app.component.html',
-                        directives: [loginPage_component_1.LoginPageComponent]
+                        directives: [loginPage_component_1.LoginPageComponent, mainPage_component_1.MainPageComponent, router_1.ROUTER_DIRECTIVES],
+                        providers: [router_1.ROUTER_PROVIDERS]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
