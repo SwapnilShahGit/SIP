@@ -30,6 +30,30 @@ System.register(['angular2/core', '../loginPage/loginPage.component', '../footer
                     this._rightSlideOut = false;
                     this._notificationsVisible = true;
                     this._notificationCount = 0;
+                    this._events = [
+                        {
+                            "title": "All Day Event",
+                            "start": "2016-01-01"
+                        },
+                        {
+                            "title": "Long Event",
+                            "start": "2016-01-07",
+                            "end": "2016-01-10"
+                        },
+                        {
+                            "title": "Repeating Event",
+                            "start": "2016-01-09T16:00:00"
+                        },
+                        {
+                            "title": "Repeating Event",
+                            "start": "2016-01-16T16:00:00"
+                        },
+                        {
+                            "title": "Conference",
+                            "start": "2016-01-11",
+                            "end": "2016-01-13"
+                        }
+                    ];
                 }
                 MainPageComponent.prototype.ngOnInit = function () { };
                 MainPageComponent.prototype.notifiedUser = function ($event) {
@@ -66,6 +90,7 @@ System.register(['angular2/core', '../loginPage/loginPage.component', '../footer
                     return this._notificationsVisible ? 'visible' : 'hidden';
                 };
                 MainPageComponent = __decorate([
+                    //this doesnt work when you add it as a directive...
                     core_1.Component({
                         selector: 'main-page',
                         templateUrl: './app/components/mainPage/mainPage.component.html',
