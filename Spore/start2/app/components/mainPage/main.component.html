@@ -58,16 +58,13 @@
     </div>
 </div>
 
+<!--have to make this local later...-->
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
 <div>
     <nav class="navbar navbar-default temporaryShiftDown" style="height:75px;padding:5px 10px;">
         <div id="navbar" class="navbar-collapse collapse" style="margin:5px 10px;">
             <ul class="nav navbar-nav">
-                <li>
-                    <a class="btn notification-button-style leftDropButtonStyle" (click)="leftSlideButton()">
-                        <i class="fa fa-angle-double-down fa-2x" [style.visibility]="setLeftSlide()"></i>
-                        <i class="fa fa-angle-double-right fa-2x" [style.visibility]="setLeftDownSlide()"></i>
-                    </a>
-                </li>
                 <li>
                     <div class="dropdown" style="position:relative;">
                         <button class="btn btn-default dropdown-toggle sporeButtonStyle" type="button" id="dropdownSpore" data-toggle="dropdown">S P O R E <span class="caret"></span></button>
@@ -88,19 +85,13 @@
                 </li>
                 <li>
                     <a class="btn notification-button-style">
-                        <i class="fa fa-bell-o fa-2x notification-icon-style" (click)="notifiedUser($event)">{{temp()}}</i>
+                        <i class="fa fa-bell-o fa-2x notification-icon-style" (click)="notifiedUser($event)">{{notificationCounter()}}</i>
                     </a>
                 </li>
                 <li>
                     <a class="btn profile-button-style">
                         <img class="profile-image-style" src="https://placekitten.com/45/45">
                         <span class="caret"></span>
-                    </a>
-                </li>
-                <li>
-                    <a class="btn notification-button-style rightDropButtonStyle" (click)="rightSlideButton()">
-                        <i class="fa fa-angle-double-left fa-2x" [style.visibility]="setRightDownSlide()"></i>
-                        <i class="fa fa-angle-double-down fa-2x" [style.visibility]="setRightSlide()"></i>
                     </a>
                 </li>
             </ul>
