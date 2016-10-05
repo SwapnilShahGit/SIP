@@ -1,9 +1,9 @@
 "use strict";
 var router_1 = require('@angular/router');
-var welcome_component_1 = require('./home/welcome.component');
+var login_component_1 = require('./components/loginPage/login.component');
 var appRoutes = [
-    { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-    { path: 'welcome', component: welcome_component_1.WelcomeComponent }
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: login_component_1.LoginComponent }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
 //# sourceMappingURL=app.routing.js.map

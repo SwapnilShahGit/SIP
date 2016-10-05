@@ -13,7 +13,7 @@ var platform_browser_1 = require('@angular/platform-browser');
 var http_1 = require('@angular/http');
 var app_routing_1 = require('./app.routing');
 var app_component_1 = require('./app.component');
-var welcome_component_1 = require('./home/welcome.component');
+var login_component_1 = require('./components/loginPage/login.component');
 /* Feature Modules */
 var product_module_1 = require('./products/product.module');
 var AppModule = (function () {
@@ -29,7 +29,7 @@ var AppModule = (function () {
             ],
             declarations: [
                 app_component_1.AppComponent,
-                welcome_component_1.WelcomeComponent
+                login_component_1.LoginComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

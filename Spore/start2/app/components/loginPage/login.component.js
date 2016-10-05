@@ -9,17 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var WelcomeComponent = (function () {
-    function WelcomeComponent() {
-        this.pageTitle = 'Welcome';
+var LoginComponent = (function () {
+    function LoginComponent() {
+        this.pageTitle = 'Login';
     }
-    WelcomeComponent = __decorate([
+    LoginComponent = __decorate([
         core_1.Component({
-            templateUrl: 'app/home/welcome.component.html'
+            templateUrl: 'app/components/loginPage/login.component.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], WelcomeComponent);
-    return WelcomeComponent;
+    ], LoginComponent);
+    return LoginComponent;
 }());
-exports.WelcomeComponent = WelcomeComponent;
-//# sourceMappingURL=welcome.component.js.map
+exports.LoginComponent = LoginComponent;
+//# sourceMappingURL=login.component.js.map

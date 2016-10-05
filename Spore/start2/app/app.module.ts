@@ -4,7 +4,7 @@ import { HttpModule } from '@angular/http';
 
 import { routing } from './app.routing';
 import { AppComponent }  from './app.component';
-import { WelcomeComponent } from './home/welcome.component';
+import { LoginComponent } from './components/loginPage/login.component';
 
 /* Feature Modules */
 import { ProductModule } from './products/product.module';
@@ -18,7 +18,7 @@ import { ProductModule } from './products/product.module';
   ],
   declarations: [
     AppComponent,
-    WelcomeComponent
+    LoginComponent
   ],
   bootstrap: [ AppComponent ]
 })
