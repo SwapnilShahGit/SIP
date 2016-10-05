@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
-var shared_module_1 = require('../shared/shared.module');
+var shared_module_1 = require('../../shared/shared.module');
 var product_routing_1 = require('./product.routing');
-var product_list_component_1 = require('./product-list.component');
+var main_component_1 = require('./main.component');
 var product_detail_component_1 = require('./product-detail.component');
 var product_filter_pipe_1 = require('./product-filter.pipe');
 var product_service_1 = require('./product.service');
@@ -27,12 +27,12 @@ var ProductModule = (function () {
                 product_routing_1.productRouting
             ],
             declarations: [
-                product_list_component_1.ProductListComponent,
+                main_component_1.ProductListComponent,
                 product_detail_component_1.ProductDetailComponent,
                 product_filter_pipe_1.ProductFilterPipe
             ],
             providers: [
-                product_service_1.ProductService
+                product_service_1.MainService
             ]
         }), 
         __metadata('design:paramtypes', [])

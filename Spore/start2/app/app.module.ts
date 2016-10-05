@@ -7,7 +7,7 @@ import { AppComponent }  from './app.component';
 import { LoginComponent } from './components/loginPage/login.component';
 
 /* Feature Modules */
-import { ProductModule } from './products/product.module';
+import { ProductModule } from './components/mainPage/product.module';
 
 @NgModule({
   imports: [

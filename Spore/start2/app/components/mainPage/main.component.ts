@@ -1,11 +1,11 @@
 import { Component, OnInit }  from '@angular/core';
 
 import { IProduct } from './product';
-import { ProductService } from './product.service';
+import { MainService } from './product.service';
 
 @Component({
-    templateUrl: 'app/products/product-list.component.html',
-    styleUrls: ['app/products/product-list.component.css']
+    templateUrl: 'app/components/mainPage/main.component.html',
+    styleUrls: ['app/components/mainPage/main.component.css']
 })
 export class ProductListComponent implements OnInit {
     pageTitle: string = 'Product List';
@@ -16,7 +16,7 @@ export class ProductListComponent implements OnInit {
     errorMessage: string;
     products: IProduct[];
 
-    constructor(private _productService: ProductService) {
+    constructor(private _mainService: MainService) {
 
     }
 
@@ -25,7 +25,7 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-           this._productService.getProducts()
+           this._mainService.getProducts()
                      .subscribe(
                        products => this.products = products,
                        error =>  this.errorMessage = <any>error);
