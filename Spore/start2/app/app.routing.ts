@@ -1,12 +1,11 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { WelcomeComponent } from './home/welcome.component';
+import { LoginComponent } from './components/loginPage/login.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'welcome', pathMatch: 'full'},
-  { path: 'welcome', component: WelcomeComponent }
+  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: 'login', component: LoginComponent }
 ];
 
-export const routing: ModuleWithProviders =
-               RouterModule.forRoot(appRoutes);
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
