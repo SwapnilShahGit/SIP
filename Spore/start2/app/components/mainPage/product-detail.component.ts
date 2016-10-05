@@ -4,10 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription }       from 'rxjs/Subscription';
 
 import { IProduct } from './product';
-import { ProductService } from './product.service';
+import { MainService } from './product.service';
 
 @Component({
-    templateUrl: 'app/products/product-detail.component.html'
+    templateUrl: 'app/components/mainPage/product-detail.component.html'
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
     pageTitle: string = 'Product Detail';
@@ -17,7 +17,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private _productService: ProductService) {
+                private _mainService: MainService) {
     }
 
     ngOnInit(): void {
@@ -33,13 +33,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     getProduct(id: number) {
-        this._productService.getProduct(id).subscribe(
+        this._mainService.getProduct(id).subscribe(
             product => this.product = product,
             error => this.errorMessage = <any>error);
     }
 
     onBack(): void {
-        this.router.navigate(['/products']);
+        this.router.navigate(['/main']);
     }
 
     onRatingClicked(message: string): void {

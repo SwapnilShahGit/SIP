@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 import { IProduct } from './product';
 
 @Injectable()
-export class ProductService {
+export class MainService {
     private _productUrl = 'api/products/products.json';
 
     constructor(private _http: Http) { }

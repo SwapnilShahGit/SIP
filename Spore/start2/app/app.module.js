@@ -15,7 +15,7 @@ var app_routing_1 = require('./app.routing');
 var app_component_1 = require('./app.component');
 var login_component_1 = require('./components/loginPage/login.component');
 /* Feature Modules */
-var product_module_1 = require('./products/product.module');
+var product_module_1 = require('./components/mainPage/product.module');
 var AppModule = (function () {
     function AppModule() {
     }

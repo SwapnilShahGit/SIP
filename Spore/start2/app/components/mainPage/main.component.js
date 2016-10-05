@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var product_service_1 = require('./product.service');
 var ProductListComponent = (function () {
-    function ProductListComponent(_productService) {
-        this._productService = _productService;
+    function ProductListComponent(_mainService) {
+        this._mainService = _mainService;
         this.pageTitle = 'Product List';
         this.imageWidth = 50;
         this.imageMargin = 2;
@@ -24,7 +24,7 @@ var ProductListComponent = (function () {
     };
     ProductListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._productService.getProducts()
+        this._mainService.getProducts()
             .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
     };
     ProductListComponent.prototype.onRatingClicked = function (message) {
@@ -32,12 +32,12 @@ var ProductListComponent = (function () {
     };
     ProductListComponent = __decorate([
         core_1.Component({
-            templateUrl: 'app/products/product-list.component.html',
-            styleUrls: ['app/products/product-list.component.css']
+            templateUrl: 'app/components/mainPage/main.component.html',
+            styleUrls: ['app/components/mainPage/main.component.css']
         }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService])
+        __metadata('design:paramtypes', [product_service_1.MainService])
     ], ProductListComponent);
     return ProductListComponent;
 }());
 exports.ProductListComponent = ProductListComponent;
-//# sourceMappingURL=product-list.component.js.map
+//# sourceMappingURL=main.component.js.map
