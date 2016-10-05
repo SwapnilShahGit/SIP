@@ -38,11 +38,7 @@
                 <tbody>
                     <tr *ngFor='let product of products | productFilter:listFilter'>
                         <td>
-                            <img *ngIf='showImage'
-                                 [src]='product.imageUrl'
-                                 [title]='product.productName | uppercase'
-                                 [style.width.px]='imageWidth' 
-                                 [style.margin.px]='imageMargin'>
+                            <img *ngIf='showImage' [src]='product.imageUrl' [title]='product.productName | uppercase' [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
                         </td>
                         <td> <a [routerLink]="['/product', product.productId]">
                             {{product.productName}}
@@ -52,13 +48,75 @@
                         <td>{{ product.releaseDate }}</td>
                         <td>{{ product.price | currency:'USD':true:'1.2-2' }}</td>
                         <td>
-                            <ai-star [rating]='product.starRating'
-                                    (ratingClicked)='onRatingClicked($event)'>
+                            <ai-star [rating]='product.starRating' (ratingClicked)='onRatingClicked($event)'>
                             </ai-star>
-                       </td>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<div>
+    <nav class="navbar navbar-default temporaryShiftDown" style="height:75px;padding:5px 10px;">
+        <div id="navbar" class="navbar-collapse collapse" style="margin:5px 10px;">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="btn notification-button-style leftDropButtonStyle" (click)="leftSlideButton()">
+                        <i class="fa fa-angle-double-down fa-2x" [style.visibility]="setLeftSlide()"></i>
+                        <i class="fa fa-angle-double-right fa-2x" [style.visibility]="setLeftDownSlide()"></i>
+                    </a>
+                </li>
+                <li>
+                    <div class="dropdown" style="position:relative;">
+                        <button class="btn btn-default dropdown-toggle sporeButtonStyle" type="button" id="dropdownSpore" data-toggle="dropdown">S P O R E <span class="caret"></span></button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownSpore">
+                            <li><a>Action</a></li>
+                            <li><a>Another action</a></li>
+                            <li><a>Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a>Separated link</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-form">
+                    <span class="fa fa-search search-box-icon-style"></span>
+                    <input type="text" class="form-control search-box-style" placeholder="Search">
+                </li>
+                <li>
+                    <a class="btn notification-button-style">
+                        <i class="fa fa-bell-o fa-2x notification-icon-style" (click)="notifiedUser($event)">{{temp()}}</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn profile-button-style">
+                        <img class="profile-image-style" src="https://placekitten.com/45/45">
+                        <span class="caret"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn notification-button-style rightDropButtonStyle" (click)="rightSlideButton()">
+                        <i class="fa fa-angle-double-left fa-2x" [style.visibility]="setRightDownSlide()"></i>
+                        <i class="fa fa-angle-double-down fa-2x" [style.visibility]="setRightSlide()"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div>
+        <div id="mainBody" class="container-fluid">
+            <div class="panel panel-default" style="background:lightsteelblue;">
+                <div class="well-lg">
+                    <h2 align="center">Calendar Section</h2>
+                </div>
+                <hr/>
+                <hr/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer-bar></footer-bar>

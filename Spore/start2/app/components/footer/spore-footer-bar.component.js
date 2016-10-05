@@ -9,20 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var infoCard_component_1 = require('../infoCard/infoCard.component');
-var LoginComponent = (function () {
-    function LoginComponent() {
-        this.pageTitle = 'Login';
+var SporeFooterBarComponent = (function () {
+    function SporeFooterBarComponent() {
     }
-    LoginComponent = __decorate([
+    SporeFooterBarComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], SporeFooterBarComponent.prototype, "footerText", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], SporeFooterBarComponent.prototype, "imageUrl", void 0);
+    SporeFooterBarComponent = __decorate([
         core_1.Component({
-            templateUrl: 'app/components/loginPage/login.component.html',
-            styleUrls: ['app/components/loginPage/login.component.css'],
-            directives: [infoCard_component_1.InfoCardComponent]
+            moduleId: module.id,
+            selector: 'app-spore-footer-bar',
+            templateUrl: './spore-footer-bar.component.html',
+            styleUrls: ['./spore-footer-bar.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], LoginComponent);
-    return LoginComponent;
+    ], SporeFooterBarComponent);
+    return SporeFooterBarComponent;
 }());
-exports.LoginComponent = LoginComponent;
-//# sourceMappingURL=login.component.js.map
+exports.SporeFooterBarComponent = SporeFooterBarComponent;
+//# sourceMappingURL=spore-footer-bar.component.js.map

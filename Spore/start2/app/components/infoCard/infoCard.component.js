@@ -9,32 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var SporeInfoCardComponent = (function () {
-    function SporeInfoCardComponent() {
+var InfoCardComponent = (function () {
+    function InfoCardComponent() {
     }
-    SporeInfoCardComponent.prototype.ngOnInit = function () {
+    InfoCardComponent.prototype.ngOnInit = function () {
     };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
-    ], SporeInfoCardComponent.prototype, "panelName", void 0);
+    ], InfoCardComponent.prototype, "panelName", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
-    ], SporeInfoCardComponent.prototype, "panelDescription", void 0);
+    ], InfoCardComponent.prototype, "panelDescription", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
-    ], SporeInfoCardComponent.prototype, "imageUrl", void 0);
-    SporeInfoCardComponent = __decorate([
+    ], InfoCardComponent.prototype, "imageUrl", void 0);
+    InfoCardComponent = __decorate([
         core_1.Component({
             selector: 'info-card',
-            templateUrl: 'infoCard.component.html',
-            styleUrls: ['infoCard.component.css']
+            templateUrl: 'app/components/infoCard/infoCard.component.html',
+            styleUrls: ['app/components/infoCard/infoCard.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], SporeInfoCardComponent);
-    return SporeInfoCardComponent;
+    ], InfoCardComponent);
+    return InfoCardComponent;
 }());
-exports.SporeInfoCardComponent = SporeInfoCardComponent;
+exports.InfoCardComponent = InfoCardComponent;
 //# sourceMappingURL=infoCard.component.js.map

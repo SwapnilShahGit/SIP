@@ -2,10 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'info-card',
-  templateUrl: 'infoCard.component.html',
-  styleUrls: ['infoCard.component.css']
+  templateUrl: 'app/components/infoCard/infoCard.component.html',
+  styleUrls: ['app/components/infoCard/infoCard.component.css']
 })
-export class SporeInfoCardComponent implements OnInit {
+export class InfoCardComponent implements OnInit {
 
   @Input() panelName:string;
   @Input() panelDescription:string;

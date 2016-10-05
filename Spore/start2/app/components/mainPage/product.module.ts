@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 
 import { productRouting } from './product.routing';
-import { ProductListComponent } from './main.component';
+import { MainComponent } from './main.component';
 import { ProductDetailComponent } from './product-detail.component';
 import { ProductFilterPipe } from './product-filter.pipe';
 import { MainService } from './product.service';
@@ -16,9 +16,9 @@ import { MainService } from './product.service';
     productRouting
   ],
   declarations: [
-    ProductListComponent,
+    MainComponent,
     ProductDetailComponent,
-    ProductFilterPipe
+    ProductFilterPipe,
   ],
   providers: [
     MainService

@@ -1,11 +1,11 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 
-import { ProductListComponent } from './main.component';
+import { MainComponent } from './main.component';
 import { ProductDetailComponent } from './product-detail.component';
 
 export const productRoutes: Routes = [
-  { path: 'main', component: ProductListComponent },
+  { path: 'main', component: MainComponent },
   { path: 'main/:id', component: ProductDetailComponent }
 ];
 
