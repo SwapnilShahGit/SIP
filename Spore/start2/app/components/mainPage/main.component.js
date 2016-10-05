@@ -18,8 +18,6 @@ var MainComponent = (function () {
         this.imageMargin = 2;
         this.showImage = false;
         this.listFilter = '';
-        this._leftSlideOut = false;
-        this._rightSlideOut = false;
         this._notificationsVisible = true;
         this._notificationCount = 0;
     }
@@ -37,29 +35,11 @@ var MainComponent = (function () {
     MainComponent.prototype.notifiedUser = function ($event) {
         this._notificationCount += 1;
     };
-    MainComponent.prototype.temp = function () {
+    MainComponent.prototype.notificationCounter = function () {
         if (this._notificationCount > 9) {
             return '9+';
         }
         return this._notificationCount.toString();
-    };
-    MainComponent.prototype.setLeftSlide = function () {
-        return this._leftSlideOut ? 'visible' : 'hidden';
-    };
-    MainComponent.prototype.setLeftDownSlide = function () {
-        return this._leftSlideOut ? 'hidden' : 'visible';
-    };
-    MainComponent.prototype.setRightSlide = function () {
-        return this._rightSlideOut ? 'visible' : 'hidden';
-    };
-    MainComponent.prototype.setRightDownSlide = function () {
-        return this._rightSlideOut ? 'hidden' : 'visible';
-    };
-    MainComponent.prototype.leftSlideButton = function () {
-        this._leftSlideOut = !this._leftSlideOut;
-    };
-    MainComponent.prototype.rightSlideButton = function () {
-        this._rightSlideOut = !this._rightSlideOut;
     };
     MainComponent.prototype.setNotificationsVisibility = function () {
         this._notificationsVisible = !this._notificationsVisible;
