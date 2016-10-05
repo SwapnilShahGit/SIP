@@ -9,20 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var infoCard_component_1 = require('../infoCard/infoCard.component');
-var LoginComponent = (function () {
-    function LoginComponent() {
-        this.pageTitle = 'Login';
+var FooterComponent = (function () {
+    function FooterComponent() {
     }
-    LoginComponent = __decorate([
+    FooterComponent = __decorate([
         core_1.Component({
-            templateUrl: 'app/components/loginPage/login.component.html',
-            styleUrls: ['app/components/loginPage/login.component.css'],
-            directives: [infoCard_component_1.InfoCardComponent]
+            selector: 'footer-bar',
+            templateUrl: 'app/components/footer/footer.component.html',
+            styleUrls: ['app/components/footer/footer.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], LoginComponent);
-    return LoginComponent;
+    ], FooterComponent);
+    return FooterComponent;
 }());
-exports.LoginComponent = LoginComponent;
-//# sourceMappingURL=login.component.js.map
+exports.FooterComponent = FooterComponent;
+//# sourceMappingURL=footer.component.js.map

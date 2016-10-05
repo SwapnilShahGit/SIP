@@ -10,34 +10,71 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var product_service_1 = require('./product.service');
-var ProductListComponent = (function () {
-    function ProductListComponent(_mainService) {
+var MainComponent = (function () {
+    function MainComponent(_mainService) {
         this._mainService = _mainService;
         this.pageTitle = 'Product List';
         this.imageWidth = 50;
         this.imageMargin = 2;
         this.showImage = false;
         this.listFilter = '';
+        this._leftSlideOut = false;
+        this._rightSlideOut = false;
+        this._notificationsVisible = true;
+        this._notificationCount = 0;
     }
-    ProductListComponent.prototype.toggleImage = function () {
+    MainComponent.prototype.toggleImage = function () {
         this.showImage = !this.showImage;
     };
-    ProductListComponent.prototype.ngOnInit = function () {
+    MainComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._mainService.getProducts()
             .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
     };
-    ProductListComponent.prototype.onRatingClicked = function (message) {
+    MainComponent.prototype.onRatingClicked = function (message) {
         this.pageTitle = 'Product List: ' + message;
     };
-    ProductListComponent = __decorate([
+    MainComponent.prototype.notifiedUser = function ($event) {
+        this._notificationCount += 1;
+    };
+    MainComponent.prototype.temp = function () {
+        if (this._notificationCount > 9) {
+            return '9+';
+        }
+        return this._notificationCount.toString();
+    };
+    MainComponent.prototype.setLeftSlide = function () {
+        return this._leftSlideOut ? 'visible' : 'hidden';
+    };
+    MainComponent.prototype.setLeftDownSlide = function () {
+        return this._leftSlideOut ? 'hidden' : 'visible';
+    };
+    MainComponent.prototype.setRightSlide = function () {
+        return this._rightSlideOut ? 'visible' : 'hidden';
+    };
+    MainComponent.prototype.setRightDownSlide = function () {
+        return this._rightSlideOut ? 'hidden' : 'visible';
+    };
+    MainComponent.prototype.leftSlideButton = function () {
+        this._leftSlideOut = !this._leftSlideOut;
+    };
+    MainComponent.prototype.rightSlideButton = function () {
+        this._rightSlideOut = !this._rightSlideOut;
+    };
+    MainComponent.prototype.setNotificationsVisibility = function () {
+        this._notificationsVisible = !this._notificationsVisible;
+    };
+    MainComponent.prototype.notificationsVisibility = function () {
+        return this._notificationsVisible ? 'visible' : 'hidden';
+    };
+    MainComponent = __decorate([
         core_1.Component({
             templateUrl: 'app/components/mainPage/main.component.html',
             styleUrls: ['app/components/mainPage/main.component.css']
         }), 
         __metadata('design:paramtypes', [product_service_1.MainService])
-    ], ProductListComponent);
-    return ProductListComponent;
+    ], MainComponent);
+    return MainComponent;
 }());
-exports.ProductListComponent = ProductListComponent;
+exports.MainComponent = MainComponent;
 //# sourceMappingURL=main.component.js.map

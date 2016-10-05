@@ -27,9 +27,9 @@ var ProductModule = (function () {
                 product_routing_1.productRouting
             ],
             declarations: [
-                main_component_1.ProductListComponent,
+                main_component_1.MainComponent,
                 product_detail_component_1.ProductDetailComponent,
-                product_filter_pipe_1.ProductFilterPipe
+                product_filter_pipe_1.ProductFilterPipe,
             ],
             providers: [
                 product_service_1.MainService
