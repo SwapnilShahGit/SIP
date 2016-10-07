@@ -4,3 +4,5 @@ This is where any relevant information will be placed
  - Adding short description about the content or explanation is very helpful
  - Only add to master branch
  - Dont be shy
+
+![git-commands](https://www.git-tower.com/blog/content/posts/54-git-cheat-sheet/git-cheat-sheet-large01.png)
