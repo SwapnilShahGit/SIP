@@ -1,0 +1,11 @@
+{
+  "name": "back-end",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "mongoose": "4.5.10",
+    "mongoose-auto-increment": "5.0.1",
+    "restify": "4.1.1"
+  }
+}
