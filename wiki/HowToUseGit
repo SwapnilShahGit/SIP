@@ -1,24 +1,18 @@
-To create a new branch:
+https://www.git-tower.com/blog/git-cheat-sheet/
 
-  //todo
 
-To push a new branch to git:
-
-  //todo
-
-To switch to existing branch:
-
-  //todo
+to rename a branch:
   
-To push your changes to git:
+   git branch -m new_name
+   
+to add (local) branch to git:
 
-  //todo
-  
-To merge your branch in git:
+  git push -u origin branch_name
 
-  //todo
-  
-To shelve your changes:
+to delete (remote) branch:
 
-  //todo
+  git push origin --delete branch_name
   
+to delete (local) branch:
+
+  git branch -d branch_name
