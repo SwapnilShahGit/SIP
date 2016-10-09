@@ -1,0 +1,84 @@
+<nav class="navbar navbar-default navbar-fixed-top shiftDown" style="height:75px;padding:5px 10px;">
+    <div id="navbar" class="navbar-collapse collapse" style="margin:5px 10px;">
+        <ul class="nav navbar-nav">
+            <li>
+                <a class="btn notification-button-style leftDropButtonStyle" (click)="leftSlideButton()">
+                    <i class="fa fa-angle-double-down fa-2x" [style.visibility]="setLeftSlide()"></i>
+                    <i class="fa fa-angle-double-right fa-2x" [style.visibility]="setLeftDownSlide()"></i>
+                </a>
+            </li>
+            <li>
+                <div class="dropdown" style="position:relative;">
+                    <button class="btn btn-default dropdown-toggle sporeButtonStyle" type="button" id="dropdownSpore" data-toggle="dropdown">S P O R E <span class="caret"></span></button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownSpore">
+                        <li><a>Action</a></li>
+                        <li><a>Another action</a></li>
+                        <li><a>Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a>Separated link</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="navbar-form">
+                <span class="fa fa-search search-box-icon-style"></span>
+                <input type="text" class="form-control search-box-style" placeholder="Search">
+            </li>
+            <li>
+                <a class="btn notification-button-style">
+                    <i class="fa fa-bell-o fa-2x notification-icon-style" (click)="notifiedUser($event)">{{temp()}}</i>
+                </a>
+            </li>
+            <li>
+                <a class="btn profile-button-style">
+                    <img class="profile-image-style" src="https://placekitten.com/45/45">
+                    <span class="caret"></span>
+                </a>
+            </li>
+            <li>
+                <a class="btn notification-button-style rightDropButtonStyle" (click)="rightSlideButton()">
+                    <i class="fa fa-angle-double-left fa-2x" [style.visibility]="setRightDownSlide()"></i>
+                    <i class="fa fa-angle-double-down fa-2x" [style.visibility]="setRightSlide()"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="column">
+        <div class="slideout left-slide" [style.visibility]="setLeftSlide()">
+            <form>
+                <textarea class="form-control">Hello World</textarea> Some text after text area
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div id="mainBody" class="container-fluid">
+            <div class="panel panel-default" style="background:lightsteelblue;">
+                <div class="well-lg">
+                    <h2 align="center">Calendar Section</h2>
+                </div>
+                <hr/>
+                <div id='calendar'>
+                    <p-schedule [events]="_events"></p-schedule>
+                </div>
+
+                <hr/>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="slideout right-slide" [style.visibility]="setRightSlide()">
+            <form>
+                <textarea class="form-control" draggable="false">Hello World</textarea>
+                <img src="https://placekitten.com/200/200">
+            </form>
+        </div>
+    </div>
+</div>
+
+<spore-footer></spore-footer>
