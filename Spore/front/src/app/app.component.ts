@@ -1,16 +1,9 @@
 import { Component } from '@angular/core';
-import { SporeFooterBarComponent } from './viewsTemp/spore-footer-bar/spore-footer-bar.component';
-import { SporeLoginPageComponent } from './viewsTemp/login-page/spore-login-page/spore-login-page.component';
-import { SporeInfoCardComponent } from './viewsTemp/login-page/spore-info-card/spore-info-card.component';
-import { SporeMainPageComponent } from './viewsTemp/main-page/spore-main-page/spore-main-page.component';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
-  directives: [SporeFooterBarComponent, SporeLoginPageComponent, SporeInfoCardComponent, SporeMainPageComponent, ROUTER_DIRECTIVES]
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'app works!';
