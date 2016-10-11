@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main-page',
@@ -12,7 +13,7 @@ export class MainPageComponent implements OnInit {
   private _notificationsVisible: boolean = true;
   private _notificationCount: number = 0;
 
-  constructor() {
+  constructor(private _router: Router) {
   }
 
   events: any[];
@@ -32,7 +33,7 @@ export class MainPageComponent implements OnInit {
   }
 
   public navigateToLoginPage() {
-    // this._router.navigate(['/login']);
+    this._router.navigate(['/login']);
   }
 
   public notifiedUser($event: Event) {
