@@ -1,31 +1,63 @@
-# Spore
+Spore Front End
+=================
+To run the project, enter npm install, then npm start in the current directory.
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.17.
+Code Structure
+--------------------
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### Each Component created in the console will have the following files:
+> [name].component.html
+> [name].component.scss
+> [name].component.ts
 
-## Code scaffolding
+.html files will be made up of div's and other angular components. 
+div's will have a class assigned to them for styling. For example
+> GOOD: < div class='ex'>< /div> 
+> BAD: < ex>< /ex>
+> GOOD: < div (click='someFunction()')>
+> BAD: < button>< /button>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
+scss files will contain the styling of appropriate components
 
-## Build
+ts files will contain a component declaration for the functionality being defined, and appropriate imports. Code must not use extreme logic. If something can be done in a simpler way, it will fail review. 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Commit Messages
+-------------------------
 
-## Running unit tests
+Commit Messages will be in the form: 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+> [Description of the Commit] \n
+> [Reason for the Commit] \n
+> [GitHub Issue Number]
+> NOTE: If there is no issue number available for the task you are working on, contact Adam, Swapnil or Darren and an issue will be created for you. 
 
-## Running end-to-end tests
+Branch Names will be in the format: 
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/). 
-Before running the tests make sure you are serving the app via `ng serve`.
+>[type: either 'feat' or 'bug']/[Github Issue Number]
+> NOTE: If there is no issue number available for the branch you'd like to make, contact Adam, Swapnil or Darren. 
 
-## Deploying to Github Pages
+Code Reviews
+-------------------
 
-Run `ng github-pages:deploy` to deploy to Github Pages.
+Code Reviews will be assigned to either Adam or Swapnil for front end code.
 
-## Further help
+Any UI changes **MUST** be be approved by Kevin before being closed.
 
-To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The standard process for code review is as follows:
+
+> Move the issue into the Review pipe on GitHub
+> If there is a UI change of any kind:
+
+>- Assign the issue to Kevin
+>- Post a screenshot of the UI change 
+>- Add a comment explaining the UI change and why it is necessary
+
+> If Kevin approves of the change, or if the code does not have any UI changes, the issue will then be assigned to either Adam or Swapnil for review. Issues that fail code review will be moved back into In Progress, with a comment explaining why it failed. Isses that pass code review will be moved into the Done pipe.
+
+Code reviews will include: 
+
+ - Code Quality
+ - Functionaity
+ - Implementation
+ 
+**ISSUES MUST PASS CODE REVIEW TO BE CLOSED**
