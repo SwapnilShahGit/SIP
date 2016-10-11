@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import { FooterBarComponent } from '../footer-bar/footer-bar.component';
+
 
 @Component({
   selector: 'app-main-page',
