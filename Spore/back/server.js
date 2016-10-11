@@ -5,8 +5,49 @@ var exec = require('child_process').exec;
 Schema = mongoose.Schema;
 autoIncrement = require('mongoose-auto-increment');
 
+// -- start a pending connection to test database on localhost
 var connection = mongoose.connect('mongodb://localhost/test');
 autoIncrement.initialize(connection);
+
+// -- get notified if connection was successfull
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log ("Connection was successfull");
+});
+
+// -- test schema
+var kittySchema = mongoose.Schema({
+    name: String
+});
+
+kittySchema.methods.speak = function () {
+  var greeting = this.name
+    ? "Meow name is " + this.name
+    : "I don't have a name";
+  console.log(greeting);
+}
+
+// -- compile schmea into model
+var Kitten = mongoose.model('Kitten', kittySchema);
+
+// -- test
+//var silence = new Kitten({ name: 'Silence' });
+//console.log(silence.name); 
+
+var fluffy = new Kitten({ name: 'fluffy' });
+//fluffy.speak();
+
+//fluffy.save(function (err, fluffy) {
+//if (err) return console.error(err);
+//fluffy.speak();
+//});
+
+Kitten.find(function (err, kittens) {
+  if (err) return console.error(err);
+  console.log(kittens);
+})
+
 
 //Create schema for table that will hold user information
 var usersTable = new Schema({
@@ -41,7 +82,7 @@ var eventLibrary = new Schema({
 });
 
 eventLibrary.plugin(autoIncrement.plugin, {
-    model: 'Event',
+    model: 'eventlibrary',
     field: 'EventID',
     startAt: 0,
     incrementBy: 1
