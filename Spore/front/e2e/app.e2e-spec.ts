@@ -1,10 +1,10 @@
-import { FrontEndPage } from './app.po';
+import { SporePage } from './app.po';
 
-describe('front-end App', function() {
-  let page: FrontEndPage;
+describe('spore App', function() {
+  let page: SporePage;
 
   beforeEach(() => {
-    page = new FrontEndPage();
+    page = new SporePage();
   });
 
   it('should display message saying app works', () => {
