@@ -1,5 +1,6 @@
 var restify = require('restify');
 var mongoose = require('mongoose');
+var fs = require('fs');
 var exec = require('child_process').exec;
 Schema = mongoose.Schema;
 autoIncrement = require('mongoose-auto-increment');
@@ -129,7 +130,12 @@ function returnValue(req, res, next) {
 }
 
 //handle proper requests from user
-var server = restify.createServer();
+var server = restify.createServer({
+  certificate: fs.readFileSync('cert.pem'),
+  key: fs.readFileSync('key.pem'),
+  name: 'Spore'
+});
+
 server.use(restify.queryParser({ mapParams: false }));
 
 server.get('/save', saveUser);
