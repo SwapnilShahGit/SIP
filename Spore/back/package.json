@@ -1,7 +1,8 @@
 {
   "name": "back-end",
   "scripts": {
-    "start": "node server.js"
+    "genssl": "genssl.sh",
+    "start": "genssl.sh && node server.js"
   },
   "dependencies": {
     "mongoose": "4.5.10",
