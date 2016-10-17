@@ -1,19 +1,13 @@
 @import '../../assets/styles/spore-colors';
 
 #footer {
-  font: 400 15px Lato, sans-serif;
-  line-height: 4;
-  background: -webkit-linear-gradient(top, $color-spore-navy-blue 70%, #182c38 100%);
+  font: 400 12px Lato, sans-serif;
+  line-height: 2;
+  background: $color-spore-navy-blue;
   color: #FFFFFF;
-  padding: 25px 100px 25px 100px;
-}
-
-.footer-image {
-  float: left;
-  border-radius: 50%
+  padding: 5px 100px 5px 100px;
 }
 
 .footer-text {
   float: left;
-  padding-left: 12px;
 }
