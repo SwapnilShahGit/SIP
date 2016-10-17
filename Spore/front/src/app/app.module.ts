@@ -10,6 +10,7 @@ import { FooterBarComponent } from './components/footer-bar/footer-bar.component
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { AppRoutingModule } from './app.routing';
 import { StaticNavBar } from './components/static-nav/static-nav.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { StaticNavBar } from './components/static-nav/static-nav.component';
     InfoCardComponent,
     FooterBarComponent,
     MainPageComponent,
-    StaticNavBar
+    StaticNavBar,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
