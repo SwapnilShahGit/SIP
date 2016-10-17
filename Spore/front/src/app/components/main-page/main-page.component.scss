@@ -1,35 +1,10 @@
-#mainBody {
-  background:#dd8d74;
-  min-height:1100px;
-  padding-top:80px;
+#main-body {
+  margin-top: 65px;
 }
-.slideout {
-  background:#fff;
-  box-shadow:0 0 5px rgba(0,0,0,.3);
-  color:#333;
-  position:fixed;
-  top:75px; /* height of header */
-  width:16.5%; /* 2-12th of the screen */
-  min-height:1025px;
+.tools-bar { 
+  background: orange;
 }
-.left-slide {
-  left:0;
+.tools-result { 
+  background: lightgray;
 }
-.right-slide {
-  right:0;
-}
-.slideout form {
-  display:block;
-  padding:20px;
-}
-.slideout textarea {
-  display:block;
-  margin-bottom:6px;
-}
-.row {
-  display:flex;
-}
-.column {
-  flex:1;
-  padding:10px;
-}
+
