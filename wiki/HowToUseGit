@@ -16,3 +16,10 @@ to delete (remote) branch:
 to delete (local) branch:
 
   git branch -d branch_name
+  
+to 'get latest' for a branched branch when the original branch got modified:
+
+  git checkout 1st
+  git pull
+  git checkout 2nd
+  git rebase origin/1st
