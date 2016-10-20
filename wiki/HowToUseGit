@@ -23,3 +23,16 @@ to 'get latest' for a branched branch when the original branch got modified:
   git pull
   git checkout 2nd
   git rebase origin/1st
+
+to resolve conflicts (merging in to develop from feat/xyz)
+
+  git checkout develop
+  git merge feat/xyz
+  git status
+
+  resolve conflicts
+
+  git add .
+  git commit (will auto-type a commit message)
+
+  git push
