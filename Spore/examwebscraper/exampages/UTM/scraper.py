@@ -37,8 +37,8 @@ for row in rows:
     class_exams.append([str(ele) for ele in cols if ele])
 
 #get names of columns
-names = table_head.find_all('th')
 table_head = table.find('thead')
+names = table_head.find_all('th')
 column_names = [ele.text.strip() for ele in names]
 column_names = [str(ele) for ele in column_names if ele]
 
