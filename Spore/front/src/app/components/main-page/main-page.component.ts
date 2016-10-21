@@ -12,6 +12,7 @@ export class MainPageComponent implements OnInit {
 
   private SelectedSchool: string = "Please select your school";
   private CurrentTab: string = "DefaultTab";
+  
 
   ngOnInit() {
     this.openNav();
