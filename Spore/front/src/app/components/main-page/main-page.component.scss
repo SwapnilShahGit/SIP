@@ -1,53 +1,75 @@
-#main {
-  margin-top: 65px;
-}
-.tools-bar { 
-  background: orange;
-}
-.tools-result { 
-  background: lightgray;
-}
+@import '../../assets/styles/spore-colors';
 
+#main {
+    margin-top: 65px;
+    transition: margin-left .5s;
+    padding: 20px;
+}
 .sidenav {
-    height: 100%; /* 100% Full-height */
+    height: 100%; /* 50% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
-    background-color: #111; /* Black*/
+    background-color: white;
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
+    overflow-y: hidden; /* Disable vertical scroll */
+    padding-top: 65px; /* Place content 70px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+.sidenav-header {
+    padding: 2px 0 2px 26px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+    transition: 0.3s
+}
+.sidenav-hr {
+    margin: 0 20px 5px 20px;
+    border: none;
+    border-bottom: 1px solid lightgray;
 }
 /* The navigation menu links */
-.sidenav a {
-    padding: 8px 8px 8px 32px;
+.sidenav a  {
+    padding: 4px 4px 4px 26px;
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
+    font-size: 20px;
+    color: black;
     display: block;
     transition: 0.3s
 }
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
+   background: #ECEFF1;
 }
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
     position: absolute;
-    top: 0;
+    top: 65px;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
 }
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-#main {
-    transition: margin-left .5s;
-    padding: 20px;
+#sidenav-selection {
+    width: 250px;
+    height: 50px;
+    font-size: 16px;
+    background: $color-spore-orange;
+    color: white;
+    padding: 15px 0 0 20px;
 }
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+.sidenav-item {
+    width: 250px;
+    cursor: hand;
+    cursor: pointer;
+}
+.sidenav-icon {
+    margin-right: 15px;
+}
+@media screen and (max-height: 600px) {
+    .sidenav a { font-size: 16px; }
 }
