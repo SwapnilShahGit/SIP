@@ -11,6 +11,7 @@ import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 export class MainPageComponent implements OnInit {
 
   private SelectedSchool: string = "Please select your school";
+  private CurrentTab: string = "DefaultTab";
 
   ngOnInit() {
     this.openNav();
@@ -21,7 +22,7 @@ export class MainPageComponent implements OnInit {
 
   public navigateToLoginPage() {
     this._router.navigate(['/login']);
-  } 
+  }
 
   public selectUofT() {
     this.SelectedSchool = "University of Toronto";
@@ -42,6 +43,38 @@ export class MainPageComponent implements OnInit {
 
   public closeNav() {
     document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
+    document.getElementById("main").style.marginLeft = "0";
+  }
+
+  public selectTabCalendar() {
+    this.CurrentTab = "TabCalendar";
+  }
+
+  public selectTabCalculator() {
+    this.CurrentTab = "TabCalculator";
+  }
+
+  public selectTabCourses() {
+    this.CurrentTab = "TabCourses";
+  }
+
+  public selectTabReminders() {
+    this.CurrentTab = "TabReminders";
+  }
+
+  public selectTabFiles() {
+    this.CurrentTab = "TabFiles";
+  }
+
+  public selectTabHelp() {
+    this.CurrentTab = "TabHelp";
+  }
+
+  public selectTabMap() {
+    this.CurrentTab = "TabMap";
+  }
+
+  public selectTabDefault() {
+    this.CurrentTab = "DefaultTab";
   }
 }

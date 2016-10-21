@@ -10,28 +10,31 @@
 			<li class="divider"></li>
 			<li><a class="sidenav-item" (click)="selectNoSchool()">No School</a></li>
 		</ul>
-	</div> 
+	</div>
 	<br> <span class="sidenav-header">Tools</span>
 	<hr class="sidenav-hr">
-	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
-	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
-	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
-	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
-	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
+	<a class="sidenav-item" (click)="selectTabCalendar()"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
+	<a class="sidenav-item" (click)="selectTabCalculator()"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
+	<a class="sidenav-item" (click)="selectTabCourses()"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
+	<a class="sidenav-item" (click)="selectTabReminders()"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
+	<a class="sidenav-item" (click)="selectTabFiles()"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
 	<br> <span class="sidenav-header">More</span>
 	<hr class="sidenav-hr">
-	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
+	<a class="sidenav-item" (click)="selectTabHelp()"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
+	<a class="sidenav-item" (click)="selectTabMap()"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
 	<br> <span class="sidenav-header">Redirect</span>
 	<hr class="sidenav-hr">
 	<a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
+	<a class="sidenav-item" (click)="selectTabDefault()"><span class="fa fa-arrow-right sidenav-icon"></span>Default Tab</a>
 </div>
 
 <div id="main" class="container-fluid">
 
 	<span class="btn btn-default" (click)="openNav()">open</span>
 	<span class="btn btn-default" (click)="closeNav()">close</span>
-
-	<div>
+	<h1>{{CurrentTab}}</h1>
+	
+	<div *ngIf="CurrentTab == 'DefaultTab'">
 		<p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
 			facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
 			ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
@@ -59,6 +62,34 @@
 			pro. Tale viderer scriptorem cu pro, no sonet dolorem ius, qui ei dolor consul placerat. Ne vel option veritus.</p>
 
 		<p>Ad qui erroribus imperdiet, eum in dicant similique, at libris sententiae eos. Eum possim incorrupte et, quas cetero detr</p>
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabCalendar'">
+
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabCalculator'">
+
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabCourses'">
+
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabReminders'">
+
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabFiles'">
+
+	</div>
+	
+	<div *ngIf="CurrentTab == 'TabHelp'">
+		
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabMap'">
+		
 	</div>
 
 	<footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy |'"></footer-bar>
