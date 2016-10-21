@@ -1,11 +1,29 @@
 <static-nav> </static-nav>
 
 <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+	<div class="dropdown">
+		<a id="sidenav-selection" class="dropdown-toggle" data-toggle="dropdown">{{SelectedSchool}}
+  		<span class="fa fa-lg fa-angle-down"></span></a>
+		<ul class="dropdown-menu">
+			<li><a class="sidenav-item" (click)="selectUofT()">Toronto</a></li>
+			<li><a class="sidenav-item" (click)="selectSheridan()">Sheridan</a></li>
+			<li class="divider"></li>
+			<li><a class="sidenav-item" (click)="selectNoSchool()">No School</a></li>
+		</ul>
+	</div> 
+	<br> <span class="sidenav-header">Tools</span>
+	<hr class="sidenav-hr">
+	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
+	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
+	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
+	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
+	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
+	<br> <span class="sidenav-header">More</span>
+	<hr class="sidenav-hr">
+	<a class="sidenav-item" (click)="closeNav()"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
+	<br> <span class="sidenav-header">Redirect</span>
+	<hr class="sidenav-hr">
+	<a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
 </div>
 
 <div id="main" class="container-fluid">
@@ -13,12 +31,7 @@
 	<span class="btn btn-default" (click)="openNav()">open</span>
 	<span class="btn btn-default" (click)="closeNav()">close</span>
 
-	<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tools-bar">
-		<p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
-			facilisis. Eam vide fierent te. </p>
-	</div>
-
-	<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 tools-result">
+	<div>
 		<p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
 			facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
 			ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
@@ -48,5 +61,5 @@
 		<p>Ad qui erroribus imperdiet, eum in dicant similique, at libris sententiae eos. Eum possim incorrupte et, quas cetero detr</p>
 	</div>
 
+	<footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy |'"></footer-bar>
 </div>
-<footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy |'"></footer-bar>

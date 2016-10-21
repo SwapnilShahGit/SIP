@@ -45,3 +45,6 @@
 .caret-colour {
   color: #ffffff;
 }
+@media screen and (max-height: 979px) {
+    .navbar-fixed-top { position: fixed; }
+}
