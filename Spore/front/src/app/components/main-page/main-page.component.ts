@@ -34,7 +34,7 @@ export class MainPageComponent implements OnInit {
   }
 
   public selectNoSchool() {
-    this.SelectedSchool = "Ain't nobody got time for that";
+    this.SelectedSchool = "Ain't got no time for that";
   }
 
   public openNav() {
