@@ -1,35 +1,76 @@
-#mainBody {
-  background:#dd8d74;
-  min-height:1100px;
-  padding-top:80px;
+@import '../../assets/styles/spore-colors';
+
+#main {
+    margin-top: 65px;
+    transition: margin-left .5s;
+    padding: 20px;
 }
-.slideout {
-  background:#fff;
-  box-shadow:0 0 5px rgba(0,0,0,.3);
-  color:#333;
-  position:fixed;
-  top:75px; /* height of header */
-  width:16.5%; /* 2-12th of the screen */
-  min-height:1025px;
+.sidenav {
+    height: 100%; /* 50% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: hidden; /* Disable vertical scroll */
+    padding-top: 65px; /* Place content 70px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
 }
-.left-slide {
-  left:0;
+.sidenav-header {
+    padding: 2px 0 2px 26px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+    transition: 0.3s
 }
-.right-slide {
-  right:0;
+.sidenav-hr {
+    margin: 0 20px 5px 20px;
+    border: none;
+    border-bottom: 1px solid lightgray;
 }
-.slideout form {
-  display:block;
-  padding:20px;
+.sidenav a  {
+    padding: 4px 4px 4px 26px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+    transition: 0.3s
 }
-.slideout textarea {
-  display:block;
-  margin-bottom:6px;
+.sidenav a:hover, .offcanvas a:focus{
+   background: #ECEFF1;
 }
-.row {
-  display:flex;
+.sidenav .carot {
+    position: absolute;
+    z-index: 1;
+    top: 77px;
+    right: 13px;
+    font-size: 26px;
+    pointer-events: none;
 }
-.column {
-  flex:1;
-  padding:10px;
+.carot-style {
+    color: white;
+}
+#sidenav-selection {
+    width: 250px;
+    height: 50px;
+    font-size: 16px;
+    background: $color-spore-orange;
+    color: white;
+    padding: 15px 35px 0 20px;
+}
+.sidenav-item {
+    width: 250px;
+    cursor: hand;
+    cursor: pointer;
+}
+.sidenav-icon {
+    margin-right: 15px;
+}
+@media screen and (max-height: 600px) {
+    .sidenav a { font-size: 16px; }
 }
