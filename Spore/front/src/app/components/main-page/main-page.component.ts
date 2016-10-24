@@ -12,7 +12,9 @@ export class MainPageComponent implements OnInit {
 
   private SelectedSchool: string = "Please select your school";
   private CurrentTab: string = "DefaultTab";
-  
+  private _slideWidth: string;
+  private _slideLeft: string;
+
 
   ngOnInit() {
     this.openNav();
@@ -38,13 +40,13 @@ export class MainPageComponent implements OnInit {
   }
 
   public openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
+    this._slideWidth = '250px';
+    this._slideLeft = '250px';
   }
 
   public closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
+    this._slideWidth = '0px';
+    this._slideLeft = '0px';
   }
 
   public selectTabCalendar() {
