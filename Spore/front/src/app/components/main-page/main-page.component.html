@@ -1,6 +1,6 @@
 <static-nav> </static-nav>
 
-<div id="mySidenav" class="sidenav">
+<div id="mySidenav" class="sidenav" [ngStyle]="{'width': _slideWidth}">
 	<span class="fa fa-angle-down carot-style carot"></span>
 	<div class="dropdown">
 		<a id="sidenav-selection" class="dropdown-toggle" data-toggle="dropdown">{{SelectedSchool}}</a>
@@ -28,12 +28,12 @@
 	<a class="sidenav-item" (click)="selectTabDefault()"><span class="fa fa-arrow-right sidenav-icon"></span>Default Tab</a>
 </div>
 
-<div id="main" class="container-fluid">
+<div id="main" class="container-fluid" [ngStyle]="{'margin-left': _slideLeft}">
 
 	<span class="btn btn-default" (click)="openNav()">open</span>
 	<span class="btn btn-default" (click)="closeNav()">close</span>
 	<h1>{{CurrentTab}}</h1>
-	
+
 	<div *ngIf="CurrentTab == 'DefaultTab'">
 		<p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
 			facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
@@ -83,9 +83,9 @@
 	<div *ngIf="CurrentTab == 'TabFiles'">
 
 	</div>
-	
+
 	<div *ngIf="CurrentTab == 'TabHelp'">
-		
+
 	</div>
 
 	<div *ngIf="CurrentTab == 'TabMap'">
