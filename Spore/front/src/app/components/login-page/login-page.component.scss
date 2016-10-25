@@ -110,39 +110,18 @@
   z-index: 1;
 }
 #components{
-  padding-right: 100px;
-  padding-left: 100px;
+  padding: 0 75px;
   background-color: rgba(0,0,0,.03);
   z-index: 1;
-  text-align:center;
-}
-#divider-custom {
-  border: 0;
-  height: 1px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-  z-index: 1;
-}
-footer {
-  font: 700 15px Lato, sans-serif;
-  line-height: 4;
-  background-color: $color-spore-navy-blue;
-  color: #FFFFFF;
-  padding: 0px 100px 0px 100px;
 }
 /*media query*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   #sign-in, #sign-in-buttons {
     text-align: center;
     z-index: 1;
   }
   #components {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding: 0;
     z-index: 1;
-  }
-  footer{
-    padding-right: 30px;
-    padding-left: 30px;
-    text-align: center;
   }
 }
