@@ -18,9 +18,34 @@ export class MainPageComponent implements OnInit {
   private _slideWidth: string;
   private _slideLeft: string;
 
-
   ngOnInit() {
     this.openNav();
+  }
+
+  public geoFindMe() {
+    var output = document.getElementById("out");
+
+    if (!navigator.geolocation) {
+      output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+      return;
+    }
+
+    function success(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+
+      output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+
+      document.getElementById("mapFrame").setAttribute('src', 'https://www.google.com/maps/embed/v1/place?key=AIzaSyB3-mPp46IkYBRCmyLnx_DmJeL7RZzII1A&q=' + latitude + ',' + longitude);
+    };
+
+    function error() {
+      output.innerHTML = "Unable to retrieve your location";
+    };
+
+    output.innerHTML = "<p>Locating…</p>";
+
+    navigator.geolocation.getCurrentPosition(success, error);
   }
 
   constructor(private _router: Router) {

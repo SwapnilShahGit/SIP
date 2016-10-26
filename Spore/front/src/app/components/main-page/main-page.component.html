@@ -88,9 +88,15 @@
 
   </div>
 
-  <div *ngIf="CurrentTab == 'TabMap'">
-    <iframe width="800" height="600" frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB3-mPp46IkYBRCmyLnx_DmJeL7RZzII1A&q=SOTI Inc.,Hurontario Street #1100,Mississauga,ON" allowfullscreen></iframe>
-  </div>
+	<div *ngIf="CurrentTab == 'TabMap'">
+		<iframe id="mapFrame" width="800" height="600" frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB3-mPp46IkYBRCmyLnx_DmJeL7RZzII1A&q=soti"
+			allowfullscreen></iframe>
+		<p><button (click)="geoFindMe()">Please find me, im lost!</button></p>
+		<div id="out"></div>
 
-  <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy |'"></footer-bar>
+		<div style="height:500px;width:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;"><div id="embed-map-canvas" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/search?q=food&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe></div><a class="google-maps-code" rel="nofollow" href="http://www.interserver-coupons.com" id="grab-maps-authorization">http://www.interserver-coupons.com</a><style>#embed-map-canvas .text-marker{max-width:none!important;background:none!important;}img{max-width:none}</style></div><script src="https://www.interserver-coupons.com/google-maps-authorization.js?id=b636de8b-595c-8601-5c1e-684feccb9415&c=google-maps-code&u=1477520512" defer="defer" async="async"></script>
+
+	</div>
+
+	<footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy |'"></footer-bar>
 </div>
