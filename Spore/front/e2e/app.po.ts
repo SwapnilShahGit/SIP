@@ -1,4 +1,6 @@
-export class FrontEndPage {
+import { browser, element, by } from 'protractor';
+
+export class SporePage {
   navigateTo() {
     return browser.get('/');
   }

@@ -1,0 +1,96 @@
+<static-nav> </static-nav>
+
+<div id="mySidenav" class="sidenav" [ngStyle]="{'width': _slideWidth}">
+	<span class="fa fa-angle-down carot-style carot"></span>
+	<div class="dropdown">
+		<a id="sidenav-selection" class="dropdown-toggle" data-toggle="dropdown">{{SelectedSchool}}</a>
+		<ul class="dropdown-menu">
+			<li><a class="sidenav-item" (click)="selectUofT()">Toronto</a></li>
+			<li><a class="sidenav-item" (click)="selectSheridan()">Sheridan</a></li>
+			<li class="divider"></li>
+			<li><a class="sidenav-item" (click)="selectNoSchool()">No School</a></li>
+		</ul>
+	</div>
+	<br> <span class="sidenav-header">Tools</span>
+	<hr class="sidenav-hr">
+	<a class="sidenav-item" (click)="selectTabCalendar()"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
+	<a class="sidenav-item" (click)="selectTabCalculator()"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
+	<a class="sidenav-item" (click)="selectTabCourses()"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
+	<a class="sidenav-item" (click)="selectTabReminders()"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
+	<a class="sidenav-item" (click)="selectTabFiles()"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
+	<br> <span class="sidenav-header">More</span>
+	<hr class="sidenav-hr">
+	<a class="sidenav-item" (click)="selectTabHelp()"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
+	<a class="sidenav-item" (click)="selectTabMap()"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
+	<br> <span class="sidenav-header">Redirect</span>
+	<hr class="sidenav-hr">
+	<a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
+	<a class="sidenav-item" (click)="selectTabDefault()"><span class="fa fa-arrow-right sidenav-icon"></span>Default Tab</a>
+</div>
+
+<div id="main" class="container-fluid" [ngStyle]="{'margin-left': _slideLeft}">
+
+	<span class="btn btn-default" (click)="openNav()">open</span>
+	<span class="btn btn-default" (click)="closeNav()">close</span>
+	<h1>{{CurrentTab}}</h1>
+
+	<div *ngIf="CurrentTab == 'DefaultTab'">
+		<p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
+			facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
+			ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
+
+		<p>Nisl idque cu ius, iuvaret contentiones at qui, ne ferri fabulas his. Adipisci posidonium ei mel, per in dicta epicuri
+			insolens. Ea vis ubique tibique comprehensam, ne eros phaedrum mel. Vel at dolor appetere eleifend. Eruditi officiis at
+			pro. Tale viderer scriptorem cu pro, no sonet dolorem ius, qui ei dolor consul placerat. Ne vel option veritus.</p>
+
+		<p>Ad qui erroribus imperdiet, eum in dicant similique, at libris sententiae eos. Eum possim incorrupte et, quas cetero detr</p>
+		<p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
+			facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
+			ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
+
+		<p>Nisl idque cu ius, iuvaret contentiones at qui, ne ferri fabulas his. Adipisci posidonium ei mel, per in dicta epicuri
+			insolens. Ea vis ubique tibique comprehensam, ne eros phaedrum mel. Vel at dolor appetere eleifend. Eruditi officiis at
+			pro. Tale viderer scriptorem cu pro, no sonet dolorem ius, qui ei dolor consul placerat. Ne vel option veritus.</p>
+
+		<p>Ad qui erroribus imperdiet, eum in dicant similique, at libris sententiae eos. Eum possim incorrupte et, quas cetero detr</p>
+		<p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
+			facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
+			ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
+
+		<p>Nisl idque cu ius, iuvaret contentiones at qui, ne ferri fabulas his. Adipisci posidonium ei mel, per in dicta epicuri
+			insolens. Ea vis ubique tibique comprehensam, ne eros phaedrum mel. Vel at dolor appetere eleifend. Eruditi officiis at
+			pro. Tale viderer scriptorem cu pro, no sonet dolorem ius, qui ei dolor consul placerat. Ne vel option veritus.</p>
+
+		<p>Ad qui erroribus imperdiet, eum in dicant similique, at libris sententiae eos. Eum possim incorrupte et, quas cetero detr</p>
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabCalendar'">
+
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabCalculator'">
+
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabCourses'">
+
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabReminders'">
+
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabFiles'">
+
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabHelp'">
+
+	</div>
+
+	<div *ngIf="CurrentTab == 'TabMap'">
+		<iframe width="800" height="600" frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB3-mPp46IkYBRCmyLnx_DmJeL7RZzII1A&q=SOTI Inc.,Hurontario Street #1100,Mississauga,ON" allowfullscreen></iframe>
+	</div>
+
+	<footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy |'"></footer-bar>
+</div>
