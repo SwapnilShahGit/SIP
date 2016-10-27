@@ -5,6 +5,7 @@ import { StaticNavBar } from '../static-nav/static-nav.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FooterBarComponent } from '../footer-bar/footer-bar.component';
+declare var google: any;
 
 @Component({
   selector: 'app-main-page',
@@ -14,7 +15,7 @@ import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 export class MainPageComponent implements OnInit {
 
   private SelectedSchool: string = "Please select your school";
-  private CurrentTab: string = "DefaultTab";
+  private CurrentTab: string = "TabMap";
   private _slideWidth: string;
   private _slideLeft: string;
 
@@ -30,14 +31,50 @@ export class MainPageComponent implements OnInit {
       return;
     }
 
+    var map;
+    var service;
+    var whereAmI;
+    var marker;
     function success(position) {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
 
       output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
 
-      document.getElementById("mapFrame").setAttribute('src', 'https://www.google.com/maps/embed/v1/place?key=AIzaSyB3-mPp46IkYBRCmyLnx_DmJeL7RZzII1A&q=' + latitude + ',' + longitude);
+      whereAmI = new google.maps.LatLng(latitude, longitude);
+      var mapProp = {
+        center: whereAmI,
+        zoom: 10,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      map = new google.maps.Map(document.getElementById("map"), mapProp);
+
+      var request = {
+        location: whereAmI,
+        radius: '1000',
+        types: ['food']
+      }
+
+      marker = new google.maps.Marker({
+        position: whereAmI,
+        map: map,
+        title: 'Hello World!',
+        draggable: true,
+        animation: google.maps.Animation.DROP
+      });
+      marker.addListener('click', toggleBounce);
+      marker.setMap(map);
+
+      // document.getElementById("mapFrame").setAttribute('src', 'https://www.google.com/maps/embed/v1/place?key=AIzaSyB3-mPp46IkYBRCmyLnx_DmJeL7RZzII1A&q=' + latitude + ',' + longitude);
     };
+
+    function toggleBounce() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
 
     function error() {
       output.innerHTML = "Unable to retrieve your location";
