@@ -1,0 +1,13 @@
+@import '../../../assets/styles/spore-colors';
+
+#footer {
+  font: 400 12px Lato, sans-serif;
+  line-height: 2;
+  background: $color-spore-navy-blue;
+  color: #FFFFFF;
+  padding: 5px 100px 5px 100px;
+}
+
+.footer-text {
+  float: left;
+}
