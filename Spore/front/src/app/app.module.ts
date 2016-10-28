@@ -12,6 +12,7 @@ import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 
 import { AppRoutingModule } from './app.routes';
+import { MapToolComponent } from './components/map-tool/map-tool.component';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -48,7 +49,9 @@ type StoreType = {
     LeftSlideOut,
     SearchBarComponent,
     StaticNavBar,
-    MainPageComponent
+    MainPageComponent,
+    SearchBarComponent,
+    MapToolComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
