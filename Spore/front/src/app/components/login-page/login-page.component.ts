@@ -1,15 +1,16 @@
+/**
+ * Created by anatale on 10/28/2016.
+ */
+
 import { Component, OnInit } from '@angular/core';
-import { InfoCardComponent } from '../info-card/info-card.component';
-import { FooterBarComponent } from '../footer-bar/footer-bar.component';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnInit {
-
+export class LoginPageComponent {
   public username:string;
   public password:string;
 
@@ -46,5 +47,4 @@ export class LoginPageComponent implements OnInit {
   public linkedinLogin(event: Event) {
     console.log('LinkedIn Login');
   }
-
 }

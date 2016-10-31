@@ -1,3 +1,6 @@
+/**
+ * Created by anatale on 10/28/2016.
+ */
 import { StaticNavBar } from '../static-nav/static-nav.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
