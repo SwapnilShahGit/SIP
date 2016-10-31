@@ -152,7 +152,7 @@ server.get('/echo', returnValue);
 server.head('/echo', returnValue);
 
 server.get(/\/?.*/, restify.serveStatic({
-  directory: __dirname.concat('/../front/dist'),
+  directory: __dirname.concat('/../frontNew/dist'),
   default: 'index.html'
 }))
 
