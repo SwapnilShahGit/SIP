@@ -1,4 +1,6 @@
-# Editor configuration, see http://editorconfig.org
+# @AngularClass
+# http://editorconfig.org
+
 root = true
 
 [*]
@@ -10,5 +12,5 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.md]
-max_line_length = 0
+insert_final_newline = false
 trim_trailing_whitespace = false
