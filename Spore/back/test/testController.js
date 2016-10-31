@@ -7,12 +7,12 @@
 module.exports = function(){
 	
 	// -- set up 
-	var db = require('./model/db.js');
+	var db = require('./model/db');
 	var mongoose = db.mongoose;
 	
-	var usersTable = db.usersTable;
-	var syllabusLibrary = db.syllabusLibrary;
-	var eventLibrary = db.eventLibrary;
+	var usersTable = mongoose.model('usersTable');
+	var syllabusLibrary = mongoose.model('syllabusLibrary');
+	var eventLibrary = mongoose.model('eventLibrary');
 	
 	// -- create save user information in 'UserTable'
 	var saveUser = function(user) {	
@@ -95,7 +95,25 @@ module.exports = function(){
 		return Event;   
 	}
 		
+		
+	// -- EXPORTS ---------------------------------------------------------------------------------
 	
+	var m = {};
+	
+	// -- db
+	m.mongoose = mongoose;
+	
+	// -- functions
+	m.saveUser = saveUser;
+	m.fetchUser = fetchUser;
+	m.saveEvent = saveEvent;
+	m.fetchEvent = fetchEvent;
+	
+	// -- return exports
+	return m;
+	
+	// -- END EXPORTS -----------------------------------------------------------------------------
+
 }
 
 	

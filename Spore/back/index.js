@@ -4,7 +4,7 @@
 //_________________________________________________________________________________________________
 var restify = require('restify');
 var exec = require('child_process').exec;
-var testController = require ('./test/testController.js');
+var testController = require ('./test/testController');
 
 // -- start the server
 var server = restify.createServer();
