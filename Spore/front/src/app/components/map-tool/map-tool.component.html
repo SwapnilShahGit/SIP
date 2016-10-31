@@ -1,11 +1,12 @@
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <div class="container-fluid">
 	<p><button (click)="geoFindMe()">Please locate me...</button></p>
 	<div>
 		<p>Dont worry... I got this bro: 
-            <input #userInput id="autocomplete" placeholder="Enter your address" (click)="setUpAutoFill()" type="text" (keyup.enter)="inputLocation=userInput.value; geoFindMe();">
-            <button (click)="inputLocation=userInput.value; geoFindMe();" placeholder="input stuff here man">Enter</button>
+            <input #userInput id="autocomplete" placeholder="Enter your address" (click)="setUpAutoFill()" type="text" (keyup.enter)="inputLocation=userInput.value; geoFindMeCustom();">
+            <button (click)="inputLocation=userInput.value; geoFindMeCustom();">Enter</button>
 		</p>
-        <p>Current stored value: {{inputLocation}}</p>
+        <!--<p>Current stored value: {{inputLocation}}</p>-->
 	</div>
 	<p id="location"></p>
 	<div id="map" style="width:900px;height:600px;"></div>

@@ -12,16 +12,12 @@ declare var google: any;
 export class MapToolComponent implements OnInit {
 
     private inputLocation: string = '';
-    
+
     ngOnInit() {
     }
 
     /* For Google GeoLocation */
     public geoFindMe() {
-
-        if (this.inputLocation != '') {
-            return;
-        }
 
         var location = document.getElementById("location");
         var options = document.getElementById("options");
@@ -114,6 +110,7 @@ export class MapToolComponent implements OnInit {
         };
 
         location.innerHTML = "<p>Locating…</p>";
+        options.innerHTML = '';
 
         navigator.geolocation.getCurrentPosition(success, error);
     }
@@ -134,23 +131,23 @@ export class MapToolComponent implements OnInit {
         }
 
         // function fillInAddress() {
-            // Get the place details from the autocomplete object.
-            // var place = autocomplete.getPlace();
+        // Get the place details from the autocomplete object.
+        // var place = autocomplete.getPlace();
 
-            // for (var component in componentForm) {
-            //     document.getElementById(component).value = '';
-            //     document.getElementById(component).disabled = false;
-            // }
+        // for (var component in componentForm) {
+        //     document.getElementById(component).value = '';
+        //     document.getElementById(component).disabled = false;
+        // }
 
-            // // Get each component of the address from the place details
-            // // and fill the corresponding field on the form.
-            // for (var i = 0; i < place.address_components.length; i++) {
-            //     var addressType = place.address_components[i].types[0];
-            //     if (componentForm[addressType]) {
-            //         var val = place.address_components[i][componentForm[addressType]];
-            //         document.getElementById(addressType).value = val;
-            //     }
-            // }
+        // // Get each component of the address from the place details
+        // // and fill the corresponding field on the form.
+        // for (var i = 0; i < place.address_components.length; i++) {
+        //     var addressType = place.address_components[i].types[0];
+        //     if (componentForm[addressType]) {
+        //         var val = place.address_components[i][componentForm[addressType]];
+        //         document.getElementById(addressType).value = val;
+        //     }
+        // }
         // } 
 
         // Bias the autocomplete object to the user's geographical location,
@@ -172,5 +169,62 @@ export class MapToolComponent implements OnInit {
         }
         initAutocomplete();
         geolocate();
+    }
+
+    public geoFindMeCustom() {
+
+        var location = document.getElementById("location");
+        var geocoder;
+        var map;
+        var address = this.inputLocation;
+
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(-34.397, 150.644);
+            var myOptions = {
+                zoom: 13,
+                center: latlng,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                },
+                navigationControl: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("map"), myOptions);
+            if (geocoder) {
+                location.innerHTML = '<p>Currently locating: ' + address + '</p>';
+                geocoder.geocode({
+                    'address': address
+                }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                            map.setCenter(results[0].geometry.location);
+
+                            var infowindow = new google.maps.InfoWindow({
+                                content: '<b>' + address + '</b>',
+                                size: new google.maps.Size(150, 50)
+                            });
+
+                            var marker = new google.maps.Marker({
+                                position: results[0].geometry.location,
+                                map: map,
+                                title: address
+                            });
+                            google.maps.event.addListener(marker, 'click', function () {
+                                infowindow.open(map, marker);
+                            });
+
+                        } else {
+                            alert("No results found");
+                        }
+                    } else {
+                        alert("Geocode was not successful for the following reason: " + status);
+                    }
+                });
+            }
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+        initialize();
     }
 }
