@@ -1,6 +1,18 @@
-#Starting Spore 
+# Starting Spore 
 
-Go to Command Prompt in this directory and then type "./start.sh" followed by the path to your mongoDB database. The default path for mongoDB is "/c/data". 
+## Windows
+
+Open Bash in this directory and then type `./start.sh` followed by the path to your mongoDB database. The default path on Windows for MongoDB's database is `/c/data/db/`.
+
+## Linux/Mac OS X
+
+* Ensure MongoDB is started
+* Navigate to `Spore/front`
+* Run `npm install`
+* Run `npm run build:prod`
+* Navigate to `Spore/back`
+* Run `npm install`
+* Run `npm start`
 
 # SIP Description 
 This is a project that was created by the PEY Interns of the 2016-2017 year at SOTI. The contributers are:
