@@ -96,7 +96,7 @@ public class SyllabusParser {
    finalcoursecode = coursecodefinder();
    outputfile.put("code", finalcoursecode);
    //obtain the university campus based on the course code
-   outputfile.put("university", getUniversityCampus());
+   outputfile.put("university", getUniversityCampus(finalcoursecode));
    //use information to find corresponding course in API
    JSONObject infofromcobalt = null;
    try {
@@ -110,30 +110,19 @@ public class SyllabusParser {
     continue;
    }
 
-   //id of the course
+   //populate the output file with necessary information from Cobalt
    outputfile.put("id", infofromcobalt.get("id").toString());
-   //name of the course
    outputfile.put("name", infofromcobalt.get("name").toString());
-   //description of the course
    outputfile.put("description", infofromcobalt.get("description").toString());
-   //division of the course
    outputfile.put("division", infofromcobalt.get("division").toString());
-   //department the course is from
    outputfile.put("department", infofromcobalt.get("department").toString());
-   //prerequisities of the course
    outputfile.put("prerequisites", infofromcobalt.get("prerequisites").toString());
-   //exclusions from the course
    outputfile.put("exclusions", infofromcobalt.get("exclusions").toString());
-   //grade level of the course
    outputfile.put("level", infofromcobalt.get("level").toString());
-   //campus the course is being taught on
    outputfile.put("campus", infofromcobalt.get("campus").toString());
-   //the term the course is being taught in
    outputfile.put("term", infofromcobalt.get("term").toString());
-   //the meeting sections of the course
    outputfile.put("meeting_sections", infofromcobalt.get("meeting_sections")
     .toString());
-   //list of graded evaluations
    outputfile.put("graded_evaluations", getassignments());
    saveAsJSON();
   }
@@ -186,7 +175,7 @@ public class SyllabusParser {
   * @return the function returns the course code found from the PDF
   */
  public JSONObject connecttoCobalt() throws IOException {
-    findsession();
+    findSession();
     int year = Calendar.getInstance().get(Calendar.YEAR);
     if (rawtext.contains(Integer.toString(year))) {
    currentyear = Integer.toString(year);
@@ -284,17 +273,18 @@ public class SyllabusParser {
  }
 
 
- public String getUniversityCampus() {
-  //name of the university
-  String universitycampus = "";
-  if (Character.toString(finalcoursecode.charAt(7)).equals("5")) {
-   universitycampus = "UTM";
-  } else {
-   universitycampus = "UTSG";
-  }
-  return universitycampus;
- }
+public static String getUniversityCampus(String finalcoursecode) 
+{
+    //name of the university
+    String universitycampus = "";
+    if (Character.toString(finalcoursecode.charAt(7)).equals("5")) {
+        universitycampus = "UTM";
+    } else {
+        universitycampus = "UTSG";
+    }
+    return universitycampus;
 }
+
 
 public String findSession(){
     //check to see if the course is during the summer
@@ -320,12 +310,11 @@ public String findSession(){
     } 
     
     //if none are found, then assume course is in current semester
-    else 
-    {
+    else {
         //assigning session based on current month
         int month = Calendar.getInstance().get(Calendar.MONTH);
-        int april = 4
-        int august = 8
+        int april = 4;
+        int august = 8;
         if (month < april) 
         {
             session = "1";
@@ -336,9 +325,10 @@ public String findSession(){
             session = "5";
         }
 
-        else 
-        {
+        else {
             session = "9";
         }
     }
+    return session;
+}
 }
