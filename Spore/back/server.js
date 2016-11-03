@@ -129,6 +129,10 @@ function returnValue(req, res, next) {
   next();
 }
 
+function redirectToHttps(req, res, next) {
+  res.redirect('https://' + req.headers.host + req.url, next);
+}
+
 //handle proper requests from user
 var server = restify.createServer({
   certificate: fs.readFileSync('cert.pem'),
@@ -156,6 +160,16 @@ server.get(/\/?.*/, restify.serveStatic({
   default: 'index.html'
 }))
 
-server.listen(process.env.PORT || 8080, function() {
+server.listen(process.env.HTTPS_PORT || 8081, function() {
   console.log('%s listening at %s', server.name, server.url);
+});
+
+httpServer = restify.createServer({
+  name: 'HTTP Redirection Server'
+});
+
+httpServer.get(/\/?.*/, redirectToHttps);
+
+httpServer.listen(process.env.HTTP_PORT || 8080, function() {
+  console.log('%s listening at %s', httpServer.name, httpServer.url);
 });
