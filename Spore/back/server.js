@@ -135,8 +135,8 @@ function redirectToHttps(req, res, next) {
 
 //handle proper requests from user
 var server = restify.createServer({
-  certificate: fs.readFileSync('cert.pem'),
-  key: fs.readFileSync('key.pem'),
+  certificate: fs.readFileSync(process.env.CERT || 'cert.pem'),
+  key: fs.readFileSync(process.env.KEY || 'key.pem'),
   name: 'Spore'
 });
 
