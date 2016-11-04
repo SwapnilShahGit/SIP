@@ -1,0 +1,77 @@
+1. Sign Up
+
+* (One-Click)
+
+i. Facebook
+
+ii. LinkedIn
+
+iii. Google
+
+* Email Sign-Up
+
+* Email authentication (Auth0, MailGun, etc.)
+
+2. Sign In
+
+* Multi-factor authentication (Stormpath, Twilio, Etc.)
+
+* Sign In through their social network account (Facebook, LinkedIn, Google)
+
+* Forgot Password Feature
+
+3. User Accounts
+
+* Name
+
+* Email Address
+
+* Username (Discuss next meeting)
+
+* University
+
+* Major
+
+* Picture
+
+* List of Friends
+
+* Location
+
+* Graduation Year
+
+* Work Place
+
+* Current Year of Study
+
+4. Landing Page
+
+* Calendar
+
+* Option to export calendar to ICS file
+
+* Share calendar with friends
+
+* Daily/Weekly/Monthly/Semester/Yearly Views
+
+* Chat
+
+* View who's online
+
+* Status (Online or Offline)
+
+* Single message
+
+* Group message
+
+* Parser
+
+* Upload Syllabus and populate calendar for User
+
+* Gather lecture data from Cobalt or timetable page
+
+* Gather Assignment Data from Syllabus
+
+* Notifications
+
+* Tells user if event is coming soon
