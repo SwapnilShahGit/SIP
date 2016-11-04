@@ -1,0 +1,32 @@
+Front End Deliverables
+Sprints:
+    Tasking: Last Thursday of the 3 week sprint
+             Separate tasking for front end and back end
+             Story Points shall be measured in shirt sizes to avoid confusion between complexity and time of tasks
+             
+Sprint 1: July 18th - August 5th
+    Mockups for Login Page
+    Mockups for SignUp Page
+    Merge Project with MEAN
+    Research WebPack
+    Research Angular2
+    Research communication with backend for Signup and Login
+    Research 3rd Party Login
+    Research User Info
+    Research Angular1 to Angular2 Conversion
+    Discuss main page elements
+    Login UI
+    
+Sprint2: August 8th - August 26th
+    Mockups for main page
+    Mockups for Parser
+    Research Sign Up Details including Authentication, Elements, etc.
+    Sign Up UI
+    Functionality for Login
+    Begin 3rd Party Login
+    
+Sprint3: August 29th - September 16th
+    Continue 3rd Party Login
+    Research Event Details
+    Main Page UI
+    Sign Up Functionality

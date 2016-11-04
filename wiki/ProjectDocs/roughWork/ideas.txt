@@ -1,0 +1,18 @@
+Features that we think should be inside
+- Uploading Option
+- Different Calendar Integration
+- To-Do List integration
+- Calendar
+- Chat System
+- Social Calendar
+- Facebook/LinkedIn/Google Plus/Twitter integration
+
+
+Technologies to Use
+
+Teams to make
+
+Deadlines to have in place
+
+Misc.
+- We should try to keep the user interface as clean as possible and take the best items from the existing technologies and implement in ours
