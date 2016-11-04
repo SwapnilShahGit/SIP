@@ -140,6 +140,7 @@ var server = restify.createServer({
   name: 'Spore'
 });
 
+server.use(restify.gzipResponse());
 server.use(restify.queryParser({ mapParams: false }));
 
 server.get('/save', saveUser);
