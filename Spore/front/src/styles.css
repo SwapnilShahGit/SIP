@@ -1,0 +1,25 @@
+.loading {
+  width: 100vw;
+  height: 100vh;
+  background: #f89722; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #f89722, #fdc943); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #f89722, #fdc943); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #f89722, #fdc943); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #f89722, #fdc943); /* Standard syntax (must be last) */
+}
+
+.loading-icon {
+  position: absolute;
+  left: 48%;
+  font-size: 50px;
+  color: white;
+}
+
+.loading-image {
+  top: 1000px;
+  display: block;
+  margin: auto;
+  line-height: 400px;
+  width: 500px;
+  height: 500px;
+}
