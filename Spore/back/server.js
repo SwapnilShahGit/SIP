@@ -140,6 +140,10 @@ var server = restify.createServer({
   name: 'Spore'
 });
 
+server.use(restify.CORS({
+  origins: ['http://localhost:3000']
+}));
+
 server.use(restify.gzipResponse());
 server.use(restify.queryParser({ mapParams: false }));
 
