@@ -158,7 +158,8 @@ server.head('/echo', returnValue);
 
 server.get(/\/?.*/, restify.serveStatic({
   directory: __dirname.concat('/../front/dist'),
-  default: 'index.html'
+  default: 'index.html',
+  maxAge: 604800
 }))
 
 server.listen(process.env.HTTPS_PORT || 8081, function() {
