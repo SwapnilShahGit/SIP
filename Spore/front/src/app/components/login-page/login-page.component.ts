@@ -50,6 +50,7 @@ export class LoginPageComponent implements OnInit {
         FB.api('/me', { fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified' }, function (response) {
           console.log(response);
           let user = new User(userId, response);
+          console.log('user image: ' + user.profileImage);
           handleUser(user);
         });
       } else if (response.status === "unknown") {
