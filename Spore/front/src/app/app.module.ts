@@ -12,6 +12,7 @@ import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 
 import { AppRoutingModule } from './app.routes';
+import { DatabaseService } from '../meta/database.service';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -58,7 +59,8 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    DatabaseService
   ]
 })
 export class AppModule {

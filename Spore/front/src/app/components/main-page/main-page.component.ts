@@ -1,10 +1,12 @@
-/**
- * Created by anatale on 10/28/2016.
- */
 import { StaticNavBar } from '../static-nav/static-nav.component';
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import { FooterBarComponent } from '../footer-bar/footer-bar.component';
+import { Http, Response } from '@angular/http';
+
+import { DatabaseService } from '../../../meta/database.service';
+import { User } from '../../../meta/User';
+
 
 @Component({
   selector: 'app-main-page',
@@ -19,12 +21,38 @@ export class MainPageComponent implements OnInit {
   private _slideWidth: string;
   private _slideLeft: string;
 
+  private echoResponse: string = '...';
+  private echoInput: string = 'echo';
+  userId: string = 'empty';
+  user: User;
+
+  constructor(
+    private _router: Router,
+    private Rt: ActivatedRoute,
+    private databaseService: DatabaseService
+  ) { }
 
   ngOnInit() {
+    console.log('_______ in main _______');
+    this.Rt.params.forEach((params: Params) => {
+      console.log(params);
+      if (params['id'] !== undefined) {
+        this.userId = params['id'];
+        this.databaseService.getUser(this.userId)
+          .then(user => {
+            console.log(user);
+            this.user = new User(user.UserId, undefined, user.FirstName, user.LastName, user.Email);
+          });
+      } else {
+        this.user = new User();
+      }
+    });
+    
     this.openNav();
   }
 
-  constructor(private _router: Router) {
+  echoTester() {
+    this.databaseService.echo(this.echoInput).then(data => this.echoResponse = data);
   }
 
   public navigateToLoginPage() {
