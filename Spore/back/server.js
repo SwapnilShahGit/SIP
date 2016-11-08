@@ -10,7 +10,7 @@ autoIncrement.initialize(connection);
 
 //Create schema for table that will hold user information
 var usersTable = new Schema({
-   UserID: String,
+   UserID: {type: String, unique: true},
    FirstName: String,
    LastName: String,
    Email: String,
@@ -65,13 +65,12 @@ function saveUser(req, res, next) {
 });
   newUserEntry.save(function (err) {
     if (err) {
-      res.send(err);
+      res.send('User Already Exists');
     } else {
-      res.send('User Not Successfully Saved');
+      res.send('User Saved');
     }
+    next();
   });
-  res.send('User Saved');
-  next();
 };
 
 //save JSON information from OutputFile into MongoDB and then move to Archive folder
@@ -81,7 +80,7 @@ function parseJSONFile(req, res, next){
 
 //fetch user information for their calendar
 function fetchInformation(req, res, next) {
-  usersTable.find({UserID: req.query.user}, function(err, cats){
+  usersTable.findOne({UserID: req.query.user}, function(err, cats){
        if (err) return res.send(err);
        res.send(cats);
   });
