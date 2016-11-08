@@ -18,7 +18,7 @@ const routes: Routes = [
     component: LoginPageComponent
   },
   {
-    path: 'main-page',
+    path: 'main-page/:id',
     component: MainPageComponent
   }
 ];
