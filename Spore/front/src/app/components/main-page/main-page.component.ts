@@ -22,8 +22,9 @@ export class MainPageComponent implements OnInit {
 
   private echoResponse: string = '...';
   private echoInput: string = 'echo';
-  userId: string = 'empty';
+  userId: string;
   user: User;
+  profileImage: string;
 
   constructor(
     private _router: Router,
@@ -40,7 +41,9 @@ export class MainPageComponent implements OnInit {
         this.databaseService.getUser(this.userId)
           .then(user => {
             console.log(user);
-            this.user = new User(user.UserId, undefined, user.FirstName, user.LastName, user.Email);
+            this.user = new User(user.UserId, undefined, user.FirstName, user.LastName, undefined, user.Email);
+            console.log('email: ' + this.user.email);
+            this.profileImage = this.user.email;
           });
       } else {
         this.user = new User();
