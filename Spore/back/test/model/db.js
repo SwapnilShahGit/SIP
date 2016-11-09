@@ -36,7 +36,7 @@ module.exports = function (){
 	
 	// -- create schema for table that will hold user information
 	var usersTable = new Schema({
-	   UserID: String,
+	   UserID: {type: String, unique: true},
 	   FirstName: String,
 	   LastName: String,
 	   Email: String,
@@ -64,7 +64,7 @@ module.exports = function (){
 	   Description: String,
 	   Type: String,
 	   DerivedFrom: Number,
-	   EventID: Number
+	   EventID: {type: Number, unique: true}
 	});
 	
 	// -- generate auto-incrementing event IDs 
