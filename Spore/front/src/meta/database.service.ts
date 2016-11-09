@@ -53,7 +53,7 @@ export class DatabaseService {
         return this.server + '/echo?value=' + something;
     }
     
-    private BuildUserFromResponse(response: Response): User {
+    private BuildUserFromResponse(response: any): User {
         if(response) {
             return new User(response.UserID, response.FirstName, response.LastName, response.Email);
         }
