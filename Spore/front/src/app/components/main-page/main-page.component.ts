@@ -35,15 +35,12 @@ export class MainPageComponent implements OnInit {
   ngOnInit() {
     console.log('_______ in main _______');
     this.Rt.params.forEach((params: Params) => {
-      console.log(params);
       if (params['id'] !== undefined) {
         this.userId = params['id'];
         this.databaseService.getUser(this.userId)
           .then(user => {
-            console.log(user);
-            this.user = new User(user.UserId, undefined, user.FirstName, user.LastName, undefined, user.Email);
-            console.log('email: ' + this.user.email);
-            this.profileImage = this.user.email;
+            this.user = user; 
+            this.profileImage = this.user.Email; //for now...
           });
       } else {
         this.user = new User();

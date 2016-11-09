@@ -24,10 +24,16 @@
         </a>
       </li>
       <li>
-        <button class="btn profile-button-style">
+        <a class="btn profile-button-style dropdown-toggle" data-toggle="dropdown">
           <img class="profile-image-style" src="{{profileImageLocation}}">
-          <span class="fa fa-lg fa-angle-down caret-colour"></span>
-        </button>
+          <span class="fa fa-lg fa-angle-down caret-style"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a>Something here</a></li>
+          <li><a>Maybe over here</a></li>
+          <li class="divider"></li>
+          <li><a (click)='facebookLogout()'>Log out</a></li>
+        </ul>
       </li>
     </ul>
   </div>

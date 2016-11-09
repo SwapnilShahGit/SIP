@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InfoCardComponent } from '../info-card/info-card.component';
 import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 import { Router } from "@angular/router";
-import { FBConnector } from './facebook/facebook';
+import { FBConnector } from '../../../assets/facebook/facebook';
 
 
 import { User } from '../../../meta/User';
@@ -30,15 +30,6 @@ export class LoginPageComponent implements OnInit {
     console.log('Spore Login');
   }
 
-  facebookLogout(event: Event) {
-    function getLoginStatus(response: FB.LoginStatusResponse) {
-      if (response && response.status === 'connected') {
-        FB.logout(getLoginStatus);
-      }
-    }
-    FB.logout(getLoginStatus);
-  }
-
   facebookLogin(event: Event) {
     let databaseService = this.databaseService;
     let reDir = this.router;
@@ -50,7 +41,6 @@ export class LoginPageComponent implements OnInit {
         FB.api('/me', { fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified' }, function (response) {
           console.log(response);
           let user = new User(userId, response);
-          console.log('user image: ' + user.profileImage);
           handleUser(user);
         });
       } else if (response.status === "unknown") {
@@ -62,11 +52,11 @@ export class LoginPageComponent implements OnInit {
     }
     
     function handleUser(user: User) {
-      databaseService.getUser(user.id).then(data => {
+      databaseService.getUser(user.UserID).then(data => {
         if (data === undefined) {
           addUser(user);
         } else {
-          redirectUser(user.id);
+          redirectUser(user.UserID);
         }
       });
     }
@@ -76,7 +66,7 @@ export class LoginPageComponent implements OnInit {
     }
 
     function addUser(user: User) {
-      databaseService.addUser(user).then(() => redirectUser(user.id));
+      databaseService.addUser(user).then(() => redirectUser(user.UserID));
     }
 
     FB.getLoginStatus(checkLogin);

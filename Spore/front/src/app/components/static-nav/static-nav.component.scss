@@ -34,16 +34,25 @@
   font-size: 12px;
 }
 .profile-button-style {
+  top: -2px;
+  height: 60px;
+  width: 80px;
   background: #C4C4C4;
 }
 .profile-image-style {
+  position: absolute;
+  top: 7px;
+  right: 26px;
   border-radius: 50%;
   height: 45px;
   width: 45px;
   border: 3px solid #ffffff;
 }
-.caret-colour {
+.caret-style {
   color: #ffffff;
+  position: absolute;
+  top: 23px;
+  right: 10px;
 }
 @media screen and (max-height: 979px) {
   .navbar-fixed-top { position: fixed; }
