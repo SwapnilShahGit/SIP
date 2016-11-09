@@ -3,19 +3,20 @@
 // -- that will be used for the 'test' database.  
 // -- Created October 11, 2016
 //_________________________________________________________________________________________________
-
+// -- import statements
+var mongoose = require('mongoose');
+var autoIncrement = require('mongoose-auto-increment');
 
 // -- group into a module
 module.exports = function (){
-	
-	// -- set up 
-	var mongoose = require('mongoose');
-	var autoIncrement = require('mongoose-auto-increment');
-	Schema = mongoose.Schema;
-	
+		
 	// -- create and start a connection to database named 'test' on localhost
 	var dbURI = 'mongodb://localhost/test' ; 
-	mongoose.connect(dbURI);
+	var connection = mongoose.connect(dbURI);
+	
+	// -- set up 
+	var Schema = mongoose.Schema;
+	autoIncrement.initialize(connection);
 
 	// -- CONNECTION EVENTS -----------------------------------------------------------------------
 	
@@ -71,7 +72,7 @@ module.exports = function (){
 	   DerivedFrom: Number,
 	   EventID: Number
 	});
-/*	
+	
 	// -- generate auto-incrementing event IDs 
 	eventLibrary.plugin(autoIncrement.plugin, {
 		model: 'Event',
@@ -79,7 +80,7 @@ module.exports = function (){
 		startAt: 0,
 		incrementBy: 1
 	});	
-*/	
+
 	// -- build the models for the schemas
 	var usersTable = mongoose.model('usersTable', usersTable);
 	var syllabusLibrary = mongoose.model('syllabusLibrary', syllabusLibrary);

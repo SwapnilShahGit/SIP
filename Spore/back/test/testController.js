@@ -50,10 +50,8 @@ module.exports = function(){
 		// -- query the database for user 
 		// -- each userID is unique so only one user should be returned
 		usersTable.findOne({UserID: id}, function(err, user){
-			// -- return error message if cannot find user
-			if (err) return callback('Error fetching user info' + err);
-			// -- return user
-			return callback(user);
+			// -- return user and err. if findOne is successful err will be null, else user will be null
+			return callback(err, user);
 		});
 	}
 	
@@ -69,8 +67,7 @@ module.exports = function(){
 			   Title: Event.title,
 			   Description: Event.description,
 			   Type: Event.type,
-			   DerivedFrom: Event.derivedFrom, 
-			   EventID: Event.eventID
+			   DerivedFrom: Event.derivedFrom
 			});
 			// -- save the new event into database
 			newEventEntry.save(function(err) {
@@ -91,10 +88,8 @@ module.exports = function(){
 		// -- query the database for eveny 
 		// -- each eventID is unique so only one user should be returned
 		eventLibrary.findOne({EventID: id}, function(err, Event){
-			// -- return error message if cannot find event
-			if (err) return callback('Error fetching event info' + err);
-			// -- return event
-			return callback(Event);   
+			// -- return Event and err. if findOne is successful err will be null, else Event will be null
+			return callback(err, Event);
 		});	
 	}
 		

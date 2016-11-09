@@ -40,7 +40,7 @@ function  testSaveUser(req, res, next){
 function  testFetchUser(req, res, next){
 	console.log("fetching user with id:" + req.query.user);
 	// -- find and fetch user info
-	testController.fetchUser(req.query.user, function(user){
+	testController.fetchUser(req.query.user, function(err, user){
 		// -- check if fetching user was succesfull
 		if (user !=null){
 			// -- send user object
@@ -48,7 +48,7 @@ function  testFetchUser(req, res, next){
 		}
 		else{
 			// -- send error message
-			res.send("Error fetching user, are you sure its the right User Id?");
+			res.send("Error fetching user, err: "+ err);
 		}	
 		// -- done
 		next();
@@ -65,8 +65,7 @@ function  testSaveEvent(req, res, next){
 		title: req.query.title,
 		description: req.query.description,
 		type: req.query.type,
-		derivedFrom: req.query.derivedFrom, 
-		eventID: req.query.eventID
+		derivedFrom: req.query.derivedFrom
 	}; 
 	// -- get the status of the save call
 	testController.saveEvent(eventInfo, function (stat){
@@ -80,7 +79,7 @@ function  testSaveEvent(req, res, next){
 function  testFetchEvent(req, res, next){
 	console.log("fetching event with id:" + req.query.eventID);
 	// -- find and fetch event info
-	testController.fetchEvent(req.query.eventID, function(Event){
+	testController.fetchEvent(req.query.eventID, function(err, Event){
 		// -- check if fetching event was succesfull
 		if (Event !=null){
 			// -- send event object
@@ -88,7 +87,7 @@ function  testFetchEvent(req, res, next){
 		}
 		else{
 			// -- send error message
-			res.send("Error fetching event, are you sure its the right Event Id?");
+			res.send("Error fetching event, err: " + err);
 		}	
 		// -- done
 		next();
