@@ -12,11 +12,11 @@ export class DatabaseService {
 
     constructor(private http: Http) { }
 
-    getUser(id: string) {
+    getUser(id: string): Promise<User> {
         return this.http
             .get(this.BuildGetRequest(id))
             .toPromise()
-            .then(response => response.json())
+            .then(response => this.BuildUserFromResponse(response.json()))
             .catch(this.handleError);
     }
 
@@ -46,10 +46,17 @@ export class DatabaseService {
     }
 
     private BuildSaveRequest(user: User): string {
-        return this.server + '/save?user=' + user.id + '&email=' + user.email + '&lname=' + user.lname + '&fname=' + user.fname;
+        return this.server + '/save?user=' + user.UserID + '&email=' + user.Email + '&lname=' + user.LastName + '&fname=' + user.FirstName;
     }
 
     private BuildEchoRequest(something: string): string {
         return this.server + '/echo?value=' + something;
+    }
+    
+    private BuildUserFromResponse(response: Response): User {
+        if(response) {
+            return new User(response.UserID, response.FirstName, response.LastName, response.Email);
+        }
+        return new User();
     }
 }
