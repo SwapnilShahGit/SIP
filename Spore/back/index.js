@@ -6,17 +6,14 @@ var restify = require('restify');
 var exec = require('child_process').exec;
 var testController = require ('./test/testController')();
 
-// -- start the server
+// -- set up
 var server = restify.createServer();
-
-// -- get the parameters of the request
 server.use(restify.queryParser({ mapParams: false }));
 
 // -- REQUEST HANDLERS ----------------------------------------------------------------------------
 
 // -- create and save user into 'test'
 function  testSaveUser(req, res, next){
-	// -- create user
 	var userInfo = {
 			userID: req.query.userID,
 			fName: req.query.fName,
@@ -27,9 +24,7 @@ function  testSaveUser(req, res, next){
 			eventID: req.query.eventID,
 			courses: req.query.courses
 	};
-	// -- get the status of the save call
 	testController.saveUser(userInfo, function(stat){
-		// -- send response and done
 		res.send(stat);
 		next();
 	});
@@ -39,18 +34,13 @@ function  testSaveUser(req, res, next){
 // -- fetch user info from 'test' given user id
 function  testFetchUser(req, res, next){
 	console.log("fetching user with id:" + req.query.user);
-	// -- find and fetch user info
 	testController.fetchUser(req.query.user, function(err, user){
-		// -- check if fetching user was succesfull
 		if (user !=null){
-			// -- send user object
 			res.send(user);
 		}
 		else{
-			// -- send error message
 			res.send("Error fetching user, err: "+ err);
 		}	
-		// -- done
 		next();
 	});
 
@@ -58,7 +48,6 @@ function  testFetchUser(req, res, next){
 
 // -- create and save event into 'test'
 function  testSaveEvent(req, res, next){
-	// -- create event
 	var eventInfo = {
 		startTime: req.query.startTime,
 		endTime: req.query.endTime,
@@ -66,10 +55,8 @@ function  testSaveEvent(req, res, next){
 		description: req.query.description,
 		type: req.query.type,
 		derivedFrom: req.query.derivedFrom
-	}; 
-	// -- get the status of the save call
+	};
 	testController.saveEvent(eventInfo, function (stat){
-		// -- send response and done
 		res.send(stat);
 		next();
 	});
@@ -78,18 +65,13 @@ function  testSaveEvent(req, res, next){
 // -- fetch event info from 'test' given event id
 function  testFetchEvent(req, res, next){
 	console.log("fetching event with id:" + req.query.eventID);
-	// -- find and fetch event info
 	testController.fetchEvent(req.query.eventID, function(err, Event){
-		// -- check if fetching event was succesfull
 		if (Event !=null){
-			// -- send event object
 			res.send(Event);
 		}
 		else{
-			// -- send error message
 			res.send("Error fetching event, err: " + err);
-		}	
-		// -- done
+		}
 		next();
 	});
 }

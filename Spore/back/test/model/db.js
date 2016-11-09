@@ -3,18 +3,15 @@
 // -- that will be used for the 'test' database.  
 // -- Created October 11, 2016
 //_________________________________________________________________________________________________
-// -- import statements
+
 var mongoose = require('mongoose');
 var autoIncrement = require('mongoose-auto-increment');
 
-// -- group into a module
 module.exports = function (){
-		
 	// -- create and start a connection to database named 'test' on localhost
 	var dbURI = 'mongodb://localhost/test' ; 
 	var connection = mongoose.connect(dbURI);
 	
-	// -- set up 
 	var Schema = mongoose.Schema;
 	autoIncrement.initialize(connection);
 
@@ -36,9 +33,6 @@ module.exports = function (){
     } );
 	
 	// -- END CONNECTION EVENTS -------------------------------------------------------------------
-	
-	
-	// -- MODELS & SCHEMA -------------------------------------------------------------------------
 	
 	// -- create schema for table that will hold user information
 	var usersTable = new Schema({
@@ -81,23 +75,17 @@ module.exports = function (){
 		incrementBy: 1
 	});	
 
-	// -- build the models for the schemas
+
 	var usersTable = mongoose.model('usersTable', usersTable);
 	var syllabusLibrary = mongoose.model('syllabusLibrary', syllabusLibrary);
 	var eventLibrary = mongoose.model('eventLibrary', eventLibrary);
-	
-	// -- END MODELS & SCHEMA ---------------------------------------------------------------------
-	
+		
 	// -- EXPORTS ---------------------------------------------------------------------------------
 	
 	var m = {};
-	
-	// -- db
 	m.mongoose = mongoose;
 	
-	// -- return exports
 	return m;
-	
 	
 	// -- END EXPORTS -----------------------------------------------------------------------------
 }
