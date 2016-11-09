@@ -24,7 +24,7 @@ export class StaticNavBar implements OnInit {
     }
   }
 
-  notifiedUser($event: Event) {
+  notifiedUser() {
     this._notificationCount += 1;
   }
 
@@ -35,7 +35,7 @@ export class StaticNavBar implements OnInit {
     return this._notificationCount.toString();
   }
 
-  facebookLogout(event: Event) {
+  facebookLogout() {
     function getLoginStatus(response: FB.LoginStatusResponse) {
       if (response && response.status === 'connected') {
         FB.logout(getLoginStatus);
