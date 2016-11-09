@@ -4,11 +4,11 @@
 //_________________________________________________________________________________________________
 var restify = require('restify');
 var exec = require('child_process').exec;
+var fs = require('fs');
 var testController = require ('./test/testController')();
 
-// -- set up
+// -- set up server
 var server = restify.createServer();
-server.use(restify.queryParser({ mapParams: false }));
 
 // -- REQUEST HANDLERS ----------------------------------------------------------------------------
 
@@ -94,6 +94,24 @@ function echoValue(req, res, next) {
 
 // -- END REQUEST HANDLERS ------------------------------------------------------------------------
 
+// -- helper function
+function redirectToHttps(req, res, next) {
+  res.redirect('https://' + req.headers.host + req.url, next);
+}
+
+// -- handle proper requests from user
+var server = restify.createServer({
+  certificate: fs.readFileSync(process.env.CERT || 'cert.pem'),
+  key: fs.readFileSync(process.env.KEY || 'key.pem'),
+  name: 'Spore'
+});
+
+server.use(restify.CORS({
+  origins: ['http://localhost:3000']
+}));
+server.use(restify.gzipResponse());
+server.use(restify.queryParser({ mapParams: false }));
+
 // -- define routes for the requests
 server.get('/save', testSaveUser);
 server.head('/save', testSaveUser);
@@ -108,12 +126,23 @@ server.head('/showEvent', testFetchEvent);
 server.get('/echo', echoValue);
 server.head('/echo', echoValue);
 
+// -- redirect requests 
 server.get(/\/?.*/, restify.serveStatic({
   directory: __dirname.concat('/../front/dist'),
-  default: 'index.html'
+  default: 'index.html',
+  maxAge: 604800
 }))
 
-// -- specify the port the server is listening on
-server.listen(process.env.PORT || 8080, function() {
+server.listen(process.env.HTTPS_PORT || 8081, function() {
   console.log('%s listening at %s', server.name, server.url);
+});
+
+httpServer = restify.createServer({
+  name: 'HTTP Redirection Server'
+});
+
+httpServer.get(/\/?.*/, redirectToHttps);
+
+httpServer.listen(process.env.HTTP_PORT || 8080, function() {
+  console.log('%s listening at %s', httpServer.name, httpServer.url);
 });
