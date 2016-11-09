@@ -5,7 +5,7 @@
 var restify = require('restify');
 var exec = require('child_process').exec;
 var fs = require('fs');
-var dbController = require('./test/dbController')();
+var dbController = require('./database/dbController')();
 
 // -- set up server
 var server = restify.createServer();
