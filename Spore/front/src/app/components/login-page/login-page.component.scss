@@ -95,6 +95,10 @@
   background-color: #dd4b39;
   border-color: rgba(0,0,0,0.2);
 }
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
 @media screen and (max-width: 767px) {
   #sign-in, #sign-in-buttons {
     text-align: center;
