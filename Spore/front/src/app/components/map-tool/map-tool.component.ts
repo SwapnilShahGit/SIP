@@ -22,7 +22,6 @@ export class MapToolComponent implements OnInit {
     public geoFindMe() {
 
         var location = document.getElementById("location");
-        //var options = document.getElementById("options");
 
         if (!navigator.geolocation) {
             location.innerHTML = "<p>Geolocation is not supported by your browser</p>";
@@ -95,8 +94,6 @@ export class MapToolComponent implements OnInit {
             });
 
             mapResultList[i] = (new MapResult(place));
-            console.log(mapResultList);
-            //options.innerHTML += '<p>' + label + ' => ' + place.name + '. cost: ' + place.price_level + '. rating:  ' + place.rating + '</p>';
 
             google.maps.event.addListener(marker, 'click', function () {
                 infowindow.setContent(place.name);
@@ -117,7 +114,6 @@ export class MapToolComponent implements OnInit {
         };
 
         location.innerHTML = "<p>Locating…</p>";
-        //options.innerHTML = '';
 
         navigator.geolocation.getCurrentPosition(success, error);
     }
