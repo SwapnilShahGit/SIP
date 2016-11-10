@@ -3,7 +3,7 @@
 	<h2>Dynamic Tabs</h2>
 	<ul class="nav nav-tabs">
 		<li class="brand active"><a>I'm looking for:</a></li>
-		<li ><a data-toggle="tab" href="#Food">Food</a></li>
+		<li><a data-toggle="tab" href="#Food">Food</a></li>
 		<li><a data-toggle="tab" href="#Library">Library</a></li>
 		<li><a data-toggle="tab" href="#Mall">Mall</a></li>
 	</ul>
@@ -31,19 +31,13 @@
 		</div>
 	</div>
 	<div class="col-md-5">
-		<div id="result-section" class="list-group">
-			<a class="list-group-item list-group-item-action active">
-				<h5 class="list-group-item-heading">List group item heading</h5>
-				<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-			</a>
-			<a class="list-group-item list-group-item-action">
-				<h5 class="list-group-item-heading">List group item heading</h5>
-				<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-			</a>
-			<a class="list-group-item list-group-item-action">
-				<h5 class="list-group-item-heading">List group item heading</h5>
-				<p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-			</a>
+		<div id="result-section">
+			<div class="list-group" *ngFor="let result of mapResultList">
+				<a class="list-group-item list-group-item-action" *ngIf="result">
+					<h5 class="list-group-item-heading">{{result?.Name}}</h5>
+					<p class="list-group-item-text">Price: {{result?.Price || "N/A"}}, Rating: {{result?.Rating || "N/A"}}, Open: {{result?.Open}} <br> Location: {{result?.Location}}</p>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>

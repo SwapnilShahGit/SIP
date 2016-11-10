@@ -2,6 +2,7 @@ import { StaticNavBar } from '../static-nav/static-nav.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FooterBarComponent } from '../footer-bar/footer-bar.component';
+import { MapResult } from './mapResult';
 declare var google: any;
 
 @Component({
@@ -12,6 +13,7 @@ declare var google: any;
 export class MapToolComponent implements OnInit {
 
     private inputLocation: string = '';
+    private mapResultList: Array<MapResult> = new Array<MapResult>();
 
     ngOnInit() {
     }
@@ -20,12 +22,14 @@ export class MapToolComponent implements OnInit {
     public geoFindMe() {
 
         var location = document.getElementById("location");
-        var options = document.getElementById("options");
+        //var options = document.getElementById("options");
 
         if (!navigator.geolocation) {
             location.innerHTML = "<p>Geolocation is not supported by your browser</p>";
             return;
         }
+
+        let mapResultList = this.mapResultList;
 
         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var labelIndex = 0;
@@ -74,13 +78,14 @@ export class MapToolComponent implements OnInit {
 
         function callback(results, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
-                for (var i = 0; i < results.length; i++) {
-                    createMarker(results[i]);
+                // for (var i = 0; i < results.length; i++) {
+                for (var i = 0; i < Math.min(5, results.length); i++) {
+                    createMarker(results[i], i);
                 }
             }
         }
 
-        function createMarker(place) {
+        function createMarker(place, i) {
             var placeLoc = place.geometry.location;
             var label = labels[labelIndex++ % labels.length];
             var marker = new google.maps.Marker({
@@ -89,7 +94,9 @@ export class MapToolComponent implements OnInit {
                 position: place.geometry.location
             });
 
-            options.innerHTML += '<p>' + label + ' => ' + place.name + '. cost: ' + place.price_level + '. rating:  ' + place.rating + '</p>';
+            mapResultList[i] = (new MapResult(place));
+            console.log(mapResultList);
+            //options.innerHTML += '<p>' + label + ' => ' + place.name + '. cost: ' + place.price_level + '. rating:  ' + place.rating + '</p>';
 
             google.maps.event.addListener(marker, 'click', function () {
                 infowindow.setContent(place.name);
@@ -110,7 +117,7 @@ export class MapToolComponent implements OnInit {
         };
 
         location.innerHTML = "<p>Locating…</p>";
-        options.innerHTML = '';
+        //options.innerHTML = '';
 
         navigator.geolocation.getCurrentPosition(success, error);
     }
