@@ -36,12 +36,19 @@ export class StaticNavBar implements OnInit {
   }
 
   facebookLogout() {
-    function getLoginStatus(response: FB.LoginStatusResponse) {
-      if (response && response.status === 'connected') {
-        FB.logout(getLoginStatus);
+    let router = this.router;
+    
+    function checkResponse(response: FB.LoginStatusResponse) {
+      console.log('status: ' + response.status);
+      if(response && response.status === 'connected') {
+        FB.logout(checkResponse);
+      } else if(response && response.status === 'unknown') {
+        router.navigate(['/login']);
+      } else if(response && response.status === 'not_authorized') {
+        router.navigate(['/login']); // not sure when this is possible...
       }
     }
-    FB.logout(getLoginStatus);
-    this.router.navigate(['/login']);
+
+    FB.getLoginStatus(checkResponse);
   }
 }
