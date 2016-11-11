@@ -6,6 +6,17 @@
   background: -o-linear-gradient(bottom right, #f89722, #fdc943); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, #f89722, #fdc943); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, #f89722, #fdc943); /* Standard syntax (must be last) */
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: -1;
+}
+
+app:empty + .loading {
+  opacity: 1;
+  z-index: 5;
 }
 
 .loading-icon {
@@ -13,6 +24,7 @@
   left: 48%;
   font-size: 50px;
   color: white;
+  bottom: 38%;
 }
 
 .loading-image {
