@@ -1,5 +1,35 @@
-<!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
 <div class="container-fluid">
+	<p>
+		I'm looking for:
+		<input #userPointOfInterestInput class="pointOfInterestInput" placeholder="point of interest" type="text" (keyup.enter)="inputPointOfInterest=userPointOfInterestInput.value;">
+		<br><br> near
+		<button (click)="custom=false; geoFindMe()">My location</button> or
+		<input #userLocationInput id="autocomplete" class="locationInput" placeholder="location" (click)="setUpAutoFill()" type="text" (keyup.enter)="inputLocation=userLocationInput.value; custom=true; geoFindMe();">
+		within
+		<input #userRadiusInput class="radiusInput" placeholder="1000" type="text" (keyup.enter)="inputRadius=userRadiusInput.value;">
+		<button (click)="inputLocation=userLocationInput.value; geoFindMe();">Go</button>
+	</p>
+</div>
+
+<div class="container-fluid">
+	<div class="col-md-7">
+		<div id="map-section" style="position:relative;">
+			<div id="map" style="position:absolute;top:0;right:0;bottom:0;left:0;"></div>
+		</div>
+	</div>
+	<div class="col-md-5">
+		<div id="result-section">
+			<div class="list-group" *ngFor="let result of mapResultList">
+				<a class="list-group-item list-group-item-action" *ngIf="result">
+					<h5 class="list-group-item-heading">{{result?.Name}}</h5>
+					<p class="list-group-item-text">Price: {{result?.Price || "N/A"}}, Rating: {{result?.Rating || "N/A"}}, Open: {{result?.Open}} <br> Location: {{result?.Location}}</p>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--<div class="container-fluid">
 	<h2>Dynamic Tabs</h2>
 	<ul class="nav nav-tabs">
 		<li class="brand active"><a>I'm looking for:</a></li>
@@ -7,21 +37,32 @@
 		<li><a data-toggle="tab" href="#Library">Library</a></li>
 		<li><a data-toggle="tab" href="#Mall">Mall</a></li>
 	</ul>
+	<h1>I'm looking for</h1>
+	<span><div class="dropdown">
+		<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example<span class="caret"></span></button>
+	<ul class="dropdown-menu">
+		<li><a href="#">HTML</a></li>
+		<li><a href="#">CSS</a></li>
+		<li><a href="#">JavaScript</a></li>
+	</ul>
+</div>
+</span>
 
-	<div class="tab-content">
-		<div id="Food" class="tab-pane fade">
-			<h3>Food</h3>
-			<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-		</div>
-		<div id="Library" class="tab-pane fade">
-			<h3>Library</h3>
-			<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-		</div>
-		<div id="Mall" class="tab-pane fade">
-			<h3>Mall</h3>
-			<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-		</div>
+
+<div class="tab-content">
+	<div id="Food" class="tab-pane fade">
+		<h3>Food</h3>
+		<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 	</div>
+	<div id="Library" class="tab-pane fade">
+		<h3>Library</h3>
+		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+	</div>
+	<div id="Mall" class="tab-pane fade">
+		<h3>Mall</h3>
+		<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+	</div>
+</div>
 </div>
 
 <div class="container-fluid">
@@ -49,9 +90,10 @@
 			<input #userInput id="autocomplete" placeholder="Enter your address" (click)="setUpAutoFill()" type="text" (keyup.enter)="inputLocation=userInput.value; geoFindMeCustom();">
 			<button (click)="inputLocation=userInput.value; geoFindMeCustom();">Enter</button>
 		</p>
-		<!--<p>Current stored value: {{inputLocation}}</p>-->
 	</div>
 	<p id="location"></p>
-	<!--<div id="map" style="width:900px;height:600px;"></div>-->
 	<div id="options"></div>
+</div>-->
+<div class="container-fluid">
+	<p id="location"></p>
 </div>
