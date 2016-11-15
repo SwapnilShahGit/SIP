@@ -3,7 +3,7 @@
 <div id="mySidenav" class="sidenav" [ngStyle]="{'width': _slideWidth}">
   <span class="fa fa-angle-down carot-style carot"></span>
   <div class="dropdown">
-    <a id="sidenav-selection" class="dropdown-toggle" data-toggle="dropdown">{{SelectedSchool}}</a>
+    <a class="sidenav-selection dropdown-toggle {{_color}}" data-toggle="dropdown" style="font-size: 16px; color: white">{{SelectedSchool}}</a>
     <ul class="dropdown-menu">
       <li><a class="sidenav-item" (click)="selectUofT()">Toronto</a></li>
       <li><a class="sidenav-item" (click)="selectSheridan()">Sheridan</a></li>

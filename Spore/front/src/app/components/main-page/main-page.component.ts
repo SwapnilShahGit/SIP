@@ -14,6 +14,7 @@ import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 export class MainPageComponent implements OnInit {
 
   private SelectedSchool: string = "Please select your school";
+  private _color: string = '';
   private CurrentTab: string = "DefaultTab";
   private _slideWidth: string;
   private _slideLeft: string;
@@ -32,14 +33,17 @@ export class MainPageComponent implements OnInit {
 
   public selectUofT() {
     this.SelectedSchool = "University of Toronto";
+    this._color = 'light-blue';
   }
 
   public selectSheridan() {
     this.SelectedSchool = "Sheridan College";
+    this._color = 'navy-blue';
   }
 
   public selectNoSchool() {
     this.SelectedSchool = "Ain't got no time for that";
+    this._color = 'green';
   }
 
   public openNav() {
