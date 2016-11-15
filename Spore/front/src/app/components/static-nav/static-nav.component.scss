@@ -24,7 +24,7 @@
 .notification-number-style {
   position: absolute;
   background: #ffffff;
-  color: #F9B149;
+  color: $color-spore-navy-blue;
   width: 20px;
   height: 20px;
   text-align: center;
@@ -32,7 +32,7 @@
   top: 2px;
   line-height: 18px;
   border-radius: 50%;
-  border: 2px solid #F9B149;
+  border: 2px solid $color-spore-navy-blue;
   font-size: 12px;
 }
 .profile-button-style {
