@@ -1,7 +1,9 @@
+@import '../../../assets/styles/spore-colors';
+
 #nav-style {
   height: 65px;
   padding: 5px 75px;
-  background: #C4C4C4;
+  background: darken($color-spore-yellow, 15%);
   color: #ffffff;
 }
 .sporeButtonStyle {
@@ -9,7 +11,7 @@
   font-family: "Arial Black", Gadget, sans-serif;
   font-weight: bold;
   color: #ffffff;
-  background: #C4C4C4;
+  background: darken($color-spore-yellow, 15%);
 }
 .notification-button-style {
   margin: 10px;
@@ -34,7 +36,7 @@
   font-size: 12px;
 }
 .profile-button-style {
-  background: #C4C4C4;
+  background: darken($color-spore-yellow, 15%);
 }
 .profile-image-style {
   border-radius: 50%;
