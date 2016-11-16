@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'static-nav',
   templateUrl: './static-nav.component.html',
-  styleUrls: ['./static-nav.component.css']
+  styleUrls: ['./static-nav.component.scss']
 })
 export class StaticNavBar {
 
