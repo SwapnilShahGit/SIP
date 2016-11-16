@@ -1,12 +1,14 @@
+@import '../../../assets/styles/spore-colors';
+
 .search-box-style {
   border-radius: 50px;
   text-indent: 20px;
-  background: #D3D3D3;
+  background: white;
   border: 1px solid #aaa;
 }
 .search-box-icon-style {
   left: 25px;
   top: 10px;
   position: absolute;
-  color: #FCFCFC;
+  color: $color-spore-grey;
 }
