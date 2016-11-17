@@ -10,6 +10,8 @@ import { LeftSlideOut } from './components/left-slide-out/left-slide-out.compone
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import {ButtonModule} from 'primeng/primeng';
+import {CalendarModule} from 'primeng/primeng';
 
 import { AppRoutingModule } from './app.routes';
 
@@ -54,7 +56,9 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ButtonModule,
+    CalendarModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
