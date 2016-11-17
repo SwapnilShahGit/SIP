@@ -34,6 +34,7 @@
   <span class="btn btn-default" (click)="openNav()">open</span>
   <span class="btn btn-default" (click)="closeNav()">close</span>
   <h1>{{CurrentTab}}</h1>
+  <h1>Welcome {{user.LastName}} {{user.FirstName}}!</h1>
 
   <div *ngIf="CurrentTab == this.tabsHelper.DefaultTab">
     <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
@@ -93,9 +94,7 @@
     <input type="text" [(ngModel)]='echoInput'>
     <button (click)='echoTester()'>click to echo</button>
     <h1>Echo response: {{echoResponse}}</h1>
-    <div *ngIf='user'>
     <h1>Welcome {{user.LastName}} {{user.FirstName}}!</h1>
-    </div>
   </div>
 
   <div *ngIf="CurrentTab == this.tabsHelper.MapTab">

@@ -5,8 +5,10 @@ import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 import { Http, Response } from '@angular/http';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/User';
+import { IUser } from '../../../meta/interfaces';
 import { TabsHelper } from '../../../meta/tabsHelper';
 import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-main-page',
@@ -24,7 +26,7 @@ export class MainPageComponent implements OnInit {
   private echoResponse: string = '...';
   private echoInput: string = 'echo';
   userID: string;
-  user: User;
+  user: User = new User(null, 'aaa', 'bbb');
   profileImage: string;
 
   constructor(
@@ -40,10 +42,14 @@ export class MainPageComponent implements OnInit {
       if(params['id'] !== undefined) {
         this.userID = params['id'];
         this.databaseService.getUser(this.userID)
-          .then(user => {
-            this.user = user;
-            this.profileImage = this.user.Email; // for now...
-          });
+        .subscribe((user: IUser) => {
+          this.user = user;
+          this.profileImage = this.user.Email;
+        });
+          // .then(user => {
+          //   this.user = user;
+          //   this.profileImage = this.user.Email; // for now...
+          // });
       }
     });
     this.openNav();
