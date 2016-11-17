@@ -4,7 +4,7 @@ import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 import { Router } from "@angular/router";
 import { FBConnector } from '../../../assets/facebook/facebook';
 
-
+import { Observable } from 'rxjs/Rx';
 import { User } from '../../../meta/User';
 import { DatabaseService } from '../../../meta/database.service';
 
@@ -52,13 +52,14 @@ export class LoginPageComponent implements OnInit {
     }
     
     function handleUser(user: User) {
-      databaseService.getUser(user.UserID).then(data => {
-        if (data === undefined) {
-          addUser(user);
-        } else {
-          redirectUser(user.UserID);
-        }
-      });
+      // databaseService.getUser(user.UserID).then(data => {
+      //   if (data === undefined) {
+      //     addUser(user);
+      //   } else {
+      //     redirectUser(user.UserID);
+      //   }
+      // });
+      redirectUser("10210550935318262");
     }
 
     function redirectUser(id: string) {
@@ -66,7 +67,7 @@ export class LoginPageComponent implements OnInit {
     }
 
     function addUser(user: User) {
-      databaseService.addUser(user).then(() => redirectUser(user.UserID));
+      // databaseService.addUser(user).then(() => redirectUser(user.UserID));
     }
 
     FB.getLoginStatus(checkLogin);
