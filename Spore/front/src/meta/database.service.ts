@@ -12,7 +12,7 @@ export class DatabaseService {
 
     constructor(private http: Http) { }
 
-    getUser(id: string): Promise<User> {
+    getUser(id: string): any {
         return this.http
             .get(this.BuildGetRequest(id))
             .toPromise()
@@ -20,7 +20,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    addUser(user: User): Promise<Response> {
+    addUser(user: User): any {
         return this.http
             .get(this.BuildSaveRequest(user))
             .toPromise()
@@ -28,7 +28,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    echo(something: string) {
+    echo(something: string): any {
         return this.http
             .get(this.BuildEchoRequest(something))
             .toPromise()
