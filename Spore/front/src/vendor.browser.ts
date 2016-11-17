@@ -5,6 +5,9 @@
 
 // TODO(gdi2290): switch to DLLs
 
+// PrimeNG
+import 'script!primeui/primeui-ng-all.min.js';
+
 // Angular 2
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';

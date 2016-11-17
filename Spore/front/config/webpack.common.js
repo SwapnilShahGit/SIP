@@ -88,7 +88,22 @@ module.exports = function (options) {
     module: {
 
       rules: [
-
+        /*
+         * Source map loader support for *.js files
+         * Extracts SourceMaps for source files that as added as sourceMappingURL comment.
+         *
+         * See: https://github.com/webpack/source-map-loader
+         */
+        {
+          test: /\.js$/,
+          loader: 'source-map-loader',
+          exclude: [
+            // these packages have problems with their sourcemaps
+            helpers.root('node_modules/rxjs'),
+            helpers.root('node_modules/@angular2-material'),
+            helpers.root('node_modules/primeng')
+          ]
+        },
         /*
          * Typescript loader support for .ts and Angular 2 async routes via .async.ts
          * Replace templateUrl and stylesUrl with require()
@@ -211,7 +226,19 @@ module.exports = function (options) {
         to: 'assets',
       }, {
         from: 'src/meta',
-      }, ]),
+      },
+        {
+          from: 'node_modules/primeui/themes/delta/theme.css',
+          to: 'assets/primeui/themes/delta/theme.css'
+        },
+        {
+          from: 'node_modules/primeui/themes/delta/images/',
+          to: 'assets/primeui/themes/delta/images'
+        },
+        {
+          from: 'node_modules/primeui/primeui-ng-all.min.css',
+          to: 'assets/primeui/primeui-ng-all.min.css'
+        }]),
 
 
       /*
