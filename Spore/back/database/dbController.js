@@ -27,7 +27,7 @@ module.exports = function(){
       });
       newUserEntry.save(function(err) {
         if (err) return callback('Error saving user into database: ' + err); 
-        return callback ('User succefully saved into database');
+        return callback (null);
       });
       
     }
