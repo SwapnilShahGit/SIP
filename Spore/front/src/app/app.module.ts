@@ -12,6 +12,7 @@ import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import {ButtonModule} from 'primeng/primeng';
 import {CalendarModule} from 'primeng/primeng';
+import {CalendarComponent} from "angular2-fullcalendar/src/calendar/calendar";
 
 import { AppRoutingModule } from './app.routes';
 
@@ -24,6 +25,7 @@ import { ENV_PROVIDERS } from './environment';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
+import { ScheduleModule } from 'primeng/primeng';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -50,7 +52,8 @@ type StoreType = {
     LeftSlideOut,
     SearchBarComponent,
     StaticNavBar,
-    MainPageComponent
+    MainPageComponent,
+    CalendarComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -58,7 +61,8 @@ type StoreType = {
     HttpModule,
     AppRoutingModule,
     ButtonModule,
-    CalendarModule
+    CalendarModule,
+    ScheduleModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
