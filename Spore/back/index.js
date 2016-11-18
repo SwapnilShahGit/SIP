@@ -13,7 +13,7 @@ var server = restify.createServer();
 // -- REQUEST HANDLERS ----------------------------------------------------------------------------
 
 // -- create and save user into 'test'
-function  testSaveUser(req, res, next){
+function testSaveUser(req, res, next) {
   var userInfo = {
     userID: req.query.u,
     fName: req.query.first,
@@ -24,30 +24,39 @@ function  testSaveUser(req, res, next){
     eventID: req.query.e,
     courses: "stub"
   };
-  dbController.saveUser(userInfo, function(stat){
-    res.send(stat);
+  dbController.saveUser(userInfo, function(err){
+    if (err) res.send({
+      error: 110,
+      data: "error"
+    })
+    res.send({
+      error: 0,
+      data: 'User successfully saved into database'
+    });
     next();
   });
 
 }
 
 // -- fetch user info from 'test' given user id
-function  testFetchUser(req, res, next){
+function testFetchUser(req, res, next) {
   console.log("fetching user with id:" + req.query.u);
   dbController.fetchUser(req.query.u, function(err, user){
-    if (user !=null){
-      res.send(user);
-    }
-    else{
-      res.send("Error fetching user, err: "+ err);
-    } 
+    if (!user || err) res.send({
+      error: 110,
+      data: "error"
+    })
+    res.send({
+      error: 0,
+      data: user
+    });
     next();
   });
 
 }
 
 // -- create and save event into 'test'
-function  testSaveEvent(req, res, next){
+function testSaveEvent(req, res, next) {
   var eventInfo = {
     startTime: req.query.start,
     endTime: req.query.end,
