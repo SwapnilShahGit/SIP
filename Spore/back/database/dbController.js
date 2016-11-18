@@ -59,7 +59,7 @@ module.exports = function(){
       });
       newEventEntry.save(function(err) {
         if (err) return callback('Error saving event into datbase: ' + err);
-          return callback('event succefully saved into database');
+          return callback(null);
       });
       
     }
