@@ -15,14 +15,14 @@ var server = restify.createServer();
 // -- create and save user into 'test'
 function  testSaveUser(req, res, next){
   var userInfo = {
-    userID: req.query.userID,
-    fName: req.query.fName,
-    lName: req.query.lName,
+    userID: req.query.u,
+    fName: req.query.first,
+    lName: req.query.last,
     email: req.query.email,
     school: req.query.school,
-    pass: req.query.pass,
-    eventID: req.query.eventID,
-    courses: req.query.courses
+    pass: req.query.p,
+    eventID: req.query.e,
+    courses: "stub"
   };
   dbController.saveUser(userInfo, function(stat){
     res.send(stat);
@@ -33,8 +33,8 @@ function  testSaveUser(req, res, next){
 
 // -- fetch user info from 'test' given user id
 function  testFetchUser(req, res, next){
-  console.log("fetching user with id:" + req.query.userID);
-  dbController.fetchUser(req.query.userID, function(err, user){
+  console.log("fetching user with id:" + req.query.u);
+  dbController.fetchUser(req.query.u, function(err, user){
     if (user !=null){
       res.send(user);
     }
@@ -49,12 +49,12 @@ function  testFetchUser(req, res, next){
 // -- create and save event into 'test'
 function  testSaveEvent(req, res, next){
   var eventInfo = {
-    startTime: req.query.startTime,
-    endTime: req.query.endTime,
+    startTime: req.query.start,
+    endTime: req.query.end,
     title: req.query.title,
-    description: req.query.description,
+    description: req.query.desc,
     type: req.query.type,
-    derivedFrom: req.query.derivedFrom
+    derivedFrom: req.query.from
   };
   dbController.saveEvent(eventInfo, function (stat){
     res.send(stat);
@@ -64,8 +64,8 @@ function  testSaveEvent(req, res, next){
 
 // -- fetch event info from 'test' given event id
 function  testFetchEvent(req, res, next){
-  console.log("fetching event with id:" + req.query.eventID);
-  dbController.fetchEvent(req.query.eventID, function(err, Event){
+  console.log("fetching event with id:" + req.query.e);
+  dbController.fetchEvent(req.query.e, function(err, Event){
     if (Event !=null){
       res.send(Event);
     }
