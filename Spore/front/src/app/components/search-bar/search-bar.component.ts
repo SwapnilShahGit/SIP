@@ -1,6 +1,3 @@
-/**
- * Created by anatale on 10/28/2016.
- */
 import { Component } from '@angular/core';
 
 @Component({

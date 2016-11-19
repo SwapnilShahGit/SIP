@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { IUser } from '../meta/interfaces';
+import { User } from '../meta/user';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class DatabaseService {
@@ -15,30 +13,30 @@ export class DatabaseService {
 
     constructor(private http: Http) { }
 
-    getUser(id: string): Observable<IUser> { //change to Observable<User>
-        // return this.http
-        //     .get(this.BuildGetRequest(id))
-        //     .toPromise()
-        //     .then(response => this.BuildUserFromResponse(response.json()))
-        //     .catch(this.handleError);
-
+    getUser(id: string): any { //Observable<IUser>
         return this.http
             .get(this.BuildGetRequest(id))
-            .map((res: Response) => res.json())
+            .toPromise()
+            .then(response => this.BuildUserFromResponse(response.json()))
             .catch(this.handleError);
+
+        // return this.http
+        //     .get(this.BuildGetRequest(id))
+        //     .map((res: Response) => res.json())
+        //     .catch(this.handleError);
     }
 
-    addUser(user: IUser): Observable<any> {
-        // return this.http
-        //     .get(this.BuildSaveRequest(user))
-        //     .toPromise()
-        //     .then(response => response.json().data as Response)
-        //     .catch(this.handleError);
-
+    addUser(user: User): any { //Observable<any>
         return this.http
             .get(this.BuildSaveRequest(user))
-            .map((res: Response) => res.json())
+            .toPromise()
+            .then(response => response.json().data as Response)
             .catch(this.handleError);
+
+        // return this.http
+        //     .get(this.BuildSaveRequest(user))
+        //     .map((res: Response) => res.json())
+        //     .catch(this.handleError);
     }
 
     echo(something: string): any {
@@ -51,26 +49,26 @@ export class DatabaseService {
 
     private handleError(error: any) {
         console.error('IN ERROR HANDLER: An error occurred: ', error);
-        // return Promise.reject(error.message || error);
-        return Observable.throw(error.json().error || 'Server error');
+        return Promise.reject(error.message || error);
+        // return Observable.throw(error.json().error || 'Server error');
     }
 
     private BuildGetRequest(id: string): string {
-        return this.server + '/get?user=' + id;
+        return this.server + '/get?u=' + id;
     }
 
-    private BuildSaveRequest(user: IUser): string {
-        return this.server + '/save?user=' + user.UserID + '&email=' + user.Email + '&lname=' + user.LastName + '&fname=' + user.FirstName;
+    private BuildSaveRequest(user: User): string {
+        return this.server + '/save?u=' + user.UserID + '&email=' + user.Email + '&last=' + user.LastName + '&first=' + user.FirstName;
     }
 
     private BuildEchoRequest(something: string): string {
         return this.server + '/echo?value=' + something;
     }
     
-    // private BuildUserFromResponse(response: any): IUser {
-    //     if(response) {
-    //         return new User(response.UserID, response.FirstName, response.LastName, response.Email);
-    //     }
-    //     return new User();
-    // }
+    private BuildUserFromResponse(response: any): User {
+        if(response && response.data) {
+            return new User(response.data.UserID, response.data.FirstName, response.data.LastName, response.data.Email);
+        }
+        return new User();
+    }
 }

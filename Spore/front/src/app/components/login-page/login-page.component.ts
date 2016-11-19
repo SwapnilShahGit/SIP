@@ -3,9 +3,8 @@ import { InfoCardComponent } from '../info-card/info-card.component';
 import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 import { Router } from "@angular/router";
 import { FBConnector } from '../../../assets/facebook/facebook';
-
 import { Observable } from 'rxjs/Rx';
-import { User } from '../../../meta/User';
+import { User } from '../../../meta/user';
 import { DatabaseService } from '../../../meta/database.service';
 
 @Component({
@@ -40,7 +39,7 @@ export class LoginPageComponent implements OnInit {
         let userId = response.authResponse.userID;
         FB.api('/me', { fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified' }, function (response) {
           console.log(response);
-          let user = new User(userId, response);
+          let user = new User(userId, response.first_name, response.last_name, response.picture.data.url);
           handleUser(user);
         });
       } else if (response.status === "unknown") {
@@ -52,14 +51,13 @@ export class LoginPageComponent implements OnInit {
     }
     
     function handleUser(user: User) {
-      // databaseService.getUser(user.UserID).then(data => {
-      //   if (data === undefined) {
-      //     addUser(user);
-      //   } else {
-      //     redirectUser(user.UserID);
-      //   }
-      // });
-      redirectUser("10210550935318262");
+      databaseService.getUser(user.UserID).then(data => {
+        if (data.error != "0") {
+          addUser(user);
+        } else {
+          redirectUser(user.UserID);
+        }
+      });
     }
 
     function redirectUser(id: string) {
@@ -67,7 +65,7 @@ export class LoginPageComponent implements OnInit {
     }
 
     function addUser(user: User) {
-      // databaseService.addUser(user).then(() => redirectUser(user.UserID));
+      databaseService.addUser(user).then(() => redirectUser(user.UserID));
     }
 
     FB.getLoginStatus(checkLogin);
