@@ -1,12 +1,12 @@
-<div class="container-fluid">
+<!--<div class="container-fluid">
 	<p>
-		I'm looking for:
+		I'm looking for
 		<input #userPointOfInterestInput class="pointOfInterestInput" placeholder="point of interest" type="text" (keyup.enter)="inputPointOfInterest=userPointOfInterestInput.value;">
-		<br><br> near
-		<button (click)="custom=false; geoFindMe()">My location</button> or
-		<input #userLocationInput id="autocomplete" class="locationInput" placeholder="location" (click)="setUpAutoFill()" type="text" (keyup.enter)="inputLocation=userLocationInput.value; custom=true; geoFindMe();">
 		within
 		<input #userRadiusInput class="radiusInput" placeholder="1000" type="text" (keyup.enter)="inputRadius=userRadiusInput.value;">
+		<br><br> of
+		<button (click)="custom=false; geoFindMe()">My location</button> or
+		<input #userLocationInput id="autocomplete" class="locationInput" placeholder="location" (click)="setUpAutoFill()" type="text" (keyup.enter)="inputLocation=userLocationInput.value; custom=true; geoFindMe();">
 		<button (click)="inputLocation=userLocationInput.value; geoFindMe();">Go</button>
 	</p>
 </div>
@@ -17,7 +17,12 @@
 			<div id="map" style="position:absolute;top:0;right:0;bottom:0;left:0;"></div>
 		</div>
 	</div>
+	<div id="right-panel">
+      <h2>Results</h2>
+      <ul id="places"></ul>
 	<div class="col-md-5">
+		<h2>Results</h2>
+      	<ul id="places"></ul>
 		<div id="result-section">
 			<div class="list-group" *ngFor="let result of mapResultList">
 				<a class="list-group-item list-group-item-action" *ngIf="result">
@@ -26,6 +31,14 @@
 				</a>
 			</div>
 		</div>
+	</div>
+</div>-->
+<div class="container-fluid">
+	<div id="map"></div>
+	<div id="right-panel">
+		<h2>Results</h2>
+		<ul id="places"></ul>
+		<button id="more">More results</button>
 	</div>
 </div>
 
