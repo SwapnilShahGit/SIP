@@ -1,10 +1,11 @@
-/**
- * Created by anatale on 10/28/2016.
- */
 import { StaticNavBar } from '../static-nav/static-nav.component';
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import { FooterBarComponent } from '../footer-bar/footer-bar.component';
+import { Http, Response } from '@angular/http';
+import { DatabaseService } from '../../../meta/database.service';
+import { User } from '../../../meta/user';
+import { TabsHelper } from '../../../meta/tabsHelper';
 
 @Component({
   selector: 'app-main-page',
@@ -15,76 +16,68 @@ export class MainPageComponent implements OnInit {
 
   private SelectedSchool: string = "Please select your school";
   private _color: string = '';
-  private CurrentTab: string = "DefaultTab";
+  private CurrentTab: string;
   private _slideWidth: string;
   private _slideLeft: string;
 
+  private echoResponse: string = '...';
+  private echoInput: string = 'echo';
+  userID: string;
+  user: User = new User(null, 'aaa', 'bbb');
+  profileImage: string;
+
+  constructor(
+    private router: Router,
+    private activatedRouter: ActivatedRoute,
+    private databaseService: DatabaseService,
+    private tabsHelper: TabsHelper
+  ) { this.CurrentTab = tabsHelper.DefaultTab; }
 
   ngOnInit() {
+    console.log('_______ in main _______');
+    this.activatedRouter.params.forEach((params: Params) => {
+      if(params['id'] !== undefined) {
+        this.userID = params['id'];
+        this.databaseService.getUser(this.userID)
+          .then(user => {
+            this.user = user;
+            this.profileImage = user.Email; // for now...
+          });
+      }
+    });
     this.openNav();
   }
 
-  constructor(private _router: Router) {
+  echoTester() {
+    this.databaseService.echo(this.echoInput).then(data => this.echoResponse = data);
   }
 
-  public navigateToLoginPage() {
-    this._router.navigate(['/login']);
+  navigateToLoginPage() {
+    this.router.navigate(['/login']);
   }
 
-  public selectUofT() {
+  selectUofT() {
     this.SelectedSchool = "University of Toronto";
     this._color = 'light-blue';
   }
 
-  public selectSheridan() {
+  selectSheridan() {
     this.SelectedSchool = "Sheridan College";
     this._color = 'navy-blue';
   }
 
-  public selectNoSchool() {
+  selectNoSchool() {
     this.SelectedSchool = "Ain't got no time for that";
     this._color = 'green';
   }
 
-  public openNav() {
+  openNav() {
     this._slideWidth = '250px';
     this._slideLeft = '250px';
   }
 
-  public closeNav() {
+  closeNav() {
     this._slideWidth = '0px';
     this._slideLeft = '0px';
-  }
-
-  public selectTabCalendar() {
-    this.CurrentTab = "TabCalendar";
-  }
-
-  public selectTabCalculator() {
-    this.CurrentTab = "TabCalculator";
-  }
-
-  public selectTabCourses() {
-    this.CurrentTab = "TabCourses";
-  }
-
-  public selectTabReminders() {
-    this.CurrentTab = "TabReminders";
-  }
-
-  public selectTabFiles() {
-    this.CurrentTab = "TabFiles";
-  }
-
-  public selectTabHelp() {
-    this.CurrentTab = "TabHelp";
-  }
-
-  public selectTabMap() {
-    this.CurrentTab = "TabMap";
-  }
-
-  public selectTabDefault() {
-    this.CurrentTab = "DefaultTab";
   }
 }
