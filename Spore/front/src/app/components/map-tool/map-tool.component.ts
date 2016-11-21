@@ -24,7 +24,7 @@ export class MapToolComponent implements OnInit {
 
     public initMap() {
         var map;
-        var center = {lat: 43.5479, lng: -79.6609}; //turn this in to custom later on...
+        var center = { lat: 43.5479, lng: -79.6609 }; //turn this in to custom later on...
 
         map = new google.maps.Map(document.getElementById('map'), {
             center: center,
@@ -42,13 +42,11 @@ export class MapToolComponent implements OnInit {
             if (status !== google.maps.places.PlacesServiceStatus.OK) {
                 return;
             } else {
-                setTimeout(2000);
                 createMarkers(results);
             }
         }
 
         function createMarkers(places) {
-            setTimeout(2000);
             var bounds = new google.maps.LatLngBounds();
             var placesList = document.getElementById('places');
 

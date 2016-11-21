@@ -1,8 +1,8 @@
-/*#map-section {
+#map-section {
     margin: 10px;
     height: 500px;
 }
-#result-section {
+/*#result-section {
     margin: 10px;
 }
 #map {
@@ -19,8 +19,8 @@
 }*/
 
 #map {
-    width: 400px;
-    height: 400px;
+    /*width: 400px;
+    height: 400px;*/
 }
 html, body {
   height: 100%;
@@ -75,8 +75,4 @@ li {
 }
 li:nth-child(odd) {
   background-color: #fcfcfc;
-}
-#more {
-  width: 100%;
-  margin: 5px 0 0 0;
 }
