@@ -17,23 +17,25 @@ export class MapToolComponent implements OnInit {
     private inputRadius: string = '5000';
     private custom: boolean = false;
     private mapResultList: Array<MapResult> = new Array<MapResult>();
+    private map: any;
+    private center = { lat: 43.5479, lng: -79.6609 }; //turn this in to custom later on...
 
     ngOnInit() {
+        this.geoLocate();
         this.initMap();
     }
 
     public initMap() {
-        var map;
-        var center = { lat: 43.5479, lng: -79.6609 }; //turn this in to custom later on...
-
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: center,
+        let map = this.map = new google.maps.Map(document.getElementById('map'), {
+            center: this.center,
             zoom: 17
         });
 
-        var service = new google.maps.places.PlacesService(map);
+        console.log("LOCATION DISPLAYED: " + this.center.lat + " " + this.center.lng);
+
+        var service = new google.maps.places.PlacesService(this.map);
         service.nearbySearch({
-            location: center,
+            location: this.center,
             radius: this.inputRadius,
             type: [this.inputPointOfInterest]
         }, processResults);
@@ -42,11 +44,11 @@ export class MapToolComponent implements OnInit {
             if (status !== google.maps.places.PlacesServiceStatus.OK) {
                 return;
             } else {
-                createMarkers(results);
+                createMarkers(results, map);
             }
         }
 
-        function createMarkers(places) {
+        function createMarkers(places, map) {
             var bounds = new google.maps.LatLngBounds();
             var placesList = document.getElementById('places');
 
@@ -74,7 +76,29 @@ export class MapToolComponent implements OnInit {
         }
     }
 
-    /* For Google GeoLocation */
+    public geoLocate() {
+        if (!navigator.geolocation) {
+            alert("Geolocation is not supported by your browser");
+            return;
+        }
+
+        let center = this.center;
+
+        function success(position) {
+            center.lat = position.coords.latitude;
+            center.lng = position.coords.longitude;
+
+            console.log("GEOLOCATION: " + center.lat + " " + center.lng);
+        }
+
+        function error() {
+            console.log("GEOLOCATION DID NOT SUCCEED")
+        }
+
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
+
+    /* For Google GeoLocation */          // -------------------------------------------------------------------------------------------------------------------
     // public geoFindMe() {
 
     //     var location = document.getElementById("location");
