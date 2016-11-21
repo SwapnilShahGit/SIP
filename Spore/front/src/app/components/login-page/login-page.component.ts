@@ -1,50 +1,73 @@
-/**
- * Created by anatale on 10/28/2016.
- */
-
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { InfoCardComponent } from '../info-card/info-card.component';
+import { FooterBarComponent } from '../footer-bar/footer-bar.component';
+import { Router } from "@angular/router";
+import { FBConnector } from '../../../assets/facebook/facebook';
+import { Observable } from 'rxjs/Rx';
+import { User } from '../../../meta/user';
+import { DatabaseService } from '../../../meta/database.service';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent {
-  public username:string;
-  public password:string;
+export class LoginPageComponent implements OnInit {
 
-  constructor(private _router: Router) { }
+  constructor(
+    private router: Router,
+    private databaseService: DatabaseService
+  ) { }
 
   ngOnInit() {
+    var fbCon: FBConnector = new FBConnector('309270582738901');
+    fbCon.initFB();
   }
 
-  public sporeLogin(event: Event) {
-    this._router.navigate(['/main-page']);
+  sporeLogin(event: Event) {
+    this.router.navigate(['/main-page', 0]);
     console.log('Spore Login');
   }
 
-  public sporeSignUp(event: Event) {
-    console.log('Spore SignUp');
-  }
+  facebookLogin(event: Event) {
+    let databaseService = this.databaseService;
+    let reDir = this.router;
 
-  public rememberMe(event: Event) {
-    console.log('Remember Me');
-  }
+    function checkLogin(response: FB.LoginStatusResponse): void {
+      if (response.status === "connected") {
+        console.log("connected");
+        let userId = response.authResponse.userID;
+        FB.api('/me', { fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified' }, function (response) {
+          console.log(response);
+          let user = new User(userId, response.first_name, response.last_name, response.picture.data.url);
+          handleUser(user);
+        });
+      } else if (response.status === "unknown") {
+        console.log("not logged in, logging in");
+        FB.login(checkLogin, { scope: 'public_profile,email,user_friends' });
+      } else if (response.status === "not_authorized") {
+        console.log("not authorized");
+      }
+    }
+    
+    function handleUser(user: User) {
+      databaseService.getUser(user.UserID).then(data => {
+        if (data.error != "0") {
+          addUser(user);
+        } else {
+          redirectUser(user.UserID);
+        }
+      });
+    }
 
-  public forgotPassword(event: Event) {
-    console.log('Forgot Password?');
-  }
+    function redirectUser(id: string) {
+      reDir.navigate(['/main-page', id]);
+    }
 
-  public facebookLogin(event: Event) {
-    console.log('Facebook Login');
-  }
+    function addUser(user: User) {
+      databaseService.addUser(user).then(() => redirectUser(user.UserID));
+    }
 
-  public googleLogin(event: Event) {
-    console.log('Google Login');
-  }
-
-  public linkedinLogin(event: Event) {
-    console.log('LinkedIn Login');
+    FB.getLoginStatus(checkLogin);
   }
 }

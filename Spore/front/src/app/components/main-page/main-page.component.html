@@ -1,4 +1,4 @@
-<static-nav> </static-nav>
+<static-nav [profileImageLocation]="profileImage"> </static-nav>
 
 <div id="mySidenav" class="sidenav" [ngStyle]="{'width': _slideWidth}">
   <span class="fa fa-angle-down carot-style carot"></span>
@@ -13,19 +13,20 @@
   </div>
   <br> <span class="sidenav-header">Tools</span>
   <hr class="sidenav-hr">
-  <a class="sidenav-item" (click)="selectTabCalendar()"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
-  <a class="sidenav-item" (click)="selectTabCalculator()"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
-  <a class="sidenav-item" (click)="selectTabCourses()"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
-  <a class="sidenav-item" (click)="selectTabReminders()"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
-  <a class="sidenav-item" (click)="selectTabFiles()"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.CaledarTab"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.CalculatorTab"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.CoursesTab"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.RemindersTab"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.FilesTab"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
   <br> <span class="sidenav-header">More</span>
   <hr class="sidenav-hr">
-  <a class="sidenav-item" (click)="selectTabHelp()"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
-  <a class="sidenav-item" (click)="selectTabMap()"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.HelpTab"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.MapTab"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.UserDetailsTab"><span class="fa fa-lg fa-user-secret sidenav-icon"></span>User Details</a>
   <br> <span class="sidenav-header">Redirect</span>
   <hr class="sidenav-hr">
   <a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
-  <a class="sidenav-item" (click)="selectTabDefault()"><span class="fa fa-arrow-right sidenav-icon"></span>Default Tab</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.DefaultTab"><span class="fa fa-arrow-right sidenav-icon"></span>Default Tab</a>
 </div>
 
 <div id="main" class="container-fluid" [ngStyle]="{'margin-left': _slideLeft}">
@@ -33,8 +34,9 @@
   <span class="btn btn-default" (click)="openNav()">open</span>
   <span class="btn btn-default" (click)="closeNav()">close</span>
   <h1>{{CurrentTab}}</h1>
+  <h1>Welcome {{user.LastName}} {{user.FirstName}}!</h1>
 
-  <div *ngIf="CurrentTab == 'DefaultTab'">
+  <div *ngIf="CurrentTab == this.tabsHelper.DefaultTab">
     <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
       facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
       ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
@@ -64,31 +66,38 @@
     <p>Ad qui erroribus imperdiet, eum in dicant similique, at libris sententiae eos. Eum possim incorrupte et, quas cetero detr</p>
   </div>
 
-  <div *ngIf="CurrentTab == 'TabCalendar'">
+  <div *ngIf="CurrentTab == this.tabsHelper.CaledarTab">
 
   </div>
 
-  <div *ngIf="CurrentTab == 'TabCalculator'">
+  <div *ngIf="CurrentTab == this.tabsHelper.CalculatorTab">
 
   </div>
 
-  <div *ngIf="CurrentTab == 'TabCourses'">
+  <div *ngIf="CurrentTab == this.tabsHelper.CoursesTab">
 
   </div>
 
-  <div *ngIf="CurrentTab == 'TabReminders'">
+  <div *ngIf="CurrentTab == this.tabsHelper.RemindersTab">
 
   </div>
 
-  <div *ngIf="CurrentTab == 'TabFiles'">
+  <div *ngIf="CurrentTab == this.tabsHelper.FilesTab">
 
   </div>
 
-  <div *ngIf="CurrentTab == 'TabHelp'">
+  <div *ngIf="CurrentTab == this.tabsHelper.HelpTab">
 
   </div>
 
-  <div *ngIf="CurrentTab == 'TabMap'">
+  <div *ngIf="CurrentTab == this.tabsHelper.UserDetailsTab">
+    <input type="text" [(ngModel)]='echoInput'>
+    <button (click)='echoTester()'>click to echo</button>
+    <h1>Echo response: {{echoResponse}}</h1>
+    <h1>Welcome {{user.LastName}} {{user.FirstName}}!</h1>
+  </div>
+
+  <div *ngIf="CurrentTab == this.tabsHelper.MapTab">
     <iframe width="800" height="600" frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB3-mPp46IkYBRCmyLnx_DmJeL7RZzII1A&q=SOTI Inc.,Hurontario Street #1100,Mississauga,ON" allowfullscreen></iframe>
   </div>
 
