@@ -24,15 +24,18 @@ function testSaveUser(req, res, next) {
     eventID: req.query.e,
     courses: "stub"
   };
-  dbController.saveUser(userInfo, function(err){
-    if (err) res.send({
-      error: 110,
-      data: "error"
-    })
-    res.send({
-      error: 0,
-      data: 'User successfully saved into database'
-    });
+  dbController.saveUser(userInfo, function(err) { 
+    if (err) {
+      res.send({
+        error: 110,
+        data: "error"
+      });
+    } else {
+      res.send({
+        error: 0,
+        data: "Successfully saved user."
+      });
+    }
     next();
   });
 
@@ -41,15 +44,18 @@ function testSaveUser(req, res, next) {
 // -- fetch user info from 'test' given user id
 function testFetchUser(req, res, next) {
   console.log("fetching user with id:" + req.query.u);
-  dbController.fetchUser(req.query.u, function(err, user){
-    if (!user || err) res.send({
-      error: 110,
-      data: "error"
-    })
-    res.send({
-      error: 0,
-      data: user
-    });
+  dbController.fetchUser(req.query.u, function(err, user) {
+    if (!user || err) {
+      res.send({
+        error: 110,
+        data: "error"
+      });
+    } else {
+      res.send({
+        error: 0,
+        data: user
+      });
+    }
     next();
   });
 
