@@ -11,6 +11,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
 import { TabsHelper } from '../meta/tabsHelper';
+import { NavService } from '../meta/nav.service';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -58,7 +59,8 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     DatabaseService,
-    TabsHelper
+    TabsHelper,
+    NavService
   ]
 })
 export class AppModule {
