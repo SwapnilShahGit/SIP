@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
+import { ScheduleModule } from 'primeng/primeng';
 
 @Component({
   selector: 'app-main-page',
