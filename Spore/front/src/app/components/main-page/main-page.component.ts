@@ -1,24 +1,27 @@
 import { StaticNavBar } from '../static-nav/static-nav.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 import { Http, Response } from '@angular/http';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
 import { TabsHelper } from '../../../meta/tabsHelper';
+import { Subscription } from 'rxjs/Subscription';
+import { NavService } from '../../../meta/nav.service';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit, OnDestroy {
 
   private SelectedSchool: string = "Please select your school";
   private _color: string = '';
   private CurrentTab: string;
   private _slideWidth: string;
   private _slideLeft: string;
+  subscription: Subscription;
 
   private echoResponse: string = '...';
   private echoInput: string = 'echo';
@@ -30,8 +33,21 @@ export class MainPageComponent implements OnInit {
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private databaseService: DatabaseService,
-    private tabsHelper: TabsHelper
-  ) { this.CurrentTab = tabsHelper.DefaultTab; }
+    private tabsHelper: TabsHelper,
+    private navService: NavService
+  ) 
+  { 
+    this.CurrentTab = tabsHelper.DefaultTab;
+    this.subscription = navService.navOpen$.subscribe(
+      isOpen => {
+        if(isOpen) {
+          this.openNav();
+        } else {
+          this.closeNav();
+        }
+      }
+    );
+  }
 
   ngOnInit() {
     console.log('_______ in main _______');
@@ -45,7 +61,6 @@ export class MainPageComponent implements OnInit {
           });
       }
     });
-    this.openNav();
   }
 
   echoTester() {
@@ -79,5 +94,9 @@ export class MainPageComponent implements OnInit {
   closeNav() {
     this._slideWidth = '0px';
     this._slideLeft = '0px';
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

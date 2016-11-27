@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FBConnector } from '../../../assets/facebook/facebook';
 import { Router } from "@angular/router";
+import { NavService } from '../../../meta/nav.service';
 
 @Component({
   selector: 'static-nav',
@@ -11,9 +12,11 @@ export class StaticNavBar implements OnInit {
   @Input() profileImageLocation: string;
 
   private _notificationCount: number = 0;
+  private isNavOpen = true;
 
   constructor(
     private router: Router,
+    private navService: NavService
   ) { }
 
   ngOnInit() {
@@ -22,6 +25,11 @@ export class StaticNavBar implements OnInit {
     if (this.profileImageLocation == undefined || this.profileImageLocation == '') {
       this.profileImageLocation = 'https://placekitten.com/45/45';
     }
+  }
+
+  toggleOpenNav() {
+    this.navService.toggleNav(this.isNavOpen);
+    this.isNavOpen = !this.isNavOpen;
   }
 
   notifiedUser() {
