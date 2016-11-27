@@ -60,7 +60,7 @@ export class DatabaseService {
     }
 
     private BuildSaveRequest(user: User): string {
-        return this.server + '/save?u=' + user.UserID + '&email=' + user.Email + '&last=' + user.LastName + '&first=' + user.FirstName;
+        return this.server + '/save?u=' + encodeURIComponent(user.UserID) + '&email=' + encodeURIComponent(user.Email) + '&last=' + encodeURIComponent(user.LastName) + '&first=' + encodeURIComponent(user.FirstName);
     }
 
     private BuildEchoRequest(something: string): string {
@@ -72,5 +72,5 @@ export class DatabaseService {
             return new User(response.data.UserID, response.data.FirstName, response.data.LastName, response.data.Email);
         }
         return new User();
-    }
+    }    
 }
