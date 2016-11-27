@@ -8,6 +8,7 @@ import { User } from '../../../meta/user';
 import { TabsHelper } from '../../../meta/tabsHelper';
 import { Subscription } from 'rxjs/Subscription';
 import { NavService } from '../../../meta/nav.service';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-main-page',
@@ -28,6 +29,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
   userID: string;
   user: User = new User(null, 'aaa', 'bbb');
   profileImage: string;
+
+  users: Observable<User[]>;
 
   constructor(
     private router: Router,
@@ -50,10 +53,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.users = this.databaseService.users;
     console.log('_______ in main _______');
     this.activatedRouter.params.forEach((params: Params) => {
       if(params['id'] !== undefined) {
         this.userID = params['id'];
+        this.databaseService.loadAll(this.userID);
         this.databaseService.getUser(this.userID)
           .then(user => {
             this.user = user;

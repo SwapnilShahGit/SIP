@@ -31,6 +31,10 @@
 
 <div id="main" class="container-fluid" [ngStyle]="{'margin-left': _slideLeft}">
 
+  <div *ngFor="let user of users | async"> 
+    {{user.FirstName}} - {{user.LastName}}! async...
+  </div>
+
   <h1>{{CurrentTab}}</h1>
   <h1>Welcome {{user.LastName}} {{user.FirstName}}!</h1>
 

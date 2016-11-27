@@ -5,6 +5,8 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DatabaseService {
@@ -13,9 +15,30 @@ export class DatabaseService {
     // private server = 'https://spore.life';
     /// ######################################## ///
 
-    constructor(private http: Http) { }
+    users: Observable<User[]>;
+    private _users: BehaviorSubject<User[]>;
+    private dataStore: {
+        users: User[]
+    }
+
+    constructor(private http: Http) {
+        this.dataStore = { users: [] },
+        this._users = <BehaviorSubject<User[]>>new BehaviorSubject([]);
+        this.users = this._users.asObservable();
+    }
+
+    loadAll(id: string) {
+        this.http
+            .get(this.BuildGetRequest(id))
+            .map(response => this.BuildUserFromResponse(response.json()))
+            .subscribe(data => {
+                this.dataStore.users[0] = data;
+                this._users.next(Object.assign({}, this.dataStore).users);
+            }, error => console.log('Could not load todos.'));
+    }
 
     getUser(id: string): any { //Observable<IUser>
+        this.loadAll(id);
         return this.http
             .get(this.BuildGetRequest(id))
             .toPromise()
@@ -66,9 +89,9 @@ export class DatabaseService {
     private BuildEchoRequest(something: string): string {
         return this.server + '/echo?value=' + something;
     }
-    
+
     private BuildUserFromResponse(response: any): User {
-        if(response && response.data) {
+        if (response && response.data) {
             return new User(response.data.UserID, response.data.FirstName, response.data.LastName, response.data.Email);
         }
         return new User();
