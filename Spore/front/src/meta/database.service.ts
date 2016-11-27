@@ -60,7 +60,7 @@ export class DatabaseService {
     }
 
     private BuildSaveRequest(user: User): string {
-        return this.server + '/save?u=' + user.UserID.replace('&', "%26") + '&email=' + user.Email.replace('&', "%26") + '&last=' + user.LastName.replace('&', "%26") + '&first=' + user.FirstName.replace('&', "%26");
+        return this.server + '/save?u=' + encodeURIComponent(user.UserID) + '&email=' + encodeURIComponent(user.Email) + '&last=' + encodeURIComponent(user.LastName) + '&first=' + encodeURIComponent(user.FirstName);
     }
 
     private BuildEchoRequest(something: string): string {
