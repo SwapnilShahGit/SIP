@@ -15,16 +15,16 @@ export class DatabaseService {
     // private server = 'https://spore.life';
     /// ######################################## ///
 
-    users: Observable<User[]>;
-    private _users: BehaviorSubject<User[]>;
+    user: Observable<User>;
+    private _user: BehaviorSubject<User>;
     private dataStore: {
-        users: User[]
+        user: User
     }
 
     constructor(private http: Http) {
-        this.dataStore = { users: [] },
-        this._users = <BehaviorSubject<User[]>>new BehaviorSubject([]);
-        this.users = this._users.asObservable();
+        this.dataStore = { user: new User() },
+        this._user = <BehaviorSubject<User>>new BehaviorSubject(new User);
+        this.user = this._user.asObservable();
     }
 
     loadAll(id: string) {
@@ -32,36 +32,26 @@ export class DatabaseService {
             .get(this.BuildGetRequest(id))
             .map(response => this.BuildUserFromResponse(response.json()))
             .subscribe(data => {
-                this.dataStore.users[0] = data;
-                this._users.next(Object.assign({}, this.dataStore).users);
+                this.dataStore.user = data;
+                this._user.next(Object.assign({}, this.dataStore).user);
             }, error => console.log('Could not load todos.'));
     }
 
-    getUser(id: string): any { //Observable<IUser>
+    getUser(id: string): any { 
         this.loadAll(id);
         return this.http
             .get(this.BuildGetRequest(id))
             .toPromise()
             .then(response => this.BuildUserFromResponse(response.json()))
             .catch(this.handleError);
-
-        // return this.http
-        //     .get(this.BuildGetRequest(id))
-        //     .map((res: Response) => res.json())
-        //     .catch(this.handleError);
     }
 
-    addUser(user: User): any { //Observable<any>
+    addUser(user: User): any { 
         return this.http
             .get(this.BuildSaveRequest(user))
             .toPromise()
             .then(response => response.json().data as Response)
             .catch(this.handleError);
-
-        // return this.http
-        //     .get(this.BuildSaveRequest(user))
-        //     .map((res: Response) => res.json())
-        //     .catch(this.handleError);
     }
 
     echo(something: string): any {
@@ -75,7 +65,6 @@ export class DatabaseService {
     private handleError(error: any) {
         console.error('IN ERROR HANDLER: An error occurred: ', error);
         return Promise.reject(error.message || error);
-        // return Observable.throw(error.json().error || 'Server error');
     }
 
     private BuildGetRequest(id: string): string {
