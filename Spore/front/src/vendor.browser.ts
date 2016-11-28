@@ -5,6 +5,12 @@
 
 // TODO(gdi2290): switch to DLLs
 
+// PrimeNG
+// import 'script!primeui/primeui-ng-all.min'; <- not sure what this is
+import 'script!jquery/dist/jquery.min';
+import 'script!moment/moment';
+import 'script!fullcalendar/dist/fullcalendar';
+
 // Angular 2
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
