@@ -26,6 +26,7 @@ while getopts 'pd:' flag; do
 done
 
 printf "\n${UNDERLINE}Starting Mongo...${NORMAL}\n"
+mkdir -p "$data"
 "$mongo/Server/3.2/bin/mongod.exe" --dbpath "$data" > /dev/null &
 
 printf "\n${UNDERLINE}Deleting front/dist...${NORMAL}\n"
