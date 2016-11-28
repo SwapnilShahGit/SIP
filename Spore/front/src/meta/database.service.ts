@@ -27,7 +27,7 @@ export class DatabaseService {
         this.user = this._user.asObservable();
     }
 
-    loadAll(id: string) {
+    loadUser(id: string) {
         this.http
             .get(this.BuildGetRequest(id))
             .map(response => this.BuildUserFromResponse(response.json()))
@@ -38,7 +38,7 @@ export class DatabaseService {
     }
 
     getUser(id: string): any { 
-        this.loadAll(id);
+        this.loadUser(id);
         return this.http
             .get(this.BuildGetRequest(id))
             .toPromise()
