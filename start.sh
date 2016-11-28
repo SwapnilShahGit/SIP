@@ -32,12 +32,12 @@ rm -rf dist
 printf "\n${UNDERLINE}Installing node_modules for front...${NORMAL}\n"
 npm install
 
-printf "\n${UNDERLINE}Creating new build for front...${NORMAL}\n"
-npm run build:prod
+printf "\n${UNDERLINE}Starting front-end development server...${NORMAL}\n"
+npm start &
 
 printf "\n${UNDERLINE}Installing node_modules for back...${NORMAL}\n"
 cd ../back
 npm install
 
-printf "\n${UNDERLINE}Starting Spore...${NORMAL}\n"
+printf "\n${UNDERLINE}Starting back-end...${NORMAL}\n"
 npm start
