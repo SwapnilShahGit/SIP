@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { NavService } from '../../../meta/nav.service';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
 import { ScheduleModule } from 'primeng/primeng';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-main-page',
@@ -23,13 +24,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private CurrentTab: string;
   private _slideWidth: string;
   private _slideLeft: string;
-  subscription: Subscription;
-
   private echoResponse: string = '...';
   private echoInput: string = 'echo';
+  subscription: Subscription;
+  user: Observable<User>;    
   userID: string;
-  user: User = new User(null, 'aaa', 'bbb');
-  profileImage: string;
 
   constructor(
     private router: Router,
@@ -115,15 +114,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
       };
 
   ngOnInit() {
+    this.user = this.databaseService.user;
     console.log('_______ in main _______');
     this.activatedRouter.params.forEach((params: Params) => {
       if(params['id'] !== undefined) {
         this.userID = params['id'];
-        this.databaseService.getUser(this.userID)
-          .then(user => {
-            this.user = user;
-            this.profileImage = user.Email; // for now...
-          });
+        this.databaseService.loadUser(this.userID);
       }
     });
   }
