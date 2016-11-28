@@ -1,10 +1,16 @@
 # Starting Spore
 
 ## Windows
+Open Bash in this directory and run the `start.sh` script.
 
-Open Bash in this directory and then type `./start.sh` followed by the path to your MongoDB database. The default path on Windows for MongoDB's database is `/c/data/db/`.
+The script takes the following *optional* arguments...
 
-## Linux/Mac OS X
+* `-d=path` - Specify a custom path for your mongo database
+* `-p` - Run the server in production mode
+
+If no arguments are given, the server is run in developer mode with the default database path of `C:\data\db`.
+
+## Linux/macOS
 * Ensure MongoDB is started
 * Navigate to `Spore/front`
 * Run `npm install`
@@ -28,7 +34,7 @@ Swapnil Shah (Swapnil.Shah@soti.net)
 
 Zach Medeiros (Zach.Medeiros@soti.net)
 
----------------------------------------------------------------------------------------------------------------------------------
+---
 
 Here are the original ideas for this project:
 
