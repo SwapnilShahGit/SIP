@@ -8,6 +8,9 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import {ButtonModule} from 'primeng/primeng';
+import {CalendarModule} from 'primeng/primeng';
+import {CalendarComponent} from "angular2-fullcalendar/src/calendar/calendar";
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
 import { TabsHelper } from '../meta/tabsHelper';
@@ -22,6 +25,7 @@ import { ENV_PROVIDERS } from './environment';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
+import { ScheduleModule } from 'primeng/primeng';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -47,13 +51,17 @@ type StoreType = {
     InfoCardComponent,
     SearchBarComponent,
     StaticNavBar,
-    MainPageComponent
+    MainPageComponent,
+    CalendarComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ButtonModule,
+    CalendarModule,
+    ScheduleModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
