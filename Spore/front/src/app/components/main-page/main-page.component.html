@@ -31,12 +31,8 @@
 
 <div id="main" class="container-fluid" [ngStyle]="{'margin-left': _slideLeft}">
 
-  <div *ngFor="let user of users | async"> 
-    {{user.FirstName}} - {{user.LastName}}! async...
-  </div>
-
   <h1>{{CurrentTab}}</h1>
-  <h1>Welcome {{user.LastName}} {{user.FirstName}}!</h1>
+  <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}}!</h1>
 
   <div *ngIf="CurrentTab == this.tabsHelper.DefaultTab">
     <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione

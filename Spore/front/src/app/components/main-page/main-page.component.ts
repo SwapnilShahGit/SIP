@@ -27,10 +27,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private echoResponse: string = '...';
   private echoInput: string = 'echo';
   userID: string;
-  user: User = new User(null, 'aaa', 'bbb');
   profileImage: string;
 
-  users: Observable<User[]>;
+  user: Observable<User>;
 
   constructor(
     private router: Router,
@@ -53,7 +52,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.users = this.databaseService.users;
+    this.user = this.databaseService.user;
     console.log('_______ in main _______');
     this.activatedRouter.params.forEach((params: Params) => {
       if(params['id'] !== undefined) {
@@ -61,7 +60,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.databaseService.loadAll(this.userID);
         this.databaseService.getUser(this.userID)
           .then(user => {
-            this.user = user;
+            // this.user = user;
             this.profileImage = user.Email; // for now...
           });
       }
