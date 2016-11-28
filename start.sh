@@ -1,7 +1,7 @@
 #!/bin/bash
 
-MONGO_HOME="C:/Program Files/MongoDB"
 DEFAULT_DB="C:/data/db"
+MONGO_HOME="C:/Program Files/MongoDB"
 
 RED=$(tput setaf 1)
 UNDERLINE=$(tput smul)
@@ -15,12 +15,15 @@ if [ "${KERNEL^^}" == "LINUX" -o "${KERNEL^^}" == "DARWIN" ]; then
     exit 1
 fi
 
-mongo="$MONGO_HOME"
-if [ -z $1 ]; then
-    data="$DEFAULT_DB"
-else
-    data="$1"
-fi
+data=${DEFAULT_DB}
+mongo=${MONGO_HOME}
+
+while getopts 'pd:' flag; do
+    case "${flag}" in
+        p) production=true ;;
+        d) data="${OPTARG}" ;;
+    esac
+done
 
 printf "\n${UNDERLINE}Starting Mongo...${NORMAL}\n"
 "$mongo/Server/3.2/bin/mongod.exe" --dbpath "$data" > /dev/null &
@@ -32,8 +35,13 @@ rm -rf dist
 printf "\n${UNDERLINE}Installing node_modules for front...${NORMAL}\n"
 npm install
 
-printf "\n${UNDERLINE}Starting front-end development server...${NORMAL}\n"
-npm start &
+if [ "$production" = true ]; then
+    printf"\n${UNDERLINE}Building front-end for production...${NORMAL}\n"
+    npm run build:prod
+else
+    printf "\n${UNDERLINE}Starting front-end development server...${NORMAL}\n"
+    npm start &
+fi
 
 printf "\n${UNDERLINE}Installing node_modules for back...${NORMAL}\n"
 cd ../back
