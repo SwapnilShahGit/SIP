@@ -1,4 +1,4 @@
-<static-nav [profileImageLocation]="profileImage"> </static-nav>
+<static-nav></static-nav>
 
 <div id="mySidenav" class="sidenav" [ngStyle]="{'width': _slideWidth}">
   <span class="fa fa-angle-down carot-style carot"></span>
@@ -32,7 +32,7 @@
 <div id="main" class="container-fluid" [ngStyle]="{'margin-left': _slideLeft}">
 
   <h1>{{CurrentTab}}</h1>
-  <h1>Welcome {{user.LastName}} {{user.FirstName}}!</h1>
+  <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}}!</h1>
 
   <div *ngIf="CurrentTab == this.tabsHelper.DefaultTab">
     <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
