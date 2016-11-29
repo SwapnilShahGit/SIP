@@ -12,8 +12,8 @@ var HTTPS_PORT = process.env.HTTPS_PORT || 8081;
 
 var server = restify.createServer();
 
-// -- create and save user into 'test'
-function testSaveUser(req, res, next) {
+// -- create and save user into db
+function dbSaveUser(req, res, next) {
   var userInfo = {
     userID: req.query.u,
     fName: req.query.first,
@@ -41,8 +41,8 @@ function testSaveUser(req, res, next) {
 
 }
 
-// -- fetch user info from 'test' given user id
-function testFetchUser(req, res, next) {
+// -- fetch user info from db given user id
+function dbFetchUser(req, res, next) {
   console.log("fetching user with id:" + req.query.u);
   dbController.fetchUser(req.query.u, function(err, user) {
     if (!user || err) {
@@ -61,8 +61,8 @@ function testFetchUser(req, res, next) {
 
 }
 
-// -- create and save event into 'test'
-function testSaveEvent(req, res, next) {
+// -- create and save event into db
+function dbSaveEvent(req, res, next) {
   var eventInfo = {
     startTime: req.query.start,
     endTime: req.query.end,
@@ -77,8 +77,8 @@ function testSaveEvent(req, res, next) {
   });
 }
 
-// -- fetch event info from 'test' given event id
-function  testFetchEvent(req, res, next){
+// -- fetch event info from db given event id
+function  dbFetchEvent(req, res, next){
   console.log("fetching event with id:" + req.query.e);
   dbController.fetchEvent(req.query.e, function(err, Event){
     if (Event !=null){
@@ -144,18 +144,18 @@ server.use(restify.gzipResponse());
 server.use(restify.queryParser({ mapParams: false }));
 
 // -- define routes for the requests
-server.get('/save', testSaveUser);
-server.head('/save', testSaveUser);
-server.get('/get', testFetchUser);
-server.head('/get', testFetchUser);
-server.get('/parse', java);
-server.head('/parse', java);
-server.get('/createEvent', testSaveEvent);
-server.head('/createEvent', testSaveEvent);
-server.get('/showEvent', testFetchEvent);
-server.head('/showEvent', testFetchEvent);
-server.get('/echo', echoValue);
-server.head('/echo', echoValue);
+server.get('/api/save', dbSaveUser);
+server.head('/api/save', dbSaveUser);
+server.get('/api/get', dbFetchUser);
+server.head('/api/get', dbFetchUser);
+server.get('/api/parse', java);
+server.head('/api/parse', java);
+server.get('/api/createEvent', dbSaveEvent);
+server.head('/api/createEvent', dbSaveEvent);
+server.get('/api/showEvent', dbFetchEvent);
+server.head('/api/showEvent', dbFetchEvent);
+server.get('/api/echo', echoValue);
+server.head('/api/echo', echoValue);
 
 server.get(/\/?.*/, restify.serveStatic({
   directory: __dirname.concat('/../front/dist'),
