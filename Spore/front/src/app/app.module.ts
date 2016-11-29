@@ -10,7 +10,6 @@ import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import {ButtonModule} from 'primeng/primeng';
 import {CalendarModule} from 'primeng/primeng';
-import {CalendarComponent} from "angular2-fullcalendar/src/calendar/calendar";
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
 import { TabsHelper } from '../meta/tabsHelper';
@@ -51,8 +50,7 @@ type StoreType = {
     InfoCardComponent,
     SearchBarComponent,
     StaticNavBar,
-    MainPageComponent,
-    CalendarComponent
+    MainPageComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
