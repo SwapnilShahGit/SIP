@@ -8,6 +8,7 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import {ThirdPartyButton} from './components/ui-components/third-party-button/third-party-button.component';
 import {ButtonModule} from 'primeng/primeng';
 import {CalendarModule} from 'primeng/primeng';
 import { AppRoutingModule } from './app.routes';
@@ -50,7 +51,8 @@ type StoreType = {
     InfoCardComponent,
     SearchBarComponent,
     StaticNavBar,
-    MainPageComponent
+    MainPageComponent,
+    ThirdPartyButton
   ],
   imports: [ // import Angular's modules
     BrowserModule,
