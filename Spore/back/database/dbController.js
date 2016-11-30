@@ -17,13 +17,15 @@ module.exports = function(){
     if (user){    
       var newUserEntry = new usersTable({
         UserID: user.userID,
+		Password: user.pass,
         FirstName: user.fName,
         LastName: user.lName,
         Email: user.email,
-        School: user.school,
-        Password: user.pass,
-        EventID: user.eventID,
-        Courses: user.courses
+		Gender: user.gender,
+		FacebookID: user.facebookID,
+		ProfilePicture: user.picture,
+		EventsID: user.eventID,
+        School: user.school
       });
       newUserEntry.save(function(err) {
         if (err) return callback('Error saving user into database: ' + err); 
@@ -50,12 +52,14 @@ module.exports = function(){
   function saveEvent(Event, callback){
     if (Event){
       var newEventEntry = new eventLibrary({
+		Title: Event.title,
         StartTime: Event.startTime,
         EndTime: Event.endTime,
-        Title: Event.title,
+        BackgroundColour: Event.bgColor,
         Description: Event.description,
-        Type: Event.type,
-        DerivedFrom: Event.derivedFrom
+        Location: Event.Location,
+		Contact: Event.contact,
+		Repeat: Event.repeat		
       });
       newEventEntry.save(function(err) {
         if (err) return callback('Error saving event into datbase: ' + err);
