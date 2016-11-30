@@ -4,6 +4,17 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class NavService {
 
+    // Constants
+    CaledarTab: string = 'CaledarTab';
+    CalculatorTab: string = 'CalculatorTab';
+    CoursesTab: string = 'CoursesTab';
+    RemindersTab: string = 'RemindersTab';
+    FilesTab: string = 'FilesTab';
+    HelpTab: string = 'HelpTab';
+    MapTab: string = 'MapTab';
+    UserDetailsTab: string = 'UserDetailsTab';
+    DefaultTab: string = 'DefaultTab';
+
     // Observable sources
     private navOpenSource = new Subject<Boolean>();
     

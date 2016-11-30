@@ -14,7 +14,6 @@ import { ButtonModule } from 'primeng/primeng';
 import { CalendarModule } from 'primeng/primeng';
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
-import { TabsHelper } from '../meta/tabsHelper';
 import { NavService } from '../meta/nav.service';
 import { ModeBasedService } from '../meta/modeBased.service';
 
@@ -70,7 +69,6 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     DatabaseService,
-    TabsHelper,
     NavService,
     ModeBasedService
   ]
