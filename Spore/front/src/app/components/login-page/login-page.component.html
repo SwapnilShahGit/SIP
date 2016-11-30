@@ -4,8 +4,7 @@
     <div id="sign-in" class="col-sm-6">
       <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'"></text-box><br>
       <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'" [textboxType]="'password'"></text-box><br>
-      <input id="checkbox" type="checkbox" />
-      <label id="remember-me">Remember Me</label>
+      <check-box [checkboxText]="'Remember Me'" [fontWeight]="'500'" [fontColor]="'white'"></check-box>
       <a id="forgot-password" target="_blank" href="https://johnsmith:smith123@www.example.com">Forgot password?</a><br>
       <button id="log-in" class="btn-primary" (click)="sporeLogin()">Log In</button>
       <button id="sign-up" class="btn-primary">Sign Up</button> <br>
