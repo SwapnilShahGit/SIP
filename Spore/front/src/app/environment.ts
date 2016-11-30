@@ -3,31 +3,36 @@
 // rc2 workaround
 import { enableDebugTools, disableDebugTools } from '@angular/platform-browser';
 import { enableProdMode, ApplicationRef } from '@angular/core';
+import { ModeBasedService } from '../meta/modeBased.service';
 // Environment Providers
 let PROVIDERS: any[] = [
   // common env directives
 ];
 
+var modeBasedService: ModeBasedService = new ModeBasedService();
+
 // Angular debug tools in the dev console
 // https://github.com/angular/angular/blob/86405345b781a9dc2438c0fbe3e9409245647019/TOOLS_JS.md
 let _decorateModuleRef = function identity<T>(value: T): T { return value; };
+let _fbKey;
 
 if ('production' === ENV) {
   // Production
+  modeBasedService.fbKey = "309270582738901";
+  modeBasedService.server = "https://spore.life";
   disableDebugTools();
   enableProdMode();
-
   PROVIDERS = [
     ...PROVIDERS,
     // custom providers in production
   ];
 
 } else {
-
+  modeBasedService.fbKey = "346211865751257";
+  modeBasedService.server = "https://localhost:8081";
   _decorateModuleRef = (modRef: any) => {
     const appRef = modRef.injector.get(ApplicationRef);
     const cmpRef = appRef.components[0];
-
     let _ng = (<any>window).ng;
     enableDebugTools(cmpRef);
     (<any>window).ng.probe = _ng.probe;
