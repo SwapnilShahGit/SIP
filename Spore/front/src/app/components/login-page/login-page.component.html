@@ -2,8 +2,8 @@
   <img id="logo" src="/assets/spore-logo-login.png" draggable="false" />
   <div class="row">
     <div id="sign-in" class="col-sm-6">
-      <input id="email" type="email" name="email" placeholder="Email"><br>
-      <input id="password" type="password" placeholder="Password" /><br>
+      <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'"></text-box><br>
+      <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'" [textboxType]="'password'"></text-box><br>
       <input id="checkbox" type="checkbox" />
       <label id="remember-me">Remember Me</label>
       <a id="forgot-password" target="_blank" href="https://johnsmith:smith123@www.example.com">Forgot password?</a><br>
