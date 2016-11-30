@@ -8,8 +8,9 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
-import {ThirdPartyButton} from './components/ui-components/third-party-button/third-party-button.component';
-import {TextBoxComponent} from './components/ui-components/text-box/text-box.component';
+import {ThirdPartyButton} from './components/minor-page-elements/third-party-button/third-party-button.component';
+import {TextBoxComponent} from './components/minor-page-elements/text-box/text-box.component';
+import {CheckBoxComponent} from './components/minor-page-elements/check-box/check-box.component';
 import {ButtonModule} from 'primeng/primeng';
 import {CalendarModule} from 'primeng/primeng';
 import { AppRoutingModule } from './app.routes';
@@ -54,7 +55,8 @@ type StoreType = {
     StaticNavBar,
     MainPageComponent,
     ThirdPartyButton,
-    TextBoxComponent
+    TextBoxComponent,
+    CheckBoxComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
