@@ -13,20 +13,20 @@
   </div>
   <br> <span class="sidenav-header">Tools</span>
   <hr class="sidenav-hr">
-  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.CaledarTab"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
-  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.CalculatorTab"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
-  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.CoursesTab"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
-  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.RemindersTab"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
-  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.FilesTab"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.navService.CaledarTab"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.navService.CalculatorTab"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.navService.CoursesTab"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.navService.RemindersTab"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.navService.FilesTab"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
   <br> <span class="sidenav-header">More</span>
   <hr class="sidenav-hr">
-  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.HelpTab"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
-  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.MapTab"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
-  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.UserDetailsTab"><span class="fa fa-lg fa-user-secret sidenav-icon"></span>User Details</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.navService.HelpTab"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.navService.MapTab"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.navService.UserDetailsTab"><span class="fa fa-lg fa-user-secret sidenav-icon"></span>User Details</a>
   <br> <span class="sidenav-header">Redirect</span>
   <hr class="sidenav-hr">
   <a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
-  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.DefaultTab"><span class="fa fa-arrow-right sidenav-icon"></span>Default Tab</a>
+  <a class="sidenav-item" (click)="this.CurrentTab=this.navService.DefaultTab"><span class="fa fa-arrow-right sidenav-icon"></span>Default Tab</a>
 </div>
 
 <div id="main" class="container-fluid" [ngStyle]="{'margin-left': _slideLeft}">
@@ -34,7 +34,7 @@
   <h1>{{CurrentTab}}</h1>
   <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}}!</h1>
 
-  <div *ngIf="CurrentTab == this.tabsHelper.DefaultTab">
+  <div *ngIf="CurrentTab == this.navService.DefaultTab">
     <p>Spicy jalapeno bacon ipsum dolor amet bacon venison frankfurter landjaeger chicken. Salami spare ribs strip steak rump
       drumstick pork loin chuck prosciutto turducken t-bone. Prosciutto beef pork loin brisket ground round jowl. Ground
       round biltong strip steak beef prosciutto pancetta spare ribs leberkas turkey picanha pork swine.</p>
@@ -49,7 +49,7 @@
       flank pork chop pork turducken.</p>
   </div>
 
-  <div *ngIf="CurrentTab == this.tabsHelper.CaledarTab">
+  <div *ngIf="CurrentTab == this.navService.CaledarTab">
     <!--### PrimengSchedule ###-->
     <p-schedule [events]="calendarOptions.events" [defaultDate]="calendarOptions.defaultDate" [editable]="true"></p-schedule>
     <br>
@@ -57,7 +57,7 @@
     <p-calendar [(ngModel)]="value"></p-calendar>
   </div>
 
-  <div *ngIf="CurrentTab == this.tabsHelper.CalculatorTab">
+  <div *ngIf="CurrentTab == this.navService.CalculatorTab">
     <p>Spicy jalapeno bacon ipsum dolor amet ad est rump, short loin aute occaecat pork ex filet mignon kielbasa ham hock. Nisi
       pancetta turducken ribeye irure lorem. Aliquip pancetta swine brisket pastrami. In culpa aute pork chop esse. Beef
       turducken pariatur strip steak fugiat esse chicken pork chop cow nisi.</p>
@@ -71,7 +71,7 @@
     <p>Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!</p>
   </div>
 
-  <div *ngIf="CurrentTab == this.tabsHelper.CoursesTab">
+  <div *ngIf="CurrentTab == this.navService.CoursesTab">
     <p>Bacon ipsum dolor amet jerky bresaola turducken bacon picanha pork meatball beef boudin t-bone corned beef. Tongue ribeye
       doner turkey sausage tri-tip meatloaf swine shoulder biltong. Jerky boudin tri-tip pancetta frankfurter brisket short
       ribs capicola meatloaf pork belly bacon tenderloin. Kevin bacon rump alcatra jerky. Pork loin pork chop venison biltong
@@ -83,7 +83,7 @@
       pork tongue ribeye biltong short ribs.</p>
   </div>
 
-  <div *ngIf="CurrentTab == this.tabsHelper.RemindersTab">
+  <div *ngIf="CurrentTab == this.navService.RemindersTab">
     <p>Spicy jalapeno bacon ipsum dolor amet shank biltong short ribs tenderloin leberkas ham hamburger. Alcatra turducken salami
       pancetta, biltong tail doner cupim bacon pork fatback spare ribs chuck. Leberkas doner salami, beef jowl corned beef
       pork cupim meatloaf rump prosciutto pastrami ball tip spare ribs. Pork loin tongue kevin ham hock. Spare ribs cow tongue
@@ -91,7 +91,7 @@
       rump shankle corned beef bresaola. Strip steak bresaola t-bone, boudin pancetta ball tip swine alcatra.</p>
   </div>
 
-  <div *ngIf="CurrentTab == this.tabsHelper.FilesTab">
+  <div *ngIf="CurrentTab == this.navService.FilesTab">
     <p>Bacon ipsum dolor amet kevin ham in consequat. Sunt proident commodo leberkas minim sausage strip steak meatball veniam
       consectetur. Rump adipisicing enim, prosciutto culpa pariatur shoulder kielbasa alcatra mollit incididunt sint meatball.
       In short loin short ribs, tail hamburger anim venison doner labore. Tail fatback shoulder sint.</p>
@@ -101,7 +101,7 @@
       bacon shoulder pork loin beef sed dolore laborum. Ea frankfurter in magna aliquip cow hamburger sint.</p>
   </div>
 
-  <div *ngIf="CurrentTab == this.tabsHelper.HelpTab">
+  <div *ngIf="CurrentTab == this.navService.HelpTab">
     <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
       facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
       ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
@@ -123,14 +123,14 @@
       detr.</p>
   </div>
 
-  <div *ngIf="CurrentTab == this.tabsHelper.UserDetailsTab">
+  <div *ngIf="CurrentTab == this.navService.UserDetailsTab">
     <input type="text" [(ngModel)]='echoInput'>
     <button (click)='echoTester()'>click to echo</button>
     <h1>Echo response: {{echoResponse}}</h1>
     <h1>Welcome {{user.LastName}} {{user.FirstName}}!</h1>
   </div>
 
-  <div *ngIf="CurrentTab == this.tabsHelper.MapTab">
+  <div *ngIf="CurrentTab == this.navService.MapTab">
     <iframe width="800" height="600" frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB3-mPp46IkYBRCmyLnx_DmJeL7RZzII1A&q=SOTI Inc.,Hurontario Street #1100,Mississauga,ON"
       allowfullscreen></iframe>
   </div>
