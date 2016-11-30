@@ -15,14 +15,16 @@ var server = restify.createServer();
 // -- create and save user into db
 function dbSaveUser(req, res, next) {
   var userInfo = {
-    userID: req.query.u,
+    userID: req.query.user,
+    pass: req.query.pass,
     fName: req.query.first,
     lName: req.query.last,
     email: req.query.email,
-    school: req.query.school,
-    pass: req.query.p,
-    eventID: req.query.e,
-    courses: "stub"
+	gender: req.query.gen,
+	facebookID: req.query.fb,
+	picture: req.query.pic,
+	eventsID: req.query.events,
+    school: req.query.school
   };
   dbController.saveUser(userInfo, function(err) { 
     if (err) {
@@ -64,12 +66,14 @@ function dbFetchUser(req, res, next) {
 // -- create and save event into db
 function dbSaveEvent(req, res, next) {
   var eventInfo = {
+	title: req.query.title,
     startTime: req.query.start,
     endTime: req.query.end,
-    title: req.query.title,
+    bgColor: req.query.bg,
     description: req.query.desc,
-    type: req.query.type,
-    derivedFrom: req.query.from
+    Location: req.query.loc,
+    contact: req.query.con,
+	repeat: req.query.rep	
   };
   dbController.saveEvent(eventInfo, function (stat){
     res.send(stat);

@@ -38,34 +38,38 @@ module.exports = function () {
   // -- create schema for table that will hold user information
   var usersTable = new Schema({
     UserID: {type: String, unique: true},
+	Password: String,
     FirstName: String,
     LastName: String,
     Email: String,
-    School: String,
-    Password: String,
-    EventID: [Number],
-    Courses: [String]
+	Gender: String,
+	FacebookID: String,
+	ProfilePicture: String,
+	EventsID: [Number],
+    School: String
   });
   
   // -- create schema that will hold course information
   var syllabusLibrary = new Schema({
+	CourseID: String,
     Hash: String,
-    CourseID: String,
+	ReferenceNumber: Number,
+	EventIDList: [Schema.Types.Mixed],
     ParsedInfo: String,
-    ReferenceNumber: Number,
-    EventIDList: [Number],
-    ExamEventID: Number
   });
   
   // -- create schema that will hold event information
   var eventLibrary = new Schema({
-    StartTime: Number,
-    EndTime: Number,
-    Title: String,
+	EventID: {type: Number, unique: true},
+	Title: String,
+    StartTime: String,
+    EndTime: String,
+	BackgroundColour: String,
     Description: String,
-    Type: String,
-    DerivedFrom: Number,
-    EventID: {type: Number, unique: true}
+    Location: String,
+	Contact: String,
+	Course: String,
+	Repeat: String
   });
   
   // -- generate auto-incrementing event IDs 
