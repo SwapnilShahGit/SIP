@@ -27,7 +27,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private echoResponse: string = '...';
   private echoInput: string = 'echo';
   subscription: Subscription;
-  user: Observable<User>;    
+  user: Observable<User>;
   userID: string;
 
   constructor(
@@ -36,12 +36,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private databaseService: DatabaseService,
     private tabsHelper: TabsHelper,
     private navService: NavService
-  ) 
-  { 
+  ) {
     this.CurrentTab = tabsHelper.DefaultTab;
     this.subscription = navService.navOpen$.subscribe(
       isOpen => {
-        if(isOpen) {
+        if (isOpen) {
           this.openNav();
         } else {
           this.closeNav();
@@ -50,74 +49,74 @@ export class MainPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  calendarOptions:Object = {
-        fixedWeekCount : false,
-        defaultDate: '2016-09-12',
-        editable: true,
-        eventLimit: true, // allow "more" link when too many events
-        events: [
-          {
-            title: 'All Day Event',
-            start: '2016-09-01'
-          },
-          {
-            title: 'Long Event',
-            start: '2016-09-07',
-            end: '2016-09-10'
-          },
-          {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2016-09-09T16:00:00'
-          },
-          {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2016-09-16T16:00:00'
-          },
-          {
-            title: 'Conference',
-            start: '2016-09-11',
-            end: '2016-09-13'
-          },
-          {
-            title: 'Meeting',
-            start: '2016-09-12T10:30:00',
-            end: '2016-09-12T12:30:00'
-          },
-          {
-            title: 'Lunch',
-            start: '2016-09-12T12:00:00'
-          },
-          {
-            title: 'Meeting',
-            start: '2016-09-12T14:30:00'
-          },
-          {
-            title: 'Happy Hour',
-            start: '2016-09-12T17:30:00'
-          },
-          {
-            title: 'Dinner',
-            start: '2016-09-12T20:00:00'
-          },
-          {
-            title: 'Birthday Party',
-            start: '2016-09-13T07:00:00'
-          },
-          {
-            title: 'Click for Google',
-            url: 'http://google.com/',
-            start: '2016-09-28'
-          }
-        ]
-      };
+  calendarOptions: Object = {
+    fixedWeekCount: false,
+    defaultDate: '2016-09-12',
+    editable: true,
+    eventLimit: true, // allow "more" link when too many events
+    events: [
+      {
+        title: 'All Day Event',
+        start: '2016-09-01'
+      },
+      {
+        title: 'Long Event',
+        start: '2016-09-07',
+        end: '2016-09-10'
+      },
+      {
+        id: 999,
+        title: 'Repeating Event',
+        start: '2016-09-09T16:00:00'
+      },
+      {
+        id: 999,
+        title: 'Repeating Event',
+        start: '2016-09-16T16:00:00'
+      },
+      {
+        title: 'Conference',
+        start: '2016-09-11',
+        end: '2016-09-13'
+      },
+      {
+        title: 'Meeting',
+        start: '2016-09-12T10:30:00',
+        end: '2016-09-12T12:30:00'
+      },
+      {
+        title: 'Lunch',
+        start: '2016-09-12T12:00:00'
+      },
+      {
+        title: 'Meeting',
+        start: '2016-09-12T14:30:00'
+      },
+      {
+        title: 'Happy Hour',
+        start: '2016-09-12T17:30:00'
+      },
+      {
+        title: 'Dinner',
+        start: '2016-09-12T20:00:00'
+      },
+      {
+        title: 'Birthday Party',
+        start: '2016-09-13T07:00:00'
+      },
+      {
+        title: 'Click for Google',
+        url: 'http://google.com/',
+        start: '2016-09-28'
+      }
+    ]
+  };
 
   ngOnInit() {
     this.user = this.databaseService.user;
     console.log('_______ in main _______');
     this.activatedRouter.params.forEach((params: Params) => {
-      if(params['id'] !== undefined) {
+      if (params['id'] !== undefined) {
         this.userID = params['id'];
         this.databaseService.loadUser(this.userID);
       }
@@ -148,8 +147,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   openNav() {
-    this._slideWidth = '250px';
-    this._slideLeft = '250px';
+    if (matchMedia('only screen and (max-width: 767px)').matches) {
+      this._slideWidth = '100%';
+      this._slideLeft = '100%';
+    } else {
+      this._slideWidth = '250px';
+      this._slideLeft = '250px';
+    }
   }
 
   closeNav() {
