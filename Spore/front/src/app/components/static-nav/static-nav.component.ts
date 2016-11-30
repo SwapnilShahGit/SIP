@@ -5,6 +5,7 @@ import { NavService } from '../../../meta/nav.service';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
 import { Observable } from 'rxjs/Rx';
+import { ModeBasedService } from '../../../meta/modeBased.service';
 
 @Component({
   selector: 'static-nav',
@@ -21,11 +22,12 @@ export class StaticNavBar implements OnInit {
     private router: Router,
     private navService: NavService,
     private databaseService: DatabaseService,
+    private modeBasedService: ModeBasedService
   ) { }
 
   ngOnInit() {
     this.user = this.databaseService.user;
-    var fbCon: FBConnector = new FBConnector('309270582738901');
+    var fbCon: FBConnector = new FBConnector(this.modeBasedService.fbKey);
     fbCon.initFB();
   }
 

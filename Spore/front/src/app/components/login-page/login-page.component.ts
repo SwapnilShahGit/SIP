@@ -6,6 +6,7 @@ import { FBConnector } from '../../../assets/facebook/facebook';
 import { Observable } from 'rxjs/Rx';
 import { User } from '../../../meta/user';
 import { DatabaseService } from '../../../meta/database.service';
+import { ModeBasedService } from '../../../meta/modeBased.service';
 
 @Component({
   selector: 'app-login-page',
@@ -16,11 +17,12 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private modeBasedService: ModeBasedService
   ) { }
 
   ngOnInit() {
-    var fbCon: FBConnector = new FBConnector('309270582738901');
+    var fbCon: FBConnector = new FBConnector(this.modeBasedService.fbKey);
     fbCon.initFB();
   }
 
@@ -53,7 +55,7 @@ export class LoginPageComponent implements OnInit {
     function handleUser(user: User) {
       databaseService.getUser(user.UserID).then(data => {
         if (data.error != "0") {
-          addUser(user);
+          databaseService.addUser(user).then(() => redirectUser(user.UserID));
         } else {
           redirectUser(user.UserID);
         }
@@ -62,10 +64,6 @@ export class LoginPageComponent implements OnInit {
 
     function redirectUser(id: string) {
       reDir.navigate(['/main-page', id]);
-    }
-
-    function addUser(user: User) {
-      databaseService.addUser(user).then(() => redirectUser(user.UserID));
     }
 
     FB.getLoginStatus(checkLogin);

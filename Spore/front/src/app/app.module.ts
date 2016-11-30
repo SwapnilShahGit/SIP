@@ -8,14 +8,15 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
-import {ThirdPartyButton} from './components/ui-components/third-party-button/third-party-button.component';
-import {TextBoxComponent} from './components/ui-components/text-box/text-box.component';
-import {ButtonModule} from 'primeng/primeng';
-import {CalendarModule} from 'primeng/primeng';
+import { ThirdPartyButton } from './components/ui-components/third-party-button/third-party-button.component';
+import { TextBoxComponent } from './components/ui-components/text-box/text-box.component';
+import { ButtonModule } from 'primeng/primeng';
+import { CalendarModule } from 'primeng/primeng';
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
 import { TabsHelper } from '../meta/tabsHelper';
 import { NavService } from '../meta/nav.service';
+import { ModeBasedService } from '../meta/modeBased.service';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -70,7 +71,8 @@ type StoreType = {
     APP_PROVIDERS,
     DatabaseService,
     TabsHelper,
-    NavService
+    NavService,
+    ModeBasedService
   ]
 })
 export class AppModule {
