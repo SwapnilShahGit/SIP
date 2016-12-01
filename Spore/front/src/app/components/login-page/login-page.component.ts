@@ -31,6 +31,11 @@ export class LoginPageComponent implements OnInit {
     console.log('Spore Login');
   }
 
+  sporeSignUp(event: Event) {
+    this.router.navigate(['/sign-up']);
+    console.log('Spore Sign Up');
+  }
+
   facebookLogin(event: Event) {
     let databaseService = this.databaseService;
     let reDir = this.router;
@@ -51,7 +56,7 @@ export class LoginPageComponent implements OnInit {
         console.log("not authorized");
       }
     }
-    
+
     function handleUser(user: User) {
       databaseService.getUser(user.UserID).then(data => {
         if (data.error != "0") {

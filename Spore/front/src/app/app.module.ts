@@ -11,6 +11,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { CheckBoxComponent } from './components/minor-page-elements/check-box/check-box.component';
 import { ThirdPartyButton } from './components/minor-page-elements/third-party-button/third-party-button.component';
 import { TextBoxComponent } from './components/minor-page-elements/text-box/text-box.component';
+import { SignUpPageComponent } from './components/signup-page/signup-page.component';
 import { ButtonModule } from 'primeng/primeng';
 import { CalendarModule } from 'primeng/primeng';
 import { AppRoutingModule } from './app.routes';
@@ -56,7 +57,8 @@ type StoreType = {
     MainPageComponent,
     ThirdPartyButton,
     TextBoxComponent,
-    CheckBoxComponent
+    CheckBoxComponent,
+    SignUpPageComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

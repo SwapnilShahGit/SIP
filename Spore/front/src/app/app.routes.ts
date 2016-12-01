@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import {MainPageComponent} from "./components/main-page/main-page.component";
+import {SignUpPageComponent} from './components/signup-page/signup-page.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'main-page/:id',
     component: MainPageComponent
+  },
+  {
+    path: 'sign-up',
+    component: SignUpPageComponent
   }
 ];
 
