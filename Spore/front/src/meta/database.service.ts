@@ -7,14 +7,12 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { ModeBasedService } from './modeBased.service';
 
 @Injectable()
 export class DatabaseService {
-    /// ######################################## ///
-    private server = 'https://localhost:8081';
-    // private server = 'https://spore.life';
-    /// ######################################## ///
-
+    private modeBasedService = new ModeBasedService;
+    private server = this.modeBasedService.server;
     user: Observable<User>;
     private _user: BehaviorSubject<User>;
     private dataStore: {
@@ -32,12 +30,13 @@ export class DatabaseService {
             .get(this.BuildGetRequest(id))
             .map(response => this.BuildUserFromResponse(response.json()))
             .subscribe(data => {
+                console.log('IN LOADUSER');
                 this.dataStore.user = data;
                 this._user.next(Object.assign({}, this.dataStore).user);
-            }, error => console.log('Could not load todos.'));
+            }, error => console.log('Could not load user.'));
     }
 
-    getUser(id: string): any { 
+    getUser(id: string): any {
         this.loadUser(id);
         return this.http
             .get(this.BuildGetRequest(id))
@@ -46,7 +45,8 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    addUser(user: User): any { 
+    addUser(user: User): any {
+        this.loadUser(user.UserID);
         return this.http
             .get(this.BuildSaveRequest(user))
             .toPromise()
