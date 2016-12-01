@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class TabsHelper {
+export class NavService {
+
+    // Constants
     CaledarTab: string = 'CaledarTab';
     CalculatorTab: string = 'CalculatorTab';
     CoursesTab: string = 'CoursesTab';
@@ -11,4 +14,15 @@ export class TabsHelper {
     MapTab: string = 'MapTab';
     UserDetailsTab: string = 'UserDetailsTab';
     DefaultTab: string = 'DefaultTab';
+
+    // Observable sources
+    private navOpenSource = new Subject<Boolean>();
+    
+    // Observable streams
+    navOpen$ = this.navOpenSource.asObservable();
+    
+    // Service commands
+    toggleNav(isOpen: boolean) {
+        this.navOpenSource.next(isOpen);
+    }
 }

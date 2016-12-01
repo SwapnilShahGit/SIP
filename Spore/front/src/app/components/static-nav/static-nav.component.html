@@ -9,7 +9,7 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
       <li>
-        <div class="btn sporeButtonStyle">spore <span class="fa fa-angle-down"></span></div>
+        <div class="btn sporeButtonStyle" (click)="toggleOpenNav()">spore <span class="fa fa-angle-down"></span></div>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
@@ -25,7 +25,7 @@
       </li>
       <li>
         <a class="btn profile-button-style dropdown-toggle" data-toggle="dropdown">
-          <img class="profile-image-style" src="{{profileImageLocation}}">
+          <img class="profile-image-style" src="{{(user | async)?.Email}}">
           <span class="fa fa-lg fa-angle-down caret-style"></span>
         </a>
         <ul class="dropdown-menu">

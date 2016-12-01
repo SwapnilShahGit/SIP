@@ -8,9 +8,16 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { CheckBoxComponent } from './components/minor-page-elements/check-box/check-box.component';
+import { ThirdPartyButton } from './components/minor-page-elements/third-party-button/third-party-button.component';
+import { TextBoxComponent } from './components/minor-page-elements/text-box/text-box.component';
+import { SignUpPageComponent } from './components/signup-page/signup-page.component';
+import { ButtonModule } from 'primeng/primeng';
+import { CalendarModule } from 'primeng/primeng';
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
-import { TabsHelper } from '../meta/tabsHelper';
+import { NavService } from '../meta/nav.service';
+import { ModeBasedService } from '../meta/modeBased.service';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -21,6 +28,7 @@ import { ENV_PROVIDERS } from './environment';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
+import { ScheduleModule } from 'primeng/primeng';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -46,19 +54,27 @@ type StoreType = {
     InfoCardComponent,
     SearchBarComponent,
     StaticNavBar,
-    MainPageComponent
+    MainPageComponent,
+    ThirdPartyButton,
+    TextBoxComponent,
+    CheckBoxComponent,
+    SignUpPageComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ButtonModule,
+    CalendarModule,
+    ScheduleModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
     DatabaseService,
-    TabsHelper
+    NavService,
+    ModeBasedService
   ]
 })
 export class AppModule {

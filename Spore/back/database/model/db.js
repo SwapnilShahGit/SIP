@@ -10,10 +10,11 @@ var autoIncrement = require('mongoose-auto-increment');
 module.exports = function () {
   // -- create and start a connection to database named 'test' on localhost
   var dbURI = 'mongodb://localhost/test'; 
-  var connection = mongoose.connect(dbURI);
+  mongoose.Promise = global.Promise
+  mongoose.connect(dbURI);
   
   var Schema = mongoose.Schema;
-  autoIncrement.initialize(connection);
+  autoIncrement.initialize(mongoose.connection);
 
   // -- CONNECTION EVENTS -----------------------------------------------------------------------
   

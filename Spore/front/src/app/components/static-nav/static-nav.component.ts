@@ -1,6 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FBConnector } from '../../../assets/facebook/facebook';
 import { Router } from "@angular/router";
+import { NavService } from '../../../meta/nav.service';
+import { DatabaseService } from '../../../meta/database.service';
+import { User } from '../../../meta/user';
+import { Observable } from 'rxjs/Rx';
+import { ModeBasedService } from '../../../meta/modeBased.service';
 
 @Component({
   selector: 'static-nav',
@@ -8,20 +13,27 @@ import { Router } from "@angular/router";
   styleUrls: ['./static-nav.component.scss']
 })
 export class StaticNavBar implements OnInit {
-  @Input() profileImageLocation: string;
 
   private _notificationCount: number = 0;
+  private isNavOpen = true;
+  user: Observable<User>;    
 
   constructor(
     private router: Router,
+    private navService: NavService,
+    private databaseService: DatabaseService,
+    private modeBasedService: ModeBasedService
   ) { }
 
   ngOnInit() {
-    var fbCon: FBConnector = new FBConnector('309270582738901');
+    this.user = this.databaseService.user;
+    var fbCon: FBConnector = new FBConnector(this.modeBasedService.fbKey);
     fbCon.initFB();
-    if (this.profileImageLocation == undefined || this.profileImageLocation == '') {
-      this.profileImageLocation = 'https://placekitten.com/45/45';
-    }
+  }
+
+  toggleOpenNav() {
+    this.navService.toggleNav(this.isNavOpen);
+    this.isNavOpen = !this.isNavOpen;
   }
 
   notifiedUser() {
