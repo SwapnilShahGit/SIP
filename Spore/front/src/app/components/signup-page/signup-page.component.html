@@ -1,4 +1,54 @@
+<div class="container-fluid">
+  <third-party-button [buttonText]="'Return to Login Page'" [buttonColor]="'#3b5998'" [buttonIcon]="'fa-arrow-left'" (click)="sporeLogin()"></third-party-button>
+
+  <div class="header-text">Join Spore Today</div>
+  <div>
+    <div id="left-box" class="col-sm-6">
+      <text-box [placeholderText]="'First Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'225px'"></text-box>
+    </div>
+    <div id="right-box" class="col-sm-6 text-left">
+      <text-box [placeholderText]="'Last Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'225px'"></text-box>
+    </div>
+
+    <div id="left-box" class="col-sm-6">
+      <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'225px'"></text-box>
+    </div>
+    <div id="right-box" class="col-sm-6 text-left">
+      <text-box [placeholderText]="'Confirm Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'225px'"></text-box>
+    </div>
+
+    <div id="left-box" class="col-sm-6">
+      <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'225px'" [textboxType]="'password'"></text-box>
+    </div>
+    <div id="right-box" class="col-sm-6 text-left">
+      <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'225px'" [textboxType]="'password'"></text-box>
+    </div>
+  </div>
+
+  <div class="date-of-birth-text">Date of Birth:</div>
+
+  <div>
+    <div id="left-box" class="col-sm-6">
+      <text-box [placeholderText]="'Month'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'225px'"></text-box>
+    </div>
+
+    <div id="right-box" class="col-sm-6 text-left">
+      <text-box [placeholderText]="'Day'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'75px'"></text-box>
+      <text-box [placeholderText]="'Year'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'150px'"></text-box>
+    </div>
+  </div>
+
+  <div id="left-box" class="col-sm-6">
+    <input type="radio" name="gender" value="male"> Male
+    <input type="radio" name="gender" value="female"> Female<br>
+    <check-box [checkboxText]="'I agree to the terms and conditions'" [fontWeight]="'500'" [fontColor]="'black'" style="font-size: 14px"></check-box>
+  </div>
+
+  <div id="right-box" class="col-sm-6 text-left">
+    <third-party-button class="sign-up-button" [buttonText]="'Sign Up'" [buttonColor]="'#f89722'" [buttonIcon]="'fa-check'" (click)="sporeLogin()"></third-party-button>
+  </div>
+
+</div>
 <div>
-  This is the signup page. Click the button to return home.
-  <third-party-button [buttonText]="'LOGIN PAGE'" [buttonColor]="'#3b5998'" (click)="sporeLogin()"></third-party-button>
+  <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'"></footer-bar>
 </div>

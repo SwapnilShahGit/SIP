@@ -1,3 +1,28 @@
-.signup-page {
+@import '../../../assets/styles/spore-colors';
 
+.header-text {
+  color: $color-spore-orange;
+  font-size: 50px;
+  text-align: center;
+  padding: 30px 0 50px 0;
+}
+
+#left-box {
+  text-align: right;
+}
+
+#right-box {
+}
+
+.date-of-birth-text {
+  color: $color-spore-grey;
+  font-size: 18px;
+  padding: 12px 110px 12px 0px;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  #left-box, #right-box {
+    text-align: center;
+  }
 }
