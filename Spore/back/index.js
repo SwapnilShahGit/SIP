@@ -13,7 +13,7 @@ var HTTPS_PORT = process.env.HTTPS_PORT || 8081;
 var server = restify.createServer();
 
 // -- create and save user into db
-function dbSaveUser(req, res, next) {
+function dbAddUser(req, res, next) {
   var userInfo = {
     userID: req.query.user,
     pass: req.query.pass,
@@ -45,9 +45,9 @@ function dbSaveUser(req, res, next) {
 
 // -- fetch user info from db given user id
 function dbFetchUser(req, res, next) {
-  console.log("fetching user with id:" + req.query.u);
-  dbController.fetchUser(req.query.u, function(err, user) {
-    if (!user || err) {
+  console.log("fetching user with id:" + req.query.user);
+  dbController.fetchUser(req.query.user, function(err, user) {
+    if (user == null || err) {
       res.send({
         error: 110,
         data: "error"
@@ -148,10 +148,10 @@ server.use(restify.gzipResponse());
 server.use(restify.queryParser({ mapParams: false }));
 
 // -- define routes for the requests
-server.get('/api/save', dbSaveUser);
-server.head('/api/save', dbSaveUser);
-server.get('/api/get', dbFetchUser);
-server.head('/api/get', dbFetchUser);
+server.get('/api/addUser', dbAddUser);
+server.head('/api/addUser', dbAddUser);
+server.get('/api/getUser', dbFetchUser);
+server.head('/api/getUser', dbFetchUser);
 server.get('/api/parse', java);
 server.head('/api/parse', java);
 server.get('/api/createEvent', dbSaveEvent);
