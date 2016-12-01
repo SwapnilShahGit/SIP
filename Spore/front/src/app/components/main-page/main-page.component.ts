@@ -5,7 +5,6 @@ import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 import { Http, Response } from '@angular/http';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
-import { TabsHelper } from '../../../meta/tabsHelper';
 import { Subscription } from 'rxjs/Subscription';
 import { NavService } from '../../../meta/nav.service';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
@@ -34,11 +33,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private databaseService: DatabaseService,
-    private tabsHelper: TabsHelper,
     private navService: NavService
   ) 
   { 
-    this.CurrentTab = tabsHelper.DefaultTab;
+    this.CurrentTab = navService.DefaultTab;
     this.subscription = navService.navOpen$.subscribe(
       isOpen => {
         if(isOpen) {
