@@ -7,7 +7,7 @@
       <check-box [checkboxText]="'Remember Me'" [fontWeight]="'500'" [fontColor]="'white'"></check-box>
       <a id="forgot-password" target="_blank" href="https://johnsmith:smith123@www.example.com">Forgot password?</a><br>
       <button id="log-in" class="btn-primary" (click)="sporeLogin()">Log In</button>
-      <button id="sign-up" class="btn-primary">Sign Up</button> <br>
+      <button id="sign-up" class="btn-primary" (click)="sporeSignUp()">Sign Up</button> <br>
     </div>
     <div id="sign-in-buttons" class="col-sm-6 text-left">
       <third-party-button [buttonText]="'Sign in with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" (click)="facebookLogin()"></third-party-button><br>
