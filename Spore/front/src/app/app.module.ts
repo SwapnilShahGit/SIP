@@ -17,7 +17,6 @@ import { CalendarModule } from 'primeng/primeng';
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
 import { NavService } from '../meta/nav.service';
-import { ModeBasedService } from '../meta/modeBased.service';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -73,8 +72,7 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     DatabaseService,
-    NavService,
-    ModeBasedService
+    NavService
   ]
 })
 export class AppModule {
