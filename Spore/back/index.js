@@ -7,10 +7,7 @@ var exec = require('child_process').exec;
 var fs = require('fs');
 var dbController = require('./database/dbController')();
 
-// -- set up server
 var server = restify.createServer();
-
-// -- REQUEST HANDLERS ----------------------------------------------------------------------------
 
 // -- create and save user into 'test'
 function testSaveUser(req, res, next) {
@@ -107,14 +104,14 @@ function echoValue(req, res, next) {
   next();
 }
 
-// -- END REQUEST HANDLERS ------------------------------------------------------------------------
-
-// -- helper function
 function redirectToHttps(req, res, next) {
   res.redirect('https://' + req.headers.host + req.url, next);
 }
 
-// -- handle proper requests from user
+function redirectToFront(req, res, err, next) {
+  res.redirect('https://' + req.headers.host + '/#' + req.url, next);
+}
+
 var server = restify.createServer({
   certificate: fs.readFileSync(process.env.CERT || 'cert.pem'),
   key: fs.readFileSync(process.env.KEY || 'key.pem'),
@@ -141,12 +138,13 @@ server.head('/showEvent', testFetchEvent);
 server.get('/echo', echoValue);
 server.head('/echo', echoValue);
 
-// -- redirect requests 
 server.get(/\/?.*/, restify.serveStatic({
   directory: __dirname.concat('/../front/dist'),
   default: 'index.html',
   maxAge: 604800
-}))
+}));
+
+server.on('ResourceNotFound', redirectToFront);
 
 server.listen(process.env.HTTPS_PORT || 8081, function() {
   console.log('%s listening at %s', server.name, server.url);
