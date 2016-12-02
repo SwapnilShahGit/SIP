@@ -7,12 +7,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { ModeBasedService } from './modeBased.service';
 
 @Injectable()
 export class DatabaseService {
-    private modeBasedService = new ModeBasedService;
-    private server = this.modeBasedService.server;
+
+    private server: string = ENV == "production" ? "https://spore.life" : "https://localhost:8081";
     user: Observable<User>;
     private _user: BehaviorSubject<User>;
     private dataStore: {

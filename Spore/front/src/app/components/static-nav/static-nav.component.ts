@@ -5,7 +5,6 @@ import { NavService } from '../../../meta/nav.service';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
 import { Observable } from 'rxjs/Rx';
-import { ModeBasedService } from '../../../meta/modeBased.service';
 
 @Component({
   selector: 'static-nav',
@@ -14,6 +13,7 @@ import { ModeBasedService } from '../../../meta/modeBased.service';
 })
 export class StaticNavBar implements OnInit {
 
+  private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
   private _notificationCount: number = 0;
   private isNavOpen = true;
   user: Observable<User>;    
@@ -22,12 +22,11 @@ export class StaticNavBar implements OnInit {
     private router: Router,
     private navService: NavService,
     private databaseService: DatabaseService,
-    private modeBasedService: ModeBasedService
   ) { }
 
   ngOnInit() {
     this.user = this.databaseService.user;
-    var fbCon: FBConnector = new FBConnector(this.modeBasedService.fbKey);
+    var fbCon: FBConnector = new FBConnector(this.fbKey);
     fbCon.initFB();
   }
 
