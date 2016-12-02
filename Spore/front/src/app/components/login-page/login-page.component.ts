@@ -6,7 +6,6 @@ import { FBConnector } from '../../../assets/facebook/facebook';
 import { Observable } from 'rxjs/Rx';
 import { User } from '../../../meta/user';
 import { DatabaseService } from '../../../meta/database.service';
-import { ModeBasedService } from '../../../meta/modeBased.service';
 
 @Component({
   selector: 'app-login-page',
@@ -15,14 +14,15 @@ import { ModeBasedService } from '../../../meta/modeBased.service';
 })
 export class LoginPageComponent implements OnInit {
 
+  private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
+
   constructor(
     private router: Router,
     private databaseService: DatabaseService,
-    private modeBasedService: ModeBasedService
   ) { }
 
   ngOnInit() {
-    var fbCon: FBConnector = new FBConnector(this.modeBasedService.fbKey);
+    var fbCon: FBConnector = new FBConnector(this.fbKey);
     fbCon.initFB();
   }
 
