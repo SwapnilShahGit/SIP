@@ -19,11 +19,11 @@ import { Observable } from 'rxjs/Rx';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  private SelectedSchool: string = "Please select your school";
   private _color: string = '';
   private CurrentTab: string;
-  private _slideWidth: string;
-  private _slideLeft: string;
+  private slideOutWidth: string = '0px';
+  private bodyLeftMargin: string = '0px';
+  private bodyWidth: string = 'auto';
   private echoResponse: string = '...';
   private echoInput: string = 'echo';
   subscription: Subscription;
@@ -131,34 +131,22 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  selectUofT() {
-    this.SelectedSchool = "University of Toronto";
-    this._color = 'light-blue';
-  }
-
-  selectSheridan() {
-    this.SelectedSchool = "Sheridan College";
-    this._color = 'navy-blue';
-  }
-
-  selectNoSchool() {
-    this.SelectedSchool = "Ain't got no time for that";
-    this._color = 'green';
-  }
-
   openNav() {
-    if (matchMedia('only screen and (max-width: 767px)').matches) {
-      this._slideWidth = '100%';
-      this._slideLeft = '100%';
+    if ($(window).width() <= 767) {
+      this.slideOutWidth = $(window).width().toString() + 'px';
+      this.bodyLeftMargin = '0px';
+      this.bodyWidth = '0px';
     } else {
-      this._slideWidth = '250px';
-      this._slideLeft = '250px';
+      this.slideOutWidth = '250px';
+      this.bodyLeftMargin = '250px';
+      this.bodyWidth = 'auto';
     }
   }
 
   closeNav() {
-    this._slideWidth = '0px';
-    this._slideLeft = '0px';
+    this.slideOutWidth = '0px';
+    this.bodyLeftMargin = '0px';
+    this.bodyWidth = 'auto';
   }
 
   ngOnDestroy() {
