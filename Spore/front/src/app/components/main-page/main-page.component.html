@@ -1,16 +1,6 @@
 <static-nav></static-nav>
 
-<div id="mySidenav" class="sidenav" [ngStyle]="{'width': _slideWidth}">
-  <span class="fa fa-angle-down carot-style carot"></span>
-  <div class="dropdown">
-    <a class="sidenav-selection dropdown-toggle {{_color}}" data-toggle="dropdown" style="font-size: 16px; color: white">{{SelectedSchool}}</a>
-    <ul class="dropdown-menu">
-      <li><a class="sidenav-item" (click)="selectUofT()">Toronto</a></li>
-      <li><a class="sidenav-item" (click)="selectSheridan()">Sheridan</a></li>
-      <li class="divider"></li>
-      <li><a class="sidenav-item" (click)="selectNoSchool()">No School</a></li>
-    </ul>
-  </div>
+<div id="mySidenav" class="sidenav" [ngStyle]="{'width': slideOutWidth}">
   <br> <span class="sidenav-header">Tools</span>
   <hr class="sidenav-hr">
   <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.CaledarTab"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
@@ -29,7 +19,7 @@
   <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.DefaultTab"><span class="fa fa-arrow-right sidenav-icon"></span>Default Tab</a>
 </div>
 
-<div id="main" class="container-fluid" [ngStyle]="{'margin-left': _slideLeft}">
+<div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth}">
 
   <h1>{{CurrentTab}}</h1>
   <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}}!</h1>
