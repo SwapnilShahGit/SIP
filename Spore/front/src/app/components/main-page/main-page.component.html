@@ -1,6 +1,9 @@
 <static-nav></static-nav>
 
 <div id="mySidenav" class="sidenav" [ngStyle]="{'width': slideOutWidth}">
+  <!--todo: remove search bar icon, it is not visible here...-->
+  <a *ngIf="bodyWidth != 'auto'" class="sidenav-item"><search-bar></search-bar></a> 
+  <!---->
   <br> <span class="sidenav-header">Tools</span>
   <hr class="sidenav-hr">
   <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.CaledarTab"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
@@ -16,28 +19,15 @@
   <br> <span class="sidenav-header">Redirect</span>
   <hr class="sidenav-hr">
   <a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
-  <a class="sidenav-item" (click)="this.CurrentTab=this.tabsHelper.DefaultTab"><span class="fa fa-arrow-right sidenav-icon"></span>Default Tab</a>
+  <!--todo: fix this up & add component here-->
+  <a *ngIf="bodyWidth != 'auto'" class="sidenav-item">Notifications: </a> 
+  <!---->
 </div>
 
 <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth}">
 
   <h1>{{CurrentTab}}</h1>
   <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}}!</h1>
-
-  <div *ngIf="CurrentTab == this.tabsHelper.DefaultTab">
-    <p>Spicy jalapeno bacon ipsum dolor amet bacon venison frankfurter landjaeger chicken. Salami spare ribs strip steak rump
-      drumstick pork loin chuck prosciutto turducken t-bone. Prosciutto beef pork loin brisket ground round jowl. Ground
-      round biltong strip steak beef prosciutto pancetta spare ribs leberkas turkey picanha pork swine.</p>
-    <p>Beef ribs ball tip tongue pork chop short loin, frankfurter pork loin ham chuck boudin pancetta ground round. Frankfurter
-      flank sausage pancetta landjaeger. T-bone pork loin meatball short ribs brisket leberkas turkey, picanha ribeye tongue
-      pork. Meatloaf ham chuck cow filet mignon corned beef pancetta. Prosciutto chicken turkey, jowl pancetta flank filet
-      mignon pig spare ribs tongue burgdoggen capicola sirloin.</p>
-    <p>Chuck cow short loin tri-tip. Andouille swine salami, beef beef ribs spare ribs pig ground round hamburger rump sirloin
-      tongue tenderloin. Ham hock shank drumstick, biltong filet mignon flank swine meatball tri-tip spare ribs brisket jerky
-      beef shoulder. Brisket ball tip drumstick tongue pork chop, frankfurter alcatra boudin strip steak turducken short
-      ribs kevin meatball beef ham hock. Ham shank porchetta turkey shoulder beef ribs landjaeger spare ribs tail venison
-      flank pork chop pork turducken.</p>
-  </div>
 
   <div *ngIf="CurrentTab == this.tabsHelper.CaledarTab">
     <!--### PrimengSchedule ###-->
