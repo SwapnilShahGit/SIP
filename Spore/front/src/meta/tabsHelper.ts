@@ -10,5 +10,4 @@ export class TabsHelper {
     HelpTab: string = 'HelpTab';
     MapTab: string = 'MapTab';
     UserDetailsTab: string = 'UserDetailsTab';
-    DefaultTab: string = 'DefaultTab';
 }

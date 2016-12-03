@@ -19,6 +19,7 @@
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
   border-right: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
+  overflow-y: auto;
 }
 .sidenav-header {
   padding: 2px 0 2px 26px;

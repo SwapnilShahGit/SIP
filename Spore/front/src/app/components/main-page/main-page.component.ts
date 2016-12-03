@@ -37,7 +37,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private tabsHelper: TabsHelper,
     private navService: NavService
   ) {
-    this.CurrentTab = tabsHelper.DefaultTab;
+    this.CurrentTab = tabsHelper.HelpTab;
     this.subscription = navService.navOpen$.subscribe(
       isOpen => {
         if (isOpen) {
