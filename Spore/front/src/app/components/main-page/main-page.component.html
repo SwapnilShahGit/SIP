@@ -1,8 +1,8 @@
 <static-nav></static-nav>
 
-<div id="mySidenav" class="sidenav" [ngStyle]="{'width': slideOutWidth}">
+<div class="sidenav" [ngStyle]="{'width': slideOutWidth}">
   <!--todo: remove search bar icon, it is not visible here...-->
-  <a *ngIf="bodyWidth != 'auto'" class="sidenav-item"><search-bar></search-bar></a> 
+  <a><search-bar></search-bar></a>
   <!---->
   <br> <span class="sidenav-header">Tools</span>
   <hr class="sidenav-hr">
@@ -20,7 +20,7 @@
   <hr class="sidenav-hr">
   <a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
   <!--todo: fix this up & add component here-->
-  <a *ngIf="bodyWidth != 'auto'" class="sidenav-item">Notifications: </a> 
+  <a *ngIf="bodyWidth != 'auto'" class="sidenav-item">Notifications: TODO</a> 
   <!---->
 </div>
 
