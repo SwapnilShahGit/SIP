@@ -7,6 +7,9 @@ var exec = require('child_process').exec;
 var fs = require('fs');
 var dbController = require('./database/dbController')();
 
+var HTTP_PORT = process.env.HTTP_PORT || 8080;
+var HTTPS_PORT = process.env.HTTPS_PORT || 8081;
+
 var server = restify.createServer();
 
 // -- create and save user into 'test'
@@ -105,11 +108,16 @@ function echoValue(req, res, next) {
 }
 
 function redirectToHttps(req, res, next) {
-  res.redirect('https://' + req.headers.host + req.url, next);
+  res.redirect('https://' + getHostname(req.headers.host) + ':' + HTTPS_PORT + req.url, next);
 }
 
 function redirectToFront(req, res, err, next) {
   res.redirect('https://' + req.headers.host + '/#' + req.url, next);
+}
+
+function getHostname(host) {
+  var tokens = host.split(':');
+  return tokens[0];
 }
 
 function dropPrivileges() {
@@ -163,9 +171,9 @@ httpServer = restify.createServer({
 
 httpServer.get(/\/?.*/, redirectToHttps);
 
-server.listen(process.env.HTTPS_PORT || 8081, function() {
+server.listen(HTTPS_PORT || 8081, function() {
   console.log('%s listening at %s', server.name, server.url);
-  httpServer.listen(process.env.HTTP_PORT || 8080, function() {
+  httpServer.listen(HTTP_PORT || 8080, function() {
     console.log('%s listening at %s', httpServer.name, httpServer.url);
     dropPrivileges();
   });
