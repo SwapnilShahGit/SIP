@@ -1,21 +1,18 @@
 <nav id="nav-style" class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <div>
-        <a class="btn sporeButtonStyle" (click)="toggleOpenNav()">spore <span class="fa fa-angle-down"></span></a>
-        <a class="btn profile-button-style dropdown-toggle" data-toggle="dropdown">
-          <img class="profile-image-style" src="{{(user | async)?.Email}}">
-          <span class="fa fa-lg fa-angle-down caret-style"></span>
-        </a>
-      </div>
+
+    <div class="navbar navbar-left">
+      <a class="btn sporeButtonStyle" (click)="toggleOpenNav()">spore <span class="fa fa-angle-down"></span></a>
+      <a class="btn profile-button-style dropdown-toggle" data-toggle="dropdown">
+        <img class="profile-image-style" src="{{(user | async)?.Email}}">
+        <span class="fa fa-lg fa-angle-down caret-style"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a>Something here</a></li>
+        <li><a>Maybe over here</a></li>
+        <li class="divider"></li>
+        <li><a (click)='facebookLogout()'>Log out</a></li>
+      </ul>
     </div>
   </div>
 </nav>
-    <!--<div class="collapse navbar-collapse"> Fix this, later
-        <ul class="dropdown-menu">
-          <li><a>Something here</a></li>
-          <li><a>Maybe over here</a></li>
-          <li class="divider"></li>
-          <li><a (click)='facebookLogout()'>Log out</a></li>
-        </ul>
-    </div>-->

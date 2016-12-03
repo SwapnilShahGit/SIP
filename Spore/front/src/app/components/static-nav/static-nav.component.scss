@@ -38,7 +38,7 @@
 .profile-button-style {
   background: darken($color-spore-yellow, 15%);
   top: -2px;
-  height: 60px;
+  height: 50px;
   width: 80px;
 }
 .profile-image-style {
@@ -56,6 +56,6 @@
   top: 23px;
   right: 10px;
 }
-@media screen and (max-height: 979px) {
+@media (max-height: 979px) {
   .navbar-fixed-top { position: fixed; }
 }

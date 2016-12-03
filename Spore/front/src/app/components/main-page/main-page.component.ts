@@ -72,7 +72,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
       {
         id: 999,
         title: 'Repeating Event',
-        start: '2016-09-16T16:00:00'
+        start: '2016-09-16T18:00:00'
       },
       {
         title: 'Conference',
