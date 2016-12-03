@@ -1,4 +1,4 @@
-// @import '../../../assets/styles/spore-colors';
+@import '../../../assets/styles/spore-colors';
 
 .search-box-style {
   border-radius: 50px;
@@ -6,9 +6,10 @@
   background: white;
   border: 1px solid #aaa;
 }
-// .search-box-icon-style {
-//   left: 25px;
-//   top: 10px;
-//   position: absolute;
-//   color: $color-spore-grey;
-// }
+.search-box-icon-style {
+  left: 32px;
+  top: 9px;
+  position: absolute;
+  color: $color-spore-grey;
+  font-size: 24px;
+}
