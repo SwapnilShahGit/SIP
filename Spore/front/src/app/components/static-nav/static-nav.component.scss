@@ -59,3 +59,19 @@
 @media (max-height: 979px) {
   .navbar-fixed-top { position: fixed; }
 }
+.navbar-left {
+  float: left;
+  border-radius: 0;
+}
+.navbar-right {
+  float: right;
+  border-radius: 0;
+}
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+.navbar-fixed-top {
+  margin-left: 0;
+  margin-right: 0;
+}
