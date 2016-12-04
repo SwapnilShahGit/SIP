@@ -2,7 +2,7 @@
 
 <div class="sidenav" [ngStyle]="{'width': slideOutWidth}">
   <!--todo: remove search bar icon, it is not visible here...-->
-  <a><search-bar></search-bar></a>
+  <a style="padding:4px 4px 4px 26px;"><search-bar></search-bar></a>
   <!---->
   <br> <span class="sidenav-header">Tools</span>
   <hr class="sidenav-hr">
@@ -107,7 +107,6 @@
     <input type="text" [(ngModel)]='echoInput'>
     <button (click)='echoTester()'>click to echo</button>
     <h1>Echo response: {{echoResponse}}</h1>
-    <h1>Welcome {{user.LastName}} {{user.FirstName}}!</h1>
   </div>
 
   <div *ngIf="CurrentTab == this.tabsHelper.MapTab">
