@@ -40,7 +40,7 @@
   font-size: 20px;
   color: black;
   display: block;
-  transition: 0.3s
+  transition: 0.3s;
 }
 .sidenav a:hover, .offcanvas a:focus {
   background: #ECEFF1;
@@ -63,5 +63,26 @@
 }
 @media (max-width: 767px) {
   .sidenav a { font-size: 26px; }
+  .sidenav-header { font-size: 26px; }
   .sidenav-item { width: auto; }
+}
+@media (max-width: 767px) and (min-width: 667px) {
+  .sidenav a { padding: 4px 4px 4px 200px; }
+  .sidenav-header { padding: 2px 0 2px 200px; }
+}
+@media (max-width: 666px) and (min-width: 567px) {
+  .sidenav a { padding: 4px 4px 4px 175px; }
+  .sidenav-header { padding: 2px 0 2px 175px; }
+}
+@media (max-width: 566px) and (min-width: 467px) {
+  .sidenav a { padding: 4px 4px 4px 125px; }
+  .sidenav-header { padding: 2px 0 2px 125px; }
+}
+@media (max-width: 466px) and (min-width: 367px) {
+  .sidenav a { padding: 4px 4px 4px 75px; }
+  .sidenav-header { padding: 2px 0 2px 75px; }
+}
+@media (max-width: 366px) {
+  .sidenav a { padding: 4px 4px 4px 26px; }
+  .sidenav-header { padding: 2px 0 2px 26px; }
 }
