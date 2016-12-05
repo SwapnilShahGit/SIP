@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Kill background jobs on exit
+trap 'trap - INT TERM EXIT; kill $(jobs -p) &> /dev/null; exit' INT TERM EXIT
+
 DEFAULT_DB="C:/data/db"
 MONGO_HOME="C:/Program Files/MongoDB"
 
