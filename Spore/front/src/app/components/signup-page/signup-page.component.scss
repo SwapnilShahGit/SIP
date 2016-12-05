@@ -4,7 +4,7 @@
   color: $color-spore-orange;
   font-size: 50px;
   text-align: center;
-  padding: 30px 0 50px 0;
+  padding: 30px 0;
 }
 
 #left-box {
@@ -12,6 +12,30 @@
 }
 
 #right-box {
+}
+
+#center-box {
+  text-align: center;
+}
+
+#fb-sign-up{
+}
+
+#google-sign-up{
+}
+
+#linkedin-sign-up{}
+
+.or-line {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+  span {
+    background: white;
+    padding: 0 10px;
+  }
 }
 
 .date-of-birth-text {
@@ -23,6 +47,12 @@
 
 @media screen and (max-width: 767px) {
   #left-box, #right-box {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #fb-sign-up, #google-sign-up, #linkedin-sign-up{
     text-align: center;
   }
 }
