@@ -1,7 +1,23 @@
 <div class="container-fluid">
-  <third-party-button [buttonText]="'Return to Login Page'" [buttonColor]="'#3b5998'" [buttonIcon]="'fa-arrow-left'" (click)="sporeLogin()"></third-party-button>
+  <third-party-button [buttonText]="'Return to Login Page'" [buttonColor]="'#fdc943'" [buttonIcon]="'fa-arrow-left'" (click)="sporeLogin()"></third-party-button>
 
   <div class="header-text">Join Spore Today</div>
+  <div class="container-fluid" style="padding-bottom: 30px">
+    <div id="fb-sign-up" class="col-sm-5" style="text-align: right">
+      <third-party-button [buttonText]="'Sign up with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'"></third-party-button>
+    </div>
+    <div id="google-sign-up" class="col-sm-2" style="text-align: center">
+      <third-party-button [buttonText]="'Sign up with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'"></third-party-button>
+    </div>
+    <div id="linkedin-sign-up" class="col-sm-5" style="text-align: left">
+      <third-party-button [buttonText]="'Sign up with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'"></third-party-button>
+    </div>
+  </div>
+  <div>
+    <div class="or-line">
+      <span>or</span>
+    </div>
+  </div>
   <div>
     <div id="left-box" class="col-sm-6">
       <text-box [placeholderText]="'First Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'225px'"></text-box>
@@ -25,6 +41,13 @@
     </div>
   </div>
 
+  <div id="center-box" class="col-sm-12">
+    <text-box [placeholderText]="'School'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'480px'"></text-box>
+    <select *ngFor="let x of supportedSchools">
+      <option value="x">{{x}}</option>
+    </select>
+  </div>
+
   <div class="date-of-birth-text">Date of Birth:</div>
 
   <div>
@@ -45,10 +68,10 @@
   </div>
 
   <div id="right-box" class="col-sm-6 text-left">
-    <third-party-button class="sign-up-button" [buttonText]="'Sign Up'" [buttonColor]="'#f89722'" [buttonIcon]="'fa-check'" (click)="sporeLogin()"></third-party-button>
+    <third-party-button class="sign-up-button" [buttonText]="'Sign Up'" [buttonColor]="'#f89722'" [buttonIcon]="'fa-check'"></third-party-button>
   </div>
 
 </div>
-<div>
+<div style="padding-top:50px">
   <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'"></footer-bar>
 </div>
