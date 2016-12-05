@@ -132,8 +132,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   openNav() {
-    if ($(window).width() <= 767) {
-      this.slideOutWidth = $(window).width().toString() + 'px';
+    if (window.innerWidth <= 767) {
+      this.slideOutWidth = window.innerWidth.toString() + 'px';
       this.bodyLeftMargin = '0px';
       this.bodyWidth = '0px';
     } else {
