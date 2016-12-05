@@ -10,6 +10,7 @@ import { NavService } from '../../../meta/nav.service';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
 import { ScheduleModule } from 'primeng/primeng';
 import { Observable } from 'rxjs/Rx';
+import {TabsHelper} from "../../../meta/tabsHelper";
 
 @Component({
   selector: 'app-main-page',
@@ -33,6 +34,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private databaseService: DatabaseService,
+    private tabsHelper: TabsHelper,
     private navService: NavService
   ) {
     this.CurrentTab = tabsHelper.HelpTab;
@@ -150,5 +152,5 @@ export class MainPageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  
+
 }
