@@ -2,7 +2,7 @@
 
 #nav-style {
   height: 65px;
-  padding: 5px 75px;
+  padding: 5px 25px;
   background: darken($color-spore-yellow, 15%);
   color: #ffffff;
 }
@@ -13,32 +13,10 @@
   color: #ffffff;
   background: darken($color-spore-yellow, 15%);
 }
-.notification-button-style {
-  margin: 10px;
-  padding: 2px;
-}
-.notification-icon-style {
-  position: relative;
-  color: #ffffff;
-}
-.notification-number-style {
-  position: absolute;
-  background: #ffffff;
-  color: $color-spore-navy-blue;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  left: 16px;
-  top: 2px;
-  line-height: 18px;
-  border-radius: 50%;
-  border: 2px solid $color-spore-navy-blue;
-  font-size: 12px;
-}
 .profile-button-style {
   background: darken($color-spore-yellow, 15%);
   top: -2px;
-  height: 60px;
+  height: 50px;
   width: 80px;
 }
 .profile-image-style {
@@ -56,6 +34,25 @@
   top: 23px;
   right: 10px;
 }
-@media screen and (max-height: 979px) {
+@media (max-height: 979px) {
   .navbar-fixed-top { position: fixed; }
+}
+.navbar-left {
+  float: left;
+  border-radius: 0;
+}
+.navbar-right {
+  float: right;
+  border-radius: 0;
+}
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+.navbar-fixed-top {
+  margin-left: 0;
+  margin-right: 0;
+}
+.dropdown-menu {
+  top: 57px;
 }

@@ -30,6 +30,12 @@ export class StaticNavBar implements OnInit {
     fbCon.initFB();
   }
 
+  closeNav() {
+    if(!this.isNavOpen) {
+      this.toggleOpenNav();
+    }
+  }
+
   toggleOpenNav() {
     this.navService.toggleNav(this.isNavOpen);
     this.isNavOpen = !this.isNavOpen;

@@ -1,40 +1,19 @@
-<nav id="nav-style" class="navbar navbar-default navbar-fixed-top">
-  <div class="navbar-header">
-    <button class="navbar-toggle collapsed" data-toggle="collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-  </div>
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-      <li>
-        <div class="btn sporeButtonStyle" (click)="toggleOpenNav()">spore <span class="fa fa-angle-down"></span></div>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="navbar-form">
-        <search-bar></search-bar>
-      </li>
-      <li>
-        <a class="btn notification-button-style">
-          <i class="fa fa-bell fa-2x notification-icon-style" (click)="notifiedUser()">
-            <span *ngIf="_notificationCount > 0" class="notification-number-style">{{numNotifications()}}</span>
-          </i>
-        </a>
-      </li>
-      <li>
-        <a class="btn profile-button-style dropdown-toggle" data-toggle="dropdown">
-          <img class="profile-image-style" src="{{(user | async)?.Email}}">
-          <span class="fa fa-lg fa-angle-down caret-style"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li><a>Something here</a></li>
-          <li><a>Maybe over here</a></li>
-          <li class="divider"></li>
-          <li><a (click)='facebookLogout()'>Log out</a></li>
-        </ul>
-      </li>
-    </ul>
+<nav id="nav-style" class="navbar navbar-default navbar-fixed-top" (window:resize)="closeNav()">
+  <div class="container-fluid" style="min-width:220px;">
+    <div class="navbar navbar-left">
+      <a class="btn sporeButtonStyle" (click)="toggleOpenNav()">spore <span class="fa fa-angle-down"></span></a>
+    </div>
+    <div class="navbar navbar-right">
+      <a class="btn profile-button-style dropdown-toggle" data-toggle="dropdown">
+        <img class="profile-image-style" src="{{(user | async)?.Email}}">
+        <span class="fa fa-lg fa-angle-down caret-style"></span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right">
+        <li><a>Something here</a></li>
+        <li><a>Maybe over here</a></li>
+        <li class="divider"></li>
+        <li><a (click)='facebookLogout()'>Log out</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
