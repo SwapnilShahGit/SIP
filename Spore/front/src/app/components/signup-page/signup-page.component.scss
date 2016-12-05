@@ -41,7 +41,7 @@
 .date-of-birth-text {
   color: $color-spore-grey;
   font-size: 18px;
-  padding: 12px 110px 12px 0px;
+  padding: 12px 135px 12px 0px;
   text-align: center;
 }
 
@@ -56,3 +56,15 @@
     text-align: center;
   }
 }
+
+select {
+  padding: 8px 12px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #EBECED;
+  width: 225px;
+}
+
+select option {color: $color-spore-grey}

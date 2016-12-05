@@ -14,16 +14,16 @@ import {SupportedSchoolsEnum} from '../../../meta/SupportedSchools';
 
 export class SignUpPageComponent implements OnInit{
 
-  public supportedSchools;
+  public supportedSchools = [];
 
   constructor(private router: Router){
-    this.supportedSchools = _.flatMap(SupportedSchoolsEnum);
+    this.supportedSchools.push('Select a School');
+    for(var i = 0; i < _.flatMap(SupportedSchoolsEnum).length /2 ; i ++) {
+      this.supportedSchools.push(_.flatMap(SupportedSchoolsEnum)[i]);
+    }
   }
 
   public ngOnInit() {
-    this.supportedSchools = _.flatMap(SupportedSchoolsEnum);
-    console.log(this.supportedSchools);
-    console.log(SupportedSchoolsEnum);
   }
 
   sporeLogin(event: Event) {
