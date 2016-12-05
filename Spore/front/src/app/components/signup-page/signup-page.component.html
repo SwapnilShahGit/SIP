@@ -41,11 +41,22 @@
     </div>
   </div>
 
-  <div id="center-box" class="col-sm-12">
-    <text-box [placeholderText]="'School'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'480px'"></text-box>
-    <select *ngFor="let x of supportedSchools">
-      <option value="x">{{x}}</option>
+  <!--<div id="center-box" class="col-sm-12">
+    <select>
+      <option *ngFor="let x of supportedSchools" value="x">{{x}}</option>
     </select>
+  </div>-->
+
+  <div>
+    <div id="left-box" class="col-sm-6">
+      <div style="padding-top: 10px; font-size: 18px">Select a School:</div>
+    </div>
+
+    <div id="right-box" class="col-sm-6 text-left">
+      <select>
+        <option *ngFor="let x of supportedSchools" value="x">{{x}}</option>
+      </select>
+    </div>
   </div>
 
   <div class="date-of-birth-text">Date of Birth:</div>
