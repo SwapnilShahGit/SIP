@@ -1,5 +1,5 @@
-<nav id="nav-style" class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
+<nav id="nav-style" class="navbar navbar-default navbar-fixed-top" (window:resize)="closeNav()">
+  <div class="container-fluid" style="min-width:220px;">
     <div class="navbar navbar-left">
       <a class="btn sporeButtonStyle" (click)="toggleOpenNav()">spore <span class="fa fa-angle-down"></span></a>
     </div>
@@ -8,7 +8,7 @@
         <img class="profile-image-style" src="{{(user | async)?.Email}}">
         <span class="fa fa-lg fa-angle-down caret-style"></span>
       </a>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu dropdown-menu-right">
         <li><a>Something here</a></li>
         <li><a>Maybe over here</a></li>
         <li class="divider"></li>
