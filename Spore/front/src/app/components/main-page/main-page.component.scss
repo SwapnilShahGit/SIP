@@ -6,19 +6,20 @@
   padding: 20px;
 }
 .sidenav {
-  height: 100%; /* 50% Full-height */
+  height: 90vh; /* 50% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
-  top: 0;
+  top: 65px;
   left: 0;
   background-color: white;
   overflow-x: hidden; /* Disable horizontal scroll */
   overflow-y: hidden; /* Disable vertical scroll */
-  padding-top: 65px; /* Place content 70px from the top */
+  padding-top: 0; /* Place content 70px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
   border-right: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
+  overflow-y: auto;
 }
 .sidenav-header {
   padding: 2px 0 2px 26px;
@@ -39,9 +40,9 @@
   font-size: 20px;
   color: black;
   display: block;
-  transition: 0.3s
+  transition: 0.3s;
 }
-.sidenav a:hover, .offcanvas a:focus{
+.sidenav a:hover, .offcanvas a:focus {
   background: #ECEFF1;
 }
 .sidenav .carot {
@@ -52,26 +53,6 @@
   font-size: 26px;
   pointer-events: none;
 }
-.carot-style {
-  color: white;
-}
-.sidenav-selection {
-  width: 250px;
-  height: 50px;
-  font-size: 16px;
-  background: $color-spore-grey;
-  color: white;
-  padding: 15px 35px 0 20px;
-}
-.light-blue {
-  background: $color-spore-light-blue;
-}
-.navy-blue {
-  background: $color-spore-navy-blue;
-}
-.green {
-  background: $color-spore-green
-}
 .sidenav-item {
   width: 250px;
   cursor: hand;
@@ -80,6 +61,29 @@
 .sidenav-icon {
   margin-right: 15px;
 }
-@media screen and (max-height: 600px) {
-  .sidenav a { font-size: 16px; }
+@media (max-width: 767px) {
+  .sidenav a { font-size: 26px; }
+  .sidenav-header { font-size: 26px; }
+  .sidenav-item { width: auto; }
 }
+// Leaving this out for now, this is for "centering" nav content in small screens
+// @media (max-width: 767px) and (min-width: 667px) {
+//   .sidenav a { padding: 4px 4px 4px 200px; }
+//   .sidenav-header { padding: 2px 0 2px 200px; }
+// }
+// @media (max-width: 666px) and (min-width: 567px) {
+//   .sidenav a { padding: 4px 4px 4px 175px; }
+//   .sidenav-header { padding: 2px 0 2px 175px; }
+// }
+// @media (max-width: 566px) and (min-width: 467px) {
+//   .sidenav a { padding: 4px 4px 4px 125px; }
+//   .sidenav-header { padding: 2px 0 2px 125px; }
+// }
+// @media (max-width: 466px) and (min-width: 367px) {
+//   .sidenav a { padding: 4px 4px 4px 75px; }
+//   .sidenav-header { padding: 2px 0 2px 75px; }
+// }
+// @media (max-width: 366px) {
+//   .sidenav a { padding: 4px 4px 4px 26px; }
+//   .sidenav-header { padding: 2px 0 2px 26px; }
+// }
