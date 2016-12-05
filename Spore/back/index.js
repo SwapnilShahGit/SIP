@@ -14,6 +14,7 @@ var server = restify.createServer();
 
 // -- create and save user into db
 function dbAddUser(req, res, next) {
+  console.log("adding user with id:" + req.query.user);
   var userInfo = {
     userID: req.query.user,
     pass: req.query.pass,
@@ -47,7 +48,7 @@ function dbAddUser(req, res, next) {
 function dbFetchUser(req, res, next) {
   console.log("fetching user with id:" + req.query.user);
   dbController.fetchUser(req.query.user, function(err, user) {
-    if (user == null || err) {
+    if (user == null || err != null) {
       res.send({
         error: 110,
         data: "error"
@@ -63,6 +64,88 @@ function dbFetchUser(req, res, next) {
 
 }
 
+// -- update user info in db given user id
+function dbUpdateUser(req, res, next) {
+  console.log("updating user with id:" + req.query.user);
+  error = 0; 
+  data = null;
+  if ( typeof req.query.user !== "undefined")
+  {
+    if (typeof req.query.pass !== "undefined")
+	{
+	  dbController.updateUser(req.query.user, "pass", req.query.pass, function(err, raw) {
+		if (err != null) error = 110;
+	  }); 
+	}
+	
+	if (typeof req.query.first !== "undefined")
+	{
+	  dbController.updateUser(req.query.user, "fname", req.query.first, function(err, raw) {
+		if (err != null) error = 110;
+	  }); 
+	}
+	
+	if (typeof req.query.last !== "undefined")
+	{
+	  dbController.updateUser(req.query.user, "lname", req.query.last, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+	
+	if (typeof req.query.email !== "undefined")
+	{
+	  dbController.updateUser(req.query.user, "email", req.query.email, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+	
+	if (typeof req.query.gen !== "undefined")
+	{
+	  dbController.updateUser(req.query.user, "gender", req.query.gen, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+	
+	if (typeof req.query.fb !== "undefined")
+	{
+	  dbController.updateUser(req.query.user, "facebookID", req.query.fb, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+	
+	if (typeof req.query.pic !== "undefined")
+	{
+	  dbController.updateUser(req.query.user, "picture", req.query.pic, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+		
+	if (typeof req.query.school !== "undefined")
+	{
+	  dbController.updateUser(req.query.user, "school", req.query.school, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+	
+	if (typeof req.query.events !== "undefined")
+	{
+	  dbController.updateUser(req.query.user, "eventsID", req.query.events, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+  }
+  else
+  {
+    error = 110;
+    data = "User Id not defined";
+  }
+  
+  res.send({
+	error: error,
+    data: data
+  });
+}
+
 // -- create and save event into db
 function dbSaveEvent(req, res, next) {
   var eventInfo = {
@@ -73,6 +156,7 @@ function dbSaveEvent(req, res, next) {
     description: req.query.desc,
     Location: req.query.loc,
     contact: req.query.con,
+	course: req.query.cou,
 	repeat: req.query.rep	
   };
   dbController.saveEvent(eventInfo, function (stat){
@@ -83,8 +167,8 @@ function dbSaveEvent(req, res, next) {
 
 // -- fetch event info from db given event id
 function  dbFetchEvent(req, res, next){
-  console.log("fetching event with id:" + req.query.e);
-  dbController.fetchEvent(req.query.e, function(err, Event){
+  console.log("fetching event with id:" + req.query.Event);
+  dbController.fetchEvent(req.query.Event, function(err, Event){
     if (Event !=null){
       res.send(Event);
     }
@@ -94,6 +178,89 @@ function  dbFetchEvent(req, res, next){
     next();
   });
 }
+
+// -- update event info in db given event id
+function dbUpdateEvent(req, res, next) {
+  console.log("updating event with id:" + req.query.Event);
+  error = 0; 
+  data = null;
+  if ( typeof req.query.Event !== "undefined")
+  {
+    if (typeof req.query.title !== "undefined")
+	{
+	  dbController.updateEvent(req.query.Event, "title", req.query.title, function(err, raw) {
+		if (err != null) error = 110;
+	  }); 
+	}
+	
+	if (typeof req.query.start !== "undefined")
+	{
+	  dbController.updateEvent(req.query.Event, "start", req.query.start, function(err, raw) {
+		if (err != null) error = 110;
+	  }); 
+	}
+	
+	if (typeof req.query.end !== "undefined")
+	{
+	  dbController.updateEvent(req.query.Event, "end", req.query.end, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+	
+	if (typeof req.query.bg !== "undefined")
+	{
+	  dbController.updateEvent(req.query.Event, "bg", req.query.bg, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+	
+	if (typeof req.query.desc !== "undefined")
+	{
+	  dbController.updateEvent(req.query.Event, "desc", req.query.desc, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+	
+	if (typeof req.query.loc !== "undefined")
+	{
+	  dbController.updateEvent(req.query.Event, "loc", req.query.loc, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+	
+	if (typeof req.query.con !== "undefined")
+	{
+	  dbController.updateEvent(req.query.Event, "con", req.query.con, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+		
+	if (typeof req.query.cou !== "undefined")
+	{
+	  dbController.updateEvent(req.query.Event, "cou", req.query.cou, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}	
+	
+	if (typeof req.query.rep !== "undefined")
+	{
+	  dbController.updateEvent(req.query.Event, "rep", req.query.rep, function(err, raw) {
+		if (err != null) error = 110;	
+	  }); 
+	}
+  }
+  else
+  {
+    error = 110;
+    data = "Event Id not defined";
+  }
+  
+  res.send({
+	error: error,
+    data: data
+  });
+}
+
 
 // -- execute the parser to process JSON files
 function java(req, res, next) {
@@ -136,12 +303,16 @@ server.get('/api/addUser', dbAddUser);
 server.head('/api/addUser', dbAddUser);
 server.get('/api/getUser', dbFetchUser);
 server.head('/api/getUser', dbFetchUser);
+server.get('/api/updateUser', dbUpdateUser);
+server.head('/api/updateUser', dbUpdateUser);
 server.get('/api/parse', java);
 server.head('/api/parse', java);
 server.get('/api/createEvent', dbSaveEvent);
 server.head('/api/createEvent', dbSaveEvent);
 server.get('/api/showEvent', dbFetchEvent);
 server.head('/api/showEvent', dbFetchEvent);
+server.get('/api/updateEvent', dbUpdateEvent);
+server.head('/api/updateEvent', dbUpdateEvent);
 server.get('/api/echo', echoValue);
 server.head('/api/echo', echoValue);
 

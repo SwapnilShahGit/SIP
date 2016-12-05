@@ -47,7 +47,61 @@ module.exports = function(){
     });
   }
   
+  // -- update user information given a userID
+  function updateUser(id, field, value, callback) { 
+	switch (field){
+	  case "pass":
+	    usersTable.update({ UserID: id }, { $set: { Password: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "fname":
+		usersTable.update({ UserID: id }, { $set: { FirstName: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "lname":
+		usersTable.update({ UserID: id }, { $set: { LastName: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "email":
+		usersTable.update({ UserID: id }, { $set: { Email: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "gender":
+		usersTable.update({ UserID: id }, { $set: { Gender: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "facebookID":
+		usersTable.update({ UserID: id }, { $set: { FacebookID: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "picture":
+		usersTable.update({ UserID: id }, { $set: { ProfilePicture: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});		
+		break;
+	  case "school":		
+		usersTable.update({ UserID: id }, { $set: { School: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});		
+		break;
+	  case "eventsID":		
+		usersTable.update({ UserID: id }, { $set: { EventsID: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});		
+		break;
+	  default:
+		return callback (110, "not a valid user parameter");
+		break;
+	}
+  }
   
+ 
   // -- create and save a new event in 'EventLibrary'
   function saveEvent(Event, callback){
     if (Event){
@@ -59,6 +113,7 @@ module.exports = function(){
         Description: Event.description,
         Location: Event.Location,
 		Contact: Event.contact,
+		Course: Event.course,
 		Repeat: Event.repeat		
       });
       newEventEntry.save(function(err) {
@@ -79,6 +134,62 @@ module.exports = function(){
       return callback(err, Event);
     }); 
   }
+  
+ // -- update Event information given a event ID
+  function updateEvent(id, field, value, callback) { 
+	switch (field){
+	  case "title":
+	    eventLibrary.update({ EventID: id }, { $set: { Title:value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "start":
+		eventLibrary.update({ EventID: id }, { $set: { StartTime: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "end":
+		eventLibrary.update({ EventID: id }, { $set: { EndTime: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "bg":
+		eventLibrary.update({ EventID: id }, { $set: { BackgroundColour: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "desc":
+		eventLibrary.update({ EventID: id }, { $set: { Description: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "loc":
+		eventLibrary.update({ EventID: id }, { $set: { Location: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});
+		break;
+	  case "con":
+		eventLibrary.update({ EventID: id }, { $set: { Contact: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});		
+		break;
+	  case "cou":
+		eventLibrary.update({ EventID: id }, { $set: { Course: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});		
+		break;
+	  case "rep":		
+		eventLibrary.update({ EventID: id }, { $set: { School: value }}, function (err, raw) {
+		  return callback(err, raw);
+		});		
+		break;
+	  default:
+		return callback (110, "not a valid user parameter");
+		break;
+	}
+  }
+  
+  
     
     
   // -- EXPORTS ---------------------------------------------------------------------------------
@@ -89,6 +200,8 @@ module.exports = function(){
   m.fetchUser = fetchUser;
   m.saveEvent = saveEvent;
   m.fetchEvent = fetchEvent;
+  m.updateUser = updateUser; 
+  m.updateEvent = updateEvent;
 
   return m;
   
