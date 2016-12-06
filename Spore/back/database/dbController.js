@@ -24,12 +24,12 @@ module.exports = function(){
 		Gender: user.gender,
 		FacebookID: user.facebookID,
 		ProfilePicture: user.picture,
-		EventsID: user.eventID,
+		EventsID: user.eventsID,
         School: user.school
       });
       newUserEntry.save(function(err) {
         if (err) return callback('Error saving user into database: ' + err); 
-        return callback (null);
+        else return callback (null);
       });
       
     }
@@ -116,9 +116,12 @@ module.exports = function(){
 		Course: Event.course,
 		Repeat: Event.repeat		
       });
+	  console.log("HERE");
       newEventEntry.save(function(err) {
-        if (err) return callback('Error saving event into datbase: ' + err);
-          return callback(null);
+		  console.log("HERE2");
+        /*if (err) return callback('Error saving event into datbase: ' + err);
+        else return callback(null);*/
+		return callback(err);
       });
       
     }
@@ -129,6 +132,14 @@ module.exports = function(){
   
   // -- fetch event information given a eventID
   function fetchEvent(id, callback) {
+    eventLibrary.findOne({EventID: id}, function(err, Event){
+      // -- if findOne is successful err will be null, else Event will be null
+      return callback(err, Event);
+    }); 
+  }
+  
+  // -- fetch event information given a userID, start and end time
+  function fetchUserEvents(id, start, end, callback) {
     eventLibrary.findOne({EventID: id}, function(err, Event){
       // -- if findOne is successful err will be null, else Event will be null
       return callback(err, Event);
@@ -189,7 +200,19 @@ module.exports = function(){
 	}
   }
   
+  // -- delete event given a eventID
+  function deleteEvent(id, callback) {
+    eventLibrary.remove({EventID: id}, function(err){
+      return callback(err);
+    }); 
+  }
   
+   // -- delete event given a eventID
+  function deleteUserEvent(Event, user, callback) {
+    usersTable.update({UserID: user}, {$pull: {EventsID: Event}}, function(err){
+	  return callback(err);
+    }); 
+  }
     
     
   // -- EXPORTS ---------------------------------------------------------------------------------
@@ -202,6 +225,9 @@ module.exports = function(){
   m.fetchEvent = fetchEvent;
   m.updateUser = updateUser; 
   m.updateEvent = updateEvent;
+  m.deleteEvent = deleteEvent;
+  m.deleteUserEvent = deleteUserEvent;
+
 
   return m;
   
