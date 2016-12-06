@@ -116,12 +116,9 @@ module.exports = function(){
 		Course: Event.course,
 		Repeat: Event.repeat		
       });
-	  console.log("HERE");
       newEventEntry.save(function(err) {
-		  console.log("HERE2");
-        /*if (err) return callback('Error saving event into datbase: ' + err);
-        else return callback(null);*/
-		return callback(err);
+        if (err) return callback('Error saving event into datbase: ' + err);
+          return callback(null);
       });
       
     }
