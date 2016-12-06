@@ -160,8 +160,6 @@ function dbSaveEvent(req, res, next) {
 	repeat: req.query.rep	
   };
   dbController.saveEvent(eventInfo, function (err){
-   // res.send(stat);
-   console.log("HERE 3");
 	if (err == null)
 	{
 	  res.send({
@@ -186,10 +184,16 @@ function  dbFetchEvent(req, res, next){
   console.log("fetching event with id:" + req.query.Event);
   dbController.fetchEvent(req.query.Event, function(err, Event){
     if (Event !=null){
-      res.send(Event);
+      res.send({
+		error: 0,
+		data: Event
+	});
     }
     else{
-      res.send("Error fetching event, err: " + err);
+      res.send({
+		error:110,
+		data: "Error fetching event"
+	  });
     }
     next();
   });
@@ -282,10 +286,16 @@ function  dbDeleteEvent(req, res, next){
   console.log("deleting event with id:" + req.query.Event);
   dbController.deleteEvent(req.query.Event, function(err){
     if (err == null){
-      res.send(" event deleted from db");
+      res.send({
+		error: 0,
+		data: " event deleted from db"
+	  });
     }
     else{
-      res.send("Error deleting event, err: " + err);
+      res.send({
+		error: 110,
+		data: "error deleting event"
+	  });
     }
     next();
   });
@@ -295,12 +305,17 @@ function  dbDeleteEvent(req, res, next){
 function  dbDeleteUserEvent(req, res, next){
   console.log("deleting event with id:" + req.query.Event + " for user id: "+ req.query.user);
   dbController.deleteUserEvent(req.query.Event, req.query.user, function(err){
-	  console.log("in callback err: " + err);
     if (err == null){
-      res.send(" event deleted from user");
+      res.send({
+		error: 0,
+		data: " event deleted from user"
+	  });
     }
     else{
-      res.send("Error deleting event, err: " + err);
+      res.send({
+		error: 110,
+		data: "error deleting events from user"
+	  });
     }
     next();
   });
@@ -312,10 +327,17 @@ function  dbFetchUserEventIDs(req, res, next){
   
   dbController.fetchUser(req.query.user, function(err, User){
     if (User !=null){	
-      res.send(User.EventsID);
+      res.send({
+	  	error: 0,
+		data: User.EventsID
+	  });
     }
     else{
-      res.send("Error fetching User, err: " + err);
+      res.send({
+		error: 110,
+		data: "Error fetching User"
+		
+	  });
     }
     next();
   });
@@ -388,10 +410,10 @@ server.get('/api/showEvent', dbFetchEvent);
 server.head('/api/showEvent', dbFetchEvent);
 server.get('/api/updateEvent', dbUpdateEvent);
 server.head('/api/updateEvent', dbUpdateEvent);
-server.get('/api/DeleteUserEvent', dbDeleteUserEvent);
-server.head('/api/DeleteUserEvent', dbDeleteUserEvent);
-server.get('/api/DeleteEvent', dbDeleteEvent);
-server.head('/api/DeleteEvent', dbDeleteEvent);
+server.get('/api/deleteUserEvent', dbDeleteUserEvent);
+server.head('/api/deleteUserEvent', dbDeleteUserEvent);
+server.get('/api/deleteEvent', dbDeleteEvent);
+server.head('/api/deleteEvent', dbDeleteEvent);
 server.get('/api/getUserEvents', dbFetchUserEventIDs);
 server.head('/api/getUserEvents', dbFetchUserEventIDs);
 server.get('/api/echo', echoValue);
