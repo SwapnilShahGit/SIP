@@ -30,7 +30,7 @@
   <h1>{{CurrentTab}}</h1>
   <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}}!</h1>
 
-  <div *ngIf="CurrentTab == this.tabsHelper.CaledarTab">
+  <div *ngIf="CurrentTab == this.navService.CaledarTab">
     <!--### PrimengSchedule ###-->
     <p-schedule [events]="calendarOptions.events" [defaultDate]="calendarOptions.defaultDate" [editable]="true"></p-schedule>
     <br>
