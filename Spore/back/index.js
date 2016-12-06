@@ -159,8 +159,24 @@ function dbSaveEvent(req, res, next) {
 	course: req.query.cou,
 	repeat: req.query.rep	
   };
-  dbController.saveEvent(eventInfo, function (stat){
-    res.send(stat);
+  dbController.saveEvent(eventInfo, function (err){
+   // res.send(stat);
+   console.log("HERE 3");
+	if (err == null)
+	{
+	  res.send({
+        error: 0,
+		data: null
+      });
+	}
+	else
+	{
+	  res.send({
+        error: 110,
+		data: err
+      });
+		
+	}
     next();
   });
 }
@@ -261,6 +277,49 @@ function dbUpdateEvent(req, res, next) {
   });
 }
 
+// -- fetch event info from db given event id
+function  dbDeleteEvent(req, res, next){
+  console.log("deleting event with id:" + req.query.Event);
+  dbController.deleteEvent(req.query.Event, function(err){
+    if (err == null){
+      res.send(" event deleted from db");
+    }
+    else{
+      res.send("Error deleting event, err: " + err);
+    }
+    next();
+  });
+}
+
+// -- fetch event info from db given event id
+function  dbDeleteUserEvent(req, res, next){
+  console.log("deleting event with id:" + req.query.Event + " for user id: "+ req.query.user);
+  dbController.deleteUserEvent(req.query.Event, req.query.user, function(err){
+	  console.log("in callback err: " + err);
+    if (err == null){
+      res.send(" event deleted from user");
+    }
+    else{
+      res.send("Error deleting event, err: " + err);
+    }
+    next();
+  });
+}
+
+// -- fetch event IDs from db given user id 
+function  dbFetchUserEventIDs(req, res, next){
+  console.log("fetching event ids for user:" + req.query.user);
+  
+  dbController.fetchUser(req.query.user, function(err, User){
+    if (User !=null){	
+      res.send(User.EventsID);
+    }
+    else{
+      res.send("Error fetching User, err: " + err);
+    }
+    next();
+  });
+}
 
 // -- execute the parser to process JSON files
 function java(req, res, next) {
@@ -313,6 +372,12 @@ server.get('/api/showEvent', dbFetchEvent);
 server.head('/api/showEvent', dbFetchEvent);
 server.get('/api/updateEvent', dbUpdateEvent);
 server.head('/api/updateEvent', dbUpdateEvent);
+server.get('/api/DeleteUserEvent', dbDeleteUserEvent);
+server.head('/api/DeleteUserEvent', dbDeleteUserEvent);
+server.get('/api/DeleteEvent', dbDeleteEvent);
+server.head('/api/DeleteEvent', dbDeleteEvent);
+server.get('/api/getUserEvents', dbFetchUserEventIDs);
+server.head('/api/getUserEvents', dbFetchUserEventIDs);
 server.get('/api/echo', echoValue);
 server.head('/api/echo', echoValue);
 
