@@ -1,11 +1,12 @@
 //_________________________________________________________________________________________________
-// -- starting point of application that starts the server and ties everything together 
+// -- starting point of application that starts the server and ties everything together
 // -- Created October 12, 2016
 //_________________________________________________________________________________________________
 var restify = require('restify');
-var exec = require('child_process').exec;
+var exec = require('child_process').spawn;
 var fs = require('fs');
 var dbController = require('./database/dbController')();
+const readline = require('readline');
 
 var HTTP_PORT = process.env.HTTP_PORT || 8080;
 var HTTPS_PORT = process.env.HTTPS_PORT || 8081;
@@ -27,7 +28,7 @@ function dbAddUser(req, res, next) {
 	eventsID: req.query.events,
     school: req.query.school
   };
-  dbController.saveUser(userInfo, function(err) { 
+  dbController.saveUser(userInfo, function(err) {
     if (err) {
       res.send({
         error: 110,
@@ -41,7 +42,6 @@ function dbAddUser(req, res, next) {
     }
     next();
   });
-
 }
 
 // -- fetch user info from db given user id
@@ -358,7 +358,7 @@ function  dbDeleteUserEvent(req, res, next){
 	  });
     }
     next();
-  });
+    });
 }
 
 // -- fetch event IDs from db given user id 
@@ -397,12 +397,37 @@ function  dbFetchUserEventIDs(req, res, next){
 
 // -- execute the parser to process JSON files
 function java(req, res, next) {
-  var child = exec('java -jar ../parser/Parser-jar-with-dependencies.jar');
-  child.stdout.on('data', function(data) {
-    console.log(data.toString('utf8'));
-    res.send(data.toString('utf8'));
-  });
-  next();
+  listOfCourseEvents = [];
+  // TODO: check to see if course being requested already exists in the db
+  //if dbController.checkCourseExists(req.query.id)
+  // TODO: if it exists
+    // TODO: find events related to that course and add them to listOfCourseEvents
+  
+  // if course DNE
+    
+    var child = exec('java', ['-jar', '../parser/Parser-jar-with-dependencies.jar']);
+    const rl = readline.createInterface({
+      input: child.stdout,
+      output: child.stdin
+    })
+    
+    rl.on('line', function(data) {
+      var courseinfo = JSON.parse(data);
+      dbController.javaSaveEvent(courseinfo.mongodbevents, function(stat){
+      // add events to listOfCourseEvents
+      listOfCourseEvents.concat(stat);
+      });
+    
+    // TODO: make a new course in the courses table with the newly generated id's
+
+    });
+  // TODO: check with the user to see which lecture/tutorial section they're in
+  // TODO: add listOfCourseEvents to the user requesting this information
+}
+
+function saveCoursetoUser(req, res, next){
+// TODO: function should take in userID, course code, lecture section, tutorial section,
+// and practical section that they're in
 }
 
 // -- echo the input

@@ -1,20 +1,21 @@
 //_________________________________________________________________________________________________
-// -- Controller for the objects and collections in the 'test' database. 
+// -- Controller for the objects and collections in the 'test' database.
 // -- Created October 12, 2016
 //_________________________________________________________________________________________________
 var db = require('./model/db')();
+var assert = require('assert');
 
 module.exports = function(){
-  
-  // -- set up 
+
+  // -- set up
   var mongoose = db.mongoose;
   var usersTable = mongoose.model('usersTable');
   var syllabusLibrary = mongoose.model('syllabusLibrary');
   var eventLibrary = mongoose.model('eventLibrary');
-  
+
   // -- create save user information in 'UserTable'
-  function saveUser(user, callback) { 
-    if (user){    
+  function saveUser(user, callback) {
+    if (user){
       var newUserEntry = new usersTable({
         UserID: user.userID,
 		Password: user.pass,
@@ -28,17 +29,17 @@ module.exports = function(){
         School: user.school
       });
       newUserEntry.save(function(err) {
-        if (err) return callback('Error saving user into database: ' + err); 
-        else return callback (null);
+      if (err) return callback('Error saving user into database: ' + err); 
+      else return callback (null);
       });
-      
+
     }
     else{
       return callback('User information is not valid or incomplete');
     }
   }
-  
-  
+
+
   // -- fetch user information given a userID
   function fetchUser(id, callback) {
     usersTable.findOne({UserID: id}, function(err, user){
@@ -119,14 +120,14 @@ module.exports = function(){
 	  
       newEventEntry.save(function(err, Event) {  
         if (err != null) {
-		  return callback('Error saving event into datbase: ' + err);
+		  return callback('Error saving event into database: ' + err);
         }  
 		else
 		{
 	      return callback(err,Event);
 		}
       });
-      
+
     }
     else{
       return callback('event information is not valid or incomplete');
@@ -141,12 +142,27 @@ module.exports = function(){
   }
   
   
+  // -- create and save a new event in 'EventLibrary'
+  function javaSaveEvent(data, callback){
+    var array = JSON.parse(data)
+    eventLibrary.insertMany(array, function (err,r){
+      assert.equal(null, err);
+      assert.equal(array.length, r.length);
+      var newids = [];
+      for (var i = 0; i < r.length; i++) {
+          newids.push(r[i].id);
+      }
+      callback(newids);
+    })
+  }
+
+
   // -- fetch event information given a eventID
   function fetchEvent(id, callback) {
     eventLibrary.findOne({EventID: id}, function(err, Event){
       // -- if findOne is successful err will be null, else Event will be null
       return callback(err, Event);
-    }); 
+    });
   }
   
   // -- fetch event information given a userID, start and end time
@@ -246,9 +262,16 @@ module.exports = function(){
     }); 
   }
     
-    
+  function checkCourseExists(id, callback){
+    var query = 
+    syllabusLibrary.find(, function(err, docs) {
+      
+    });
+  }
+
+
   // -- EXPORTS ---------------------------------------------------------------------------------
-  
+
   var m = {};
   m.mongoose = mongoose;
   m.saveUser = saveUser;
@@ -261,10 +284,11 @@ module.exports = function(){
   m.deleteUserEvent = deleteUserEvent;
   m.addUserEvent = addUserEvent;
   m.fetchUserEvents = fetchUserEvents;
-
+  m.javaSaveEvent = javaSaveEvent;
+  m.checkCourseExists = checkCourseExists;
 
   return m;
-  
+
   // -- END EXPORTS -----------------------------------------------------------------------------
 
 }

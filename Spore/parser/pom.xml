@@ -13,10 +13,10 @@
   <plugin>
   <artifactId>maven-assembly-plugin</artifactId>
   <configuration>
-    <outputDirectory>/Users/Swapnil/Documents/SIP/Spore/</outputDirectory>
+    <outputDirectory>.</outputDirectory>
     <archive>
       <manifest>
-        <mainClass>net.soti.backend.SyllabusParser</mainClass>
+        <mainClass>net.soti.backend.SporeReader</mainClass>
       </manifest>
     </archive>
     <descriptorRefs>
