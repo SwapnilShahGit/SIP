@@ -1,16 +1,18 @@
-<div class="container-fluid">
-  <third-party-button [buttonText]="'Return to Login Page'" [buttonColor]="'#fdc943'" [buttonIcon]="'fa-arrow-left'" (click)="sporeLogin()"></third-party-button>
+<div class="container-fluid" style="padding: 0">
+  <div id="login-body">
+    <third-party-button [buttonText]="'Return to Login Page'" [buttonColor]="'#42a8de'" [buttonIcon]="'fa-arrow-left'" (click)="sporeLogin()"></third-party-button>
 
-  <div class="header-text">Join Spore Today</div>
-  <div class="container-fluid" style="padding-bottom: 30px">
-    <div id="fb-sign-up" class="col-sm-4">
-      <third-party-button [buttonText]="'Sign up with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'"></third-party-button>
-    </div>
-    <div id="google-sign-up" class="col-sm-4">
-      <third-party-button [buttonText]="'Sign up with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'"></third-party-button>
-    </div>
-    <div id="linkedin-sign-up" class="col-sm-4">
-      <third-party-button [buttonText]="'Sign up with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'"></third-party-button>
+    <div class="header-text" style="color: white">Join Spore Today</div>
+    <div class="container-fluid" style="padding-bottom: 30px">
+      <div id="fb-sign-up" class="col-sm-4">
+        <third-party-button [buttonText]="'Sign up with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'"></third-party-button>
+      </div>
+      <div id="google-sign-up" class="col-sm-4">
+        <third-party-button [buttonText]="'Sign up with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'"></third-party-button>
+      </div>
+      <div id="linkedin-sign-up" class="col-sm-4">
+        <third-party-button [buttonText]="'Sign up with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'"></third-party-button>
+      </div>
     </div>
   </div>
   <div>
@@ -41,15 +43,9 @@
     </div>
   </div>
 
-  <!--<div id="center-box" class="col-sm-12">
-    <select>
-      <option *ngFor="let x of supportedSchools" value="x">{{x}}</option>
-    </select>
-  </div>-->
-
   <div>
     <div id="left-box" class="col-sm-6">
-      <div style="font-size: 18px">Select a School:</div>
+      <div style="font-size: 18px; line-height: 46px">Select a School:</div>
     </div>
 
     <div id="right-box" class="col-sm-6 text-left">
@@ -61,35 +57,24 @@
 
   <div>
     <div id="left-box" class="col-sm-6">
-      <div style="font-size: 18px">Date of Birth:</div>
+      <div style="font-size: 18px; line-height: 30px">Date of Birth:</div>
     </div>
-    <div class="right-box" class="col-sm-6 text-left">
-      <p-calendar [(ngModel)]="value"></p-calendar>
-    </div>
-  </div>
-
-  <div>
-    <div id="left-box" class="col-sm-6">
-      <text-box [placeholderText]="'Month'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'225px'"></text-box>
-    </div>
-
     <div id="right-box" class="col-sm-6 text-left">
-      <text-box [placeholderText]="'Day'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'75px'"></text-box>
-      <text-box [placeholderText]="'Year'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'150px'"></text-box>
+      <p-calendar [(ngModel)]="value" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
     </div>
   </div>
 
-  <div id="left-box" class="col-sm-6">
-    <input type="radio" name="gender" value="male"> Male
-    <input type="radio" name="gender" value="female"> Female<br>
-    <check-box [checkboxText]="'I agree to the terms and conditions'" [fontWeight]="'500'" [fontColor]="'black'" style="font-size: 14px"></check-box>
+  <div id="left-box" class="col-sm-6" style="padding-top: 5px">
+    <input type="radio" name="gender" value="male"><span style="font-size: 18px; padding-left: 5px">Male</span>
+    <input type="radio" name="gender" value="female"><span style="font-size: 18px; padding-left: 5px">Female</span><br>
+    <check-box [checkboxText]="'I agree to the terms and conditions'" [fontWeight]="'500'" [fontColor]="'black'" style="font-size: 14px; margin-right: -6px"></check-box>
   </div>
 
   <div id="right-box" class="col-sm-6 text-left">
-    <third-party-button class="sign-up-button" [buttonText]="'Sign Up'" [buttonColor]="'#f89722'" [buttonIcon]="'fa-check'"></third-party-button>
+    <div id="sign-up-button"><button class="btn-warning btn-lg" style="background-color: #f89722">Sign Up</button> <br></div>
   </div>
 
 </div>
-<div style="padding-top:50px">
+<div style="padding-top:40px">
   <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'"></footer-bar>
 </div>
