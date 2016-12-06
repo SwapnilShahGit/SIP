@@ -1,0 +1,65 @@
+"[
+
+{\"times\":[
+
+{\"duration\":3600,\"location\":\"DV 2080\",\"start\":39600,\"day\":\"THURSDAY\",\"end\":43200},
+{\"duration\":3600,\"location\":\"DV 2080\",\"start\":36000,\"day\":\"TUESDAY\",\"end\":39600},
+{\"duration\":3600,\"location\":\"DV 2080\",\"start\":36000,\"day\":\"FRIDAY\",\"end\":39600}],
+\"enrolment\":0,\"code\":\"L0101\",\"instructors\":[\"T Holden\"],\"size\":135},
+
+
+
+
+
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 150\",\"start\":43200,\"day\":\"TUESDAY\",\"end\":46800},{\"duration\":7200,\"location\":\"IB 150\",\"start\":46800,\"day\":\"FRIDAY\",\"end\":54000}],\"enrolment\":0,\"code\":\"L0102\",\"instructors\":[\"M Tvalavadze\"],\"size\":130},
+
+{\"times\":[{\"duration\":7200,\"location\":\"IB 110\",\"start\":54000,\"day\":\"TUESDAY\",\"end\":61200},{\"duration\":3600,\"location\":\"IB 245\",\"start\":39600,\"day\":\"THURSDAY\",\"end\":43200}],\"enrolment\":0,\"code\":\"L0103\",\"instructors\":[\"A Mousavidehshikh\"],\"size\":135},
+
+{\"times\":[{\"duration\":3600,\"location\":\"DV 2082\",\"start\":46800,\"day\":\"TUESDAY\",\"end\":50400},{\"duration\":7200,\"location\":\"DV 2082\",\"start\":46800,\"day\":\"THURSDAY\",\"end\":54000}],\"enrolment\":0,\"code\":\"L0104\",\"instructors\":[],\"size\":135},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 120\",\"start\":43200,\"day\":\"WEDNESDAY\",\"end\":46800},{\"duration\":7200,\"location\":\"IB 245\",\"start\":39600,\"day\":\"FRIDAY\",\"end\":46800}],\"enrolment\":0,\"code\":\"L0105\",\"instructors\":[],\"size\":135},
+
+
+{\"times\":[{\"duration\":3600,\"location\":\"DV 1148\",\"start\":64800,\"day\":\"WEDNESDAY\",\"end\":68400}],
+\"enrolment\":0,\"code\":\"T0116\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"DH 4001\",\"start\":64800,\"day\":\"WEDNESDAY\",\"end\":68400}],\"enrolment\":0,\"code\":\"T0117\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 385\",\"start\":32400,\"day\":\"THURSDAY\",\"end\":36000}],\"enrolment\":0,\"code\":\"T0118\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 240\",\"start\":36000,\"day\":\"THURSDAY\",\"end\":39600}],\"enrolment\":0,\"code\":\"T0119\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"\",\"start\":57600,\"day\":\"THURSDAY\",\"end\":61200}],\"enrolment\":0,\"code\":\"P0101\",\"instructors\":[],\"size\":999},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 385\",\"start\":32400,\"day\":\"TUESDAY\",\"end\":36000}],\"enrolment\":0,\"code\":\"T0101\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"CC 1080\",\"start\":39600,\"day\":\"TUESDAY\",\"end\":43200}],\"enrolment\":0,\"code\":\"T0102\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"DV 1148\",\"start\":61200,\"day\":\"TUESDAY\",\"end\":64800}],\"enrolment\":0,\"code\":\"T0103\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 240\",\"start\":61200,\"day\":\"TUESDAY\",\"end\":64800}],\"enrolment\":0,\"code\":\"T0104\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"DV 1148\",\"start\":64800,\"day\":\"TUESDAY\",\"end\":68400}],\"enrolment\":0,\"code\":\"T0105\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 240\",\"start\":64800,\"day\":\"TUESDAY\",\"end\":68400}],\"enrolment\":0,\"code\":\"T0106\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 220\",\"start\":36000,\"day\":\"WEDNESDAY\",\"end\":39600}],\"enrolment\":0,\"code\":\"T0107\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 200\",\"start\":32400,\"day\":\"WEDNESDAY\",\"end\":36000}],\"enrolment\":0,\"code\":\"T0108\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 385\",\"start\":43200,\"day\":\"THURSDAY\",\"end\":46800}],\"enrolment\":0,\"code\":\"T0109\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"DV 2072\",\"start\":50400,\"day\":\"WEDNESDAY\",\"end\":54000}],\"enrolment\":0,\"code\":\"T0110\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"DV 3131\",\"start\":32400,\"day\":\"WEDNESDAY\",\"end\":36000}],\"enrolment\":0,\"code\":\"T0111\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 280\",\"start\":57600,\"day\":\"WEDNESDAY\",\"end\":61200}],\"enrolment\":0,\"code\":\"T0112\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"DH 3000\",\"start\":57600,\"day\":\"WEDNESDAY\",\"end\":61200}],\"enrolment\":0,\"code\":\"T0113\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 390\",\"start\":61200,\"day\":\"WEDNESDAY\",\"end\":64800}],\"enrolment\":0,\"code\":\"T0114\",\"instructors\":[],\"size\":40},
+
+{\"times\":[{\"duration\":3600,\"location\":\"IB 240\",\"start\":61200,\"day\":\"WEDNESDAY\",\"end\":64800}],\"enrolment\":0,\"code\":\"T0115\",\"instructors\":[],\"size\":40}
+
+]"

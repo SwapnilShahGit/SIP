@@ -43,7 +43,7 @@ import org.json.simple.parser.JSONParser;
 
 
 
-public class SyllabusParser
+public class SporeReader
 {
 	public static String rawtext;
 	public static String lines[];
@@ -57,7 +57,7 @@ public class SyllabusParser
 	 public static void main(String[] args) throws IOException {
 	 	//get list of files in the PDF directory
 		 File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
-		 System.out.println(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
+		 //System.out.println(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
 		 File[] listOfFiles = folder.listFiles();
 	     	PdfToText pdfManager = new PdfToText();
 
@@ -118,8 +118,8 @@ public class SyllabusParser
 		     //list of graded evaluations
 		     obj.put("graded_evaluations", getassignments());
 		     saveAsJSON();
+			 System.out.println(obj);
 		 }
-		 System.out.println(nodeobj.toString());
 	 }
 
 	 public static String coursecodefinder() {
@@ -181,7 +181,7 @@ public class SyllabusParser
 		     URL uoftRequest;
 		     Scanner scanner;
 		     try{
-		    	 System.out.println("http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter);
+		    	 //System.out.println("http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter);
 		    	 requestURL = "http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter;
 		    	 uoftRequest = new URL(requestURL);
 			     connection = uoftRequest.openConnection();
@@ -240,7 +240,7 @@ public class SyllabusParser
 		             Date sampledate = date.get(0);
 		             DateTime dt = new DateTime(sampledate);
 		             outputdates.add(dt);
-		             minilist.add(dt);
+		             minilist.add(dt.toString());
 		             minilist.add(y);
 		             markedlist.add(minilist);
 

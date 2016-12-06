@@ -43,6 +43,9 @@ else
     printf "\n${UNDERLINE}Starting front-end development server...${NORMAL}\n"
     npm start &
 fi
+printf "\n${UNDERLINE}Repackaging java files...${NORMAL}\n"
+cd ../parser
+mvn clean install
 
 printf "\n${UNDERLINE}Installing node_modules for back...${NORMAL}\n"
 cd ../back

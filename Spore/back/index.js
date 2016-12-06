@@ -1,5 +1,5 @@
 //_________________________________________________________________________________________________
-// -- starting point of application that starts the server and ties everything together 
+// -- starting point of application that starts the server and ties everything together
 // -- Created October 12, 2016
 //_________________________________________________________________________________________________
 var restify = require('restify');
@@ -27,7 +27,7 @@ function dbAddUser(req, res, next) {
 	eventsID: req.query.events,
     school: req.query.school
   };
-  dbController.saveUser(userInfo, function(err) { 
+  dbController.saveUser(userInfo, function(err) {
     if (err) {
       res.send({
         error: 110,
@@ -358,6 +358,13 @@ function  dbDeleteUserEvent(req, res, next){
 	  });
     }
     next();
+    });
+}
+// -- create and save event into db
+function javaSaveEvent(eventObject) {
+  dbController.saveEvent(eventObject, function (stat){
+    res.send(stat);
+    next();
   });
 }
 
@@ -395,13 +402,45 @@ function  dbFetchUserEventIDs(req, res, next){
   });
 }
 
+function createEventObject(title, startTime, endtime, bgColor, description,
+location, contact, repeat){
+  var eventInfo = {
+    title: courseinfo.code,
+    startTime: req.query.start,
+    endTime: req.query.end,
+    bgColor: req.query.bg,
+    description: req.query.desc,
+    Location: req.query.loc,
+    contact: req.query.con,
+    repeat: req.query.rep
+  };
+}
+
 // -- execute the parser to process JSON files
 function java(req, res, next) {
   var child = exec('java -jar ../parser/Parser-jar-with-dependencies.jar');
+  // create events for all lectures and tutorials
+
+  // Add full course code, lecture/tutorial sections, hash of PDF, ref of 1,
+  // and raw content in Courses table
   child.stdout.on('data', function(data) {
-    console.log(data.toString('utf8'));
-    res.send(data.toString('utf8'));
+    var courseinfo = JSON.parse(data);
+
+    var listoflecturesandtutorials = courseinfo.meeting_sections;
+    var arraylength = listofevents.length;
+    var listofeventidstosavetouser = []
+    var listofeventstosavetodb = []
+    for (var i = 0; i < arrayLength; i++){
+      var innerlistlength = listoflecturesandtutorials[i].times.length;
+      for (var j = 0; j < innerlistlength; j++){
+        classevent = createEventObject(courseinfo.id + listofevents)
+      }
+    }
+
+    console.log((courseinfo.term).toString('utf8'));
+    res.send((courseinfo.term).toString('utf8'));
   });
+
   next();
 }
 
@@ -455,7 +494,7 @@ server.head('/api/getUserEvents', dbFetchUserEventIDs);
 server.get('/api/echo', echoValue);
 server.head('/api/echo', echoValue);
 
-// -- redirect requests 
+// -- redirect requests
 server.get(/\/?.*/, restify.serveStatic({
   directory: __dirname.concat('/../front/dist'),
   default: 'index.html',
