@@ -4,7 +4,7 @@
     <div id="sign-in" class="col-sm-6">
       <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'"></text-box><br>
       <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'" [textboxType]="'password'"></text-box><br>
-      <check-box [checkboxText]="'Remember Me'" [fontWeight]="'500'" [fontColor]="'white'"></check-box>
+      <check-box [checkboxText]="'Remember Me'" [fontWeight]="'500'" [fontColor]="'white'" style="padding-right: 8px"></check-box>
       <a id="forgot-password" target="_blank" href="https://johnsmith:smith123@www.example.com">Forgot password?</a><br>
       <button id="log-in" class="btn-primary" (click)="sporeLogin()">Log In</button>
       <button id="sign-up" class="btn-primary" (click)="sporeSignUp()">Sign Up</button> <br>
@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" style="padding-bottom: 100px">
   <info-card [panelName]="'Parser'" [panelDescription]="'Spore comes equipped with a parser, which is able to automatically convert the important information such as lecture times, due dates, etc. and place them in your calendar. We are currently supporting Univeristy of Toronto with functionality for other universities coming very soon!'"
     [imageLocation]="'assets/icons2-01.jpg'"></info-card>
   <info-card [panelName]="'Calendar'" [panelDescription]="'Spore calendar is one of few which grants students the privilege of being able to manage their time, become more organized and socialize in a productive manner without any distractions. Including many modern qualities, Spore allows students to personalize their page with school colours, logos, or however they please.'"
