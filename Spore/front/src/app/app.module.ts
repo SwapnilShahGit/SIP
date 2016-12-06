@@ -28,7 +28,6 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 import { ScheduleModule } from 'primeng/primeng';
-import {TabsHelper} from "../meta/tabsHelper";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -73,8 +72,7 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     DatabaseService,
-    NavService,
-    TabsHelper
+    NavService
   ]
 })
 export class AppModule {
