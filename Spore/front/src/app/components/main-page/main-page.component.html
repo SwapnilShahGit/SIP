@@ -32,7 +32,7 @@
 
   <div *ngIf="CurrentTab == this.navService.CaledarTab">
     <!--### PrimengSchedule ###-->
-    <p-schedule [events]="calendarOptions.events" [defaultDate]="calendarOptions.defaultDate" [editable]="true"></p-schedule>
+    <p-schedule [events]="events" [defaultDate]="'2016-09-12'" [editable]="true" [header]="header" (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
     <br>
     <h1>Date picker:</h1>
     <p-calendar [(ngModel)]="value"></p-calendar>
