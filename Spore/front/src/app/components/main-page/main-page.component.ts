@@ -7,7 +7,6 @@ import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
 import { Subscription } from 'rxjs/Subscription';
 import { NavService } from '../../../meta/nav.service';
-import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
 import { ScheduleModule } from 'primeng/primeng';
 import { Observable } from 'rxjs/Rx';
 

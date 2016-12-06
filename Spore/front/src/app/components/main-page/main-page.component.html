@@ -31,7 +31,6 @@
   <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}}!</h1>
 
   <div *ngIf="CurrentTab == this.navService.CaledarTab">
-    <!--### PrimengSchedule ###-->
     <p-schedule [events]="events" [defaultDate]="'2016-09-12'" [editable]="true" [header]="header" (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
     <br>
     <h1>Date picker:</h1>
