@@ -128,13 +128,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
   handleEventClick(event) {
     this.event = new Event();
     this.dialogVisible = true;
-    console.log("event clicked");
+    console.log("event clicked - " + event.calEvent.title);
   }
 
   handleDayClick(event) {
     this.event = new Event();
     this.dialogVisible = true;
-    console.log("day clicked");
+    console.log("day clicked - " + event.date._i);
   }
 
   saveEvent() {
