@@ -5,9 +5,10 @@ import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 import { Http, Response } from '@angular/http';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
+import { Event } from '../../../meta/event';
 import { Subscription } from 'rxjs/Subscription';
 import { NavService } from '../../../meta/nav.service';
-import { ScheduleModule } from 'primeng/primeng';
+import { ScheduleModule, DialogModule } from 'primeng/primeng';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -51,6 +52,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
 	  center: 'title',
 	  right: 'month,agendaWeek,agendaDay'
 	};
+
+  event: Event;
+  dialogVisible: boolean = false;
 
   events: any = [
     {
@@ -120,13 +124,37 @@ export class MainPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  /// -----------------------------------------------
   handleEventClick(event) {
+    this.event = new Event();
+    this.dialogVisible = true;
     console.log("event clicked");
   }
 
   handleDayClick(event) {
+    this.event = new Event();
+    this.dialogVisible = true;
     console.log("day clicked");
   }
+
+  saveEvent() {
+    if (this.event.Id) {
+      // update call
+      console.log("update called");
+    } else {
+      // create call
+      console.log("create called");
+    }
+
+    this.dialogVisible = false;
+  }
+
+  deleteEvent() {
+    // delete call
+    this.dialogVisible = false;
+    console.log("delete called");
+  }
+  /// -----------------------------------------------
 
   echoTester() {
     this.databaseService.echo(this.echoInput).then(data => this.echoResponse = data);

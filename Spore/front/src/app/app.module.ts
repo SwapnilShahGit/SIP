@@ -13,7 +13,7 @@ import { ThirdPartyButton } from './components/minor-page-elements/third-party-b
 import { TextBoxComponent } from './components/minor-page-elements/text-box/text-box.component';
 import { SignUpPageComponent } from './components/signup-page/signup-page.component';
 import { ButtonModule } from 'primeng/primeng';
-import { CalendarModule } from 'primeng/primeng';
+import { CalendarModule, DialogModule } from 'primeng/primeng';
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
 import { NavService } from '../meta/nav.service';
@@ -66,7 +66,8 @@ type StoreType = {
     AppRoutingModule,
     ButtonModule,
     CalendarModule,
-    ScheduleModule
+    ScheduleModule,
+    DialogModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

@@ -2,7 +2,9 @@
 
 <div class="sidenav" [ngStyle]="{'width': slideOutWidth}">
   <!---->
-  <a style="padding: 4px 10px 0px 10px;"><search-bar></search-bar></a>
+  <a style="padding: 4px 10px 0px 10px;">
+    <search-bar></search-bar>
+  </a>
   <!---->
   <br> <span class="sidenav-header">Tools</span>
   <hr class="sidenav-hr">
@@ -31,10 +33,38 @@
   <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}}!</h1>
 
   <div *ngIf="CurrentTab == this.navService.CaledarTab">
-    <p-schedule [events]="events" [defaultDate]="'2016-09-12'" [editable]="true" [header]="header" (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
+    <p-schedule [events]="events" [defaultDate]="'2016-09-12'" [editable]="true" [header]="header" (onDayClick)="handleDayClick($event)"
+      (onEventClick)="handleEventClick($event)"></p-schedule>
     <br>
     <h1>Date picker:</h1>
     <p-calendar [(ngModel)]="value"></p-calendar>
+
+    <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false">
+      <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="this.event">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4"><label for="vin">Title</label></div>
+          <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4"><label for="vin">Title</label></div>
+          <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4"><label for="vin">Title</label></div>
+          <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4"><label for="vin">Title</label></div>
+          <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
+        </div>
+      </div>
+      <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+          <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
+          <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
+        </div>
+      </footer>
+    </p-dialog>
   </div>
 
   <div *ngIf="CurrentTab == this.navService.CalculatorTab">
@@ -89,7 +119,8 @@
       insolens. Ea vis ubique tibique comprehensam, ne eros phaedrum mel. Vel at dolor appetere eleifend. Eruditi officiis
       at pro. Tale viderer scriptorem cu pro, no sonet dolorem ius, qui ei dolor consul placerat. Ne vel option veritus.</p>
     <p>Ad qui erroribus imperdiet, eum in dicant similique, at libris sententiae eos. Eum possim incorrupte et, quas cetero
-      detr</p>
+      detr
+    </p>
     <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
       facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
       ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
@@ -100,7 +131,8 @@
       insolens. Ea vis ubique tibique comprehensam, ne eros phaedrum mel. Vel at dolor appetere eleifend. Eruditi officiis
       at pro. Tale viderer scriptorem cu pro, no sonet dolorem ius, qui ei dolor consul placerat. Ne vel option veritus.</p>
     <p>Ad qui erroribus imperdiet, eum in dicant similique, at libris sententiae eos. Eum possim incorrupte et, quas cetero
-      detr.</p>
+      detr.
+    </p>
   </div>
 
   <div *ngIf="CurrentTab == this.navService.UserDetailsTab">
