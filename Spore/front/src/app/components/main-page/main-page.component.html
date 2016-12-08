@@ -42,20 +42,34 @@
     <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false">
       <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="this.event">
         <div class="ui-grid-row">
-          <div class="ui-grid-col-4"><label for="vin">Title</label></div>
-          <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
+          <div class="ui-grid-col-4">
+            <label for="vin">Title</label>
+          </div>
+          <div class="ui-grid-col-8">
+            <text-box [placeholderText]="'Name for your event'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'100%'"></text-box><br>
+          </div>
+        </div><div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            <label for="vin">Start</label>
+          </div>
+          <div class="ui-grid-col-8 date-input-style">
+            <p-calendar [(ngModel)]="someValueX" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
+          </div>
+        </div><div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            <label for="vin">End</label>
+          </div>
+          <div class="ui-grid-col-8 date-input-style">
+            <p-calendar [(ngModel)]="someValueY" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
+          </div>
         </div>
         <div class="ui-grid-row">
-          <div class="ui-grid-col-4"><label for="vin">Title</label></div>
-          <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-4"><label for="vin">Title</label></div>
-          <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-4"><label for="vin">Title</label></div>
-          <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
+          <div class="ui-grid-col-4">
+            <label for="vin">All Day</label>
+          </div>
+          <div class="ui-grid-col-8">
+            <check-box style="margin-left: 4px; padding-right: 8px"></check-box>
+          </div>
         </div>
       </div>
       <footer>
