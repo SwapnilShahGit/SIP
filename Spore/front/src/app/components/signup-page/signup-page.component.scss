@@ -12,16 +12,18 @@
 
 .header-text {
   color: $color-spore-orange;
-  font-size: 50px;
+  font-size: 60px;
   text-align: center;
-  padding: 30px 0;
+  padding: 50px 0 30px 0;
 }
 
 #left-box {
   text-align: right;
+  padding-bottom: 15px;
 }
 
 #right-box {
+  padding-bottom: 15px;
 }
 
 #center-box {
@@ -74,15 +76,19 @@
 select {
   padding: 8px 12px;
   margin: 5px 0;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 4px;
   box-sizing: border-box;
   background-color: #EBECED;
-  width: 225px;
+  width: 250px;
 }
 
 select option {color: $color-spore-grey}
 
 #sign-up-button {
   padding-top: 10px;
+}
+
+.calendarStyle input {
+  width: 500px;
 }
