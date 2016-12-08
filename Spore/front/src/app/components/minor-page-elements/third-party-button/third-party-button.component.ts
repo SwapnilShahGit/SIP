@@ -19,6 +19,9 @@ export class ThirdPartyButton {
   @Input()
   public buttonColor;
 
+  @Input()
+  public buttonBorder;
+
   constructor(){}
 
 }
