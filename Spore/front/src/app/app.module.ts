@@ -12,8 +12,7 @@ import { CheckBoxComponent } from './components/minor-page-elements/check-box/ch
 import { ThirdPartyButton } from './components/minor-page-elements/third-party-button/third-party-button.component';
 import { TextBoxComponent } from './components/minor-page-elements/text-box/text-box.component';
 import { SignUpPageComponent } from './components/signup-page/signup-page.component';
-import { ButtonModule } from 'primeng/primeng';
-import { CalendarModule, DialogModule } from 'primeng/primeng';
+import { CalendarModule, DialogModule, ButtonModule, ScheduleModule } from 'primeng/primeng';
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
 import { NavService } from '../meta/nav.service';
@@ -27,7 +26,6 @@ import { ENV_PROVIDERS } from './environment';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { ScheduleModule } from 'primeng/primeng';
 
 // Application wide providers
 const APP_PROVIDERS = [

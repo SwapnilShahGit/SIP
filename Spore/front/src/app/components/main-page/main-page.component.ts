@@ -122,17 +122,23 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.databaseService.loadUser(this.userID);
       }
     });
+
+    /// Add a call to populate the calendar content here (or observe it)
   }
 
-  /// -----------------------------------------------
+  /// API calls need to be added -----------------------------------------------
   handleEventClick(event) {
     this.event = new Event();
+    this.event.Id = event.calEvent._id;
+    this.event.Start = event.calEvent._start._i;
     this.dialogVisible = true;
     console.log("event clicked - " + event.calEvent.title);
   }
 
+
   handleDayClick(event) {
     this.event = new Event();
+    this.event.Start = event.date._i;
     this.dialogVisible = true;
     console.log("day clicked - " + event.date._i);
   }
@@ -147,14 +153,16 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
 
     this.dialogVisible = false;
+    this.event = undefined;
   }
 
   deleteEvent() {
     // delete call
     this.dialogVisible = false;
+    this.event = undefined;
     console.log("delete called");
   }
-  /// -----------------------------------------------
+  /// API calls need to be added -----------------------------------------------
 
   echoTester() {
     this.databaseService.echo(this.echoInput).then(data => this.echoResponse = data);
