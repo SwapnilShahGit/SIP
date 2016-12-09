@@ -46,7 +46,7 @@ import org.json.simple.parser.JSONParser;
 public class SporeReader
 {
 	public static String rawtext;
-	public static String lines[];
+	public static String rawTextLines[];
 	public static String finalcoursecode;
     public static String currentyear;
 	public static String session;
@@ -55,22 +55,20 @@ public class SporeReader
     public static JSONArray nodeobj = new JSONArray();
 
 	 public static void main(String[] args) throws IOException {
-	 	//get list of files in the PDF directory
+		 //get list of files in the PDF directory
 		 File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
 		 //System.out.println(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
 		 File[] listOfFiles = folder.listFiles();
-	     	PdfToText pdfManager = new PdfToText();
-
-
+	     PdfToText pdfManager = new PdfToText();
 		 for (int i = 0; i < listOfFiles.length; i++){
-			 if (!listOfFiles[i].toString().endsWith(".pdf")){
+			 if (! listOfFiles[i].toString().endsWith(".pdf")){
 				 continue;
 			 }
 			 obj = new JSONObject();
 			 pdfManager.setFilePath(listOfFiles[i].toString());
 			 rawtext = pdfManager.ToText();
 			 obj.put("rawtext", rawtext);
-		     lines = rawtext.split("\\r?\\n");
+		     rawTextLines = rawtext.split("\\r?\\n");
 		     
 		     //UofT course code format
 		     finalcoursecode = coursecodefinder();
@@ -117,39 +115,45 @@ public class SporeReader
 		     obj.put("meeting_sections", json.get("meeting_sections").toString());
 		     //list of graded evaluations
 		     obj.put("graded_evaluations", getassignments());
-		     saveAsJSON();
-			 System.out.println(obj);
+		     //saveAsJSON();
+		     obj.put("mongodbevents", processeventsformongo(json));
+			 //System.out.println(obj);
+		     System.out.println(obj.get("mongodbevents"));
 		 }
 	 }
 
-	 public static String coursecodefinder() {
-		    String coursecodepattern = "[A-Z]{3}\\s?[0-9]{3}[H|Y][1|5][F|S|Y]?";
-		 		Pattern coursecode = Pattern.compile(coursecodepattern);
-				Map<String, Integer> results = new HashMap<String, Integer>();
-
-				int count = 0;
-				Matcher m = coursecode.matcher(rawtext);
-				String finalcoursecode = "";
-				int maxcoursecode = 0;
-				while (m.find()){
-				 count++;
-				 if (results.containsKey(m.group())){
-					 results.put(m.group(), results.get(m.group()) + 1);
-					 if (results.get(m.group()) > maxcoursecode){
-						 finalcoursecode = m.group();
-						 maxcoursecode = results.get(m.group());
-					 }
-				 } else{
-					 results.put(m.group(), 1);
+	public static String coursecodefinder() {
+		 String coursecodepattern = "[A-Z]{3}\\s?[0-9]{3}[H|Y][1|5][F|S|Y]?";
+		 Pattern coursecode = Pattern.compile(coursecodepattern);
+		 Map<String, Integer> results = new HashMap<String, Integer>();
+		 int count = 0;
+		 Matcher m = coursecode.matcher(rawtext);
+		 String finalcoursecode = "";
+		 int maxcoursecode = 0;
+		 while (m.find()){
+			 count++;
+			 if (results.containsKey(m.group())){
+				 results.put(m.group(), results.get(m.group()) + 1);
+				 if (results.get(m.group()) > maxcoursecode){
 					 finalcoursecode = m.group();
+					 maxcoursecode = results.get(m.group());
 				 }
-						}
-				if (finalcoursecode.length() == 8){
-					finalcoursecode += "Y";
-				}
-				return finalcoursecode.replaceAll("\\s+","");
+			} else {
+				results.put(m.group(), 1);
+				finalcoursecode = m.group();
+			}
+		 }
+		 
+		 if (finalcoursecode.length() == 8){
+			 finalcoursecode += "Y";
+		 }
+		
+		 return finalcoursecode.replaceAll("\\s+","");
+	 
 	 }
 
+	 
+	 
 	 public static JSONObject connecttoCobalt() throws IOException{
 		     if (rawtext.contains("Summer") | rawtext.contains("summer")){
 		    	 session = "5";
@@ -181,7 +185,6 @@ public class SporeReader
 		     URL uoftRequest;
 		     Scanner scanner;
 		     try{
-		    	 //System.out.println("http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter);
 		    	 requestURL = "http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter;
 		    	 uoftRequest = new URL(requestURL);
 			     connection = uoftRequest.openConnection();
@@ -208,66 +211,93 @@ public class SporeReader
 		     return json;
 	 }
 
+	 
+	 
 	 public static JSONArray getassignments(){
 		 List<String> assignmentlines = new ArrayList<String>();
-		     int assignmentcount = 0;
-		        for (String x : lines){
-		     	   if (x.contains("%")){
-		     		   if (x.contains("Total 100%")){
-		     			   continue;
-		     		   }
-		     		   assignmentcount += 1;
-		     		   assignmentlines.add(x);
-		     	   }
-		        }
-		        Parser parser = new Parser();
-		        List<DateTime> outputdates = new ArrayList<DateTime>();
-		        int counter = 0;
-		        JSONArray markedlist = new JSONArray();
-		        JSONArray minilist = new JSONArray();
-		        for (String y : assignmentlines){
-	        	     minilist = new JSONArray();
-		           List<DateGroup> group = parser.parse(y);
-		           if (y.contains("Final Exam")){
-		        	   	 minilist.add(y);
-			             markedlist.add(minilist);
-			             continue;
-			      	   }
-		      	   else if (group.toString() == "[]"){
-			      		   continue;
-			      	   } 
-		      	   List<Date> date = (group.get(0)).getDates();
-		             Date sampledate = date.get(0);
-		             DateTime dt = new DateTime(sampledate);
-		             outputdates.add(dt);
-		             minilist.add(dt.toString());
-		             minilist.add(y);
-		             markedlist.add(minilist);
-
-		        }
-		        return markedlist;
-	 }
-
-	 public static void saveAsJSON(){
-		 //create a new JSON file with the information and save to filesystem
-			 try{
-				 FileWriter file = new FileWriter(System.getProperty("user.dir") + "/PDFS/JSONOutput/" + finalcoursecode + currentyear + session + optionalcharacter + ".json");
-				 file.write(obj.toJSONString());
-				 file.flush();
-				 file.close();
-			 } catch (IOException e){
-				 e.printStackTrace();
-			 }
-	 }
-
-	 public static String getUniversityCampus(){
-		 //name of the university
-		     String universitycampus = "";
-		     if (Character.toString(finalcoursecode.charAt(7)).equals("5")){
-		    	 universitycampus = "UTM";
-		     } else {
-		    	 universitycampus = "UTSG";
+		 int assignmentcount = 0;
+		 for (String x : rawTextLines){
+			 if (x.contains("%")){
+				 if (x.contains("Total 100%")){
+					 continue;
+				 }
+		     	 assignmentcount += 1;
+		         assignmentlines.add(x);
 		     }
-				 return universitycampus;
+		 }
+		 Parser parser = new Parser();
+		 List<DateTime> outputdates = new ArrayList<DateTime>();
+		 int counter = 0;
+		 JSONArray markedlist = new JSONArray();
+		 JSONArray minilist = new JSONArray();
+		 for (String y : assignmentlines){
+			 minilist = new JSONArray();
+			 List<DateGroup> group = parser.parse(y);
+			 if (y.contains("Final Exam")){
+				 minilist.add(y);
+				 markedlist.add(minilist);
+				 continue;
+			 } else if (group.toString() == "[]"){
+			      		   continue;
+			 }
+			 List<Date> date = (group.get(0)).getDates();
+			 Date sampledate = date.get(0);
+			 DateTime dt = new DateTime(sampledate);
+			 outputdates.add(dt);
+			 minilist.add(dt.toString());
+			 minilist.add(y);
+			 markedlist.add(minilist);
+		}
+		return markedlist;
+	}
+
+
+	 
+	 public static void saveAsJSON(){
+		 //create a new JSON file with the global JSON file and save to filesystem
+		 try{
+			 FileWriter file = new FileWriter(System.getProperty("user.dir") + "/PDFS/JSONOutput/" 
+				+ finalcoursecode + currentyear + session + optionalcharacter + ".json");
+			 file.write(obj.toJSONString());
+			 file.flush();
+			 file.close();
+		 } catch (IOException e){	 
+			 e.printStackTrace();	
+		 }
 	 }
+
+	 
+	 
+	 //returns the name of the university based on the course code
+	 public static String getUniversityCampus(){
+		 if (Character.toString(finalcoursecode.charAt(7)).equals("5")){
+			 return "UTM";
+		 } else {
+			 return "UTSG";
+		 }
+	 }
+	 
+	 private static Object processeventsformongo(JSONObject json) {
+		ArrayList<ArrayList<String>> listtoreturn = new ArrayList<ArrayList<String>>();
+		JSONArray listoflecturesandtutorials = (JSONArray) json.get("meeting_sections");
+		for (int i = 0; i < listoflecturesandtutorials.size(); i++){
+		    JSONObject lectureortutorial = (JSONObject) listoflecturesandtutorials.get(i);
+		    JSONArray lectureortutorialtimes = (JSONArray) lectureortutorial.get("times");
+		    int numberoftimes = lectureortutorialtimes.size();
+			for (int j = 0; j < numberoftimes ; j ++){
+				ArrayList<String> templist= new ArrayList<String>();
+				JSONObject tempJson = (JSONObject) lectureortutorialtimes.get(j);
+				templist.add(0, finalcoursecode + lectureortutorial.get("code"));  
+				templist.add(1, tempJson.get("start").toString());
+				templist.add(2, tempJson.get("end").toString());
+				templist.add(3, "#000000");
+				templist.add(4, (String) obj.get("description"));
+				templist.add(5, (String) tempJson.get("location"));
+				templist.add(6, (String) tempJson.get("instructors"));
+				templist.add(7, "0");
+				listtoreturn.add(templist);
+			}
+		}
+		return listtoreturn;
+	}
 }
