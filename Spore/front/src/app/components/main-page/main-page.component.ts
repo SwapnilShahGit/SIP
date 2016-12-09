@@ -28,6 +28,25 @@ export class MainPageComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   user: Observable<User>;
   userID: string;
+  event: Event;
+  dialogVisible: boolean = false;
+  header: any = {
+	  left: 'prev,next today',
+	  center: 'title',
+	  right: 'month,agendaWeek,agendaDay'
+	};
+
+  events: any = [
+    {
+      title: 'All Day Event',
+      start: '2016-09-01'
+    },
+    {
+      title: 'Long Event',
+      start: '2016-09-07',
+      end: '2016-09-10'
+    }
+  ];
 
   constructor(
     private router: Router,
@@ -47,72 +66,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  header: any = {
-	  left: 'prev,next today',
-	  center: 'title',
-	  right: 'month,agendaWeek,agendaDay'
-	};
-
-  event: Event;
-  dialogVisible: boolean = false;
-
-  events: any = [
-    {
-      title: 'All Day Event',
-      start: '2016-09-01'
-    },
-    {
-      title: 'Long Event',
-      start: '2016-09-07',
-      end: '2016-09-10'
-    },
-    {
-      id: 999,
-      title: 'Repeating Event',
-      start: '2016-09-09T16:00:00'
-    },
-    {
-      id: 999,
-      title: 'Repeating Event',
-      start: '2016-09-16T18:00:00'
-    },
-    {
-      title: 'Conference',
-      start: '2016-09-11',
-      end: '2016-09-13'
-    },
-    {
-      title: 'Meeting',
-      start: '2016-09-12T10:30:00',
-      end: '2016-09-12T12:30:00'
-    },
-    {
-      title: 'Lunch',
-      start: '2016-09-12T12:00:00'
-    },
-    {
-      title: 'Meeting',
-      start: '2016-09-12T14:30:00'
-    },
-    {
-      title: 'Happy Hour',
-      start: '2016-09-12T17:30:00'
-    },
-    {
-      title: 'Dinner',
-      start: '2016-09-12T20:00:00'
-    },
-    {
-      title: 'Birthday Party',
-      start: '2016-09-13T07:00:00'
-    },
-    {
-      title: 'Click for Google',
-      url: 'http://google.com/',
-      start: '2016-09-28'
-    }
-  ];
-
   ngOnInit() {
     this.user = this.databaseService.user;
     console.log('_______ in main _______');
@@ -127,20 +80,20 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   /// API calls need to be added -----------------------------------------------
-  handleEventClick(event) {
+  handleEventClick(e) {
     this.event = new Event();
-    this.event.Id = event.calEvent._id;
-    this.event.Start = event.calEvent._start._i;
+    this.event.Start = e.calEvent._start.toDate();
+    this.event.Start.setDate(this.event.Start.getDate() + 1); // have to add 1 day for some reason...
     this.dialogVisible = true;
-    console.log("event clicked - " + event.calEvent.title);
+    console.log("event clicked - " + e.calEvent.title);
   }
 
-
-  handleDayClick(event) {
+  handleDayClick(e) {
     this.event = new Event();
-    this.event.Start = event.date._i;
+    this.event.Start = e.date.toDate();
+    this.event.Start.setDate(this.event.Start.getDate() + 1); // have to add 1 day for some reason...
     this.dialogVisible = true;
-    console.log("day clicked - " + event.date._i);
+    console.log("day clicked - " + this.event.Start);
   }
 
   saveEvent() {

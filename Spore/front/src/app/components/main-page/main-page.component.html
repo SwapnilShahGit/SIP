@@ -36,11 +36,9 @@
     <p-schedule [events]="events" [defaultDate]="'2016-09-12'" [editable]="true" [header]="header" (onDayClick)="handleDayClick($event)"
       (onEventClick)="handleEventClick($event)"></p-schedule>
     <br>
-    <h1>Date picker:</h1>
-    <p-calendar [(ngModel)]="value"></p-calendar>
 
     <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
-      <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="this.event">
+      <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
         <div class="ui-grid-row">
           <div class="ui-grid-col-12">
             <label for="vin">Title</label>
@@ -58,7 +56,7 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-12 date-input-style">
-            <p-calendar [(ngModel)]="someValueX" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="mm/dd/year"> </p-calendar>
+            <p-calendar [(ngModel)]="event.Start" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year" dateFormat="(DD) MM d, yy"> </p-calendar>
           </div>
         </div>
         <div class="ui-grid-row">
@@ -68,7 +66,7 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-12 date-input-style">
-            <p-calendar [(ngModel)]="someValueY" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="mm/dd/year"></p-calendar>
+            <p-calendar [(ngModel)]="someValueY" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year" dateFormat="(DD) MM d, yy"></p-calendar>
           </div>
         </div>
         <div class="ui-grid-row">

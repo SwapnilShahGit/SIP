@@ -2,15 +2,15 @@
 export class Event implements IEvent {
     Id: number;
     Title: string;
-    Start: string;
-    End: string;
+    Start: Date;
+    End: Date;
     AllDay: boolean = true;
 }
 
 export interface IEvent {
     Id: number;
     Title: string;
-    Start: string;
-    End: string;
+    Start: Date;
+    End: Date;
     AllDay: boolean
 }
