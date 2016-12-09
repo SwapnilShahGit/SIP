@@ -1,43 +1,46 @@
 @import '../../../assets/styles/spore-colors';
 
-#login-body {
-  line-height: 1.8;
-  padding: 15px 0;
-  background: $color-spore-orange; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left top, $color-spore-orange, $color-spore-yellow); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, $color-spore-orange, $color-spore-yellow); /* Standard syntax (must be last) */
+.sign-up-container {
+  padding: 0;
 }
 
 .header-text {
   color: $color-spore-orange;
-  font-size: 50px;
+  font-size: 60px;
   text-align: center;
-  padding: 30px 0;
+  padding: 50px 0 30px 0;
+}
+
+.close-button {
+  color: $color-spore-grey;
+  font-size: 24px;
+  padding-left: 4px;
+  cursor: pointer;
 }
 
 #left-box {
   text-align: right;
+  padding-bottom: 15px;
 }
 
 #right-box {
+  padding-bottom: 15px;
 }
 
 #center-box {
   text-align: center;
 }
 
-#fb-sign-up{
-  text-align: right;
+.third-party-buttons-container {
+  padding-bottom: 30px;
 }
 
 #google-sign-up{
   text-align: center;
 }
 
-#linkedin-sign-up{
-  text-align: left;
+.or-line-container {
+  padding-bottom: 30px;
 }
 
 .or-line {
@@ -53,11 +56,65 @@
 }
 
 .date-of-birth-text {
-  color: $color-spore-grey;
   font-size: 18px;
-  padding: 12px 135px 12px 0px;
-  text-align: center;
+  padding-top: 2px;
+  padding-right: 143px
 }
+
+.select-school-label {
+  font-size: 18px;
+  padding-top: 10px;
+  padding-right: 119px;
+}
+
+.select-school-container {
+  padding-bottom: 15px;
+}
+
+select {
+  padding: 8px 12px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #EBECED;
+  width: 250px;
+}
+
+select option {color: $color-spore-grey}
+
+.gender-terms-container {
+  padding-top: 5px;
+}
+
+.gender-container {
+  padding-right: 108px;
+}
+
+.check-box {
+  font-size: 18px;
+  padding-left: 5px;
+}
+
+.terms-conditions-container {
+  font-size: 14px;
+  margin-right: -6px;
+  padding-right: 4px;
+}
+
+#sign-up-button-container {
+  padding-top: 10px;
+}
+
+.sign-up-button {
+  background-color: $color-spore-orange;
+  width: 250px;
+}
+
+.footer-container {
+  padding-top: 40px;
+}
+
 
 @media screen and (max-width: 767px) {
   #left-box, #right-box {
@@ -65,24 +122,8 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 615px) {
   #fb-sign-up, #google-sign-up, #linkedin-sign-up{
     text-align: center;
   }
-}
-
-select {
-  padding: 8px 12px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  background-color: #EBECED;
-  width: 225px;
-}
-
-select option {color: $color-spore-grey}
-
-#sign-up-button {
-  padding-top: 10px;
 }

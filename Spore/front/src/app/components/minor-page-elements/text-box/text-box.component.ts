@@ -17,5 +17,13 @@ export class TextBoxComponent {
   public boxWidth;
   @Input()
   public textboxType = '';
+  @Input()
+  public textboxBorder;
+  @Input()
+  public textboxHeight;
+  @Input()
+  public textboxFontSize;
+
+
   constructor(){};
 }
