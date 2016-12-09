@@ -112,6 +112,17 @@ function redirectToFront(req, res, err, next) {
   res.redirect('https://' + req.headers.host + '/#' + req.url, next);
 }
 
+function dropPrivileges() {
+  if (typeof process.env.SPORE_GID !== 'undefined') {
+    process.setgid(process.env.SPORE_GID);
+    console.log('gid was set to %s', process.getgid());
+  }
+  if (typeof process.env.SPORE_UID !== 'undefined') {
+    process.setuid(process.env.SPORE_UID);
+    console.log('uid was set to %s', process.getuid());
+  }
+}
+
 var server = restify.createServer({
   certificate: fs.readFileSync(process.env.CERT || 'cert.pem'),
   key: fs.readFileSync(process.env.KEY || 'key.pem'),
@@ -146,16 +157,16 @@ server.get(/\/?.*/, restify.serveStatic({
 
 server.on('ResourceNotFound', redirectToFront);
 
-server.listen(process.env.HTTPS_PORT || 8081, function() {
-  console.log('%s listening at %s', server.name, server.url);
-});
-
 httpServer = restify.createServer({
   name: 'HTTP Redirection Server'
 });
 
 httpServer.get(/\/?.*/, redirectToHttps);
 
-httpServer.listen(process.env.HTTP_PORT || 8080, function() {
-  console.log('%s listening at %s', httpServer.name, httpServer.url);
+server.listen(process.env.HTTPS_PORT || 8081, function() {
+  console.log('%s listening at %s', server.name, server.url);
+  httpServer.listen(process.env.HTTP_PORT || 8080, function() {
+    console.log('%s listening at %s', httpServer.name, httpServer.url);
+    dropPrivileges();
+  });
 });
