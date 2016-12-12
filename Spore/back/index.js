@@ -66,8 +66,35 @@ function dbFetchUser(req, res, next) {
 
 // -- update user info in db given user id
 function dbUpdateUser(req, res, next) {
-  console.log("updating user with id:" + req.query.user);
-  error = 0; 
+  /*console.log("updating user with id:" + req.query.user);
+  if ( typeof req.query.user !== "undefined"){
+    dbController.fetchUser(req.query.user, function(err, User) {
+	var tempUser = User; 	
+	
+	if (typeof req.query.pass !== "undefined")
+	{
+		tempUser.Password = req.query.pass;
+	}
+  
+	if (typeof req.query.first !== "undefined")
+	{
+	  tempUser.FirstName = req.query.first;
+	}
+  
+  
+    }
+  }
+  else{
+	res.send({
+	  error: 110,
+      data: "User Id not defined"
+    });
+  }
+  
+  
+  
+  
+ /* error = 0; 
   data = null;
   if ( typeof req.query.user !== "undefined")
   {
@@ -143,11 +170,11 @@ function dbUpdateUser(req, res, next) {
   res.send({
 	error: error,
     data: data
-  });
+  });*/
 }
 
-// -- create and save event into db
-function dbSaveEvent(req, res, next) {
+// -- create and save event into db and add event ID to user
+function dbAddEvent(req, res, next) {
   var eventInfo = {
 	title: req.query.title,
     startTime: req.query.start,
@@ -159,23 +186,36 @@ function dbSaveEvent(req, res, next) {
 	course: req.query.cou,
 	repeat: req.query.rep	
   };
-  dbController.saveEvent(eventInfo, function (err){
+  dbController.saveEvent(eventInfo, function (err, Event){
 	if (err == null)
 	{
-	  res.send({
-        error: 0,
-		data: null
-      });
+	  dbController.addUserEvent(req.query.user, Event.EventID, function(Err){
+		if (Err == null)
+		{
+		  res.send({
+            error: 0,
+		    data: "successfully added event for user"
+          });
+		  next();
+		}
+		else
+		{
+		  res.send({
+            error: 110,
+		    data: "error adding event to User"
+          });
+		  next();
+		}
+	  });
 	}
 	else
 	{
 	  res.send({
         error: 110,
-		data: err
+		data: "error saving event in DB: " + err
       });
-		
+	  next();
 	}
-    next();
   });
 }
 
@@ -326,11 +366,22 @@ function  dbFetchUserEventIDs(req, res, next){
   console.log("fetching event ids for user:" + req.query.user);
   
   dbController.fetchUser(req.query.user, function(err, User){
-    if (User !=null){	
-      res.send({
-	  	error: 0,
-		data: User.EventsID
+    if (User !=null){
+	  dbController.fetchUserEvents(User.EventsID, function(Err, events){	
+	    if (Err == false){
+	      res.send({
+	  	    error: 0,
+		    data: events
+	      });
+	    }
+	    else{
+	      res.send({
+	  	    error: 110,
+		    data: "could not get all user events"
+	      });		
+	    }
 	  });
+	  next();
     }
     else{
       res.send({
@@ -338,8 +389,9 @@ function  dbFetchUserEventIDs(req, res, next){
 		data: "Error fetching User"
 		
 	  });
+	  next();
     }
-    next();
+    
   });
 }
 
@@ -404,8 +456,8 @@ server.get('/api/updateUser', dbUpdateUser);
 server.head('/api/updateUser', dbUpdateUser);
 server.get('/api/parse', java);
 server.head('/api/parse', java);
-server.get('/api/createEvent', dbSaveEvent);
-server.head('/api/createEvent', dbSaveEvent);
+server.get('/api/addEvent', dbAddEvent);
+server.head('/api/addEvent', dbAddEvent);
 server.get('/api/showEvent', dbFetchEvent);
 server.head('/api/showEvent', dbFetchEvent);
 server.get('/api/updateEvent', dbUpdateEvent);
