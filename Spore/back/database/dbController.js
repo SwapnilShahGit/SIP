@@ -116,9 +116,15 @@ module.exports = function(){
 		Course: Event.course,
 		Repeat: Event.repeat		
       });
-      newEventEntry.save(function(err) {
-        if (err) return callback('Error saving event into datbase: ' + err);
-          return callback(null);
+	  
+      newEventEntry.save(function(err, Event) {  
+        if (err != null) {
+		  return callback('Error saving event into datbase: ' + err);
+        }  
+		else
+		{
+	      return callback(err,Event);
+		}
       });
       
     }
@@ -126,6 +132,14 @@ module.exports = function(){
       return callback('event information is not valid or incomplete');
     }
   }
+  
+  // -- add new event id to user event list given user id and event id
+  function addUserEvent(userId, eventID, callback){
+	usersTable.update({UserID: userId}, {$push: {EventsID: eventID}}, function(err){
+	  return callback(err);	
+	});
+  }
+  
   
   // -- fetch event information given a eventID
   function fetchEvent(id, callback) {
@@ -136,11 +150,32 @@ module.exports = function(){
   }
   
   // -- fetch event information given a userID, start and end time
-  function fetchUserEvents(id, start, end, callback) {
-    eventLibrary.findOne({EventID: id}, function(err, Event){
-      // -- if findOne is successful err will be null, else Event will be null
-      return callback(err, Event);
-    }); 
+  function fetchUserEvents(eventIDArray, callback) {
+   	var eventArray =[];
+	var error = false;
+	var getEvent = function (eventID){
+      eventLibrary.findOne({EventID: eventID}, function(err, eventObj){
+	    if (err == null){
+		  console.log(eventObj);	
+		  eventArray.push(eventObj);
+		}
+		else{
+		  error = true;	
+		}
+	  });
+	} 
+	
+	for(var i = 0; i < eventIDArray.length; i++){
+	  getEvent(eventIDArray[i]);	
+	}
+	
+	return callback(error, eventArray);
+	
+    /*eventLibrary.where('EventID').in(eventIDArray).exec(function(eventObj){
+	  console.log("the event object is : " + eventObj);
+      // eventArray.push(eventObj);
+
+	});*/
   }
   
  // -- update Event information given a event ID
@@ -224,6 +259,8 @@ module.exports = function(){
   m.updateEvent = updateEvent;
   m.deleteEvent = deleteEvent;
   m.deleteUserEvent = deleteUserEvent;
+  m.addUserEvent = addUserEvent;
+  m.fetchUserEvents = fetchUserEvents;
 
 
   return m;
