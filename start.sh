@@ -37,7 +37,7 @@ printf "\n${UNDERLINE}Installing node_modules for front...${NORMAL}\n"
 npm install
 
 if [ "$production" = true ]; then
-    printf"\n${UNDERLINE}Building front-end for production...${NORMAL}\n"
+    printf "\n${UNDERLINE}Building front-end for production...${NORMAL}\n"
     npm run build:prod
 else
     printf "\n${UNDERLINE}Starting front-end development server...${NORMAL}\n"
