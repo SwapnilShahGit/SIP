@@ -1,0 +1,57 @@
+<p-schedule [events]="events" [defaultDate]="'2016-09-12'" [editable]="true" [header]="header" (onDayClick)="handleDayClick($event)"
+    (onEventClick)="handleEventClick($event)"></p-schedule>
+<br>
+
+<p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false"
+    [closeOnEscape]="true" [resizable]="false">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+                <label for="vin">Title</label>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+                <text-box [placeholderText]="'Name for your event'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'100%'"></text-box><br>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+                <label for="vin">Start</label>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-12 date-input-style">
+                <p-calendar [(ngModel)]="event.Start" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
+                    dateFormat="(DD) MM d, yy"> </p-calendar>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+                <label for="vin">End</label>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-12 date-input-style">
+                <p-calendar [(ngModel)]="someValueY" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
+                    dateFormat="(DD) MM d, yy"></p-calendar>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+                <label for="vin">All Day</label>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+                <check-box style="margin-left: 4px; padding-right: 8px"></check-box>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
+            <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
+        </div>
+    </footer>
+</p-dialog>

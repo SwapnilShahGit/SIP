@@ -16,6 +16,7 @@ import { CalendarModule, DialogModule, ButtonModule, ScheduleModule } from 'prim
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
 import { NavService } from '../meta/nav.service';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -55,7 +56,8 @@ type StoreType = {
     ThirdPartyButton,
     TextBoxComponent,
     CheckBoxComponent,
-    SignUpPageComponent
+    SignUpPageComponent,
+    CalendarComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 export class NavService {
 
     // Constants
-    CaledarTab: string = 'CaledarTab';
+    CalendarTab: string = 'CalendarTab';
     CalculatorTab: string = 'CalculatorTab';
     CoursesTab: string = 'CoursesTab';
     RemindersTab: string = 'RemindersTab';
