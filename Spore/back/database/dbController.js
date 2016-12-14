@@ -3,6 +3,7 @@
 // -- Created October 12, 2016
 //_________________________________________________________________________________________________
 var db = require('./model/db')();
+var assert = require('assert');
 
 module.exports = function(){
 
@@ -142,28 +143,19 @@ module.exports = function(){
   
   
   // -- create and save a new event in 'EventLibrary'
-  function javaSaveEvent(Event, callback){
-    if (Event){
-      var newEventEntry = new eventLibrary({
-        Title: Event.title,
-        StartTime: Event.startTime,
-        EndTime: Event.endTime,
-        BackgroundColour: Event.bgColor,
-        Description: Event.description,
-        Location: Event.Location,
-        Contact: Event.contact,
-        Repeat: Event.repeat
-      });
-      newEventEntry.create(function(err) {
-        if (err) return callback('Error saving event into datbase: ' + err);
-          return callback(null);
-      });
-
-    }
-    else{
-      return callback('event information is not valid or incomplete');
-    }
+  function javaSaveEvent(data, callback){
+    var array = JSON.parse(data)
+    eventLibrary.insertMany(array, function (err,r){
+      assert.equal(null, err);
+      assert.equal(array.length, r.length);
+      var newids = [];
+      for (var i = 0; i < r.length; i++) {
+          newids.push(r[i].id);
+      }
+      callback(newids);
+    })
   }
+
 
   // -- fetch event information given a eventID
   function fetchEvent(id, callback) {
@@ -284,7 +276,7 @@ module.exports = function(){
   m.deleteUserEvent = deleteUserEvent;
   m.addUserEvent = addUserEvent;
   m.fetchUserEvents = fetchUserEvents;
-
+  m.javaSaveEvent = javaSaveEvent;
 
   return m;
 

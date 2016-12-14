@@ -54,7 +54,7 @@ public class SporeReader
     public static JSONObject obj;
     public static JSONArray nodeobj = new JSONArray();
 
-	 public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException {
 		 //get list of files in the PDF directory
 		 File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
 		 //System.out.println(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
@@ -115,10 +115,9 @@ public class SporeReader
 		     obj.put("meeting_sections", json.get("meeting_sections").toString());
 		     //list of graded evaluations
 		     obj.put("graded_evaluations", getassignments());
-		     //saveAsJSON();
-		     obj.put("mongodbevents", processeventsformongo(json));
-			 //System.out.println(obj);
-		     System.out.println(obj.get("mongodbevents"));
+		     saveAsJSON();
+		     obj.put("mongodbevents", processeventsformongo(json).toString());
+		     System.out.println(obj.toString());
 		 }
 	 }
 
@@ -154,7 +153,7 @@ public class SporeReader
 
 	 
 	 
-	 public static JSONObject connecttoCobalt() throws IOException{
+	public static JSONObject connecttoCobalt() throws IOException{
 		     if (rawtext.contains("Summer") | rawtext.contains("summer")){
 		    	 session = "5";
 		    	 if (finalcoursecode.endsWith("F") | finalcoursecode.endsWith("S")){
@@ -213,7 +212,7 @@ public class SporeReader
 
 	 
 	 
-	 public static JSONArray getassignments(){
+	public static JSONArray getassignments(){
 		 List<String> assignmentlines = new ArrayList<String>();
 		 int assignmentcount = 0;
 		 for (String x : rawTextLines){
@@ -253,7 +252,7 @@ public class SporeReader
 
 
 	 
-	 public static void saveAsJSON(){
+	public static void saveAsJSON(){
 		 //create a new JSON file with the global JSON file and save to filesystem
 		 try{
 			 FileWriter file = new FileWriter(System.getProperty("user.dir") + "/PDFS/JSONOutput/" 
@@ -268,8 +267,8 @@ public class SporeReader
 
 	 
 	 
-	 //returns the name of the university based on the course code
-	 public static String getUniversityCampus(){
+	//returns the name of the university based on the course code
+	public static String getUniversityCampus(){
 		 if (Character.toString(finalcoursecode.charAt(7)).equals("5")){
 			 return "UTM";
 		 } else {
@@ -277,24 +276,25 @@ public class SporeReader
 		 }
 	 }
 	 
-	 private static Object processeventsformongo(JSONObject json) {
-		ArrayList<ArrayList<String>> listtoreturn = new ArrayList<ArrayList<String>>();
+	private static JSONArray processeventsformongo(JSONObject json) {
+		JSONArray listtoreturn = new JSONArray();
 		JSONArray listoflecturesandtutorials = (JSONArray) json.get("meeting_sections");
 		for (int i = 0; i < listoflecturesandtutorials.size(); i++){
 		    JSONObject lectureortutorial = (JSONObject) listoflecturesandtutorials.get(i);
 		    JSONArray lectureortutorialtimes = (JSONArray) lectureortutorial.get("times");
 		    int numberoftimes = lectureortutorialtimes.size();
 			for (int j = 0; j < numberoftimes ; j ++){
-				ArrayList<String> templist= new ArrayList<String>();
+				JSONObject templist = new JSONObject();
 				JSONObject tempJson = (JSONObject) lectureortutorialtimes.get(j);
-				templist.add(0, finalcoursecode + lectureortutorial.get("code"));  
-				templist.add(1, tempJson.get("start").toString());
-				templist.add(2, tempJson.get("end").toString());
-				templist.add(3, "#000000");
-				templist.add(4, (String) obj.get("description"));
-				templist.add(5, (String) tempJson.get("location"));
-				templist.add(6, (String) tempJson.get("instructors"));
-				templist.add(7, "0");
+				templist.put("title", lectureortutorial.get("code"));
+				templist.put("startTime", tempJson.get("start").toString());
+				templist.put("endTime", tempJson.get("end").toString());
+				templist.put("backgroundColour", "#000000");
+				templist.put("description", (String) obj.get("description"));
+				templist.put("location", (String) tempJson.get("location"));
+				templist.put("contact", (String) tempJson.get("instructors"));
+				templist.put("course", finalcoursecode);
+				templist.put("repeat", "0");
 				listtoreturn.add(templist);
 			}
 		}

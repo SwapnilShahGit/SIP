@@ -3,9 +3,11 @@
 // -- Created October 12, 2016
 //_________________________________________________________________________________________________
 var restify = require('restify');
-var exec = require('child_process').exec;
+var exec = require('child_process').spawn;
 var fs = require('fs');
 var dbController = require('./database/dbController')();
+const readline = require('readline');
+
 
 // -- set up server
 var server = restify.createServer();
@@ -418,30 +420,22 @@ location, contact, repeat){
 
 // -- execute the parser to process JSON files
 function java(req, res, next) {
-  var child = exec('java -jar ../parser/Parser-jar-with-dependencies.jar');
-  // create events for all lectures and tutorials
-
-  // Add full course code, lecture/tutorial sections, hash of PDF, ref of 1,
-  // and raw content in Courses table
-  child.stdout.on('data', function(data) {
-    var courseinfo = JSON.parse(data);
-
-    var listoflecturesandtutorials = courseinfo.meeting_sections;
-    var arraylength = listofevents.length;
-    var listofeventidstosavetouser = []
-    var listofeventstosavetodb = []
-    for (var i = 0; i < arrayLength; i++){
-      var innerlistlength = listoflecturesandtutorials[i].times.length;
-      for (var j = 0; j < innerlistlength; j++){
-        classevent = createEventObject(courseinfo.id + listofevents)
-      }
-    }
-
-    console.log((courseinfo.term).toString('utf8'));
-    res.send((courseinfo.term).toString('utf8'));
+  var child = exec('java', ['-jar', '../parser/Parser-jar-with-dependencies.jar']);
+  const rl = readline.createInterface({
+    input: child.stdout,
+    output: child.stdin
+  })
+  rl.on('line', function(data) {
+      var courseinfo = JSON.parse(data);
+      dbController.javaSaveEvent(courseinfo.mongodbevents, function(stat){
+      // make a new course in the courses table
+      // add event 
+      res.send(stat);
+      next();
+    });
+    //
   });
 
-  next();
 }
 
 // -- echo the input

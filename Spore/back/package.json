@@ -2,7 +2,7 @@
   "name": "back-end",
   "scripts": {
     "genssl": "genssl.sh",
-    "start": "genssl.sh && node index.js",
+    "start": "start.sh",
     "start:aws": "node index.js"
   },
   "dependencies": {
