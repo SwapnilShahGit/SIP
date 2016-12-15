@@ -120,7 +120,7 @@ module.exports = function(){
 	  
       newEventEntry.save(function(err, Event) {  
         if (err != null) {
-		  return callback('Error saving event into datbase: ' + err);
+		  return callback('Error saving event into database: ' + err);
         }  
 		else
 		{

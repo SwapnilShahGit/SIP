@@ -362,13 +362,6 @@ function  dbDeleteUserEvent(req, res, next){
     next();
     });
 }
-// -- create and save event into db
-function javaSaveEvent(eventObject) {
-  dbController.saveEvent(eventObject, function (stat){
-    res.send(stat);
-    next();
-  });
-}
 
 // -- fetch event IDs from db given user id 
 function  dbFetchUserEventIDs(req, res, next){
@@ -402,20 +395,6 @@ function  dbFetchUserEventIDs(req, res, next){
     }
     
   });
-}
-
-function createEventObject(title, startTime, endtime, bgColor, description,
-location, contact, repeat){
-  var eventInfo = {
-    title: courseinfo.code,
-    startTime: req.query.start,
-    endTime: req.query.end,
-    bgColor: req.query.bg,
-    description: req.query.desc,
-    Location: req.query.loc,
-    contact: req.query.con,
-    repeat: req.query.rep
-  };
 }
 
 // -- execute the parser to process JSON files
