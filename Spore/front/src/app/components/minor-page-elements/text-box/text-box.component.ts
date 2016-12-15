@@ -23,6 +23,8 @@ export class TextBoxComponent {
   public textboxHeight;
   @Input()
   public textboxFontSize;
+  @Input()
+  public textValue = '';
 
 
   constructor(){};
