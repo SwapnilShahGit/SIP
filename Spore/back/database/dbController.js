@@ -262,6 +262,14 @@ module.exports = function(){
     }); 
   }
     
+  function checkCourseExists(id, callback){
+    var query = 
+    syllabusLibrary.find(, function(err, docs) {
+      
+    });
+  }
+
+
   // -- EXPORTS ---------------------------------------------------------------------------------
 
   var m = {};
@@ -277,6 +285,7 @@ module.exports = function(){
   m.addUserEvent = addUserEvent;
   m.fetchUserEvents = fetchUserEvents;
   m.javaSaveEvent = javaSaveEvent;
+  m.checkCourseExists = checkCourseExists;
 
   return m;
 

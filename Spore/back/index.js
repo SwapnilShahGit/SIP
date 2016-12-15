@@ -420,21 +420,30 @@ location, contact, repeat){
 
 // -- execute the parser to process JSON files
 function java(req, res, next) {
-  var child = exec('java', ['-jar', '../parser/Parser-jar-with-dependencies.jar']);
-  const rl = readline.createInterface({
-    input: child.stdout,
-    output: child.stdin
-  })
-  rl.on('line', function(data) {
+  listOfCourseEvents = [];
+  // check to see if course being requested already exists in the db
+  
+  // if it exists
+    // find events related to that course and add them to listOfCourseEvents
+  
+  // if course DNE
+    var child = exec('java', ['-jar', '../parser/Parser-jar-with-dependencies.jar']);
+    const rl = readline.createInterface({
+      input: child.stdout,
+      output: child.stdin
+    })
+    rl.on('line', function(data) {
       var courseinfo = JSON.parse(data);
       dbController.javaSaveEvent(courseinfo.mongodbevents, function(stat){
-      // make a new course in the courses table
-      // add event 
-      res.send(stat);
-      next();
+      // add events to listOfCourseEvents
+      listOfCourseEvents.concat(stat);
+      });
+    // make a new course in the courses table with the newly generated id's
+
     });
-    //
-  });
+  
+  // add listOfCourseEvents to the user requesting this information
+
 
 }
 

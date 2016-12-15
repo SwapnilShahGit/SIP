@@ -37,25 +37,25 @@ module.exports = function () {
   
   // -- create schema for table that will hold user information
   var usersTable = new Schema({
-    UserID: {type: String, unique: true},
-    Password: String,
-    FirstName: String,
-    LastName: String,
-    Email: String,
-    Gender: String,
-    FacebookID: String,
-    ProfilePicture: String,
-    EventsID: [Number],
-    School: String
+    userID: {type: String, unique: true},
+    password: String,
+    firstName: String,
+    lastName: String,
+    email: String,
+    gender: String,
+    facebookID: String,
+    profilePicture: String,
+    eventsID: [Number],
+    school: String
   });
   
   // -- create schema that will hold course information
   var syllabusLibrary = new Schema({
-    CourseID: String,
-    Hash: String,
-    ReferenceNumber: Number,
-    EventIDList: [Schema.Types.Mixed],
-    ParsedInfo: String,
+    courseID: String,
+    hash: String,
+    referenceNumber: Number,
+    eventIDList: [Schema.Types.Mixed],
+    parsedInfo: String,
   });
   
   // -- create schema that will hold event information
