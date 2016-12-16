@@ -19,7 +19,7 @@ export class SignUpPageComponent implements OnInit{
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
   private apiResponse = {first_name: '', last_name: '', email: ''};
   private value;
-  private disabledField = false;
+  private disabledField = 'inherit';
   private selectedSchool = '-';
 
   constructor(private router: Router, private databaseService: DatabaseService){
@@ -48,7 +48,7 @@ export class SignUpPageComponent implements OnInit{
           console.log(response);
           this.apiResponse = response;
           this.value = response.birthday;
-          this.disabledField = true;
+          this.disabledField = 'none';
         });
       } else if (response.status === 'unknown') {
         console.log('not logged in, loggin in');
@@ -59,7 +59,7 @@ export class SignUpPageComponent implements OnInit{
               console.log(response);
               this.apiResponse = response;
               this.value = response.birthday;
-              this.disabledField = true;
+              this.disabledField = 'none';
               let test = response.education;
               let i;
               for (i = 0; i <= test.length; i ++) {

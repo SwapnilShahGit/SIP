@@ -30,10 +30,10 @@
       <text-box [placeholderText]="'Confirm Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"></text-box>
     </div>
 
-    <div id="left-box" class="col-sm-6">
+    <div id="left-box" class="col-sm-6" [ngStyle]="{'display': disabledField}">
       <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField"></text-box>
     </div>
-    <div id="right-box" class="col-sm-6 text-left">
+    <div id="right-box" class="col-sm-6 text-left" [ngStyle]="{'display': disabledField}">
       <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField"></text-box>
     </div>
   </div>
