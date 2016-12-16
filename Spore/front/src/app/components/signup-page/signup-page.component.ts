@@ -19,6 +19,7 @@ export class SignUpPageComponent implements OnInit{
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
   private temp = {first_name: '', last_name: '', email: ''};
   private value;
+  private disabledField = false;
 
   constructor(private router: Router, private databaseService: DatabaseService){
     this.supportedSchools.push('-');
@@ -42,33 +43,6 @@ export class SignUpPageComponent implements OnInit{
     let databaseService = this.databaseService;
     let temp = this.temp;
 
-    /*function checkLogin(response: FB.LoginStatusResponse): void {
-      if (response.status === "connected") {
-        console.log("connected");
-        let userId = response.authResponse.userID;
-        FB.api('/me', { fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified,education' }, function (response) {
-          console.log(response);
-          temp = Observable.of(response);
-          let user = new User(userId, response.first_name, response.last_name, response.picture.data.url);
-          handleUser(user);
-        });
-      } else if (response.status === "unknown") {
-        console.log("not logged in, logging in");
-        FB.login(checkLogin, { scope: 'public_profile,email,user_friends,user_education_history,' });
-      } else if (response.status === "not_authorized") {
-        console.log("not authorized");
-      }
-    }
-
-    function handleUser(user: User) {
-      databaseService.getUser(user.UserID).then(data => {
-        if (data.error != "0") {
-          console.log(user);
-        }
-      });
-    }*/
-
-    //FB.getLoginStatus(checkLogin);
     FB.getLoginStatus((response) => {
       if (response.status === 'connected') {
         console.log('connected');
@@ -77,6 +51,7 @@ export class SignUpPageComponent implements OnInit{
           console.log(response);
           this.temp = response;
           this.value = response.birthday;
+          this.disabledField = true;
         });
       } else if (response.status === 'unknown') {
         console.log('not logged in, loggin in');
@@ -87,6 +62,7 @@ export class SignUpPageComponent implements OnInit{
               console.log(response);
               this.temp = response;
               this.value = response.birthday;
+              this.disabledField = true;
             });
           }
         }, {scope: 'public_profile,email,user_friends,user_education_history, user_birthday'});
