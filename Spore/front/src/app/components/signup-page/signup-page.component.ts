@@ -17,7 +17,7 @@ export class SignUpPageComponent implements OnInit{
 
   public supportedSchools;
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
-  private temp = {first_name: '', last_name: '', email: ''};
+  private apiResponse = {first_name: '', last_name: '', email: ''};
   private value;
   private disabledField = false;
   private selectedSchool = '-';
@@ -39,7 +39,6 @@ export class SignUpPageComponent implements OnInit{
   public facebookLogin() {
 
     let databaseService = this.databaseService;
-    let temp = this.temp;
 
     FB.getLoginStatus((response) => {
       if (response.status === 'connected') {
@@ -47,7 +46,7 @@ export class SignUpPageComponent implements OnInit{
         let userId = response.authResponse.userID;
         FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
           console.log(response);
-          this.temp = response;
+          this.apiResponse = response;
           this.value = response.birthday;
           this.disabledField = true;
         });
@@ -58,10 +57,18 @@ export class SignUpPageComponent implements OnInit{
             let userId = response.authResponse.userID;
             FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
               console.log(response);
-              this.temp = response;
+              this.apiResponse = response;
               this.value = response.birthday;
               this.disabledField = true;
-              this.selectedSchool = 'University of Toronto St. George';
+              let test = response.education;
+              let i;
+              for (i = 0; i <= test.length; i ++) {
+                if(test[i]) {
+                  if (test[i].type === 'College') {
+                    this.selectedSchool = test[i].school.name;
+                  }
+                }
+              }
               if (this.supportedSchools.indexOf(this.selectedSchool) === -1) {
                 this.selectedSchool = 'Other';
               }
