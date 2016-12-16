@@ -15,17 +15,15 @@ import { DatabaseService } from '../../../meta/database.service';
 
 export class SignUpPageComponent implements OnInit{
 
-  public supportedSchools = [];
+  public supportedSchools;
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
   private temp = {first_name: '', last_name: '', email: ''};
   private value;
   private disabledField = false;
+  private selectedSchool = '-';
 
   constructor(private router: Router, private databaseService: DatabaseService){
-    this.supportedSchools.push('-');
-    for(var i = 0; i < _.flatMap(SupportedSchoolsEnum).length /2 ; i ++) {
-      this.supportedSchools.push(_.flatMap(SupportedSchoolsEnum)[i]);
-    }
+    this.buildSupportedSchools();
   }
 
   public ngOnInit() {
@@ -63,6 +61,10 @@ export class SignUpPageComponent implements OnInit{
               this.temp = response;
               this.value = response.birthday;
               this.disabledField = true;
+              this.selectedSchool = 'University of Toronto St. George';
+              if (this.supportedSchools.indexOf(this.selectedSchool) === -1) {
+                this.selectedSchool = 'Other';
+              }
             });
           }
         }, {scope: 'public_profile,email,user_friends,user_education_history, user_birthday'});
@@ -71,5 +73,12 @@ export class SignUpPageComponent implements OnInit{
       }
     });
 
+  }
+
+  public buildSupportedSchools() {
+    this.supportedSchools = ['-'];
+    for (var i = 0; i < _.flatMap(SupportedSchoolsEnum).length /2 ; i ++) {
+      this.supportedSchools.push(_.flatMap(SupportedSchoolsEnum)[i]);
+    }
   }
 }
