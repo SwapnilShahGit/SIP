@@ -75,9 +75,8 @@ export class SignUpPageComponent implements OnInit{
         let userId = response.authResponse.userID;
         FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
           console.log(response);
-          console.log('ajkshasd');
-          this.temp.first_name = response.first_name;
-          console.log(this.temp);
+          this.temp = response;
+          this.value = response.birthday;
         });
       } else if (response.status === 'unknown') {
         console.log('not logged in, loggin in');
@@ -86,9 +85,7 @@ export class SignUpPageComponent implements OnInit{
             let userId = response.authResponse.userID;
             FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
               console.log(response);
-              console.log('ajkshasd');
               this.temp = response;
-              console.log(temp);
               this.value = response.birthday;
             });
           }
