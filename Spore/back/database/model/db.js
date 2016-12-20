@@ -45,7 +45,7 @@ module.exports = function () {
     gender: String,
     facebookID: String,
     profilePicture: String,
-    eventsID: [Number],
+    eventsID: [String],
     school: String
   });
   
