@@ -49,57 +49,10 @@ module.exports = function(){
   }
   
   // -- update user information given a userID
-  function updateUser(id, field, value, callback) { 
-	switch (field){
-	  case "pass":
-	    usersTable.update({ userID: id }, { $set: { password: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "fname":
-		usersTable.update({ userID: id }, { $set: { firstName: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "lname":
-		usersTable.update({ userID: id }, { $set: { lastName: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "email":
-		usersTable.update({ userID: id }, { $set: { email: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "gender":
-		usersTable.update({ userID: id }, { $set: { gender: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "facebookID":
-		usersTable.update({ userID: id }, { $set: { facebookID: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "picture":
-		usersTable.update({ userID: id }, { $set: { profilePicture: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});		
-		break;
-	  case "school":		
-		usersTable.update({ userID: id }, { $set: { school: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});		
-		break;
-	  case "eventsID":		
-		usersTable.update({ userID: id }, { $set: { eventsID: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});		
-		break;
-	  default:
-		return callback (110, "not a valid user parameter");
-		break;
-	}
+  function updateUser(user, callback) { 
+	usersTable.update({ userID: user.userID }, { $set: { password: user.password, firstName: user.firstName, lastName: user.lastName, email: user.email, gender: user.gender, facebookID: user.facebookID, profilePicture: user.profilePicture, school: user.school, eventsID: user.eventsID }}, function (err, raw) {
+	  return callback(err, raw);
+	});
   }
   
  
