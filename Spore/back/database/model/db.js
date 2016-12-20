@@ -45,7 +45,7 @@ module.exports = function () {
     gender: String,
     facebookID: String,
     profilePicture: String,
-    eventsID: [Number],
+    eventsID: [String],
     school: String
   });
   
@@ -60,15 +60,15 @@ module.exports = function () {
   
   // -- create schema that will hold event information
   var eventLibrary = new Schema({
-	  title: String,
+	title: String,
     startTime: String,
     endTime: String,
-	  backgroundColour: String,
+	backgroundColour: String,
     description: String,
     location: String,
-	  contact: String,
-	  course: String,
-	  repeat: String
+	contact: String,
+	course: String,
+	repeat: String
   });
   
 
