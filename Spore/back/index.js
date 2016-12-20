@@ -188,8 +188,8 @@ function dbAddEvent(req, res, next) {
   };
   dbController.saveEvent(eventInfo, function (err, Event){
 	if (err == null)
-	{
-	  dbController.addUserEvent(req.query.user, Event.EventID, function(Err){
+	{	
+	  dbController.addUserEvent(req.query.user, Event._id, function(Err){
 		if (Err == null)
 		{
 		  res.send({
@@ -361,17 +361,35 @@ function  dbDeleteUserEvent(req, res, next){
     });
 }
 
+
+
 // -- fetch event IDs from db given user id 
-function  dbFetchUserEventIDs(req, res, next){
+function  dbFetchUserEvents(req, res, next){
   console.log("fetching event ids for user:" + req.query.user);
-  
+  var arrayToSend= [];
   dbController.fetchUser(req.query.user, function(err, User){
     if (User !=null){
-	  dbController.fetchUserEvents(User.EventsID, function(Err, events){	
-	    if (Err == false){
+	  // -- convert event info for front-end to use	
+	  dbController.fetchUserEvents(User.eventsID, req.query.start, req.query.end, function(Err, events){	
+		for (var i = 0; i < events.length; i++){
+		  var currentEvent = {
+			title: events[i].title,
+			start: events[i].startTime,
+			end: events[i].endTime,
+			id: events[i]._id,
+			color: events[i].backgroundColour,
+			description: events[i].description,
+			location: events[i].location,
+			contact: events[i].contact,
+			course: events[i].course,
+			repeat: events[i].repeat
+		  }
+		  arrayToSend.push(currentEvent);
+		}
+	    if (Err == null){
 	      res.send({
 	  	    error: 0,
-		    data: events
+		    data: arrayToSend
 	      });
 	    }
 	    else{
@@ -491,8 +509,8 @@ server.get('/api/deleteUserEvent', dbDeleteUserEvent);
 server.head('/api/deleteUserEvent', dbDeleteUserEvent);
 server.get('/api/deleteEvent', dbDeleteEvent);
 server.head('/api/deleteEvent', dbDeleteEvent);
-server.get('/api/getUserEvents', dbFetchUserEventIDs);
-server.head('/api/getUserEvents', dbFetchUserEventIDs);
+server.get('/api/getUserEvents', dbFetchUserEvents);
+server.head('/api/getUserEvents', dbFetchUserEvents);
 server.get('/api/echo', echoValue);
 server.head('/api/echo', echoValue);
 

@@ -17,16 +17,16 @@ module.exports = function(){
   function saveUser(user, callback) {
     if (user){
       var newUserEntry = new usersTable({
-        UserID: user.userID,
-		Password: user.pass,
-        FirstName: user.fName,
-        LastName: user.lName,
-        Email: user.email,
-		Gender: user.gender,
-		FacebookID: user.facebookID,
-		ProfilePicture: user.picture,
-		EventsID: user.eventsID,
-        School: user.school
+        userID: user.userID,
+		password: user.pass,
+        firstName: user.fName,
+        lastName: user.lName,
+        email: user.email,
+		gender: user.gender,
+		facebookID: user.facebookID,
+		profilePicture: user.picture,
+		eventsID: user.eventsID,
+        school: user.school
       });
       newUserEntry.save(function(err) {
       if (err) return callback('Error saving user into database: ' + err); 
@@ -42,7 +42,7 @@ module.exports = function(){
 
   // -- fetch user information given a userID
   function fetchUser(id, callback) {
-    usersTable.findOne({UserID: id}, function(err, user){
+    usersTable.findOne({userID: id}, function(err, user){
       // -- if findOne is successful err will be null, else user will be null
       return callback(err, user);
     });
@@ -52,47 +52,47 @@ module.exports = function(){
   function updateUser(id, field, value, callback) { 
 	switch (field){
 	  case "pass":
-	    usersTable.update({ UserID: id }, { $set: { Password: value }}, function (err, raw) {
+	    usersTable.update({ userID: id }, { $set: { password: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "fname":
-		usersTable.update({ UserID: id }, { $set: { FirstName: value }}, function (err, raw) {
+		usersTable.update({ userID: id }, { $set: { firstName: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "lname":
-		usersTable.update({ UserID: id }, { $set: { LastName: value }}, function (err, raw) {
+		usersTable.update({ userID: id }, { $set: { lastName: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "email":
-		usersTable.update({ UserID: id }, { $set: { Email: value }}, function (err, raw) {
+		usersTable.update({ userID: id }, { $set: { email: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "gender":
-		usersTable.update({ UserID: id }, { $set: { Gender: value }}, function (err, raw) {
+		usersTable.update({ userID: id }, { $set: { gender: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "facebookID":
-		usersTable.update({ UserID: id }, { $set: { FacebookID: value }}, function (err, raw) {
+		usersTable.update({ userID: id }, { $set: { facebookID: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "picture":
-		usersTable.update({ UserID: id }, { $set: { ProfilePicture: value }}, function (err, raw) {
+		usersTable.update({ userID: id }, { $set: { profilePicture: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});		
 		break;
 	  case "school":		
-		usersTable.update({ UserID: id }, { $set: { School: value }}, function (err, raw) {
+		usersTable.update({ userID: id }, { $set: { school: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});		
 		break;
 	  case "eventsID":		
-		usersTable.update({ UserID: id }, { $set: { EventsID: value }}, function (err, raw) {
+		usersTable.update({ userID: id }, { $set: { eventsID: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});		
 		break;
@@ -107,15 +107,15 @@ module.exports = function(){
   function saveEvent(Event, callback){
     if (Event){
       var newEventEntry = new eventLibrary({
-		Title: Event.title,
-        StartTime: Event.startTime,
-        EndTime: Event.endTime,
-        BackgroundColour: Event.bgColor,
-        Description: Event.description,
-        Location: Event.Location,
-		Contact: Event.contact,
-		Course: Event.course,
-		Repeat: Event.repeat		
+		title: Event.title,
+        startTime: Event.startTime,
+        endTime: Event.endTime,
+        backgroundColour: Event.bgColor,
+        description: Event.description,
+        location: Event.Location,
+		contact: Event.contact,
+		course: Event.course,
+		repeat: Event.repeat		
       });
 	  
       newEventEntry.save(function(err, Event) {  
@@ -135,8 +135,8 @@ module.exports = function(){
   }
   
   // -- add new event id to user event list given user id and event id
-  function addUserEvent(userId, eventID, callback){
-	usersTable.update({UserID: userId}, {$push: {EventsID: eventID}}, function(err){
+  function addUserEvent(uId, eventID, callback){
+	usersTable.update({userID: uId}, {$push: {eventsID: eventID}}, function(err){
 	  return callback(err);	
 	});
   }
@@ -159,86 +159,64 @@ module.exports = function(){
 
   // -- fetch event information given a eventID
   function fetchEvent(id, callback) {
-    eventLibrary.findOne({EventID: id}, function(err, Event){
+    eventLibrary.findOne({_id: id}, function(err, Event){
       // -- if findOne is successful err will be null, else Event will be null
       return callback(err, Event);
     });
   }
   
   // -- fetch event information given a userID, start and end time
-  function fetchUserEvents(eventIDArray, callback) {
-   	var eventArray =[];
-	var error = false;
-	var getEvent = function (eventID){
-      eventLibrary.findOne({EventID: eventID}, function(err, eventObj){
-	    if (err == null){
-		  console.log(eventObj);	
-		  eventArray.push(eventObj);
-		}
-		else{
-		  error = true;	
-		}
-	  });
-	} 
-	
-	for(var i = 0; i < eventIDArray.length; i++){
-	  getEvent(eventIDArray[i]);	
-	}
-	
-	return callback(error, eventArray);
-	
-    /*eventLibrary.where('EventID').in(eventIDArray).exec(function(eventObj){
-	  console.log("the event object is : " + eventObj);
-      // eventArray.push(eventObj);
-
-	});*/
+  function fetchUserEvents(eventIDArray, start, end, callback) {
+	eventLibrary.find({_id: { $in: eventIDArray}, startTime: start, endTime: end}, function(err, Events){
+	  return callback(err,Events);
+	});
   }
   
  // -- update Event information given a event ID
   function updateEvent(id, field, value, callback) { 
 	switch (field){
 	  case "title":
-	    eventLibrary.update({ EventID: id }, { $set: { Title:value }}, function (err, raw) {
+	    eventLibrary.update({ _id: id }, { $set: { title:value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "start":
-		eventLibrary.update({ EventID: id }, { $set: { StartTime: value }}, function (err, raw) {
+		eventLibrary.update({ _id: id }, { $set: { startTime: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "end":
-		eventLibrary.update({ EventID: id }, { $set: { EndTime: value }}, function (err, raw) {
+		eventLibrary.update({ _id: id }, { $set: { endTime: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "bg":
-		eventLibrary.update({ EventID: id }, { $set: { BackgroundColour: value }}, function (err, raw) {
+		eventLibrary.update({ _id: id }, { $set: { backgroundColour: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "desc":
-		eventLibrary.update({ EventID: id }, { $set: { Description: value }}, function (err, raw) {
+		eventLibrary.update({ _id: id }, { $set: { description: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "loc":
-		eventLibrary.update({ EventID: id }, { $set: { Location: value }}, function (err, raw) {
+		eventLibrary.update({ _id: id }, { $set: { location: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});
 		break;
 	  case "con":
-		eventLibrary.update({ EventID: id }, { $set: { Contact: value }}, function (err, raw) {
+		eventLibrary.update({ _id: id }, { $set: { contact: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});		
 		break;
 	  case "cou":
-		eventLibrary.update({ EventID: id }, { $set: { Course: value }}, function (err, raw) {
+		eventLibrary.update({ _id: id }, { $set: { course: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});		
 		break;
 	  case "rep":		
-		eventLibrary.update({ EventID: id }, { $set: { School: value }}, function (err, raw) {
+		eventLibrary.update({ _id: id }, { $set: { school: value }}, function (err, raw) {
 		  return callback(err, raw);
 		});		
 		break;
@@ -250,21 +228,21 @@ module.exports = function(){
   
   // -- delete event given a eventID
   function deleteEvent(id, callback) {
-    eventLibrary.remove({EventID: id}, function(err){
+    eventLibrary.remove({_id: id}, function(err){
       return callback(err);
     }); 
   }
   
    // -- delete event given a eventID
   function deleteUserEvent(Event, user, callback) {
-    usersTable.update({UserID: user}, {$pull: {EventsID: Event}}, function(err){
+    usersTable.update({userID: user}, {$pull: {eventsID: Event}}, function(err){
 	  return callback(err);
     }); 
   }
     
   function checkCourseExists(id, callback){
     var query = 
-    syllabusLibrary.find(, function(err, docs) {
+    syllabusLibrary.find( one, function(err, docs) {
       
     });
   }
