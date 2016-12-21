@@ -69,6 +69,7 @@ export class LoginPageComponent implements OnInit {
 
     function redirectUser(id: string) {
       reDir.navigate(['/main-page', id]);
+      location.reload();            
     }
 
     FB.getLoginStatus(checkLogin);
