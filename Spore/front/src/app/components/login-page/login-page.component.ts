@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { InfoCardComponent } from '../info-card/info-card.component';
 import { FooterBarComponent } from '../footer-bar/footer-bar.component';
 import { Router } from "@angular/router";
@@ -17,9 +17,11 @@ export class LoginPageComponent implements OnInit {
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
 
   constructor(
-    private router: Router,
-    private databaseService: DatabaseService,
-  ) { }
+      private router: Router,
+      private databaseService: DatabaseService,
+      zone: NgZone) {
+    (<any>window).zoneImpl = zone
+  }
 
   ngOnInit() {
     var fbCon: FBConnector = new FBConnector(this.fbKey);
@@ -68,7 +70,7 @@ export class LoginPageComponent implements OnInit {
     }
 
     function redirectUser(id: string) {
-      reDir.navigate(['/main-page', id]);
+      (<any>window).zoneImpl.run(() => reDir.navigate(['/main-page', id]));
     }
 
     FB.getLoginStatus(checkLogin);
