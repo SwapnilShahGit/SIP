@@ -85,7 +85,7 @@ export class DatabaseService {
 
     private BuildUserFromResponse(response: any): User {
         if (response && response.data) {
-            return new User(response.data.userID, response.data.firstName, response.data.lastName, response.data.profilePicture, response.data.email);
+            return new User(response.data.userID, response.data.firstName, response.data.lastName, response.data.email, response.data.profilePicture);
         }
         return new User();
     }    
