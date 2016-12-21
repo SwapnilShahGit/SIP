@@ -212,83 +212,81 @@ function  dbFetchEvent(req, res, next){
 // -- update event info in db given event id
 function dbUpdateEvent(req, res, next) {
   console.log("updating event with id:" + req.query.Event);
-  error = 0; 
-  data = null;
   if ( typeof req.query.Event !== "undefined")
   {
-    if (typeof req.query.title !== "undefined")
-	{
-	  dbController.updateEvent(req.query.Event, "title", req.query.title, function(err, raw) {
-		if (err != null) error = 110;
-	  }); 
-	}
+	dbController.fetchEvent(req.query.Event, function(err, Event){
+	  var tempEvent = Event; 	
+	  
+      if (typeof req.query.title !== "undefined")
+	  {
+	    tempEvent.title = req.query.title; 
+	  }
 	
-	if (typeof req.query.start !== "undefined")
-	{
-	  dbController.updateEvent(req.query.Event, "start", req.query.start, function(err, raw) {
-		if (err != null) error = 110;
-	  }); 
-	}
+  	  if (typeof req.query.start !== "undefined")
+	  {
+	    tempEvent.startTime = req.query.start; 
+	  }
 	
-	if (typeof req.query.end !== "undefined")
-	{
-	  dbController.updateEvent(req.query.Event, "end", req.query.end, function(err, raw) {
-		if (err != null) error = 110;	
-	  }); 
-	}
+	  if (typeof req.query.end !== "undefined")
+	  {
+	    tempEvent.endTime = req.query.end;  
+	  }
 	
-	if (typeof req.query.bg !== "undefined")
-	{
-	  dbController.updateEvent(req.query.Event, "bg", req.query.bg, function(err, raw) {
-		if (err != null) error = 110;	
-	  }); 
-	}
+	  if (typeof req.query.bg !== "undefined")
+	  {
+	    tempEvent.backgroundColour = req.query.bg; 
+	  }
 	
-	if (typeof req.query.desc !== "undefined")
-	{
-	  dbController.updateEvent(req.query.Event, "desc", req.query.desc, function(err, raw) {
-		if (err != null) error = 110;	
-	  }); 
-	}
+	  if (typeof req.query.desc !== "undefined")
+	  {
+	    tempEvent.description = req.query.desc;     
+	  }
 	
-	if (typeof req.query.loc !== "undefined")
-	{
-	  dbController.updateEvent(req.query.Event, "loc", req.query.loc, function(err, raw) {
-		if (err != null) error = 110;	
-	  }); 
-	}
+	  if (typeof req.query.loc !== "undefined")
+	  {
+	    tempEvent.location = req.query.loc; 
+	  }
 	
-	if (typeof req.query.con !== "undefined")
-	{
-	  dbController.updateEvent(req.query.Event, "con", req.query.con, function(err, raw) {
-		if (err != null) error = 110;	
-	  }); 
-	}
+	  if (typeof req.query.con !== "undefined")
+	  {
+	    tempEvent.contact = req.query.con; 
+	  }
 		
-	if (typeof req.query.cou !== "undefined")
-	{
-	  dbController.updateEvent(req.query.Event, "cou", req.query.cou, function(err, raw) {
-		if (err != null) error = 110;	
-	  }); 
-	}	
+	  if (typeof req.query.cou !== "undefined")
+	  {
+	    tempEvent.course = req.query.cou; 
+	  }	
 	
-	if (typeof req.query.rep !== "undefined")
-	{
-	  dbController.updateEvent(req.query.Event, "rep", req.query.rep, function(err, raw) {
-		if (err != null) error = 110;	
+	  if (typeof req.query.rep !== "undefined")
+	  {
+	    tempEvent.repeat = req.query.rep; 
+	  }
+	  
+	  dbController.updateEvent(tempEvent,function(err, raw) {
+	    if (err != null){
+	  	  res.send({
+			error: 110,
+			data: err
+		  });
+		}
+		else{
+		  res.send({
+			error: 0,
+			data: tempEvent
+		  });  
+		}
 	  }); 
-	}
+	});
+	next();
   }
   else
   {
-    error = 110;
-    data = "Event Id not defined";
+    res.send({
+	  error: 110,
+      data: "Event Id not defined"
+    });
+	next();
   }
-  
-  res.send({
-	error: error,
-    data: data
-  });
 }
 
 // -- fetch event info from db given event id
@@ -311,7 +309,7 @@ function  dbDeleteEvent(req, res, next){
   });
 }
 
-// -- fetch event info from db given event id
+// -- fetch event info from db given event and user id
 function  dbDeleteUserEvent(req, res, next){
   console.log("deleting event with id:" + req.query.Event + " for user id: "+ req.query.user);
   dbController.deleteUserEvent(req.query.Event, req.query.user, function(err){
@@ -333,7 +331,7 @@ function  dbDeleteUserEvent(req, res, next){
 
 
 
-// -- fetch event IDs from db given user id 
+// -- fetch events from db given user id 
 function  dbFetchUserEvents(req, res, next){
   console.log("fetching event ids for user:" + req.query.user);
   var arrayToSend= [];
