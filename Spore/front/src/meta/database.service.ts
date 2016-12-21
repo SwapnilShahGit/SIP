@@ -40,7 +40,7 @@ export class DatabaseService {
         return this.http
             .get(this.BuildGetRequest(id))
             .toPromise()
-            .then(response => this.BuildUserFromResponse(response.json()))
+            .then(response => response.json().error)
             .catch(this.handleError);
     }
 
