@@ -50,9 +50,20 @@ module.exports = function(){
   
   // -- update user information given a userID
   function updateUser(user, callback) { 
-	usersTable.update({ userID: user.userID }, { $set: { password: user.password, firstName: user.firstName, lastName: user.lastName, email: user.email, gender: user.gender, facebookID: user.facebookID, profilePicture: user.profilePicture, school: user.school, eventsID: user.eventsID }}, function (err, raw) {
-	  return callback(err, raw);
-	});
+	usersTable.update({ userID: user.userID }, 
+	  {$set: { 
+	    password: user.password, 
+		firstName: user.firstName, 
+		lastName: user.lastName, 
+		email: user.email, 
+		gender: user.gender, 
+		facebookID: user.facebookID, 
+		profilePicture: user.profilePicture, 
+		school: user.school, 
+		eventsID: user.eventsID }}, 
+	  function (err, raw) {
+	    return callback(err, raw);
+	  });
   }
   
  
@@ -126,57 +137,21 @@ module.exports = function(){
   }
   
  // -- update Event information given a event ID
-  function updateEvent(id, field, value, callback) { 
-	switch (field){
-	  case "title":
-	    eventLibrary.update({ _id: id }, { $set: { title:value }}, function (err, raw) {
+  function updateEvent(Event, callback) { 
+	eventLibrary.update({ _id: Event._id }, 
+	  {$set: { 
+	    title: Event.title,
+	    startTime: Event.startTime,
+		endTime: Event.endTime,
+		backgroundColour: Event.backgroundColour,
+		description: Event.description,
+		location: Event.location,
+		contact: Event.contact,
+		course: Event.course,
+		repeat: Event.repeat }}, 
+	  function (err, raw) {
 		  return callback(err, raw);
-		});
-		break;
-	  case "start":
-		eventLibrary.update({ _id: id }, { $set: { startTime: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "end":
-		eventLibrary.update({ _id: id }, { $set: { endTime: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "bg":
-		eventLibrary.update({ _id: id }, { $set: { backgroundColour: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "desc":
-		eventLibrary.update({ _id: id }, { $set: { description: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "loc":
-		eventLibrary.update({ _id: id }, { $set: { location: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});
-		break;
-	  case "con":
-		eventLibrary.update({ _id: id }, { $set: { contact: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});		
-		break;
-	  case "cou":
-		eventLibrary.update({ _id: id }, { $set: { course: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});		
-		break;
-	  case "rep":		
-		eventLibrary.update({ _id: id }, { $set: { school: value }}, function (err, raw) {
-		  return callback(err, raw);
-		});		
-		break;
-	  default:
-		return callback (110, "not a valid user parameter");
-		break;
-	}
+	  });
   }
   
   // -- delete event given a eventID
