@@ -58,8 +58,8 @@ export class LoginPageComponent implements OnInit {
     }
 
     function handleUser(user: User) {
-      databaseService.getUser(user.UserID).then(data => {
-        if (data.error != "0") {
+      databaseService.getUser(user.UserID).then(errorCode => {
+        if (errorCode != "0") {
           databaseService.addUser(user).then(() => redirectUser(user.UserID));
         } else {
           redirectUser(user.UserID);
