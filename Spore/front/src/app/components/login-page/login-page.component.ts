@@ -17,9 +17,10 @@ export class LoginPageComponent implements OnInit {
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
 
   constructor(
-      private router: Router,
-      private databaseService: DatabaseService,
-      zone: NgZone) {
+    private router: Router,
+    private databaseService: DatabaseService,
+    zone: NgZone) 
+  {
     (<any>window).zoneImpl = zone
   }
 
@@ -48,7 +49,7 @@ export class LoginPageComponent implements OnInit {
         let userId = response.authResponse.userID;
         FB.api('/me', { fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified' }, function (response) {
           console.log(response);
-          let user = new User(userId, response.first_name, response.last_name, response.picture.data.url);
+          let user = new User(userId, response.first_name, response.last_name, response.email, response.picture.data.url);
           handleUser(user);
         });
       } else if (response.status === "unknown") {

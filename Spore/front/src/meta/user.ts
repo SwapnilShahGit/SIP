@@ -5,13 +5,14 @@ export class User implements IUser {
   FirstName: string;
   LastName: string;
   Email: string;
-  //using email as profile picture URL for now....
+  PictureURL: string;
 
-  constructor(userID?: string, firstName?: string, lastName?: string, email?: string) {
+  constructor(userID?: string, firstName?: string, lastName?: string, email?: string, pic?: string) {
     this.UserID = userID || '' ;
     this.FirstName = firstName || '';
     this.LastName = lastName || '';
-    this.Email = email || 'https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50/p50x50/10354686_10150004552801856_220367501106153455_n.jpg?oh=6c801f82cd5a32fd6e5a4258ce00a314&oe=589AAD2F';
+    this.Email = email || '';
+    this.PictureURL = pic|| 'https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50/p50x50/10354686_10150004552801856_220367501106153455_n.jpg?oh=6c801f82cd5a32fd6e5a4258ce00a314&oe=589AAD2F';
   }
 
 }
@@ -20,6 +21,7 @@ export interface IUser {
   UserID: string,
   FirstName: string,
   LastName: string,
-  Email: string
+  Email: string,
+  PictureURL: string
 }
 
