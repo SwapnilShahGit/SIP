@@ -37,45 +37,40 @@ module.exports = function () {
   
   // -- create schema for table that will hold user information
   var usersTable = new Schema({
-    UserID: {type: String, unique: true},
-    FirstName: String,
-    LastName: String,
-    Email: String,
-    School: String,
-    Password: String,
-    EventID: [Number],
-    Courses: [String]
+    userID: {type: String, unique: true},
+    password: String,
+    firstName: String,
+    lastName: String,
+    email: String,
+    gender: String,
+    facebookID: String,
+    profilePicture: String,
+    eventsID: [String],
+    school: String
   });
   
   // -- create schema that will hold course information
   var syllabusLibrary = new Schema({
-    Hash: String,
-    CourseID: String,
-    ParsedInfo: String,
-    ReferenceNumber: Number,
-    EventIDList: [Number],
-    ExamEventID: Number
+    courseID: String,
+    hash: String,
+    referenceNumber: Number,
+    eventIDList: [Schema.Types.Mixed],
+    parsedInfo: String,
   });
   
   // -- create schema that will hold event information
   var eventLibrary = new Schema({
-    StartTime: Number,
-    EndTime: Number,
-    Title: String,
-    Description: String,
-    Type: String,
-    DerivedFrom: Number,
-    EventID: {type: Number, unique: true}
+    title: String,
+    startTime: String,
+    endTime: String,
+    backgroundColour: String,
+    description: String,
+    location: String,
+    contact: String,
+    course: String,
+    repeat: String
   });
   
-  // -- generate auto-incrementing event IDs 
-  eventLibrary.plugin(autoIncrement.plugin, {
-    model: 'Event',
-    field: 'EventID',
-    startAt: 0,
-    incrementBy: 1
-  }); 
-
 
   var usersTable = mongoose.model('usersTable', usersTable);
   var syllabusLibrary = mongoose.model('syllabusLibrary', syllabusLibrary);
