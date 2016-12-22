@@ -113,6 +113,7 @@ export class SignUpPageComponent implements OnInit{
           window.alert('Error: User Already Exists in Database');
         } else {
           window.alert('User added');
+          this.router.navigate(['login']);
         }
       }).catch(err => {
         window.alert('Error occurred: ' + err);
