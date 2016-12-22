@@ -30,7 +30,7 @@
 <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth}">
 
   <h1>{{CurrentTab}}</h1>
-  <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}}!</h1>
+  <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}} - {{(user | async)?.Email}}!</h1>
 
   <div *ngIf="CurrentTab == this.navService.CalendarTab">
     <calendar></calendar>

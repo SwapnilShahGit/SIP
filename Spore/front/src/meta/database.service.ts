@@ -67,20 +67,25 @@ export class DatabaseService {
     }
 
     private BuildGetRequest(id: string): string {
-        return this.server + '/get?u=' + id;
+        return this.server + '/api/getUser?user=' + id;
     }
 
     private BuildSaveRequest(user: User): string {
-        return this.server + '/save?u=' + encodeURIComponent(user.UserID) + '&email=' + encodeURIComponent(user.Email) + '&last=' + encodeURIComponent(user.LastName) + '&first=' + encodeURIComponent(user.FirstName);
+        return this.server + '/api/addUser?user=' 
+                            + encodeURIComponent(user.UserID) 
+                            + '&email=' + encodeURIComponent(user.Email) 
+                            + '&last=' + encodeURIComponent(user.LastName) 
+                            + '&first=' + encodeURIComponent(user.FirstName)
+                            + '&pic=' + encodeURIComponent(user.PictureURL);
     }
 
     private BuildEchoRequest(something: string): string {
-        return this.server + '/echo?value=' + something;
+        return this.server + '/api/echo?value=' + something;
     }
 
     private BuildUserFromResponse(response: any): User {
         if (response && response.data) {
-            return new User(response.data.UserID, response.data.FirstName, response.data.LastName, response.data.Email);
+            return new User(response.data.userID, response.data.firstName, response.data.lastName, response.data.email, response.data.profilePicture);
         }
         return new User();
     }    
