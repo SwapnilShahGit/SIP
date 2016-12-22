@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, NgZone} from '@angular/core';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
 import {SupportedSchoolsEnum} from '../../../meta/SupportedSchools';
@@ -20,7 +20,7 @@ export class SignUpPageComponent implements OnInit{
   private apiResponse = {first_name: '', last_name: '', email: '', dateOfBirth: '', selectedSchool: '', male: '', female: ''};
   private disabledField = 'inherit';
 
-  constructor(private router: Router, private databaseService: DatabaseService){
+  constructor(private router: Router, private databaseService: DatabaseService, public zone: NgZone){
     this.buildSupportedSchools();
   }
 
@@ -63,33 +63,35 @@ export class SignUpPageComponent implements OnInit{
   }
 
   public buildUIResponseObject(response) {
-    this.apiResponse.first_name = response.first_name;
-    this.apiResponse.last_name = response.last_name;
-    this.apiResponse.email = response.email;
-    this.apiResponse.dateOfBirth = response.birthday;
+    this.zone.run(() => {
+      this.apiResponse.first_name = response.first_name;
+      this.apiResponse.last_name = response.last_name;
+      this.apiResponse.email = response.email;
+      this.apiResponse.dateOfBirth = response.birthday;
 
-    let userSchools = response.education;
-    let i;
-    for (i = 0; i <= userSchools.length; i ++) {
-      if(userSchools[i]) {
-        if (userSchools[i].type === 'College') {
-          this.apiResponse.selectedSchool = userSchools[i].school.name;
+      let userSchools = response.education;
+      let i;
+      for (i = 0; i <= userSchools.length; i ++) {
+        if(userSchools[i]) {
+          if (userSchools[i].type === 'College') {
+            this.apiResponse.selectedSchool = userSchools[i].school.name;
+          }
         }
       }
-    }
-    if (this.supportedSchools.indexOf(this.apiResponse.selectedSchool) === -1) {
-      this.apiResponse.selectedSchool = 'Other';
-    }
+      if (this.supportedSchools.indexOf(this.apiResponse.selectedSchool) === -1) {
+        this.apiResponse.selectedSchool = 'Other';
+      }
 
-    if (response.gender === 'male') {
-      this.apiResponse.male = 'checked';
-      this.apiResponse.female = '';
-    } else if (response.gender === 'female') {
-      this.apiResponse.female = 'checked';
-      this.apiResponse.male = '';
-    }
+      if (response.gender === 'male') {
+        this.apiResponse.male = 'checked';
+        this.apiResponse.female = '';
+      } else if (response.gender === 'female') {
+        this.apiResponse.female = 'checked';
+        this.apiResponse.male = '';
+      }
 
-    this.disabledField = 'none';
+      this.disabledField = 'none';
+    });
   }
 
   public buildSupportedSchools() {
