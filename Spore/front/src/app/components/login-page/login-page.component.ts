@@ -19,7 +19,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private router: Router,
     private databaseService: DatabaseService,
-    zone: NgZone) 
+    zone: NgZone)
   {
     (<any>window).zoneImpl = zone
   }
@@ -63,7 +63,7 @@ export class LoginPageComponent implements OnInit {
     function handleUser(user: User) {
       databaseService.getUser(user.UserID).then(errorCode => {
         if (errorCode != "0") {
-          databaseService.addUser(user).then(() => redirectUser(user.UserID));
+          window.alert('Error: Not Found in Database. Please Sign Up');
         } else {
           redirectUser(user.UserID);
         }
