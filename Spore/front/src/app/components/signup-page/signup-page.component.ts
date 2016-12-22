@@ -17,7 +17,7 @@ export class SignUpPageComponent implements OnInit{
 
   public supportedSchools;
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
-  private apiResponse = {first_name: '', last_name: '', email: '', dateOfBirth: '', selectedSchool: '', male: '', female: ''};
+  private apiResponse = {userId: '', first_name: '', last_name: '', email: '', dateOfBirth: '', selectedSchool: '', male: '', female: '', pictureUrl: ''};
   private disabledField = 'inherit';
 
   constructor(private router: Router, private databaseService: DatabaseService, public zone: NgZone){
@@ -64,10 +64,12 @@ export class SignUpPageComponent implements OnInit{
 
   public buildUIResponseObject(response) {
     this.zone.run(() => {
+      this.apiResponse.userId = response.id;
       this.apiResponse.first_name = response.first_name;
       this.apiResponse.last_name = response.last_name;
       this.apiResponse.email = response.email;
       this.apiResponse.dateOfBirth = response.birthday;
+      this.apiResponse.pictureUrl = response.picture.data.url;
 
       let userSchools = response.education;
       let i;
@@ -99,5 +101,13 @@ export class SignUpPageComponent implements OnInit{
     for (var i = 0; i < _.flatMap(SupportedSchoolsEnum).length /2 ; i ++) {
       this.supportedSchools.push(_.flatMap(SupportedSchoolsEnum)[i]);
     }
+  }
+
+  public signUpUser() {
+    console.log('sign up user');
+    let newUser = new User(this.apiResponse.userId, this.apiResponse.first_name, this.apiResponse.last_name, this.apiResponse.email, this.apiResponse.pictureUrl);
+    this.databaseService.addUser(newUser).then(() => {
+      window.alert('User added');
+    });
   }
 }
