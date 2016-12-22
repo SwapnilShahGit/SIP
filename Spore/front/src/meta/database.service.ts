@@ -26,7 +26,7 @@ export class DatabaseService {
 
     loadUser(id: string) {
         this.http
-            .get(this.BuildGetRequest(id))
+            .get(this.BuildGetUserRequest(id))
             .map(response => this.BuildUserFromResponse(response.json()))
             .subscribe(data => {
                 console.log('IN LOADUSER');
@@ -38,7 +38,7 @@ export class DatabaseService {
     getUser(id: string): any {
         this.loadUser(id);
         return this.http
-            .get(this.BuildGetRequest(id))
+            .get(this.BuildGetUserRequest(id))
             .toPromise()
             .then(response => response.json().error)
             .catch(this.handleError);
@@ -47,7 +47,7 @@ export class DatabaseService {
     addUser(user: User): any {
         this.loadUser(user.UserID);
         return this.http
-            .get(this.BuildSaveRequest(user))
+            .get(this.BuildAddUserRequest(user))
             .toPromise()
             .then(response => response.json().data as Response)
             .catch(this.handleError);
@@ -61,16 +61,24 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
+    addEvent(id: string, start?: string, end?: string, description?: string): any {
+        return this.http
+            .get(this.BuildAddEventRequest(id, start, end, description))
+            .toPromise()
+            .then(response => response.json().error)
+            .catch(this.handleError);
+    }
+
     private handleError(error: any) {
         console.error('IN ERROR HANDLER: An error occurred: ', error);
         return Promise.reject(error.message || error);
     }
 
-    private BuildGetRequest(id: string): string {
+    private BuildGetUserRequest(id: string): string {
         return this.server + '/api/getUser?user=' + id;
     }
 
-    private BuildSaveRequest(user: User): string {
+    private BuildAddUserRequest(user: User): string {
         return this.server + '/api/addUser?user=' 
                             + encodeURIComponent(user.UserID) 
                             + '&email=' + encodeURIComponent(user.Email) 
@@ -81,6 +89,17 @@ export class DatabaseService {
 
     private BuildEchoRequest(something: string): string {
         return this.server + '/api/echo?value=' + something;
+    }
+
+    private BuildAddEventRequest(id: string, start?: string, end?: string, description?: string): string {
+        let startRequest = start ? '&start=' + encodeURIComponent(start) : '';
+        let endRequest = end ? '&end=' + encodeURIComponent(end) : '';
+        let descriptionRequest = description ? '&desc=' + encodeURIComponent(description) : '';
+        return this.server + '/api/addEvent?user='
+                            + encodeURIComponent(id)
+                            + startRequest
+                            + endRequest
+                            + descriptionRequest;
     }
 
     private BuildUserFromResponse(response: any): User {
