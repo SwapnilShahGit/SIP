@@ -106,8 +106,15 @@ export class SignUpPageComponent implements OnInit{
   public signUpUser() {
     console.log('sign up user');
     let newUser = new User(this.apiResponse.userId, this.apiResponse.first_name, this.apiResponse.last_name, this.apiResponse.email, this.apiResponse.pictureUrl);
-    this.databaseService.addUser(newUser).then(() => {
-      window.alert('User added');
+    this.databaseService.addUser(newUser).then((response) => {
+      console.log(response);
+      if (response === 'error') {
+        window.alert('Error: User Already Exists in Database');
+      } else {
+        window.alert('User added');
+      }
+    }).catch(err => {
+      window.alert('Error occurred: ' + err);
     });
   }
 }
