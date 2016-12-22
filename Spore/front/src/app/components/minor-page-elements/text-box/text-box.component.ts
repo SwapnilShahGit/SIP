@@ -25,7 +25,8 @@ export class TextBoxComponent {
   public textboxFontSize;
   @Input()
   public textValue = '';
-
+  @Input()
+  public isDisabled = false;
 
   constructor(){};
 }

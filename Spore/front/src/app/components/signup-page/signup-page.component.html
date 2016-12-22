@@ -4,7 +4,7 @@
     <div class="header-text">Join Spore Today</div>
     <div class="container-fluid third-party-buttons-container">
       <div id="google-sign-up" class="col-sm-12">
-        <third-party-button [buttonText]="'Sign up with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" [buttonBorder]="'none'"></third-party-button>
+        <third-party-button [buttonText]="'Sign up with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" [buttonBorder]="'none'" (click)="facebookLogin()"></third-party-button>
         <third-party-button [buttonText]="'Sign up with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'" [buttonBorder]="'none'"></third-party-button>
         <third-party-button [buttonText]="'Sign up with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'" [buttonBorder]="'none'"></third-party-button>
       </div>
@@ -17,24 +17,24 @@
   </div>
   <div>
     <div id="left-box" class="col-sm-6">
-      <text-box [placeholderText]="'First Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"></text-box>
+      <text-box [placeholderText]="'First Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.first_name"></text-box>
     </div>
     <div id="right-box" class="col-sm-6 text-left">
-      <text-box [placeholderText]="'Last Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"></text-box>
+      <text-box [placeholderText]="'Last Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.last_name"></text-box>
     </div>
 
     <div id="left-box" class="col-sm-6">
-      <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"></text-box>
+      <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.email"></text-box>
     </div>
     <div id="right-box" class="col-sm-6 text-left">
       <text-box [placeholderText]="'Confirm Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"></text-box>
     </div>
 
-    <div id="left-box" class="col-sm-6">
-      <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'"></text-box>
+    <div id="left-box" class="col-sm-6" [ngStyle]="{'display': disabledField}">
+      <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField"></text-box>
     </div>
-    <div id="right-box" class="col-sm-6 text-left">
-      <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'"></text-box>
+    <div id="right-box" class="col-sm-6 text-left" [ngStyle]="{'display': disabledField}">
+      <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField"></text-box>
     </div>
   </div>
 
@@ -45,7 +45,7 @@
 
     <div id="right-box" class="col-sm-6 text-left select-school-container">
       <select>
-        <option *ngFor="let x of supportedSchools" value="x">{{x}}</option>
+        <option *ngFor="let x of supportedSchools" [selected]="x === apiResponse.selectedSchool">{{x}}</option>
       </select>
     </div>
   </div>
@@ -55,14 +55,14 @@
       <div class="date-of-birth-text">Date of Birth:</div>
     </div>
     <div id="right-box" class="col-sm-6 text-left">
-      <p-calendar [(ngModel)]="value" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
+      <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
     </div>
   </div>
 
   <div id="left-box" class="col-sm-6 gender-terms-container">
     <div class="gender-container">
-      <input type="radio" name="gender" value="male"><span class="check-box">Male</span>
-      <input type="radio" name="gender" value="female"><span class="check-box">Female</span><br>
+      <input type="radio" name="gender" value="male" checked="{{apiResponse.male}}"><span class="check-box">Male</span>
+      <input type="radio" name="gender" value="female" checked="{{apiResponse.female}}"><span class="check-box">Female</span><br>
     </div>
     <check-box [checkboxText]="'I agree to the terms and conditions'" [fontWeight]="'500'" [fontColor]="'black'" class="terms-conditions-container"></check-box>
   </div>
