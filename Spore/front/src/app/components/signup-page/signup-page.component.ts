@@ -21,6 +21,8 @@ export class SignUpPageComponent implements OnInit{
   private value;
   private disabledField = 'inherit';
   private selectedSchool = '-';
+  private male;
+  private female;
 
   constructor(private router: Router, private databaseService: DatabaseService){
     this.buildSupportedSchools();
@@ -71,6 +73,13 @@ export class SignUpPageComponent implements OnInit{
               }
               if (this.supportedSchools.indexOf(this.selectedSchool) === -1) {
                 this.selectedSchool = 'Other';
+              }
+              if (response.gender === 'male') {
+                this.male = 'checked';
+                this.female = '';
+              } else if (response.gender === 'female') {
+                this.female = 'checked';
+                this.male = '';
               }
             });
           }
