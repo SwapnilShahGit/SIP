@@ -17,12 +17,8 @@ export class SignUpPageComponent implements OnInit{
 
   public supportedSchools;
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
-  private apiResponse = {first_name: '', last_name: '', email: ''};
-  private value;
+  private apiResponse = {first_name: '', last_name: '', email: '', dateOfBirth: '', selectedSchool: '', male: '', female: ''};
   private disabledField = 'inherit';
-  private selectedSchool = '-';
-  private male;
-  private female;
 
   constructor(private router: Router, private databaseService: DatabaseService){
     this.buildSupportedSchools();
@@ -40,17 +36,13 @@ export class SignUpPageComponent implements OnInit{
 
   public facebookLogin() {
 
-    let databaseService = this.databaseService;
-
     FB.getLoginStatus((response) => {
       if (response.status === 'connected') {
         console.log('connected');
         let userId = response.authResponse.userID;
         FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
           console.log(response);
-          this.apiResponse = response;
-          this.value = response.birthday;
-          this.disabledField = 'none';
+          this.buildUIResponseObject(response);
         });
       } else if (response.status === 'unknown') {
         console.log('not logged in, loggin in');
@@ -59,28 +51,7 @@ export class SignUpPageComponent implements OnInit{
             let userId = response.authResponse.userID;
             FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
               console.log(response);
-              this.apiResponse = response;
-              this.value = response.birthday;
-              this.disabledField = 'none';
-              let test = response.education;
-              let i;
-              for (i = 0; i <= test.length; i ++) {
-                if(test[i]) {
-                  if (test[i].type === 'College') {
-                    this.selectedSchool = test[i].school.name;
-                  }
-                }
-              }
-              if (this.supportedSchools.indexOf(this.selectedSchool) === -1) {
-                this.selectedSchool = 'Other';
-              }
-              if (response.gender === 'male') {
-                this.male = 'checked';
-                this.female = '';
-              } else if (response.gender === 'female') {
-                this.female = 'checked';
-                this.male = '';
-              }
+              this.buildUIResponseObject(response);
             });
           }
         }, {scope: 'public_profile,email,user_friends,user_education_history, user_birthday'});
@@ -89,6 +60,36 @@ export class SignUpPageComponent implements OnInit{
       }
     });
 
+  }
+
+  public buildUIResponseObject(response) {
+    this.apiResponse.first_name = response.first_name;
+    this.apiResponse.last_name = response.last_name;
+    this.apiResponse.email = response.email;
+    this.apiResponse.dateOfBirth = response.birthday;
+
+    let userSchools = response.education;
+    let i;
+    for (i = 0; i <= userSchools.length; i ++) {
+      if(userSchools[i]) {
+        if (userSchools[i].type === 'College') {
+          this.apiResponse.selectedSchool = userSchools[i].school.name;
+        }
+      }
+    }
+    if (this.supportedSchools.indexOf(this.apiResponse.selectedSchool) === -1) {
+      this.apiResponse.selectedSchool = 'Other';
+    }
+
+    if (response.gender === 'male') {
+      this.apiResponse.male = 'checked';
+      this.apiResponse.female = '';
+    } else if (response.gender === 'female') {
+      this.apiResponse.female = 'checked';
+      this.apiResponse.male = '';
+    }
+
+    this.disabledField = 'none';
   }
 
   public buildSupportedSchools() {

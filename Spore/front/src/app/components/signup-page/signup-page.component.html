@@ -45,7 +45,7 @@
 
     <div id="right-box" class="col-sm-6 text-left select-school-container">
       <select>
-        <option *ngFor="let x of supportedSchools" [selected]="x === selectedSchool">{{x}}</option>
+        <option *ngFor="let x of supportedSchools" [selected]="x === apiResponse.selectedSchool">{{x}}</option>
       </select>
     </div>
   </div>
@@ -55,14 +55,14 @@
       <div class="date-of-birth-text">Date of Birth:</div>
     </div>
     <div id="right-box" class="col-sm-6 text-left">
-      <p-calendar [(ngModel)]="value" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
+      <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
     </div>
   </div>
 
   <div id="left-box" class="col-sm-6 gender-terms-container">
     <div class="gender-container">
-      <input type="radio" name="gender" value="male" checked="{{male}}"><span class="check-box">Male</span>
-      <input type="radio" name="gender" value="female" checked="{{female}}"><span class="check-box">Female</span><br>
+      <input type="radio" name="gender" value="male" checked="{{apiResponse.male}}"><span class="check-box">Male</span>
+      <input type="radio" name="gender" value="female" checked="{{apiResponsefemale}}"><span class="check-box">Female</span><br>
     </div>
     <check-box [checkboxText]="'I agree to the terms and conditions'" [fontWeight]="'500'" [fontColor]="'black'" class="terms-conditions-container"></check-box>
   </div>
