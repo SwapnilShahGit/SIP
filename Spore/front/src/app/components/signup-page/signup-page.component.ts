@@ -122,4 +122,18 @@ export class SignUpPageComponent implements OnInit{
       window.alert('Error: Form not complete');
     }
   }
+
+  public onKey(event, val) {
+    switch (val) {
+      case 'first_name':
+        this.apiResponse.first_name = event.target.value;
+        break;
+      case 'last_name':
+        this.apiResponse.last_name = event.target.value;
+        break;
+      case 'email':
+        this.apiResponse.email = event.target.value;
+        break;
+    }
+  }
 }
