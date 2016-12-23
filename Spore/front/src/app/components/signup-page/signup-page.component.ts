@@ -19,6 +19,7 @@ export class SignUpPageComponent implements OnInit{
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
   private apiResponse = {userId: '', first_name: '', last_name: '', email: '', dateOfBirth: '', selectedSchool: '', male: '', female: '', pictureUrl: ''};
   private disabledField = 'inherit';
+  private temp = '';
 
   constructor(private router: Router, private databaseService: DatabaseService, public zone: NgZone){
     this.buildSupportedSchools();
@@ -104,6 +105,7 @@ export class SignUpPageComponent implements OnInit{
   }
 
   public signUpUser() {
+    console.log(this.temp);
     if (this.apiResponse.first_name && this.apiResponse.last_name && this.apiResponse.email && this.apiResponse.dateOfBirth && this.apiResponse.selectedSchool && (this.apiResponse.male || this.apiResponse.female)) {
       console.log('sign up user');
       let newUser = new User(this.apiResponse.userId, this.apiResponse.first_name, this.apiResponse.last_name, this.apiResponse.email, this.apiResponse.pictureUrl);

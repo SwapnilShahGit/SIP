@@ -29,4 +29,12 @@ export class TextBoxComponent {
   public isDisabled = false;
 
   constructor(){};
+
+  public get textboxValue() {
+    return this.textValue;
+  }
+
+  public set textboxValue(val) {
+    this.textValue = val;
+  }
 }
