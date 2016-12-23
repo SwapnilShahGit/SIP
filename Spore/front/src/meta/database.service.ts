@@ -4,7 +4,6 @@ import { User } from '../meta/user';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/toPromise';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
@@ -61,11 +60,19 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    addEvent(id: string, start?: string, end?: string, description?: string): any {
+    addEvent(id: string, start?: string, end?: string, title?: string): any {
         return this.http
-            .get(this.BuildAddEventRequest(id, start, end, description))
+            .get(this.BuildAddEventRequest(id, start, end, title))
             .toPromise()
-            .then(response => response.json().error)
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
+    getUserEvents(id: string, start: string, end: string) {
+        return this.http
+            .get(this.BuildGetUserEventsRequest(id, start, end))
+            .toPromise()
+            .then(response => response.json())
             .catch(this.handleError);
     }
 
@@ -79,27 +86,34 @@ export class DatabaseService {
     }
 
     private BuildAddUserRequest(user: User): string {
-        return this.server + '/api/addUser?user=' 
-                            + encodeURIComponent(user.UserID) 
-                            + '&email=' + encodeURIComponent(user.Email) 
-                            + '&last=' + encodeURIComponent(user.LastName) 
-                            + '&first=' + encodeURIComponent(user.FirstName)
-                            + '&pic=' + encodeURIComponent(user.PictureURL);
+        return this.server + '/api/addUser?' 
+            + 'user=' + encodeURIComponent(user.UserID) 
+            + '&email=' + encodeURIComponent(user.Email) 
+            + '&last=' + encodeURIComponent(user.LastName) 
+            + '&first=' + encodeURIComponent(user.FirstName)
+            + '&pic=' + encodeURIComponent(user.PictureURL);
     }
 
     private BuildEchoRequest(something: string): string {
         return this.server + '/api/echo?value=' + something;
     }
 
-    private BuildAddEventRequest(id: string, start?: string, end?: string, description?: string): string {
+    private BuildAddEventRequest(id: string, start?: string, end?: string, title?: string): string {
         let startRequest = start ? '&start=' + encodeURIComponent(start) : '';
         let endRequest = end ? '&end=' + encodeURIComponent(end) : '';
-        let descriptionRequest = description ? '&desc=' + encodeURIComponent(description) : '';
-        return this.server + '/api/addEvent?user='
-                            + encodeURIComponent(id)
-                            + startRequest
-                            + endRequest
-                            + descriptionRequest;
+        let titleRequest = title ? '&title=' + encodeURIComponent(title) : '';
+        return this.server + '/api/addEvent?'
+            + 'user=' + encodeURIComponent(id)
+            + startRequest
+            + endRequest
+            + titleRequest;
+    }
+
+    private BuildGetUserEventsRequest(id: string, start: string, end: string) {
+        return this.server + '/api/getUserEvents?' 
+            + 'user=' + encodeURIComponent(id)
+            + '&start=' + encodeURIComponent(start)
+            + '&end=' + encodeURIComponent(end);
     }
 
     private BuildUserFromResponse(response: any): User {

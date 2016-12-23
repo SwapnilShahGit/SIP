@@ -12,7 +12,7 @@
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-12">
-                <text-box [placeholderText]="'Name for your event'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'100%'"></text-box><br>
+                <input class="text-box-style" [(ngModel)]="event.Title" type="text" placeholder="Name for your event"><br>
             </div>
         </div>
         <div class="ui-grid-row">
@@ -33,7 +33,7 @@
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-12 date-input-style">
-                <p-calendar [(ngModel)]="someValueY" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
+                <p-calendar [(ngModel)]="event.End" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
                     dateFormat="(DD) MM d, yy"></p-calendar>
             </div>
         </div>

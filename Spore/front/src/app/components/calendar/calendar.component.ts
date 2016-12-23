@@ -13,6 +13,13 @@ export class CalendarComponent implements OnInit {
   @Input() userId: string;
 
   event: Event;
+  events: any = [
+    {
+      title: 'xyz',
+      start: '2016-09-07',
+      end: '2016-09-08'
+    }
+  ];  
   dialogVisible: boolean = false;
   header: any = {
 	  left: 'prev,next today',
@@ -20,29 +27,20 @@ export class CalendarComponent implements OnInit {
 	  right: 'month,agendaWeek,agendaDay'
 	};
 
-  events: any = [
-    {
-      title: 'All Day Event',
-      start: '2016-09-01'
-    },
-    {
-      title: 'Long Event',
-      start: '2016-09-07',
-      end: '2016-09-10'
-    },
-    {
-      title: 'Event 1pm-3pm',
-      start: '2016-09-20T13:00:00',
-      end: '2016-09-20T15:00:00'
-    }
-  ];
-
   constructor(
     private databaseService: DatabaseService
   ) { }
 
   ngOnInit() {
-    /// Add a call to populate the calendar content here (or observe it)
+    // THIS CALL NEEDS TO BE FIXED BEFORE USING IT, CURRENTLY ITLL ONLY WORK IF YOU GIVE IT EXACT DATES THE EVENT IS ON. CANT DO RANGES!
+    this.databaseService.getUserEvents(this.userId, '2016-00-00', '2017-00-00').then(response => {
+      console.log(response);
+      if(response.error != '0') {
+        console.log('ERROR LOADING EVENTS');
+      } else {
+        // this.events = response.data;  
+      }
+    });
   }
 
   handleEventClick(e) {
@@ -53,8 +51,9 @@ export class CalendarComponent implements OnInit {
     }
 
     this.event.Start = e.calEvent._start.toDate();
+    this.event.Start.setDate(this.event.Start.getDate() + 1);
+    this.event.Title = e.calEvent.title;
     this.dialogVisible = true;
-    console.log("event clicked - " + e.calEvent.title);
   }
 
   handleDayClick(e) {
@@ -62,18 +61,19 @@ export class CalendarComponent implements OnInit {
     this.event.Start = e.date.toDate();
     this.event.Start.setDate(this.event.Start.getDate() + 1);
     this.dialogVisible = true;
-    console.log("day clicked - " + this.event.Start);
   }
 
   saveEvent() {  
-    //todo: add update call here somewhere - use if statement to split the 2 cases
-    this.databaseService.addEvent(this.userId, 
-      this.event.Start ? this.ToIsoStringDate(this.event.Start) : '', 
-      this.event.End ? this.ToIsoStringDate(this.event.End) : '',
-      this.event.Title ? this.event.Title : 'No Title Given'  // bind title to title TODO
-    ).then(errorCode => {
-      // if() error code ... TODO 
-      // else no error code ... TODO
+    //todo: add update call here somewhere
+    let start = this.event.Start ? this.ToIsoStringDate(this.event.Start) : '';
+    let end = this.event.End ? this.ToIsoStringDate(this.event.End) : '';
+    let title = this.event.Title ? this.event.Title : 'No Title';
+    this.databaseService.addEvent(this.userId, start, end, title).then(response => {
+      if(response.error != '0') {
+        window.alert('Error during addEvent API call: ' + response.data);
+      } else {
+        this.events.push({title: title, start: start, end: end});
+      }
     });
 
     this.dialogVisible = false;
@@ -88,7 +88,10 @@ export class CalendarComponent implements OnInit {
   }
 
   private ToIsoStringDate(event: Date): string {
-    return event.getFullYear() + '-' + event.getMonth() + '-' + event.getDate();
+    let month = event.getMonth() < 10 ? '0' + (event.getMonth() + 1) : (event.getMonth() + 1);
+    let date = event.getDate() < 10 ? '0' + event.getDate() : event.getDate();
+    console.log(event.getFullYear() + '-' + month + '-' + date);
+    return event.getFullYear() + '-' + month + '-' + date;
   }
 
   private ToIsoStringDateAndTime(event: Date): string {
