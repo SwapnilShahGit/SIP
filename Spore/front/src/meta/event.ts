@@ -1,6 +1,6 @@
 
 export class Event implements IEvent {
-    Id: number;
+    Id: string;
     Title: string;
     Start: Date;
     End: Date;
@@ -8,7 +8,7 @@ export class Event implements IEvent {
 }
 
 export interface IEvent {
-    Id: number;
+    Id: string;
     Title: string;
     Start: Date;
     End: Date;

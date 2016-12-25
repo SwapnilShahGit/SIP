@@ -68,7 +68,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    getUserEvents(id: string, start: string, end: string) {
+    getUserEvents(id: string, start: string, end: string): any {
         return this.http
             .get(this.BuildGetUserEventsRequest(id, start, end))
             .toPromise()
@@ -76,13 +76,25 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    private handleError(error: any) {
-        console.error('IN ERROR HANDLER: An error occurred: ', error);
-        return Promise.reject(error.message || error);
+    deleteEvent(id: string): any {
+        return this.http
+            .get(this.BuildDeleteEvent(id))
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
+    deleteUserEvent(userId: string, eventId: string): any {
+        return this.http
+            .get(this.BuildDeleteUserEvent(userId, eventId))
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
     }
 
     private BuildGetUserRequest(id: string): string {
-        return this.server + '/api/getUser?user=' + id;
+        return this.server + '/api/getUser?'
+            + 'user=' + encodeURIComponent(id);
     }
 
     private BuildAddUserRequest(user: User): string {
@@ -95,7 +107,8 @@ export class DatabaseService {
     }
 
     private BuildEchoRequest(something: string): string {
-        return this.server + '/api/echo?value=' + something;
+        return this.server + '/api/echo?'
+            + 'value=' + encodeURIComponent(something);
     }
 
     private BuildAddEventRequest(id: string, start?: string, end?: string, title?: string): string {
@@ -109,11 +122,22 @@ export class DatabaseService {
             + titleRequest;
     }
 
-    private BuildGetUserEventsRequest(id: string, start: string, end: string) {
+    private BuildGetUserEventsRequest(id: string, start: string, end: string): string {
         return this.server + '/api/getUserEvents?' 
             + 'user=' + encodeURIComponent(id)
             + '&start=' + encodeURIComponent(start)
             + '&end=' + encodeURIComponent(end);
+    }
+
+    private BuildDeleteEvent(id: string): string {
+        return this.server + '/api/deleteEvent?'
+            + 'Event=' + encodeURIComponent(id);
+    }
+
+    private BuildDeleteUserEvent(userId: string, eventId: string): string {
+        return this.server + '/api/deleteUserEvent?'
+            + 'user=' + encodeURIComponent(userId)
+            + 'Event=' + encodeURIComponent(eventId);
     }
 
     private BuildUserFromResponse(response: any): User {
@@ -122,4 +146,9 @@ export class DatabaseService {
         }
         return new User();
     }    
+
+    private handleError(error: any) {
+        console.error('IN ERROR HANDLER: An error occurred: ', error);
+        return Promise.reject(error.message || error);
+    }
 }
