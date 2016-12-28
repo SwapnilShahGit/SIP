@@ -28,7 +28,7 @@ export class CalendarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.databaseService.getUserEvents(this.userId, moment('2016-01-01'), moment('2018-01-01')).then(response => {
+    this.databaseService.getUserEvents(this.userId, moment('2016-01-01', 'YYYY-MM-DD'), moment('2018-01-01', 'YYYY-MM-DD')).then(response => {
       if (response.error != '0') {
         console.log('Error during event population: ' + response.data);
       } else {
