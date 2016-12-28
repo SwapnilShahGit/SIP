@@ -27,12 +27,12 @@
     <!---->
   </div>
 
-  <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth}">
+  <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px'}">
 
     <h1 style="padding-top: 20px" >{{CurrentTab}}</h1>
     <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}} - {{(user | async)?.Email}}!</h1>
 
-    <div *ngIf="CurrentTab == this.navService.CalendarTab">
+    <div *ngIf="CurrentTab == this.navService.CalendarTab" style="padding-bottom:20px">
       <calendar></calendar>
     </div>
 
@@ -115,6 +115,6 @@
         allowfullscreen></iframe>
     </div>
 
-    <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'"></footer-bar>
   </div>
+  <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'"></footer-bar>
 </div>

@@ -2,10 +2,10 @@
 
 #main {
   transition: margin-left .5s;
-  padding: 20px;
+  padding: 20px 20px 20px 0;
 }
 .sidenav {
-  height: 90vh; /* 50% Full-height */
+  height: 89vh; /* 50% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
