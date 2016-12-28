@@ -17,6 +17,7 @@ export class LoginPageComponent implements OnInit {
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
   private userNameField: '';
   private passwordField: '';
+  private rememberMeField;
 
   constructor(
     private router: Router,
