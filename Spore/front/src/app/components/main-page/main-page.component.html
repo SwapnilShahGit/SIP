@@ -33,7 +33,7 @@
   <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}} - {{(user | async)?.Email}}!</h1>
 
   <div *ngIf="CurrentTab == this.navService.CalendarTab">
-    <calendar></calendar>
+    <calendar *ngIf="(user | async).UserID" [userId]="(user | async).UserID"></calendar>
   </div>
 
   <div *ngIf="CurrentTab == this.navService.CalculatorTab">

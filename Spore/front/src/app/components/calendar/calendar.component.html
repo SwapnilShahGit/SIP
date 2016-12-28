@@ -1,5 +1,5 @@
 <p-schedule [events]="events" [defaultDate]="'2016-09-12'" [editable]="true" [header]="header" (onDayClick)="handleDayClick($event)"
-    (onEventClick)="handleEventClick($event)"></p-schedule>
+    (onEventClick)="handleEventClick($event)" (onEventDrop)="handleEventDrop($event)"></p-schedule>
 <br>
 
 <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false"
@@ -12,7 +12,7 @@
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-12">
-                <text-box [placeholderText]="'Name for your event'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'100%'"></text-box><br>
+                <input class="text-box-style" [(ngModel)]="event.Title" type="text" placeholder="Name for your event"><br>
             </div>
         </div>
         <div class="ui-grid-row">
@@ -22,7 +22,7 @@
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-12 date-input-style">
-                <p-calendar [(ngModel)]="event.Start" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
+                <p-calendar [(ngModel)]="event.StartDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
                     dateFormat="(DD) MM d, yy"> </p-calendar>
             </div>
         </div>
@@ -33,25 +33,16 @@
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-12 date-input-style">
-                <p-calendar [(ngModel)]="someValueY" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
+                <p-calendar [(ngModel)]="event.EndDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
                     dateFormat="(DD) MM d, yy"></p-calendar>
             </div>
         </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-12">
-                <label for="vin">All Day</label>
-            </div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-12">
-                <check-box style="margin-left: 4px; padding-right: 8px"></check-box>
-            </div>
-        </div>
     </div>
-    <footer>
+    <footer *ngIf="event">
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
             <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
-            <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
+            <button *ngIf="event.Id" type="button" pButton icon="fa-check" (click)="updateEvent()" label="Update"></button>
+            <button *ngIf="event.Id == undefined" type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
         </div>
     </footer>
 </p-dialog>
