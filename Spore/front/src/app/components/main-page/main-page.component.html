@@ -1,5 +1,5 @@
 <div style="position: relative; min-height: 100%">
-  <static-nav style="display: inline-block"></static-nav>
+  <static-nav></static-nav>
   <div class="sidenav" [ngStyle]="{'width': slideOutWidth, 'height': bodyHeight}">
     <!---->
     <a style="padding: 4px 10px 0px 10px;">
@@ -27,11 +27,11 @@
     <!---->
   </div>
 
-  <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px'}">
+  <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px', 'padding-top': '30px'}">
 
     <h1 style="padding-top: 20px" >{{CurrentTab}}</h1>
     <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}} - {{(user | async)?.Email}}!</h1>
-    
+
     <div *ngIf="CurrentTab == this.navService.CalculatorTab" style="padding-bottom:50px">
       <p>Spicy jalapeno bacon ipsum dolor amet ad est rump, short loin aute occaecat pork ex filet mignon kielbasa ham hock. Nisi
         pancetta turducken ribeye irure lorem. Aliquip pancetta swine brisket pastrami. In culpa aute pork chop esse. Beef
@@ -45,7 +45,7 @@
         enim elit pig laborum hamburger cupim bacon strip steak jerky.</p>
       <p>Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!</p>
     </div>
-    
+
   <div *ngIf="CurrentTab == this.navService.CalendarTab">
     <calendar *ngIf="(user | async).UserID" [userId]="(user | async).UserID"></calendar>
   </div>
