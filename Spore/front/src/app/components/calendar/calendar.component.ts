@@ -15,32 +15,7 @@ export class CalendarComponent implements OnInit {
   @Input() userId: string;
 
   event: Event;
-  events: any = [
-    {
-      title: 'dummy 1',
-      start: '2016-09-07',
-      end: '2016-09-08',
-      id: 'some-value1'
-    },
-    {
-      title: 'dummy 2',
-      start: '2016-09-08',
-      end: '2016-09-09',
-      id: 'some-value2'
-    },
-    {
-      title: 'dummy 3',
-      start: '2016-09-08',
-      end: '2016-09-09',
-      id: 'some-value3'
-    },
-    {
-      title: 'dummy 4',
-      start: '2016-09-09',
-      end: '2016-09-10',
-      id: '5862fdac5adb91ec2f6d0c41'
-    }
-  ];  
+  events: any = [];  
   dialogVisible: boolean = false;
   header: any = {
 	  left: 'prev,next today',
@@ -53,13 +28,16 @@ export class CalendarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // THIS CALL NEEDS TO BE FIXED BEFORE USING IT, CURRENTLY ITLL ONLY WORK IF YOU GIVE IT EXACT DATES THE EVENT IS ON. CANT DO RANGES!
-    this.databaseService.getUserEvents(this.userId, moment('2016-00-00'), moment('2017-00-00')).then(response => {
+    this.databaseService.getUserEvents(this.userId, moment('2016-01-01'), moment('2018-01-01')).then(response => {
       if (response.error != '0') {
         console.log('Error during event population: ' + response.data);
       } else {
-        console.log('Event population was successful (Currently call not doing proper responses): ' + response.data);
-        // this.events = response.data;  
+        for (let event of response.data) {
+          let title = event.title ? event.title : '';
+          let start = event.startTime ? event.startTime.substring(0, 10) : '';
+          let end = event.endTime ? event.endTime.substring(0, 10) : '';
+          this.events.push({id: event.id, title: title, start: start, end: end});
+        }
       }
     });
   }
@@ -89,25 +67,23 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEventDrop(e) {
-    this.event = new Event();
-    this.event.Start = e.event.start;
-    this.event.End = e.event.end;
-    this.event.Title = e.event.title;
-    this.event.Id = e.event.id;
-    
-    this.databaseService.updateEvent(this.event).then(response => {
+    let newEvent = new Event();
+    newEvent.Start = e.event.start;
+    newEvent.End = e.event.end;
+    newEvent.Title = e.event.title;
+    newEvent.Id = e.event.id;
+    this.databaseService.updateEvent(newEvent).then(response => {
       if (response.error != '0') {
         e.revertFunc();
+        window.alert('Error during updateEvent API call: ' + response.data);
       } else {
-        console.log('event updated');
+        this.events.splice(this.EventIndexById(newEvent.Id), 1);
+        this.events.push({id: newEvent.Id, title: newEvent.Title, start: newEvent.Start.toISOString().substring(0, 10), end: newEvent.End.toISOString().substring(0, 10)});
       }
     });
-
-    this.event = undefined;
   }
 
   saveEvent() {  
-    // add update call here somewhere
     this.event.End = this.event.EndDate ? moment(this.DateToIsoString(this.event.EndDate)) : undefined;
     let start = this.event.StartDate ? this.event.Start.toISOString().substring(0, 10) : '';
     let end = this.event.EndDate ? this.event.End.toISOString().substring(0, 10) : '';
@@ -116,8 +92,7 @@ export class CalendarComponent implements OnInit {
       if (response.error != '0') {
         window.alert('Error during addEvent API call: ' + response.data);
       } else {
-        // Once call is updated, id value should be returned from addEvent call and pushed to the event.
-        this.events.push({title: title, start: start, end: end});
+        this.events.push({id: response.data, title: title, start: start, end: end});
       }
     });
 
@@ -136,7 +111,6 @@ export class CalendarComponent implements OnInit {
       if (response.error != '0') {
         window.alert('Error during event update: ' + response.data);
       } else {
-        console.log('event updated');
         this.events.splice(this.EventIndexById(id), 1);
         this.events.push({title: title, start: start, end: end, id: id})
       }
@@ -147,14 +121,11 @@ export class CalendarComponent implements OnInit {
   }
 
   deleteEvent() {
-    /// This call needs to be fixed. Currently dont have id - addEvent call needs to have id returned when created
-    /// Also currently deleteUserEvent does nothing it seems. Check up on that. (deleteEvent works fine)
     let id = this.event.Id;
     this.databaseService.deleteUserEvent(this.userId, this.event.Id).then(response =>  {
       if (response.error != '0') {
         window.alert('Error during event delete: ' + response.data);
       } else {
-        console.log('Successful delete response: ' + response.data);
         this.events.splice(this.EventIndexById(id), 1);
       }
     });    
@@ -174,8 +145,8 @@ export class CalendarComponent implements OnInit {
         if(this.events[i]['id'] === id) {
             return i;
         }
-    }
-
+    } 
+    
     return -1;
   }
 
