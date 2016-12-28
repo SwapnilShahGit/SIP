@@ -27,6 +27,8 @@ export class TextBoxComponent {
   public textValue = '';
   @Input()
   public isDisabled = false;
+  @Input()
+  public showBox = 'inherit';
 
   constructor(){};
 

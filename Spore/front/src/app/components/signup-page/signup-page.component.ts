@@ -18,7 +18,8 @@ export class SignUpPageComponent implements OnInit{
   public supportedSchools;
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
   private apiResponse = {userId: '', first_name: '', last_name: '', email: '', dateOfBirth: '', selectedSchool: '', gender: '', pictureUrl: ''};
-  private disabledField = 'inherit';
+  private disabledField = false;
+  private hidePasswordField = 'inherit';
   private temp;
   private checkedGender = {male: '', female: ''};
 
@@ -94,7 +95,8 @@ export class SignUpPageComponent implements OnInit{
         this.checkedGender.male = '';
       }
       this.apiResponse.gender = response.gender;
-      this.disabledField = 'none';
+      this.hidePasswordField = 'none';
+      this.disabledField = true;
     });
   }
 
@@ -107,6 +109,7 @@ export class SignUpPageComponent implements OnInit{
 
   public signUpUser() {
     console.log(this.apiResponse);
+    return;
     if (this.apiResponse.first_name && this.apiResponse.last_name && this.apiResponse.email && this.apiResponse.dateOfBirth && this.apiResponse.selectedSchool && this.apiResponse.gender) {
       console.log('sign up user');
       let newUser = new User(this.apiResponse.userId, this.apiResponse.first_name, this.apiResponse.last_name, this.apiResponse.email, this.apiResponse.pictureUrl);
