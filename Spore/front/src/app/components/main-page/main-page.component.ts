@@ -22,6 +22,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private bodyWidth: string = 'auto';
   private echoResponse: string = '...';
   private echoInput: string = 'echo';
+  private bodyHeight = '0px';
   subscription: Subscription;
   user: Observable<User>;
   userID: string;
@@ -73,12 +74,16 @@ export class MainPageComponent implements OnInit, OnDestroy {
       this.bodyLeftMargin = '250px';
       this.bodyWidth = 'auto';
     }
+
+    this.bodyHeight = (window.innerHeight - 125).toString() + 'px';
+
   }
 
   closeNav() {
     this.slideOutWidth = '0px';
     this.bodyLeftMargin = '0px';
     this.bodyWidth = 'auto';
+    this.bodyHeight = '0px';
   }
 
   ngOnDestroy() {
