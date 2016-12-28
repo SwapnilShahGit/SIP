@@ -5,7 +5,7 @@
   padding: 20px 20px 20px 0;
 }
 .sidenav {
-  height: 89vh; /* 50% Full-height */
+  height: 89%; /* 50% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
@@ -61,6 +61,7 @@
   margin-right: 15px;
 }
 @media (max-width: 767px) {
+  .sidenav { height: 83%}
   .sidenav a { font-size: 26px; }
   .sidenav-header { font-size: 26px; }
   .sidenav-item { width: auto; }
