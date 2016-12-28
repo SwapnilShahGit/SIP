@@ -17,8 +17,10 @@ export class SignUpPageComponent implements OnInit{
 
   public supportedSchools;
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
-  private apiResponse = {userId: '', first_name: '', last_name: '', email: '', dateOfBirth: '', selectedSchool: '', male: '', female: '', pictureUrl: ''};
-  private disabledField = 'inherit';
+  private apiResponse = {userId: '', first_name: '', last_name: '', email: '', dateOfBirth: '', selectedSchool: '', gender: '', pictureUrl: ''};
+  private disabledField = false;
+  private hidePasswordField = 'inherit';
+  private checkedGender = {male: '', female: ''};
 
   constructor(private router: Router, private databaseService: DatabaseService, public zone: NgZone){
     this.buildSupportedSchools();
@@ -85,14 +87,15 @@ export class SignUpPageComponent implements OnInit{
       }
 
       if (response.gender === 'male') {
-        this.apiResponse.male = 'checked';
-        this.apiResponse.female = '';
+        this.checkedGender.male = 'checked';
+        this.checkedGender.female = '';
       } else if (response.gender === 'female') {
-        this.apiResponse.female = 'checked';
-        this.apiResponse.male = '';
+        this.checkedGender.female = 'checked';
+        this.checkedGender.male = '';
       }
-
-      this.disabledField = 'none';
+      this.apiResponse.gender = response.gender;
+      this.hidePasswordField = 'none';
+      this.disabledField = true;
     });
   }
 
@@ -104,7 +107,8 @@ export class SignUpPageComponent implements OnInit{
   }
 
   public signUpUser() {
-    if (this.apiResponse.first_name && this.apiResponse.last_name && this.apiResponse.email && this.apiResponse.dateOfBirth && this.apiResponse.selectedSchool && (this.apiResponse.male || this.apiResponse.female)) {
+    console.log(this.apiResponse);
+    if (this.apiResponse.first_name && this.apiResponse.last_name && this.apiResponse.email && this.apiResponse.dateOfBirth && this.apiResponse.selectedSchool && this.apiResponse.gender) {
       console.log('sign up user');
       let newUser = new User(this.apiResponse.userId, this.apiResponse.first_name, this.apiResponse.last_name, this.apiResponse.email, this.apiResponse.pictureUrl);
       this.databaseService.addUser(newUser).then((response) => {
@@ -122,4 +126,5 @@ export class SignUpPageComponent implements OnInit{
       window.alert('Error: Form not complete');
     }
   }
+
 }
