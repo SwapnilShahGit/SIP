@@ -342,8 +342,8 @@ function  dbFetchUserEvents(req, res, next){
 		for (var i = 0; i < events.length; i++){
 		  var currentEvent = {
 			title: events[i].title,
-			startTime: events[i].startTime,
-			endTime: events[i].endTime,
+			startTime: events[i].start,
+			endTime: events[i].end,
 			id: events[i]._id,
 			color: events[i].backgroundColour,
 			description: events[i].description,
