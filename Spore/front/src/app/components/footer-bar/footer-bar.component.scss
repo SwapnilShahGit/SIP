@@ -6,7 +6,16 @@
   background: $color-spore-navy-blue;
   color: #FFFFFF;
   padding: 5px 100px 5px 100px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 .footer-text {
   float: left;
+}
+
+@media screen and (max-width: 767px) {
+  #footer {
+    padding: 5px 10px;
+  }
 }

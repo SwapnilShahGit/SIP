@@ -1,12 +1,14 @@
-<div class="container-fluid sign-up-container">
-  <div>
-    <i class="fa fa-close close-button" (click)="sporeLogin()"></i>
-    <div class="header-text">Join Spore Today</div>
-    <div class="container-fluid third-party-buttons-container">
-      <div id="google-sign-up" class="col-sm-12">
-        <third-party-button [buttonText]="'Sign up with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" [buttonBorder]="'none'" (click)="facebookLogin()"></third-party-button>
-        <third-party-button [buttonText]="'Sign up with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'" [buttonBorder]="'none'"></third-party-button>
-        <third-party-button [buttonText]="'Sign up with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'" [buttonBorder]="'none'"></third-party-button>
+<div style="position: relative; min-height: 100%">
+  <div class="container-fluid sign-up-container">
+    <div>
+      <i class="fa fa-close close-button" (click)="sporeLogin()"></i>
+      <div class="header-text">Join Spore Today</div>
+      <div class="container-fluid third-party-buttons-container">
+        <div id="google-sign-up" class="col-sm-12">
+          <third-party-button [buttonText]="'Sign up with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" [buttonBorder]="'none'" (click)="facebookLogin()"></third-party-button>
+          <third-party-button [buttonText]="'Sign up with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'" [buttonBorder]="'none'"></third-party-button>
+          <third-party-button [buttonText]="'Sign up with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'" [buttonBorder]="'none'"></third-party-button>
+        </div>
       </div>
     </div>
   </div>
@@ -22,7 +24,8 @@
     <div id="right-box" class="col-sm-6 text-left">
       <text-box [placeholderText]="'Last Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.last_name" [(ngModel)]="apiResponse.last_name" ngDefaultControl></text-box>
     </div>
-
+    <div>
+      
     <div id="left-box" class="col-sm-6">
       <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.email" [(ngModel)]="apiResponse.email" ngDefaultControl></text-box>
     </div>
@@ -36,42 +39,41 @@
     <div id="right-box" class="col-sm-6 text-left">
       <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField"></text-box>
     </div>
-  </div>
 
-  <div>
-    <div id="left-box" class="col-sm-6">
-      <div class="select-school-label">Select a School:</div>
+    <div>
+      <div id="left-box" class="col-sm-6">
+        <div class="select-school-label">Select a School:</div>
+      </div>
+
+      <div id="right-box" class="col-sm-6 text-left select-school-container">
+        <select [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
+          <option *ngFor="let x of supportedSchools" [selected]="x === apiResponse.selectedSchool">{{x}}</option>
+        </select>
+      </div>
     </div>
 
-    <div id="right-box" class="col-sm-6 text-left select-school-container">
-      <select [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
-        <option *ngFor="let x of supportedSchools" [selected]="x === apiResponse.selectedSchool">{{x}}</option>
-      </select>
+    <div>
+      <div id="left-box" class="col-sm-6">
+        <div class="date-of-birth-text">Date of Birth:</div>
+      </div>
+      <div id="right-box" class="col-sm-6 text-left">
+        <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
+      </div>
     </div>
-  </div>
 
-  <div>
-    <div id="left-box" class="col-sm-6">
-      <div class="date-of-birth-text">Date of Birth:</div>
-    </div>
-    <div id="right-box" class="col-sm-6 text-left">
-      <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
-    </div>
-  </div>
-
-  <div id="left-box" class="col-sm-6 gender-terms-container">
-    <div class="gender-container">
+    <div id="left-box" class="col-sm-6 gender-terms-container">
+      <div class="gender-container">
       <input type="radio" name="gender" value="male" checked="{{apiResponse.male}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Male</span>
       <input type="radio" name="gender" value="female" checked="{{apiResponse.female}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Female</span><br>
     </div>
     <check-box [checkboxText]="'I agree to the terms and conditions'" [fontWeight]="'500'" [fontColor]="'black'" class="terms-conditions-container"></check-box>
-  </div>
+    </div>
 
-  <div id="right-box" class="col-sm-6 text-left">
-    <div id="sign-up-button-container"><button class="btn-warning btn-lg sign-up-button" (click)="signUpUser()">Sign Up</button> <br></div>
+    <div id="right-box" class="col-sm-6 text-left">
+      <div id="sign-up-button-container"><button class="btn-warning btn-lg sign-up-button" (click)="signUpUser()">Sign Up</button> <br></div>
+    </div>
   </div>
-
-</div>
-<div class="footer-container">
-  <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'"></footer-bar>
+  <div class="footer-container">
+    <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'"></footer-bar>
+  </div>
 </div>
