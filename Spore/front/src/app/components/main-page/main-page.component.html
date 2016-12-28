@@ -1,5 +1,5 @@
 <div style="position: relative; min-height: 100%">
-  <static-nav></static-nav>
+  <static-nav style="display: inline-block"></static-nav>
   <div class="sidenav" [ngStyle]="{'width': slideOutWidth}">
     <!---->
     <a style="padding: 4px 10px 0px 10px;">
@@ -29,7 +29,7 @@
 
   <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth}">
 
-    <h1>{{CurrentTab}}</h1>
+    <h1 style="padding-top: 20px" >{{CurrentTab}}</h1>
     <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}} - {{(user | async)?.Email}}!</h1>
 
     <div *ngIf="CurrentTab == this.navService.CalendarTab">
