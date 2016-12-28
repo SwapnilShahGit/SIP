@@ -164,7 +164,7 @@ function dbAddEvent(req, res, next) {
 		{
 		  res.send({
             error: 0,
-		    data: "successfully added event for user"
+		    data: Event._id
           });
 		  next();
 		}
@@ -338,12 +338,12 @@ function  dbFetchUserEvents(req, res, next){
   dbController.fetchUser(req.query.user, function(err, User){
     if (User !=null){
 	  // -- convert event info for front-end to use	
-	  dbController.fetchUserEvents(User.eventsID, req.query.start, req.query.end, function(Err, events){	
+	  dbController.fetchUserEvents(User.eventsID, req.query.start, req.query.end, function(Err, events){
 		for (var i = 0; i < events.length; i++){
 		  var currentEvent = {
 			title: events[i].title,
-			start: events[i].startTime,
-			end: events[i].endTime,
+			startTime: events[i].startTime,
+			endTime: events[i].endTime,
 			id: events[i]._id,
 			color: events[i].backgroundColour,
 			description: events[i].description,
