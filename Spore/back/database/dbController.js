@@ -131,9 +131,26 @@ module.exports = function(){
   
   // -- fetch event information given a userID, start and end time
   function fetchUserEvents(eventIDArray, start, end, callback) {
-	eventLibrary.find({_id: { $in: eventIDArray}, startTime: start, endTime: end}, function(err, Events){
-	  return callback(err,Events);
-	});
+	if (start !== undefined && end !== undefined) {
+	  eventLibrary.find({_id: { $in: eventIDArray}, startTime: start, endTime: end}, function(err, Events){
+	    return callback(err,Events);
+	  });
+	}
+    else if (start !== undefined){
+	  eventLibrary.find({_id: { $in: eventIDArray}, startTime: start}, function(err, Events){
+	    return callback(err,Events);
+	  });
+	}
+	else if (end !== undefined){
+	  eventLibrary.find({_id: { $in: eventIDArray}, endTime: end}, function(err, Events){
+	    return callback(err,Events);
+	  });
+	}
+	else{
+	  eventLibrary.find({_id: { $in: eventIDArray}}, function(err, Events){
+	    return callback(err,Events);
+	  });
+	}
   }
   
  // -- update Event information given a event ID
