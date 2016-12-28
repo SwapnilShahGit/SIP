@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { Event } from '../meta/event';
+import { Moment } from 'moment';
 
 @Injectable()
 export class DatabaseService {
@@ -60,25 +62,25 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    addEvent(id: string, start?: string, end?: string, title?: string): any {
+    addEvent(userId: string, event: Event): any {
         return this.http
-            .get(this.BuildAddEventRequest(id, start, end, title))
+            .get(this.BuildAddEventRequest(userId, event))
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
     }
 
-    getUserEvents(id: string, start: string, end: string): any {
+    getUserEvents(userId: string, start: Moment, end: Moment): any {
         return this.http
-            .get(this.BuildGetUserEventsRequest(id, start, end))
+            .get(this.BuildGetUserEventsRequest(userId, start, end))
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
     }
 
-    deleteEvent(id: string): any {
+    deleteEvent(eventId: string): any {
         return this.http
-            .get(this.BuildDeleteEvent(id))
+            .get(this.BuildDeleteEventRequest(eventId))
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -86,7 +88,15 @@ export class DatabaseService {
 
     deleteUserEvent(userId: string, eventId: string): any {
         return this.http
-            .get(this.BuildDeleteUserEvent(userId, eventId))
+            .get(this.BuildDeleteUserEventRequest(userId, eventId))
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
+    updateEvent(event: Event) {
+        return this.http
+            .get(this.BuildUpdateEventRequest(event))
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -111,33 +121,46 @@ export class DatabaseService {
             + 'value=' + encodeURIComponent(something);
     }
 
-    private BuildAddEventRequest(id: string, start?: string, end?: string, title?: string): string {
-        let startRequest = start ? '&start=' + encodeURIComponent(start) : '';
-        let endRequest = end ? '&end=' + encodeURIComponent(end) : '';
-        let titleRequest = title ? '&title=' + encodeURIComponent(title) : '';
+    private BuildAddEventRequest(userId: string, event: Event): string {
+        let startRequest = event.Start ? '&start=' + encodeURIComponent(event.Start.toISOString().substring(0, 10)) : '';
+        let endRequest = event.End ? '&end=' + encodeURIComponent(event.End.toISOString().substring(0, 10)) : '';
+        let titleRequest = event.Title ? '&title=' + encodeURIComponent(event.Title) : '';
         return this.server + '/api/addEvent?'
-            + 'user=' + encodeURIComponent(id)
+            + 'user=' + encodeURIComponent(userId)
             + startRequest
             + endRequest
             + titleRequest;
     }
 
-    private BuildGetUserEventsRequest(id: string, start: string, end: string): string {
+    private BuildGetUserEventsRequest(userId: string, start: Moment, end: Moment): string {
         return this.server + '/api/getUserEvents?' 
-            + 'user=' + encodeURIComponent(id)
-            + '&start=' + encodeURIComponent(start)
-            + '&end=' + encodeURIComponent(end);
+            + 'user=' + encodeURIComponent(userId)
+            + '&start=' + encodeURIComponent(start.toISOString().substring(0, 10))
+            + '&end=' + encodeURIComponent(end.toISOString().substring(0, 10));
     }
 
-    private BuildDeleteEvent(id: string): string {
+    private BuildDeleteEventRequest(eventId: string): string {
         return this.server + '/api/deleteEvent?'
-            + 'Event=' + encodeURIComponent(id);
+            + 'Event=' + encodeURIComponent(eventId);
     }
 
-    private BuildDeleteUserEvent(userId: string, eventId: string): string {
+    private BuildDeleteUserEventRequest(userId: string, eventId: string): string {
         return this.server + '/api/deleteUserEvent?'
             + 'user=' + encodeURIComponent(userId)
-            + 'Event=' + encodeURIComponent(eventId);
+            + '&Event=' + encodeURIComponent(eventId);
+    }
+
+    private BuildUpdateEventRequest(event: Event): string {
+        let titleRequest = event.Title ? '&title=' + event.Title : '';
+        let startRequest = event.Start ? '&start=' + event.Start.toISOString().substring(0, 10) : '';
+        let endRequest = event.End ? '&end=' + event.End.toISOString().substr(0, 10) : '';
+        let descriptionRequest = event.Description ? '&desc=' + event.Description : '';
+        return this.server + '/api/updateEvent?'
+            + 'Event=' + event.Id
+            + titleRequest
+            + startRequest
+            + endRequest
+            + descriptionRequest;
     }
 
     private BuildUserFromResponse(response: any): User {
