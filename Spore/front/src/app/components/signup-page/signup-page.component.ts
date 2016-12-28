@@ -20,7 +20,6 @@ export class SignUpPageComponent implements OnInit{
   private apiResponse = {userId: '', first_name: '', last_name: '', email: '', dateOfBirth: '', selectedSchool: '', gender: '', pictureUrl: ''};
   private disabledField = false;
   private hidePasswordField = 'inherit';
-  private temp;
   private checkedGender = {male: '', female: ''};
 
   constructor(private router: Router, private databaseService: DatabaseService, public zone: NgZone){
@@ -109,7 +108,6 @@ export class SignUpPageComponent implements OnInit{
 
   public signUpUser() {
     console.log(this.apiResponse);
-    return;
     if (this.apiResponse.first_name && this.apiResponse.last_name && this.apiResponse.email && this.apiResponse.dateOfBirth && this.apiResponse.selectedSchool && this.apiResponse.gender) {
       console.log('sign up user');
       let newUser = new User(this.apiResponse.userId, this.apiResponse.first_name, this.apiResponse.last_name, this.apiResponse.email, this.apiResponse.pictureUrl);
