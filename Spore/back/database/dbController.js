@@ -72,8 +72,8 @@ module.exports = function(){
     if (Event){
       var newEventEntry = new eventLibrary({
 		title: Event.title,
-        startTime: Event.startTime,
-        endTime: Event.endTime,
+        start: new Date(Event.startTime),
+        end: new Date(Event.endTime),
         backgroundColour: Event.bgColor,
         description: Event.description,
         location: Event.Location,
@@ -131,7 +131,7 @@ module.exports = function(){
   
   // -- fetch event information given a userID, start and end time
   function fetchUserEvents(eventIDArray, start, end, callback) {
-	eventLibrary.find({_id: { $in: eventIDArray}, startTime: start, endTime: end}, function(err, Events){
+	eventLibrary.find({_id: { $in: eventIDArray}, start: { $gt: new Date(start) }, end: { $lt: new Date(end) }}, function(err, Events){
 	  return callback(err,Events);
 	});
   }
@@ -141,8 +141,8 @@ module.exports = function(){
 	eventLibrary.update({ _id: Event._id }, 
 	  {$set: { 
 	    title: Event.title,
-	    startTime: Event.startTime,
-		endTime: Event.endTime,
+	    start: new Date(Event.startTime),
+		end: new Date(Event.endTime),
 		backgroundColour: Event.backgroundColour,
 		description: Event.description,
 		location: Event.location,
