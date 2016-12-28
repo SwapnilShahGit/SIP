@@ -61,8 +61,8 @@ module.exports = function () {
   // -- create schema that will hold event information
   var eventLibrary = new Schema({
     title: String,
-    startTime: String,
-    endTime: String,
+    start: Date,
+    end: Date,
     backgroundColour: String,
     description: String,
     location: String,
