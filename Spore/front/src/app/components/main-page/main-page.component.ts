@@ -86,6 +86,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.bodyHeight = '0px';
   }
 
+  switchTabs(newTab) {
+    this.CurrentTab = newTab;
+    if (window.innerHeight <= 767) {
+      this.closeNav();
+    }
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
