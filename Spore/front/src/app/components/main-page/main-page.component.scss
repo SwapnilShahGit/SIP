@@ -39,6 +39,9 @@
   color: black;
   display: block;
   transition: 0.3s;
+  &.selected {
+    background: darken(#ECEFF1, 15%);
+  }
 }
 .sidenav a:hover, .offcanvas a:focus {
   background: #ECEFF1;
