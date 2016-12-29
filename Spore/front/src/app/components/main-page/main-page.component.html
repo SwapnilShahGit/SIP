@@ -8,16 +8,16 @@
     <!---->
     <br> <span class="sidenav-header">Tools</span>
     <hr class="sidenav-hr">
-    <a class="sidenav-item" (click)="switchTabs('CalendarTab')"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
-    <a class="sidenav-item" (click)="switchTabs('CalculatorTab')"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
-    <a class="sidenav-item" (click)="switchTabs('CoursesTab')"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
-    <a class="sidenav-item" (click)="switchTabs('RemindersTab')"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
-    <a class="sidenav-item" (click)="switchTabs('FilesTab')"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
+    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'CalendarTab'" (click)="switchTabs('CalendarTab')"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
+    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'CalculatorTab'" (click)="switchTabs('CalculatorTab')"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
+    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'CoursesTab'" (click)="switchTabs('CoursesTab')"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
+    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'RemindersTab'" (click)="switchTabs('RemindersTab')"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
+    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'FilesTab'" (click)="switchTabs('FilesTab')"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
     <br> <span class="sidenav-header">More</span>
     <hr class="sidenav-hr">
-    <a class="sidenav-item" (click)="switchTabs('HelpTab')"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
-    <a class="sidenav-item" (click)="switchTabs('MapTab')"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
-    <a class="sidenav-item" (click)="switchTabs('UserDetailsTab')"><span class="fa fa-lg fa-user-secret sidenav-icon"></span>User Details</a>
+    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'HelpTab'" (click)="switchTabs('HelpTab')"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
+    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'MapTab'" (click)="switchTabs('MapTab')"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
+    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'UserDetailsTab'" (click)="switchTabs('UserDetailsTab')"><span class="fa fa-lg fa-user-secret sidenav-icon"></span>User Details</a>
     <br> <span class="sidenav-header">Redirect</span>
     <hr class="sidenav-hr">
     <a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
