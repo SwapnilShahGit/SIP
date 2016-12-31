@@ -1,13 +1,14 @@
 {
-  "name": "back-end",
-  "scripts": {
-    "genssl": "genssl.sh",
-    "start": "genssl.sh && node index.js",
-    "start:aws": "node index.js"
-  },
-  "dependencies": {
-    "mongoose": "4.5.10",
-    "mongoose-auto-increment": "5.0.1",
-    "restify": "4.1.1"
-  }
+	"name": "back-end",
+	"scripts": {
+		"genssl": "genssl.sh",
+		"start": "genssl.sh && node index.js",
+		"start:aws": "node index.js"
+	},
+	"dependencies": {
+		"bluebird": "3.4.7",
+		"mongoose": "4.5.10",
+		"mongoose-auto-increment": "5.0.1",
+		"restify": "4.1.1"
+	}
 }
