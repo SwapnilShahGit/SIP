@@ -11,18 +11,18 @@ KERNEL=$(uname -s)
 
 # Fail gracefully is user attempts to run on Linux or macOS
 if [ "${KERNEL^^}" == "LINUX" -o "${KERNEL^^}" == "DARWIN" ]; then
-    printf "\n${RED}This script only supports Bash on Windows.${NORMAL}\n"
-    exit 1
+	printf "\n${RED}This script only supports Bash on Windows.${NORMAL}\n"
+	exit 1
 fi
 
 data=${DEFAULT_DB}
 mongo=${MONGO_HOME}
 
 while getopts 'pd:' flag; do
-    case "${flag}" in
-        p) production=true ;;
-        d) data="${OPTARG}" ;;
-    esac
+	case "${flag}" in
+		p) production=true ;;
+		d) data="${OPTARG}" ;;
+	esac
 done
 
 printf "\n${UNDERLINE}Starting Mongo...${NORMAL}\n"
@@ -37,11 +37,11 @@ printf "\n${UNDERLINE}Installing node_modules for front...${NORMAL}\n"
 npm install
 
 if [ "$production" = true ]; then
-    printf "\n${UNDERLINE}Building front-end for production...${NORMAL}\n"
-    npm run build:prod
+	printf "\n${UNDERLINE}Building front-end for production...${NORMAL}\n"
+	npm run build:prod
 else
-    printf "\n${UNDERLINE}Starting front-end development server...${NORMAL}\n"
-    npm start &
+	printf "\n${UNDERLINE}Starting front-end development server...${NORMAL}\n"
+	npm start &
 fi
 
 printf "\n${UNDERLINE}Installing node_modules for back...${NORMAL}\n"
