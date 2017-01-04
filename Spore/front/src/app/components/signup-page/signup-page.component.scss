@@ -116,6 +116,15 @@ select option {color: $color-spore-grey}
   padding-top: 40px;
 }
 
+.required-field {
+  position: absolute;
+  padding: 40px 0 0 12px;
+  color: red;
+  z-index: -1;
+  &.termsAndConditions {
+    padding: 28px 0 0 20px;
+  }
+}
 
 @media screen and (max-width: 767px) {
   #left-box, #right-box {
