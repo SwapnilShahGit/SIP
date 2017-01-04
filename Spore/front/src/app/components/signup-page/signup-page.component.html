@@ -38,11 +38,11 @@
 
     <div id="left-box" class="col-sm-6">
       <label class="required-field">{{requiredField.password}}</label>
-      <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField"></text-box>
+      <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.password" ngDefaultControl></text-box>
     </div>
     <div id="right-box" class="col-sm-6 text-left">
       <label class="required-field">{{requiredField.confirmPassword}}</label>
-      <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField"></text-box>
+      <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.confirmPassword" ngDefaultControl></text-box>
     </div>
 
     <div>
