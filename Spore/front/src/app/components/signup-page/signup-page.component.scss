@@ -98,8 +98,7 @@ select option {color: $color-spore-grey}
 
 .terms-conditions-container {
   font-size: 14px;
-  margin-right: -6px;
-  padding-right: 4px;
+  margin-right: -12px;
 }
 
 #sign-up-button-container {
@@ -122,7 +121,7 @@ select option {color: $color-spore-grey}
   color: red;
   z-index: -1;
   &.termsAndConditions {
-    padding: 28px 0 0 20px;
+    padding-top: 20px;
   }
 }
 
