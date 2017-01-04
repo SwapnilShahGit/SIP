@@ -17,10 +17,11 @@ export class SignUpPageComponent implements OnInit{
 
   public supportedSchools;
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
-  private apiResponse = {userId: '', first_name: '', last_name: '', email: '', dateOfBirth: '', selectedSchool: '', gender: '', pictureUrl: ''};
+  private apiResponse = {userId: '', first_name: '', last_name: '', email: '', confirmEmail: '', password: '', confirmPassword: '', dateOfBirth: '', selectedSchool: '', gender: '', pictureUrl: '', termsAndConditions: ''};
   private disabledField = false;
   private hidePasswordField = 'inherit';
   private checkedGender = {male: '', female: ''};
+  private requiredField = {firstName: '', lastName: '', email: '', confirmEmail: '', password: '', confirmPassword: '', termsAndConditions: ''};
 
   constructor(private router: Router, private databaseService: DatabaseService, public zone: NgZone){
     this.buildSupportedSchools();
@@ -108,7 +109,7 @@ export class SignUpPageComponent implements OnInit{
 
   public signUpUser() {
     console.log(this.apiResponse);
-    if (this.apiResponse.first_name && this.apiResponse.last_name && this.apiResponse.email && this.apiResponse.dateOfBirth && this.apiResponse.selectedSchool && this.apiResponse.gender) {
+    if (this.verifyForm()) {
       console.log('sign up user');
       let newUser = new User(this.apiResponse.userId, this.apiResponse.first_name, this.apiResponse.last_name, this.apiResponse.email, this.apiResponse.pictureUrl);
       this.databaseService.addUser(newUser).then((response) => {
@@ -125,6 +126,60 @@ export class SignUpPageComponent implements OnInit{
     } else {
       window.alert('Error: Form not complete');
     }
+  }
+
+  public verifyForm() {
+    let response = true;
+    if (!this.apiResponse.first_name) {
+      this.requiredField.firstName = 'First Name is required';
+      response = false;
+    } else {
+      this.requiredField.firstName = '';
+    }
+
+    if (!this.apiResponse.last_name) {
+      this.requiredField.lastName = 'Last Name is required';
+      response = false;
+    } else {
+      this.requiredField.lastName = '';
+    }
+
+    if (!this.apiResponse.email) {
+      this.requiredField.email = 'Email is required';
+      response = false;
+    } else {
+      this.requiredField.email = '';
+    }
+
+    if (!this.apiResponse.confirmEmail) {
+      this.requiredField.confirmEmail = 'Must confirm email';
+      response = false;
+    } else {
+      this.requiredField.confirmEmail = '';
+    }
+
+    if (!this.apiResponse.password && this.hidePasswordField != 'none') {
+      this.requiredField.password = 'Password ';
+      response = false;
+    } else {
+      this.requiredField.password = '';
+    }
+
+    if (!this.apiResponse.confirmPassword && this.hidePasswordField != 'none') {
+      this.requiredField.confirmPassword = 'Must confirm password';
+      response = false;
+    } else {
+      this.requiredField.confirmPassword = '';
+    }
+    console.log(this.apiResponse.termsAndConditions);
+    if (!this.apiResponse.termsAndConditions) {
+      this.requiredField.termsAndConditions = 'Must accept terms and conditions';
+      response = false;
+    } else {
+      this.requiredField.termsAndConditions = '';
+    }
+
+    return response;
   }
 
 }
