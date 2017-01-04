@@ -154,12 +154,15 @@ export class SignUpPageComponent implements OnInit{
     if (!this.apiResponse.confirmEmail) {
       this.requiredField.confirmEmail = 'Must confirm email';
       response = false;
+    } else if (this.apiResponse.confirmEmail != this.apiResponse.email) {
+      this.requiredField.confirmEmail = 'Emails do not match';
+      response = false;
     } else {
       this.requiredField.confirmEmail = '';
     }
-
+    console.log(this.hidePasswordField);
     if (!this.apiResponse.password && this.hidePasswordField != 'none') {
-      this.requiredField.password = 'Password ';
+      this.requiredField.password = 'Password is required';
       response = false;
     } else {
       this.requiredField.password = '';
@@ -167,6 +170,9 @@ export class SignUpPageComponent implements OnInit{
 
     if (!this.apiResponse.confirmPassword && this.hidePasswordField != 'none') {
       this.requiredField.confirmPassword = 'Must confirm password';
+      response = false;
+    } else if (this.apiResponse.confirmPassword != this.apiResponse.password) {
+      this.requiredField.confirmPassword = 'Passwords do not match';
       response = false;
     } else {
       this.requiredField.confirmPassword = '';
