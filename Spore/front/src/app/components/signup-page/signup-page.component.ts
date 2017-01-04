@@ -97,6 +97,7 @@ export class SignUpPageComponent implements OnInit{
       this.apiResponse.gender = response.gender;
       this.hidePasswordField = 'none';
       this.disabledField = true;
+      this.verifyForm();
     });
   }
 
