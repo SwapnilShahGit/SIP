@@ -56,11 +56,16 @@ var httpServer = restify.createServer({
 
 httpServer.get(/\/?.*/, redirectToHttps);
 
+server.use(restify.bodyParser({
+	mapParams: false
+}));
 server.use(restify.CORS({
 	origins: ['http://localhost:3000']
 }));
 server.use(restify.gzipResponse());
-server.use(restify.queryParser({ mapParams: false }));
+server.use(restify.queryParser({
+	mapParams: false
+}));
 
 require('./models/index');
 require('./controllers/index')(server);

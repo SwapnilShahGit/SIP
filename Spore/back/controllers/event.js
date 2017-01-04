@@ -8,18 +8,18 @@ const user = mongoose.model('user');
 function addEvent(req, res, next) {
 	console.log("adding event");
 	var event = new model({
-		title: req.query.title,
-		start: req.query.start ? new Date(req.query.start) : undefined,
-		end: req.query.end ? new Date(req.query.end) : undefined,
-		background: req.query.bg,
-		description: req.query.desc,
-		location: req.query.location,
-		contact: req.query.contact,
-		course: req.query.course,
-		repeat: req.query.repeat
+		title: req.body.title,
+		start: req.body.start ? new Date(req.body.start) : undefined,
+		end: req.body.end ? new Date(req.body.end) : undefined,
+		background: req.body.bg,
+		description: req.body.desc,
+		location: req.body.location,
+		contact: req.body.contact,
+		course: req.body.course,
+		repeat: req.body.repeat
 	});
 	event.save(event).then(coroutine(function* (doc) {
-		yield user.update({_id: req.query.user}, {$push: {event_ids: doc.id}});
+		yield user.update({_id: req.body.user}, {$push: {event_ids: doc.id}});
 		res.send({
 			error: 0,
 			data: doc
@@ -33,17 +33,11 @@ function addEvent(req, res, next) {
 }
 
 function deleteEvent(req, res, next) {
-	user.update({_id: req.query.user}, {$pull: {events_id: req.query.event}})
+	user.update({_id: req.query.user}, {$pull: {event_ids: req.query.event}})
 		.then(function(doc) {
-			res.send({
-				error: 0,
-				data: "event deleted from user"
-			});
+			res.send(200);
 		}).catch(function(err) {
-			res.send({
-				error: 110,
-				data: err
-			});
+			res.send(404);
 		}).finally(next);
 }
 
@@ -77,18 +71,18 @@ function getEvent(req, res, next) {
 
 function updateEvent(req, res, next) {
 	var updated = {
-		title: req.query.title,
-		start: req.query.start ? new Date(req.query.start) : undefined,
-		end: req.query.end ? new Date(req.query.end) : undefined,
-		background: req.query.bg,
-		description: req.query.desc,
-		location: req.query.location,
-		contact: req.query.contact,
-		course: req.query.course,
-		repeat: req.query.repeat
+		title: req.body.title,
+		start: req.body.start ? new Date(req.body.start) : undefined,
+		end: req.body.end ? new Date(req.body.end) : undefined,
+		background: req.body.bg,
+		description: req.body.desc,
+		location: req.body.location,
+		contact: req.body.contact,
+		course: req.body.course,
+		repeat: req.body.repeat
 	};
 	utility.removeUndefined(updated);
-	model.findByIdAndUpdate(req.query.event, updated).then(function(doc) {
+	model.findByIdAndUpdate(req.body.event, updated).then(function(doc) {
 		res.send({
 			error: 0,
 			data: doc
@@ -102,12 +96,8 @@ function updateEvent(req, res, next) {
 }
 
 module.exports = function(server) {
-	server.get('/api/addEvent', addEvent);
-	server.head('/api/addEvent', addEvent);
-	server.get('/api/deleteEvent', deleteEvent);
-	server.head('/api/deleteEvent', deleteEvent);
-	server.get('/api/getEvent', getEvent);
-	server.head('/api/getEvent', getEvent);
-	server.get('/api/updateEvent', updateEvent);
-	server.head('/api/updateEvent', updateEvent);
+	server.del('/api/events', deleteEvent);
+	server.get('/api/events', getEvent);
+	server.post('/api/events', addEvent);
+	server.put('/api/events', updateEvent);
 }

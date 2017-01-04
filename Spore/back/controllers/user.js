@@ -6,15 +6,15 @@ const model = mongoose.model('user');
 function addUser(req, res, next) {
 	console.log("adding user");
 	var user = new model({
-		first: req.query.first,
-		last: req.query.last,
-		pass: req.query.pass,
-		email: req.query.email,
-		gender: req.query.gender,
-		facebook_id: req.query.fb,
-		picture_uri: req.query.pic,
-		event_ids: req.query.events,
-		school: req.query.school
+		first: req.body.first,
+		last: req.body.last,
+		pass: req.body.pass,
+		email: req.body.email,
+		gender: req.body.gender,
+		facebook_id: req.body.fb,
+		picture_uri: req.body.pic,
+		event_ids: req.body.events,
+		school: req.body.school
 	});
 	user.save(user).then(function(doc) {
 		res.send({
@@ -58,18 +58,18 @@ function getUser(req, res, next) {
 
 function updateUser(req, res, next) {
 	var updated = {
-		first: req.query.first,
-		last: req.query.last,
-		pass: req.query.pass,
-		email: req.query.email,
-		gender: req.query.gender,
-		facebook_id: req.query.fb,
-		picture_uri: req.query.pic,
-		event_ids: req.query.events,
-		school: req.query.school
+		first: req.body.first,
+		last: req.body.last,
+		pass: req.body.pass,
+		email: req.body.email,
+		gender: req.body.gender,
+		facebook_id: req.body.fb,
+		picture_uri: req.body.pic,
+		event_ids: req.body.events,
+		school: req.body.school
 	};
 	utility.removeUndefined(updated);
-	model.findByIdAndUpdate(req.query.user, updated).then(function(doc) {
+	model.findByIdAndUpdate(req.body.user, updated).then(function(doc) {
 		res.send({
 			error: 0,
 			data: doc
@@ -83,10 +83,7 @@ function updateUser(req, res, next) {
 }
 
 module.exports = function(server) {
-	server.get('/api/addUser', addUser);
-	server.head('/api/addUser', addUser);
-	server.get('/api/getUser', getUser);
-	server.head('/api/getUser', getUser);
-	server.get('/api/updateUser', updateUser);
-	server.head('/api/updateUser', updateUser);
+	server.get('/api/users', getUser);
+	server.post('/api/users', addUser);
+	server.put('/api/users', updateUser);
 }
