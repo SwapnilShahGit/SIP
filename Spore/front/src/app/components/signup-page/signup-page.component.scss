@@ -98,8 +98,7 @@ select option {color: $color-spore-grey}
 
 .terms-conditions-container {
   font-size: 14px;
-  margin-right: -6px;
-  padding-right: 4px;
+  margin-right: -12px;
 }
 
 #sign-up-button-container {
@@ -116,6 +115,17 @@ select option {color: $color-spore-grey}
   padding-top: 40px;
 }
 
+.required-field {
+  position: absolute;
+  padding-top: 40px;
+  color: red;
+  z-index: -1;
+  font-size: 12px;
+  font-style: italic;
+  &.termsAndConditions {
+    padding-top: 20px;
+  }
+}
 
 @media screen and (max-width: 767px) {
   #left-box, #right-box {
