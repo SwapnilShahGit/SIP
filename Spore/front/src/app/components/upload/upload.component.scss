@@ -1,0 +1,29 @@
+.my-drop-zone {
+  border: dotted 3px lightgray;
+  height: 300px;
+  text-align: center;
+}
+
+.centered {
+  line-height: 250px;
+}
+
+.nv-file-over {
+  border: dotted 3px green;
+}
+
+.or-line {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+  span {
+    background: white;
+    padding: 0 10px;
+  }
+}
+
+.or-line-container {
+  padding: 20px 0px;
+}
