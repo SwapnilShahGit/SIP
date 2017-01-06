@@ -48,7 +48,7 @@ export class DatabaseService {
     addUser(user: User): any {
         this.loadUser(user.UserID);
         return this.http
-            .post(this.BuildAddUserRequest(user), {fb: user.UserID, first: user.FirstName, last: user.LastName, email: user.Email, pic: user.PictureURL})
+            .post(this.BuildAddUserRequest(user), {fb: user.FacebookID, first: user.FirstName, last: user.LastName, email: user.Email, pic: user.PictureURL, pass: user.Password, gender: user.Gender, school: user.School})
             .toPromise()
             .then(response => response.json().data as Response)
             .catch(this.handleError);
@@ -109,11 +109,14 @@ export class DatabaseService {
 
     private BuildAddUserRequest(user: User): string {
         return this.server + '/api/users?'
-            + 'fb=' + encodeURIComponent(user.UserID)
+            + 'fb=' + encodeURIComponent(user.FacebookID)
             + '&email=' + encodeURIComponent(user.Email)
             + '&last=' + encodeURIComponent(user.LastName)
             + '&first=' + encodeURIComponent(user.FirstName)
-            + '&pic=' + encodeURIComponent(user.PictureURL);
+            + '&pic=' + encodeURIComponent(user.PictureURL)
+            + '&pass=' + encodeURIComponent(user.Password)
+            + '&gender=' + encodeURIComponent(user.Gender)
+            + '&school=' + encodeURIComponent(user.School);
     }
 
     private BuildEchoRequest(something: string): string {
@@ -165,7 +168,7 @@ export class DatabaseService {
 
     private BuildUserFromResponse(response: any): User {
         if (response && response.data) {
-            return new User(response.data.facebook_id, response.data.first, response.data.last, response.data.email, response.data.picture_uri);
+            return new User(response.data._id, response.data.first, response.data.last, response.data.pass, response.data.email, response.data.gender, response.data.facebook_id, response.data.picture_uri, response.data.school);
         }
         return new User();
     }
