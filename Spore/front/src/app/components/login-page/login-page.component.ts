@@ -51,8 +51,7 @@ export class LoginPageComponent implements OnInit {
         console.log("connected");
         let userId = response.authResponse.userID;
         FB.api('/me', { fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified' }, function (response) {
-          console.log(response);
-          let user = new User(userId, response.first_name, response.last_name, response.email, response.picture.data.url);
+          let user = new User('', response.first_name, response.last_name, '', response.email, response.gender, userId, response.picture.data.url, '');
           handleUser(user);
         });
       } else if (response.status === "unknown") {
@@ -64,11 +63,11 @@ export class LoginPageComponent implements OnInit {
     }
 
     function handleUser(user: User) {
-      databaseService.getUser(user.UserID).then(response => {
+      databaseService.getUser(user.FacebookID).then(response => {
         if (response.error != "0") {
           window.alert('Error: Not Found in Database. Please Sign Up');
         } else {
-          redirectUser(user.UserID);
+          redirectUser(user.FacebookID);
         }
       });
     }
