@@ -43,7 +43,6 @@ export class SignUpPageComponent implements OnInit{
         console.log('connected');
         let userId = response.authResponse.userID;
         FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
-          console.log(response);
           this.buildUIResponseObject(response);
         });
       } else if (response.status === 'unknown') {
@@ -52,7 +51,6 @@ export class SignUpPageComponent implements OnInit{
           if (response.status === 'connected') {
             let userId = response.authResponse.userID;
             FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
-              console.log(response);
               this.buildUIResponseObject(response);
             });
           }
@@ -110,7 +108,7 @@ export class SignUpPageComponent implements OnInit{
     console.log(this.apiResponse);
     if (this.apiResponse.first_name && this.apiResponse.last_name && this.apiResponse.email && this.apiResponse.dateOfBirth && this.apiResponse.selectedSchool && this.apiResponse.gender) {
       console.log('sign up user');
-      let newUser = new User(this.apiResponse.userId, this.apiResponse.first_name, this.apiResponse.last_name, this.apiResponse.email, this.apiResponse.pictureUrl);
+      let newUser = new User('', this.apiResponse.first_name, this.apiResponse.last_name, '', this.apiResponse.email, this.apiResponse.gender, this.apiResponse.userId, this.apiResponse.pictureUrl, this.apiResponse.selectedSchool);
       this.databaseService.addUser(newUser).then((response) => {
         console.log(response);
         if (response === 'error') {

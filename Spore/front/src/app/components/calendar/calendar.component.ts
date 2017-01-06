@@ -28,7 +28,7 @@ export class CalendarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.databaseService.getUserEvents("586ee9a669db6c7c59cc6fa7", moment('2016-01-01', 'YYYY-MM-DD'), moment('2018-01-01', 'YYYY-MM-DD')).then(response => {
+    this.databaseService.getUserEvents(this.userId, moment('2016-01-01', 'YYYY-MM-DD'), moment('2018-01-01', 'YYYY-MM-DD')).then(response => {
       if (response.error != '0') {
         console.log('Error during event population: ' + response.data);
       } else {
@@ -68,8 +68,8 @@ export class CalendarComponent implements OnInit {
 
   handleEventDrop(e) {
     let newEvent = new Event();
-    newEvent.Start = e.event.start;
-    newEvent.End = e.event.end;
+    newEvent.StartDate = e.event.start;
+    newEvent.EndDate = e.event.end;
     newEvent.Title = e.event.title;
     newEvent.Id = e.event.id;
     this.databaseService.updateEvent(newEvent).then(response => {
@@ -78,7 +78,7 @@ export class CalendarComponent implements OnInit {
         window.alert('Error during updateEvent API call: ' + response.data);
       } else {
         this.events.splice(this.EventIndexById(newEvent.Id), 1);
-        this.events.push({id: newEvent.Id, title: newEvent.Title, start: newEvent.Start.toISOString().substring(0, 10), end: newEvent.End.toISOString().substring(0, 10)});
+        this.events.push({id: newEvent.Id, title: newEvent.Title, start: newEvent.StartDate.toISOString().substring(0, 10), end: newEvent.EndDate.toISOString().substring(0, 10)});
       }
     });
   }
@@ -88,7 +88,7 @@ export class CalendarComponent implements OnInit {
     let start = this.event.StartDate ? this.event.Start.toISOString().substring(0, 10) : '';
     let end = this.event.EndDate ? this.event.End.toISOString().substring(0, 10) : '';
     let title = this.event.Title ? this.event.Title : 'No Title';
-    this.databaseService.addEvent("586ee9a669db6c7c59cc6fa7", this.event).then(response => {
+    this.databaseService.addEvent(this.userId, this.event).then(response => {
       if (response.error != '0') {
         window.alert('Error during addEvent API call: ' + response.data);
       } else {
@@ -122,7 +122,7 @@ export class CalendarComponent implements OnInit {
 
   deleteEvent() {
     let id = this.event.Id;
-    this.databaseService.deleteUserEvent("586ee9a669db6c7c59cc6fa7", this.event.Id).then(response =>  {
+    this.databaseService.deleteUserEvent(this.userId, this.event.Id).then(response =>  {
       if (response.status != '200') {
         window.alert('Error during event delete: ' + response.data);
       } else {
