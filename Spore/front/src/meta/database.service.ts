@@ -90,13 +90,13 @@ export class DatabaseService {
         return this.http
             .delete(this.BuildDeleteUserEventRequest(userId, eventId))
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
             .catch(this.handleError);
     }
 
     updateEvent(event: Event) {
         return this.http
-            .put(this.BuildUpdateEventRequest(event), {title: event.Title, start: event.Start, end: event.End, id: event.Id})
+            .put(this.BuildUpdateEventRequest(event), {title: event.Title, start: event.StartDate, end: event.EndDate, event: event.Id})
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -147,7 +147,7 @@ export class DatabaseService {
     private BuildDeleteUserEventRequest(userId: string, eventId: string): string {
         return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
-            + '&Event=' + encodeURIComponent(eventId);
+            + '&event=' + encodeURIComponent(eventId);
     }
 
     private BuildUpdateEventRequest(event: Event): string {
