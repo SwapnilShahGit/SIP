@@ -41,14 +41,14 @@ export class DatabaseService {
         return this.http
             .get(this.BuildGetUserRequest(id))
             .toPromise()
-            .then(response => response.json().error)
+            .then(response => response.json())
             .catch(this.handleError);
     }
 
     addUser(user: User): any {
         this.loadUser(user.UserID);
         return this.http
-            .get(this.BuildAddUserRequest(user))
+            .post(this.BuildAddUserRequest(user), {fb: user.UserID, first: user.FirstName, last: user.LastName, email: user.Email, pic: user.PictureURL})
             .toPromise()
             .then(response => response.json().data as Response)
             .catch(this.handleError);
@@ -64,7 +64,7 @@ export class DatabaseService {
 
     addEvent(userId: string, event: Event): any {
         return this.http
-            .get(this.BuildAddEventRequest(userId, event))
+            .post(this.BuildAddEventRequest(userId, event), {user: userId, start: event.Start, end: event.End, title: event.Title})
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -80,7 +80,7 @@ export class DatabaseService {
 
     deleteEvent(eventId: string): any {
         return this.http
-            .get(this.BuildDeleteEventRequest(eventId))
+            .delete(this.BuildDeleteEventRequest(eventId))
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -88,7 +88,7 @@ export class DatabaseService {
 
     deleteUserEvent(userId: string, eventId: string): any {
         return this.http
-            .get(this.BuildDeleteUserEventRequest(userId, eventId))
+            .delete(this.BuildDeleteUserEventRequest(userId, eventId))
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -96,22 +96,22 @@ export class DatabaseService {
 
     updateEvent(event: Event) {
         return this.http
-            .get(this.BuildUpdateEventRequest(event))
+            .put(this.BuildUpdateEventRequest(event), {title: event.Title, start: event.Start, end: event.End, id: event.Id})
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
     }
 
     private BuildGetUserRequest(id: string): string {
-        return this.server + '/api/getUser?'
-            + 'user=' + encodeURIComponent(id);
+        return this.server + '/api/users?'
+            + 'fb=' + encodeURIComponent(id);
     }
 
     private BuildAddUserRequest(user: User): string {
-        return this.server + '/api/addUser?' 
-            + 'user=' + encodeURIComponent(user.UserID) 
-            + '&email=' + encodeURIComponent(user.Email) 
-            + '&last=' + encodeURIComponent(user.LastName) 
+        return this.server + '/api/users?'
+            + 'fb=' + encodeURIComponent(user.UserID)
+            + '&email=' + encodeURIComponent(user.Email)
+            + '&last=' + encodeURIComponent(user.LastName)
             + '&first=' + encodeURIComponent(user.FirstName)
             + '&pic=' + encodeURIComponent(user.PictureURL);
     }
@@ -125,7 +125,7 @@ export class DatabaseService {
         let startRequest = event.Start ? '&start=' + encodeURIComponent(event.Start.toISOString().substring(0, 10)) : '';
         let endRequest = event.End ? '&end=' + encodeURIComponent(event.End.toISOString().substring(0, 10)) : '';
         let titleRequest = event.Title ? '&title=' + encodeURIComponent(event.Title) : '';
-        return this.server + '/api/addEvent?'
+        return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
             + startRequest
             + endRequest
@@ -133,19 +133,19 @@ export class DatabaseService {
     }
 
     private BuildGetUserEventsRequest(userId: string, start: Moment, end: Moment): string {
-        return this.server + '/api/getUserEvents?' 
+        return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
             + '&start=' + encodeURIComponent(start.toISOString().substring(0, 10))
             + '&end=' + encodeURIComponent(end.toISOString().substring(0, 10));
     }
 
     private BuildDeleteEventRequest(eventId: string): string {
-        return this.server + '/api/deleteEvent?'
+        return this.server + '/api/events?'
             + 'Event=' + encodeURIComponent(eventId);
     }
 
     private BuildDeleteUserEventRequest(userId: string, eventId: string): string {
-        return this.server + '/api/deleteUserEvent?'
+        return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
             + '&Event=' + encodeURIComponent(eventId);
     }
@@ -155,7 +155,7 @@ export class DatabaseService {
         let startRequest = event.Start ? '&start=' + event.Start.toISOString().substring(0, 10) : '';
         let endRequest = event.End ? '&end=' + event.End.toISOString().substr(0, 10) : '';
         let descriptionRequest = event.Description ? '&desc=' + event.Description : '';
-        return this.server + '/api/updateEvent?'
+        return this.server + '/api/events?'
             + 'Event=' + event.Id
             + titleRequest
             + startRequest
@@ -165,10 +165,10 @@ export class DatabaseService {
 
     private BuildUserFromResponse(response: any): User {
         if (response && response.data) {
-            return new User(response.data.userID, response.data.firstName, response.data.lastName, response.data.email, response.data.profilePicture);
+            return new User(response.data.facebook_id, response.data.first, response.data.last, response.data.email, response.data.picture_uri);
         }
         return new User();
-    }    
+    }
 
     private handleError(error: any) {
         console.error('IN ERROR HANDLER: An error occurred: ', error);

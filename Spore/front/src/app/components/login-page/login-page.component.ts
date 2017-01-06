@@ -64,8 +64,8 @@ export class LoginPageComponent implements OnInit {
     }
 
     function handleUser(user: User) {
-      databaseService.getUser(user.UserID).then(errorCode => {
-        if (errorCode != "0") {
+      databaseService.getUser(user.UserID).then(response => {
+        if (response.error != "0") {
           window.alert('Error: Not Found in Database. Please Sign Up');
         } else {
           redirectUser(user.UserID);
