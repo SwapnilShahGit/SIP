@@ -36,7 +36,7 @@ export class CalendarComponent implements OnInit {
           let title = event.title ? event.title : '';
           let start = event.start ? event.start.substring(0, 10) : '';
           let end = event.end ? event.end.substring(0, 10) : '';
-          this.events.push({id: event.id, title: title, start: start, end: end});
+          this.events.push({id: event._id, title: title, start: start, end: end});
         }
       }
     });
@@ -121,10 +121,9 @@ export class CalendarComponent implements OnInit {
   }
 
   deleteEvent() {
-    console.log(this.event);
     let id = this.event.Id;
     this.databaseService.deleteUserEvent("586ee9a669db6c7c59cc6fa7", this.event.Id).then(response =>  {
-      if (response.error != '0') {
+      if (response.status != '200') {
         window.alert('Error during event delete: ' + response.data);
       } else {
         this.events.splice(this.EventIndexById(id), 1);
