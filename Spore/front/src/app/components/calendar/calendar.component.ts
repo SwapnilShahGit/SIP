@@ -15,7 +15,7 @@ export class CalendarComponent implements OnInit {
   @Input() userId: string;
 
   event: Event;
-  events: any = [];  
+  events: any = [];
   dialogVisible: boolean = false;
   header: any = {
 	  left: 'prev,next today',
@@ -28,14 +28,14 @@ export class CalendarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.databaseService.getUserEvents(this.userId, moment('2016-01-01', 'YYYY-MM-DD'), moment('2018-01-01', 'YYYY-MM-DD')).then(response => {
+    this.databaseService.getUserEvents("586ee9a669db6c7c59cc6fa7", moment('2016-01-01', 'YYYY-MM-DD'), moment('2018-01-01', 'YYYY-MM-DD')).then(response => {
       if (response.error != '0') {
         console.log('Error during event population: ' + response.data);
       } else {
         for (let event of response.data) {
           let title = event.title ? event.title : '';
-          let start = event.startTime ? event.startTime.substring(0, 10) : '';
-          let end = event.endTime ? event.endTime.substring(0, 10) : '';
+          let start = event.start ? event.start.substring(0, 10) : '';
+          let end = event.end ? event.end.substring(0, 10) : '';
           this.events.push({id: event.id, title: title, start: start, end: end});
         }
       }
@@ -83,16 +83,16 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  saveEvent() {  
+  saveEvent() {
     this.event.End = this.event.EndDate ? moment(this.DateToIsoString(this.event.EndDate)) : undefined;
     let start = this.event.StartDate ? this.event.Start.toISOString().substring(0, 10) : '';
     let end = this.event.EndDate ? this.event.End.toISOString().substring(0, 10) : '';
     let title = this.event.Title ? this.event.Title : 'No Title';
-    this.databaseService.addEvent(this.userId, this.event).then(response => {
+    this.databaseService.addEvent("586ee9a669db6c7c59cc6fa7", this.event).then(response => {
       if (response.error != '0') {
         window.alert('Error during addEvent API call: ' + response.data);
       } else {
-        this.events.push({id: response.data, title: title, start: start, end: end});
+        this.events.push({id: response.data._id, title: title, start: start, end: end});
       }
     });
 
@@ -121,14 +121,15 @@ export class CalendarComponent implements OnInit {
   }
 
   deleteEvent() {
+    console.log(this.event);
     let id = this.event.Id;
-    this.databaseService.deleteUserEvent(this.userId, this.event.Id).then(response =>  {
+    this.databaseService.deleteUserEvent("586ee9a669db6c7c59cc6fa7", this.event.Id).then(response =>  {
       if (response.error != '0') {
         window.alert('Error during event delete: ' + response.data);
       } else {
         this.events.splice(this.EventIndexById(id), 1);
       }
-    });    
+    });
 
     this.dialogVisible = false;
     this.event = undefined;
@@ -145,8 +146,8 @@ export class CalendarComponent implements OnInit {
         if(this.events[i]['id'] === id) {
             return i;
         }
-    } 
-    
+    }
+
     return -1;
   }
 
