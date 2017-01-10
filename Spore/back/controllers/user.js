@@ -14,7 +14,8 @@ function addUser(req, res, next) {
 		facebook_id: req.body.fb,
 		picture_uri: req.body.pic,
 		event_ids: req.body.events,
-		school: req.body.school
+		school: req.body.school,
+		theme: req.body.theme
 	});
 	user.save(user).then(function(doc) {
 		res.send({
@@ -66,7 +67,8 @@ function updateUser(req, res, next) {
 		facebook_id: req.body.fb,
 		picture_uri: req.body.pic,
 		event_ids: req.body.events,
-		school: req.body.school
+		school: req.body.school,
+		theme: req.body.theme
 	};
 	utility.removeUndefined(updated);
 	model.findByIdAndUpdate(req.body.user, updated).then(function(doc) {
