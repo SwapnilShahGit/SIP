@@ -12,15 +12,15 @@ export class NavService {
     FilesTab: string = 'FilesTab';
     HelpTab: string = 'HelpTab';
     MapTab: string = 'MapTab';
-    UserDetailsTab: string = 'UserDetailsTab';
+    SettingsTab: string = 'SettingsTab';
     DefaultTab: string = 'DefaultTab';
 
     // Observable sources
     private navOpenSource = new Subject<Boolean>();
-    
+
     // Observable streams
     navOpen$ = this.navOpenSource.asObservable();
-    
+
     // Service commands
     toggleNav(isOpen: boolean) {
         this.navOpenSource.next(isOpen);

@@ -48,9 +48,28 @@ export class DatabaseService {
     addUser(user: User): any {
         this.loadUser(user.UserID);
         return this.http
-            .post(this.BuildAddUserRequest(user), {fb: user.FacebookID, first: user.FirstName, last: user.LastName, email: user.Email, pic: user.PictureURL, pass: user.Password, gender: user.Gender, school: user.School})
+            .post(this.BuildPostUserRequest(user),
+              {
+                fb: user.FacebookID, first: user.FirstName, last: user.LastName,
+                email: user.Email, pic: user.PictureURL, pass: user.Password,
+                gender: user.Gender, school: user.School, theme: user.Theme
+              })
             .toPromise()
             .then(response => response.json().data as Response)
+            .catch(this.handleError);
+    }
+
+    updateUser(user: User): any {
+        return this.http
+            .put(this.BuildPutUserRequest(user),
+              {
+                user: user.UserID, fb: user.FacebookID, first: user.FirstName,
+                last: user.LastName, email: user.Email, pic: user.PictureURL,
+                pass: user.Password, gender: user.Gender, school: user.School,
+                theme: user.Theme
+              })
+            .toPromise()
+            .then(response => response.json() as Response)
             .catch(this.handleError);
     }
 
@@ -64,7 +83,10 @@ export class DatabaseService {
 
     addEvent(userId: string, event: Event): any {
         return this.http
-            .post(this.BuildAddEventRequest(userId, event), {user: userId, start: event.Start, end: event.End, title: event.Title})
+            .post(this.BuildAddEventRequest(userId, event),
+              {
+                user: userId, start: event.Start, end: event.End, title: event.Title
+              })
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -96,7 +118,10 @@ export class DatabaseService {
 
     updateEvent(event: Event) {
         return this.http
-            .put(this.BuildUpdateEventRequest(event), {title: event.Title, start: event.StartDate, end: event.EndDate, event: event.Id})
+            .put(this.BuildUpdateEventRequest(event),
+              {
+                title: event.Title, start: event.StartDate, end: event.EndDate, event: event.Id
+              })
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -107,7 +132,21 @@ export class DatabaseService {
             + 'fb=' + encodeURIComponent(id);
     }
 
-    private BuildAddUserRequest(user: User): string {
+    private BuildPutUserRequest(user: User): string {
+      return this.server + '/api/users?'
+            + 'user=' + encodeURIComponent(user.UserID)
+            + '&fb=' + encodeURIComponent(user.FacebookID)
+            + '&email=' + encodeURIComponent(user.Email)
+            + '&last=' + encodeURIComponent(user.LastName)
+            + '&first=' + encodeURIComponent(user.FirstName)
+            + '&pic=' + encodeURIComponent(user.PictureURL)
+            + '&pass=' + encodeURIComponent(user.Password)
+            + '&gender=' + encodeURIComponent(user.Gender)
+            + '&school=' + encodeURIComponent(user.School)
+            + '&theme=' + encodeURIComponent(user.Theme);
+    }
+
+    private BuildPostUserRequest(user: User): string {
         return this.server + '/api/users?'
             + 'fb=' + encodeURIComponent(user.FacebookID)
             + '&email=' + encodeURIComponent(user.Email)
@@ -116,7 +155,8 @@ export class DatabaseService {
             + '&pic=' + encodeURIComponent(user.PictureURL)
             + '&pass=' + encodeURIComponent(user.Password)
             + '&gender=' + encodeURIComponent(user.Gender)
-            + '&school=' + encodeURIComponent(user.School);
+            + '&school=' + encodeURIComponent(user.School)
+            + '&theme=' + encodeURIComponent(user.Theme);
     }
 
     private BuildEchoRequest(something: string): string {

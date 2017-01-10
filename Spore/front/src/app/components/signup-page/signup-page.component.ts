@@ -1,10 +1,10 @@
-import {Component, OnInit, NgZone} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import * as _ from 'lodash';
-import {SupportedSchoolsEnum} from '../../../meta/SupportedSchools';
+import { SupportedSchoolsEnum } from '../../../meta/SupportedSchools';
 import { FBConnector } from '../../../assets/facebook/facebook';
 import { Observable } from 'rxjs/Rx';
-import {User} from "../../../meta/user";
+import { User } from "../../../meta/user";
 import { DatabaseService } from '../../../meta/database.service';
 
 @Component({
@@ -34,20 +34,17 @@ export class SignUpPageComponent implements OnInit{
 
   sporeLogin(event: Event) {
     this.router.navigate(['/login']);
-    console.log('Back to login');
   }
 
   public facebookLogin() {
 
     FB.getLoginStatus((response) => {
       if (response.status === 'connected') {
-        console.log('connected');
         let userId = response.authResponse.userID;
         FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
           this.buildUIResponseObject(response);
         });
       } else if (response.status === 'unknown') {
-        console.log('not logged in, loggin in');
         FB.login((response) => {
           if (response.status === 'connected') {
             let userId = response.authResponse.userID;
@@ -57,7 +54,6 @@ export class SignUpPageComponent implements OnInit{
           }
         }, {scope: 'public_profile,email,user_friends,user_education_history, user_birthday'});
       } else if (response.status === 'not_authorized') {
-        console.log('not authorized');
       }
     });
 
@@ -109,10 +105,8 @@ export class SignUpPageComponent implements OnInit{
   public signUpUser() {
     console.log(this.apiResponse);
     if (this.verifyForm()) {
-      console.log('sign up user');
       let newUser = new User('', this.apiResponse.first_name, this.apiResponse.last_name, '', this.apiResponse.email, this.apiResponse.gender, this.apiResponse.userId, this.apiResponse.pictureUrl, this.apiResponse.selectedSchool);
       this.databaseService.addUser(newUser).then((response) => {
-        console.log(response);
         if (response === 'error') {
           window.alert('Error: User Already Exists in Database');
         } else {
@@ -159,7 +153,7 @@ export class SignUpPageComponent implements OnInit{
     } else {
       this.requiredField.confirmEmail = '';
     }
-    console.log(this.hidePasswordField);
+
     if (!this.apiResponse.password && this.hidePasswordField != 'none') {
       this.requiredField.password = 'Password is required';
       response = false;
@@ -176,7 +170,7 @@ export class SignUpPageComponent implements OnInit{
     } else {
       this.requiredField.confirmPassword = '';
     }
-    console.log(this.apiResponse.termsAndConditions);
+
     if (!this.apiResponse.termsAndConditions) {
       this.requiredField.termsAndConditions = 'Must accept terms and conditions';
       response = false;
