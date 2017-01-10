@@ -1,11 +1,9 @@
 <div style="position: relative; min-height: 100%">
   <static-nav></static-nav>
   <div class="sidenav" [ngStyle]="{'width': slideOutWidth, 'height': bodyHeight}">
-    <!---->
     <a style="padding: 4px 10px 0px 10px;">
       <search-bar></search-bar>
     </a>
-    <!---->
     <br> <span class="sidenav-header">Tools</span>
     <hr class="sidenav-hr">
     <a class="sidenav-item" [class.selected]="this.CurrentTab === 'CalendarTab'" (click)="switchTabs('CalendarTab')"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
@@ -15,9 +13,9 @@
     <a class="sidenav-item" [class.selected]="this.CurrentTab === 'FilesTab'" (click)="switchTabs('FilesTab')"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
     <br> <span class="sidenav-header">More</span>
     <hr class="sidenav-hr">
-    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'HelpTab'" (click)="switchTabs('HelpTab')"><span class="fa fa-cogs sidenav-icon"></span>Help</a>
+    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'HelpTab'" (click)="switchTabs('HelpTab')"><span class="fa fa-lg fa-question-circle sidenav-icon"></span>Help</a>
     <a class="sidenav-item" [class.selected]="this.CurrentTab === 'MapTab'" (click)="switchTabs('MapTab')"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
-    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'UserDetailsTab'" (click)="switchTabs('UserDetailsTab')"><span class="fa fa-lg fa-user-secret sidenav-icon"></span>User Details</a>
+    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'SettingsTab'" (click)="switchTabs('SettingsTab')"><span class="fa fa-cogs sidenav-icon"></span>Settings</a>
     <br> <span class="sidenav-header">Redirect</span>
     <hr class="sidenav-hr">
     <a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
@@ -27,10 +25,7 @@
     <!---->
   </div>
 
-  <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px', 'padding-top': '30px'}">
-
-    <h1 style="padding-top: 20px" >{{CurrentTab}}</h1>
-    <h1>Welcome {{(user | async)?.FirstName}} {{(user | async)?.LastName}} - {{(user | async)?.Email}}!</h1>
+  <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px', 'padding-top': '75px'}">
 
     <div *ngIf="CurrentTab == this.navService.CalculatorTab" style="padding-bottom:50px">
       <p>Spicy jalapeno bacon ipsum dolor amet ad est rump, short loin aute occaecat pork ex filet mignon kielbasa ham hock. Nisi
@@ -104,10 +99,8 @@
       </p>
     </div>
 
-    <div *ngIf="CurrentTab == this.navService.UserDetailsTab">
-      <input type="text" [(ngModel)]='echoInput'>
-      <button (click)='echoTester()'>click to echo</button>
-      <h1>Echo response: {{echoResponse}}</h1>
+    <div *ngIf="CurrentTab == this.navService.SettingsTab">
+      <settings *ngIf="user | async" [user]="user | async"></settings>
     </div>
 
     <div *ngIf="CurrentTab == this.navService.MapTab" style="padding-bottom:50px">
