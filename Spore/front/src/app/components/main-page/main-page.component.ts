@@ -30,7 +30,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private databaseService: DatabaseService,
     private navService: NavService
   ) {
-    this.CurrentTab = navService.CalendarTab;
+    this.CurrentTab = navService.SettingsTab;
     this.subscription = navService.navOpen$.subscribe(
       isOpen => {
         if (isOpen) {

@@ -38,3 +38,23 @@
 .inline {
   float: left;
 }
+
+.profile-picture {
+  border-radius: 25px;
+  width: 200px;
+  height: 200px;
+  opacity: 0;
+  -webkit-transition: opacity .3s ease-in-out;
+  transition: opacity .3s ease-in-out;
+}
+
+.picture-button {
+  margin: 5px 10px 5px 0px;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+.col-sm-6 {
+  padding-right: 0px;
+  padding-left: 0px;
+}
