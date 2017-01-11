@@ -23,7 +23,6 @@ export class MapToolComponent implements OnInit {
     ngOnInit() {
         this.geoLocate();
         this.initMap();
-
     }
 
     public initMap() {
