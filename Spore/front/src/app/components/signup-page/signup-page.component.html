@@ -73,7 +73,7 @@
       </div>
       <div class="terms-conditions-container">
         <label class="required-field" [class.termsAndConditions]="true">{{requiredField.termsAndConditions}}</label>
-        <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl><span style="font-size: 16px">I agree to the terms and conditions</span>
+        <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl><span style="font-size: 16px"><div class="terms-conditions-text" (click)="this.apiResponse.termsAndConditions = !this.apiResponse.termsAndConditions">I agree to the terms and conditions</div></span>
       </div>
     </div>
 
