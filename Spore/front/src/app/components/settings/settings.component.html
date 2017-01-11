@@ -5,49 +5,104 @@
   <div class="or-line">
   </div>
 
-  <label>First Name</label><br>
-  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.FirstName" [textValue]="user.FirstName" ngDefaultControl></text-box><br>
+  <div class="container-fluid">
+    <div class="col-sm-6">
+      <label>First Name</label><br>
+      <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
+        [(ngModel)]="user.FirstName" [textValue]="user.FirstName" ngDefaultControl></text-box><br>
 
-  <label>Last Name</label><br>
-  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.LastName" [textValue]="user.LastName" ngDefaultControl></text-box><br>
+      <label>Last Name</label><br>
+      <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
+        [(ngModel)]="user.LastName" [textValue]="user.LastName" ngDefaultControl></text-box><br>
 
-  <label>Email</label><br>
-  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.Email" [textValue]="user.Email" ngDefaultControl></text-box><br>
+      <label>Email</label><br>
+      <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
+        [(ngModel)]="user.Email" [textValue]="user.Email" ngDefaultControl></text-box><br>
 
-  <br><label>Gender</label><br>
-  <div class="gender-container">
-    <input type="radio" name="gender" value="male" checked="{{checkedGender.male}}" [(ngModel)]="user.Gender" ngDefaultControl><span class="check-box">Male</span>
-    <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.Gender" ngDefaultControl><span class="check-box">Female</span><br>
+      <br><label>Gender</label><br>
+      <div class="gender-container">
+        <input type="radio" name="gender" value="male" checked="{{checkedGender.male}}" [(ngModel)]="user.Gender"
+          ngDefaultControl><span class="check-box">Male</span>
+        <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.Gender"
+          ngDefaultControl><span class="check-box">Female</span><br>
+      </div>
+
+      <br><label>School</label><br>
+      <select [(ngModel)]="user.School" ngDefaultControl>
+        <option *ngFor="let school of supportedSchools" [selected]="school === user.School">{{school}}</option>
+      </select>
+    </div>
+
+    <div class="col-sm-6">
+      <label>Profile Picture</label><br>
+      <img *ngIf="user" class="profile-picture" src="{{temporaryProfilePicture != '' ? temporaryProfilePicture : user.PictureURL}}"
+        onload="this.style.opacity='1'" [ngStyle]="{'opacity': pictureOpacity}" alt="Profile Picture"><br>
+
+      <button class="btn-primary picture-button" (click)="randomizePicture()">Randomize Picture</button>
+      <button class="btn-primary picture-button" (click)="setFacebookPicture()">Use Facebook Picture</button><br>
+
+      <b>Custom:</b>
+      <button class="btn-primary picture-button" (click)="customPicture('eyes')">Eyes</button>
+      <button class="btn-primary picture-button" (click)="customPicture('nose')">Nose</button>
+      <button class="btn-primary picture-button" (click)="customPicture('mouth')">Mouth</button><br>
+
+      <input class="picture-button" #avatarColourInput [(colorPicker)]="avatarColour" [(cpToggle)]="avatarColourToggle"
+        [style.background]="avatarColour" [cpIgnoredElements]="[avatarColourButton, avatarColourInput]"
+        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"
+        [cpDialogDisplay]="'inline'" [cpPosition]="'bottom'" disabled />
+      <button #avatarColourButton class="btn-primary picture-button"
+        (click)="avatarColourToggle=!avatarColourToggle;lastColor=avatarColour;
+        secondaryColourToggle=false;primaryColourToggle=false;tertiaryColourToggle=false;">Change Colour</button>
+      <button class="btn-primary picture-button" (click)="customPicture()">Try it!</button>
+
+    </div>
   </div>
-
-  <br><label>School</label><br>
-  <select [(ngModel)]="user.School" ngDefaultControl>
-    <option *ngFor="let school of supportedSchools" [selected]="school === user.School">{{school}}</option>
-  </select>
 
   <h2>Theme:</h2>
 
   <div class="or-line">
   </div>
 
-  <label>Primary Colour</label><br>
-  <i>Coming soon.</i><br><br>
+  <div class="container-fluid">
 
-  <label>Secondary Colour</label><br>
-  <i>Coming soon.</i><br><br>
+    <label>Primary</label><br>
+    <input class="picture-button" #primaryColourInput [(colorPicker)]="primaryColour" [(cpToggle)]="primaryColourToggle"
+      [style.background]="primaryColour" [cpIgnoredElements]="[primaryColourButton, primaryColourInput]"
+      [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true" [cpPositionOffset]="'-385%'"
+      [cpDialogDisplay]="'inline'" disabled /><br>
+    <button #primaryColourButton class="btn-info picture-button"
+      (click)="primaryColourToggle=!primaryColourToggle;lastColor=primaryColour;
+      secondaryColourToggle=false;tertiaryColourToggle=false;avatarColourToggle=false;">Change Colour</button><br>
 
-  <label>Tertiary Colour</label><br>
-  <i>Coming soon.</i><br><br>
+    <label>Secondary</label><br>
+    <input class="picture-button" #secondaryColourInput [(colorPicker)]="secondaryColour" [(cpToggle)]="secondaryColourToggle"
+      [style.background]="secondaryColour" [cpIgnoredElements]="[secondaryColourButton, secondaryColourInput]"
+      [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true" [cpPositionOffset]="'-385%'"
+      [cpDialogDisplay]="'inline'" disabled /><br>
+    <button #secondaryColourButton class="btn-info picture-button"
+      (click)="secondaryColourToggle=!secondaryColourToggle;lastColor=secondaryColour;
+      tertiaryColourToggle=false;primaryColourToggle=false;avatarColourToggle=false;">Change Colour</button><br>
+
+    <label>Tertiary</label><br>
+    <input class="picture-button" #tertiaryColourInput [(colorPicker)]="tertiaryColour" [(cpToggle)]="tertiaryColourToggle"
+      [style.background]="tertiaryColour" [cpIgnoredElements]="[tertiaryColourButton, tertiaryColourInput]"
+      [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true" [cpPositionOffset]="'-385%'"
+      [cpDialogDisplay]="'inline'" disabled /><br>
+    <button #tertiaryColourButton class="btn-info picture-button"
+      (click)="tertiaryColourToggle=!tertiaryColourToggle;lastColor=tertiaryColour;
+      secondaryColourToggle=false;primaryColourToggle=false;avatarColourToggle=false;">Change Colour</button><br>
+
+  </div>
 
   <div class="or-line">
   </div>
 
   <div class="inline">
-    <button class="btn-warning btn-lg" (click)="updateUser()">Update</button>
+    <button class="btn-warning btn-lg" (click)="primaryColourToggle=false;secondaryColourToggle=false;tertiaryColourToggle=false;
+      avatarColourToggle=false;updateUser();">Update</button>
   </div>
   <div class="inline alert" [ngStyle]="{'opacity': successOpacity, 'display': successDisplay}">
     Success!<span class="closebtn" (click)="closeAlert(false)">&times;</span>
   </div>
-
 
 </div>
