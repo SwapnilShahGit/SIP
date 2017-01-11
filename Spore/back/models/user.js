@@ -10,7 +10,8 @@ var userSchema = new Schema({
 	facebook_id: String,
 	picture_uri: String,
 	event_ids: [Schema.Types.ObjectId],
-	school: String
+	school: String,
+	theme: String
 });
 
 mongoose.model('user', userSchema);
