@@ -101,6 +101,14 @@ select option {color: $color-spore-grey}
   margin-right: -12px;
 }
 
+.terms-conditions-text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inline-block
+}
+
 #sign-up-button-container {
   padding-top: 10px;
   padding-bottom: 20px;
