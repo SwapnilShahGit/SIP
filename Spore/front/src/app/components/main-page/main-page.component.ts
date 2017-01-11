@@ -15,13 +15,10 @@ import { Observable } from 'rxjs/Rx';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  private _color: string = '';
   private CurrentTab: string;
   private slideOutWidth: string = '0px';
   private bodyLeftMargin: string = '0px';
   private bodyWidth: string = 'auto';
-  private echoResponse: string = '...';
-  private echoInput: string = 'echo';
   private bodyHeight = '0px';
   subscription: Subscription;
   user: Observable<User>;
@@ -54,10 +51,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.databaseService.loadUser(this.userID);
       }
     });
-  }
-
-  echoTester() {
-    this.databaseService.echo(this.echoInput).then(data => this.echoResponse = data);
   }
 
   navigateToLoginPage() {

@@ -52,7 +52,7 @@
 
       <div id="right-box" class="col-sm-6 text-left select-school-container">
         <select [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
-          <option *ngFor="let x of supportedSchools" [selected]="x === apiResponse.selectedSchool">{{x}}</option>
+          <option *ngFor="let school of supportedSchools" [selected]="school === apiResponse.selectedSchool">{{school}}</option>
         </select>
       </div>
     </div>
@@ -68,9 +68,9 @@
 
     <div id="left-box" class="col-sm-6 gender-terms-container">
       <div class="gender-container">
-      <input type="radio" name="gender" value="male" checked="{{apiResponse.male}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Male</span>
-      <input type="radio" name="gender" value="female" checked="{{apiResponse.female}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Female</span><br>
-    </div>
+        <input type="radio" name="gender" value="male" checked="{{apiResponse.male}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Male</span>
+        <input type="radio" name="gender" value="female" checked="{{apiResponse.female}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Female</span><br>
+      </div>
       <div class="terms-conditions-container">
         <label class="required-field" [class.termsAndConditions]="true">{{requiredField.termsAndConditions}}</label>
         <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl><span style="font-size: 16px">I agree to the terms and conditions</span>

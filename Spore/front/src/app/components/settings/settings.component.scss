@@ -1,0 +1,40 @@
+.or-line {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+  padding: 0px 5px;
+}
+
+.closebtn {
+  padding-top: 3px;
+  margin-left: 10px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+.alert {
+  margin: 0px 10px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.45;
+  border-radius: 6px;
+  background-color: #4CAF50;
+  color: white;
+  transition: opacity 0.6s;
+  width: 150px;
+}
+
+.inline {
+  float: left;
+}

@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
 import { NavService } from '../meta/nav.service';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -57,7 +58,8 @@ type StoreType = {
     TextBoxComponent,
     CheckBoxComponent,
     SignUpPageComponent,
-    CalendarComponent
+    CalendarComponent,
+    SettingsComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
