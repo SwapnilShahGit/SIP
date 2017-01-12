@@ -4,7 +4,7 @@
   border-bottom: 1px solid #000;
   line-height: 0.1em;
   margin: 10px 0 20px;
-  padding: 0px 5px;
+  padding: 5px 5px;
 }
 
 .closebtn {
@@ -40,21 +40,25 @@
 }
 
 .profile-picture {
-  border-radius: 25px;
-  width: 200px;
-  height: 200px;
-  opacity: 0;
-  -webkit-transition: opacity .3s ease-in-out;
-  transition: opacity .3s ease-in-out;
+  border-radius: 50px;
+  width: 250px;
+  height: 250px;
 }
 
-.picture-button {
-  margin: 5px 10px 5px 0px;
-  padding: 5px 10px;
+.button {
+  margin: 5px;
+  padding: 5px;
   border-radius: 6px;
 }
 
-.col-sm-6 {
-  padding-right: 0px;
-  padding-left: 0px;
+.sm {
+  width: 65.5px;
+}
+
+.lg {
+  width: 145px;
+}
+
+.xl {
+  width: 195px
 }

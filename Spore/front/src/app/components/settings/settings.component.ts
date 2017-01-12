@@ -21,7 +21,6 @@ export class SettingsComponent implements OnInit {
   private successDisplay: string = 'none';
   private successOpacity: string = '1';
   private temporaryProfilePicture: string = '';
-  private pictureOpacity: string = '0.0';
   private avatarEyes: Array<String> = ["eyes1","eyes10","eyes2","eyes3","eyes4","eyes5","eyes6","eyes7","eyes9"];
   private avatarEyesIndex: number = Math.floor(Math.random() * 8);
   private avatarNose: Array<String> = ["nose2","nose3","nose4","nose5","nose6","nose7","nose8","nose9"];
@@ -95,7 +94,6 @@ export class SettingsComponent implements OnInit {
   }
 
   randomizePicture() {
-    this.pictureOpacity += '0';
     this.temporaryProfilePicture = this.avatarBaseUrl + Math.random();
   }
 
@@ -121,10 +119,6 @@ export class SettingsComponent implements OnInit {
     }
 
     let colour = this.avatarColour.substring(1);
-    if (!this.temporaryProfilePicture.includes(colour)) {
-      this.pictureOpacity += '0';
-    }
-
     this.temporaryProfilePicture = this.avatarBaseUrl + 'face/'
       + this.avatarEyes[this.avatarEyesIndex] + '/'
       + this.avatarNose[this.avatarNoseIndex] + '/'
@@ -148,7 +142,6 @@ export class SettingsComponent implements OnInit {
 
   setPicture(response) {
     if (this.temporaryProfilePicture != response.picture.data.url && this.temporaryProfilePicture != '') {
-      this.pictureOpacity += '0';
       this.temporaryProfilePicture = response.picture.data.url;
     }
   }
