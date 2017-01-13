@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../../meta/user';
+import { User, Theme } from '../../../meta/user';
 import { SupportedSchoolsEnum } from '../../../meta/SupportedSchools';
 import * as _ from 'lodash';
 import { DatabaseService } from '../../../meta/database.service';
@@ -28,13 +28,6 @@ export class SettingsComponent implements OnInit {
   private avatarMouth: Array<String> = ["mouth1","mouth10","mouth11","mouth3","mouth5","mouth6","mouth7","mouth9"];
   private avatarMouthIndex: number = Math.floor(Math.random() * 7);
   private avatarColour: string = '#'+ (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
-  private primaryColour: string = "#f1ae03";
-  private secondaryColour: string = "#2c5268";
-  private tertiaryColour: string = "#ec4040";
-  private avatarColourToggle: boolean = false;
-  private primaryColourToggle: boolean = false;
-  private secondaryColourToggle: boolean = false;
-  private tertiaryColourToggle: boolean = false;
   private basicColours: Array<String> = ['#ff7373', '#ffd700', '#3399ff', '#00ff00', '#ffa500', '#8a2be2'];
 
   constructor(
@@ -63,14 +56,13 @@ export class SettingsComponent implements OnInit {
   updateUser() {
     this.closeAlert(true);
     let tempUser = this.user;
-    let theme = this.primaryColour.concat(';', this.secondaryColour, ';', this.tertiaryColour);
     if (this.temporaryProfilePicture == '' || this.temporaryProfilePicture == this.user.PictureURL) {
       tempUser.PictureURL = this.user.PictureURL;
     } else {
       tempUser.PictureURL = this.temporaryProfilePicture;
     }
 
-    tempUser.Theme = theme;
+    tempUser.Theme = this.user.Theme;
     this.databaseService.updateUser(tempUser).then(response => {
       if (response.error != '0') {
         window.alert('Error occured during update API call: ' + response.data);

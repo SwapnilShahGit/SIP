@@ -19,7 +19,7 @@
         [(ngModel)]="user.Email" [textValue]="user.Email" ngDefaultControl></text-box><br><br>
 
       <label>Gender</label><br>
-      <div class="gender-container">
+      <div *ngIf="user.UserID != ''" class="gender-container">
         <input type="radio" name="gender" value="male" checked="{{checkedGender.male}}" [(ngModel)]="user.Gender"
           ngDefaultControl><span class="check-box">Male</span>
         <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.Gender"
@@ -27,7 +27,7 @@
       </div>
 
       <br><label>School</label><br>
-      <select [(ngModel)]="user.School" ngDefaultControl>
+      <select *ngIf="user.UserID != ''" [(ngModel)]="user.School" ngDefaultControl>
         <option *ngFor="let school of supportedSchools" [selected]="school === user.School">{{school}}</option>
       </select>
 
@@ -40,7 +40,6 @@
 
       <img *ngIf="user.PictureURL != user.FacebookDefaultPicture" class="profile-picture" src="{{temporaryProfilePicture != '' ? temporaryProfilePicture : user.PictureURL}}" alt="Profile Picture"><br><br>
 
-      <button class="btn-primary button lg" (click)="randomizePicture()">Randomize Picture</button>
       <button class="btn-primary button lg" (click)="setFacebookPicture()">Facebook Picture</button><br>
 
       <h4>Custom:</h4>
@@ -54,13 +53,9 @@
         <button class="btn-primary button sm" (click)="customPicture()">Try it!</button>
       </div><br>
 
-      <button #avatarColourButton class="btn-primary button lg"
-        (click)="avatarColourToggle=!avatarColourToggle;lastColor=avatarColour;
-        secondaryColourToggle=false;primaryColourToggle=false;tertiaryColourToggle=false;">{{avatarColourToggle ? "Done" : "Change Colour"}}</button>
-      <input class="button lg" #avatarColourInput [(colorPicker)]="avatarColour" [(cpToggle)]="avatarColourToggle"
-        [style.background]="avatarColour" [cpIgnoredElements]="[avatarColourButton, avatarColourInput]"
-        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"
-        [cpDialogDisplay]="'inline'" [cpPosition]="'bottom'" [cpAlphaChannel]="'disabled'" disabled />
+      <button class="btn-primary button lg" (click)="randomizePicture()">Randomize Picture</button>
+      <button class="button lg" [(colorPicker)]="avatarColour" [style.background]="avatarColour" [cpPresetColors]="basicColours"
+        [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true" [cpAlphaChannel]="'disabled'">.</button>
 
     </div>
 
@@ -70,31 +65,16 @@
       <div class="or-line"></div>
 
       <label>Primary</label><br>
-      <button #primaryColourButton class="btn-primary button lg"
-        (click)="primaryColourToggle=!primaryColourToggle;lastColor=primaryColour;
-        secondaryColourToggle=false;tertiaryColourToggle=false;avatarColourToggle=false;">{{primaryColourToggle ? "Done" : "Change Colour"}}</button><br>
-      <input #primaryColourInput class="button lg" [(colorPicker)]="primaryColour" [(cpToggle)]="primaryColourToggle"
-        [style.background]="primaryColour" [cpIgnoredElements]="[primaryColourButton, primaryColourInput]"
-        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true" [cpPositionOffset]="'-385%'"
-        [cpDialogDisplay]="'inline'" [cpAlphaChannel]="'disabled'" disabled /><br><br>
+      <button *ngIf="user.UserID != ''" class="button lg high" [(colorPicker)]="user.Theme.PrimaryColour"  [cpAlphaChannel]="'disabled'" [style.background]="user.Theme.PrimaryColour"
+        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
 
       <label>Secondary</label><br>
-      <button #secondaryColourButton class="btn-primary button lg"
-        (click)="secondaryColourToggle=!secondaryColourToggle;lastColor=secondaryColour;
-        tertiaryColourToggle=false;primaryColourToggle=false;avatarColourToggle=false;">{{secondaryColourToggle ? "Done" : "Change Colour"}}</button><br>
-      <input #secondaryColourInput class="button lg" [(colorPicker)]="secondaryColour" [(cpToggle)]="secondaryColourToggle"
-        [style.background]="secondaryColour" [cpIgnoredElements]="[secondaryColourButton, secondaryColourInput]"
-        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true" [cpPositionOffset]="'-385%'"
-        [cpDialogDisplay]="'inline'" [cpAlphaChannel]="'disabled'" disabled /><br><br>
+      <button *ngIf="user.UserID != ''" class="button lg high" [(colorPicker)]="user.Theme.SecondaryColour" [cpAlphaChannel]="'disabled'" [style.background]="user.Theme.SecondaryColour"
+        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
 
       <label>Tertiary</label><br>
-      <button #tertiaryColourButton class="btn-primary button lg"
-        (click)="tertiaryColourToggle=!tertiaryColourToggle;lastColor=tertiaryColour;
-        secondaryColourToggle=false;primaryColourToggle=false;avatarColourToggle=false;">{{tertiaryColourToggle ? "Done" : "Change Colour"}}</button><br>
-      <input #tertiaryColourInput class="button lg" [(colorPicker)]="tertiaryColour" [(cpToggle)]="tertiaryColourToggle"
-        [style.background]="tertiaryColour" [cpIgnoredElements]="[tertiaryColourButton, tertiaryColourInput]"
-        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true" [cpPositionOffset]="'-385%'"
-        [cpDialogDisplay]="'inline'" [cpAlphaChannel]="'disabled'" disabled /><br><br>
+      <button *ngIf="user.UserID != ''" class="button lg high" [(colorPicker)]="user.Theme.TertiaryColour" [cpAlphaChannel]="'disabled'" [style.background]="user.Theme.TertiaryColour"
+        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
 
     </div>
 
