@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
   private avatarNoseIndex: number = Math.floor(Math.random() * 7);
   private avatarMouth: Array<String> = ["mouth1","mouth10","mouth11","mouth3","mouth5","mouth6","mouth7","mouth9"];
   private avatarMouthIndex: number = Math.floor(Math.random() * 7);
-  private avatarColour: string = "#ffbbcc";
+  private avatarColour: string = '#'+ (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
   private primaryColour: string = "#f1ae03";
   private secondaryColour: string = "#2c5268";
   private tertiaryColour: string = "#ec4040";
@@ -35,7 +35,7 @@ export class SettingsComponent implements OnInit {
   private primaryColourToggle: boolean = false;
   private secondaryColourToggle: boolean = false;
   private tertiaryColourToggle: boolean = false;
-  private basicColours: Array<String> = ['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)'];
+  private basicColours: Array<String> = ['#ff7373', '#ffd700', '#3399ff', '#00ff00', '#ffa500', '#8a2be2'];
 
   constructor(
     private databaseService: DatabaseService
@@ -94,7 +94,10 @@ export class SettingsComponent implements OnInit {
   }
 
   randomizePicture() {
-    this.temporaryProfilePicture = this.avatarBaseUrl + Math.random();
+    this.avatarEyesIndex = Math.floor(Math.random() * 8);
+    this.avatarMouthIndex = Math.floor(Math.random() * 7);
+    this.avatarNoseIndex = Math.floor(Math.random() * 7);
+    this.setAvatar();
   }
 
   customPicture(part: string) {
@@ -118,6 +121,10 @@ export class SettingsComponent implements OnInit {
       }
     }
 
+    this.setAvatar();
+  }
+
+  setAvatar() {
     let colour = this.avatarColour.substring(1);
     this.temporaryProfilePicture = this.avatarBaseUrl + 'face/'
       + this.avatarEyes[this.avatarEyesIndex] + '/'
