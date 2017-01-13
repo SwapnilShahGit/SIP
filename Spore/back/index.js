@@ -28,6 +28,10 @@ function redirectToHttps(req, res, next) {
 	res.redirect('https://' + getHostname(req.headers.host) + ':' + HTTPS_PORT + req.url, next);
 }
 
+if (!fs.existsSync('./uploads')){
+    fs.mkdirSync('./uploads');
+}
+
 mongoose.Promise = global.Promise;
 
 mongoose.connect(DATABASE_URI);
@@ -57,10 +61,16 @@ var httpServer = restify.createServer({
 httpServer.get(/\/?.*/, redirectToHttps);
 
 server.use(restify.bodyParser({
-	mapParams: false
+	mapParams: false,
+	maxBodySize: 15 * 1024 * 1024,
+	keepExtensions: false,
+	uploadDir: process.env.UPLOAD_DIR || './uploads',
+	multiples: true,
+	hash: 'sha1'
 }));
 server.use(restify.CORS({
-	origins: ['http://localhost:3000']
+	origins: ['http://localhost:3000'],
+	credentials: true
 }));
 server.use(restify.gzipResponse());
 server.use(restify.queryParser({
