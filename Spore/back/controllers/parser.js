@@ -32,12 +32,14 @@ function java(req, res, next) {
 }
 
 // TODO: If any business logic has to be done here, place it in user model.
-function saveCoursetoUser(req, res, next){
+function saveCoursetoUser(req, res, next) {
 	// TODO: function should take in userID, course code, lecture section, tutorial section,
 	// and practical section that they're in
 }
 
+function parse(req, res, next) {
+	res.send(200);
+}
 module.exports = function(server) {
-	server.get('/api/parse', java);
-	server.head('/api/parse', java);
+	server.post('/api/parse', parse);
 }
