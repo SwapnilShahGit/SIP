@@ -19,7 +19,7 @@ var userSchema = new Schema({
 	picture_uri: String,
 	event_ids: [Schema.Types.ObjectId],
 	school: String,
-	theme: String
+	theme: Object
 });
 
 mongoose.model('user', userSchema);
