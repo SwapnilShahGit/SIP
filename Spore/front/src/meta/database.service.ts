@@ -85,7 +85,7 @@ export class DatabaseService {
         return this.http
             .post(this.BuildAddEventRequest(userId, event),
               {
-                user: userId, start: event.Start, end: event.End, title: event.Title
+                user: userId, start: event.StartDate, end: event.EndDate, title: event.Title
               })
             .toPromise()
             .then(response => response.json())
@@ -165,21 +165,21 @@ export class DatabaseService {
     }
 
     private BuildAddEventRequest(userId: string, event: Event): string {
-        let startRequest = event.Start ? '&start=' + encodeURIComponent(event.Start.toISOString().substring(0, 10)) : '';
-        let endRequest = event.End ? '&end=' + encodeURIComponent(event.End.toISOString().substring(0, 10)) : '';
+        let startRequest = event.StartDate ? '&start=' + encodeURIComponent(event.StartDate.toISOString()) : '';
+        let endRequest = event.EndDate ? '&end=' + encodeURIComponent(event.EndDate.toISOString()) : '';
         let titleRequest = event.Title ? '&title=' + encodeURIComponent(event.Title) : '';
         return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
             + startRequest
             + endRequest
-            + titleRequest;
+            + titleRequest;;
     }
 
     private BuildGetUserEventsRequest(userId: string, start: Moment, end: Moment): string {
         return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
-            + '&start=' + encodeURIComponent(start.toISOString().substring(0, 10))
-            + '&end=' + encodeURIComponent(end.toISOString().substring(0, 10));
+            + '&start=' + encodeURIComponent(start.toISOString())
+            + '&end=' + encodeURIComponent(end.toISOString());
     }
 
     private BuildDeleteEventRequest(eventId: string): string {
@@ -195,8 +195,8 @@ export class DatabaseService {
 
     private BuildUpdateEventRequest(event: Event): string {
         let titleRequest = event.Title ? '&title=' + event.Title : '';
-        let startRequest = event.Start ? '&start=' + event.Start.toISOString().substring(0, 10) : '';
-        let endRequest = event.End ? '&end=' + event.End.toISOString().substr(0, 10) : '';
+        let startRequest = event.StartDate ? '&start=' + event.StartDate.toISOString() : '';
+        let endRequest = event.EndDate ? '&end=' + event.EndDate.toISOString() : '';
         let descriptionRequest = event.Description ? '&desc=' + event.Description : '';
         return this.server + '/api/events?'
             + 'Event=' + event.Id

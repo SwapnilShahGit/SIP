@@ -4,6 +4,7 @@ import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
 import * as moment from 'moment';
 import { Moment } from 'moment';
+import * as jstz from 'jstz';
 
 @Component({
   selector: 'calendar',
@@ -22,6 +23,7 @@ export class CalendarComponent implements OnInit {
 	  center: 'title',
 	  right: 'month,agendaWeek,agendaDay'
 	};
+  timezone = jstz.determine().name(); // Currently not used (may be useful) - if not remove 'jstz' from package.json
 
   constructor(
     private databaseService: DatabaseService
@@ -34,8 +36,8 @@ export class CalendarComponent implements OnInit {
       } else {
         for (let event of response.data) {
           let title = event.title ? event.title : '';
-          let start = event.start ? event.start.substring(0, 10) : '';
-          let end = event.end ? event.end.substring(0, 10) : '';
+          let start = event.start ? event.start : '';
+          let end = event.end ? event.end : '';
           this.events.push({id: event._id, title: title, start: start, end: end});
         }
       }
@@ -44,15 +46,11 @@ export class CalendarComponent implements OnInit {
 
   handleEventClick(e) {
     this.event = new Event();
-    if(e.calEvent._end) {
-      this.event.End = e.calEvent.end;
-      this.event.EndDate = this.event.End.toDate();
-      this.event.EndDate.setDate(this.event.EndDate.getDate() + 1);
+    if(e.calEvent.end) {
+      this.event.EndDate = new Date(e.calEvent.end.year(), e.calEvent.end.month(), e.calEvent.end.date());
     }
 
-    this.event.Start = e.calEvent.start;
-    this.event.StartDate = this.event.Start.toDate();
-    this.event.StartDate.setDate(this.event.StartDate.getDate() + 1);
+    this.event.StartDate = new Date(e.calEvent.start.year(), e.calEvent.start.month(), e.calEvent.start.date());
     this.event.Title = e.calEvent.title;
     this.event.Id = e.calEvent.id;
     this.dialogVisible = true;
@@ -60,9 +58,7 @@ export class CalendarComponent implements OnInit {
 
   handleDayClick(e) {
     this.event = new Event();
-    this.event.Start = e.date;
-    this.event.StartDate = this.event.Start.toDate();
-    this.event.StartDate.setDate(this.event.StartDate.getDate() + 1);
+    this.event.StartDate = new Date(e.date.year(), e.date.month(), e.date.date());
     this.dialogVisible = true;
   }
 
@@ -78,15 +74,14 @@ export class CalendarComponent implements OnInit {
         window.alert('Error during updateEvent API call: ' + response.data);
       } else {
         this.events.splice(this.EventIndexById(newEvent.Id), 1);
-        this.events.push({id: newEvent.Id, title: newEvent.Title, start: newEvent.StartDate.toISOString().substring(0, 10), end: newEvent.EndDate.toISOString().substring(0, 10)});
+        this.events.push({id: newEvent.Id, title: newEvent.Title, start: newEvent.StartDate.toISOString(), end: newEvent.EndDate.toISOString()});
       }
     });
   }
 
   saveEvent() {
-    this.event.End = this.event.EndDate ? moment(this.DateToIsoString(this.event.EndDate)) : undefined;
-    let start = this.event.StartDate ? this.event.Start.toISOString().substring(0, 10) : '';
-    let end = this.event.EndDate ? this.event.End.toISOString().substring(0, 10) : '';
+    let start = this.event.StartDate ? this.event.StartDate.toISOString() : '';
+    let end = this.event.EndDate ? this.event.EndDate.toISOString() : '';
     let title = this.event.Title ? this.event.Title : 'No Title';
     this.databaseService.addEvent(this.userId, this.event).then(response => {
       if (response.error != '0') {
@@ -96,15 +91,12 @@ export class CalendarComponent implements OnInit {
       }
     });
 
-    this.dialogVisible = false;
-    this.event = undefined;
+    this.closeEvent();
   }
 
   updateEvent() {
-    this.event.Start = this.event.StartDate ? moment(this.DateToIsoString(this.event.StartDate)) : undefined;
-    this.event.End = this.event.EndDate ? moment(this.DateToIsoString(this.event.EndDate)) : undefined;
-    let start = this.event.StartDate ? this.event.Start.toISOString().substring(0, 10) : '';
-    let end = this.event.EndDate ? this.event.End.toISOString().substring(0, 10) : '';
+    let start = this.event.StartDate ? this.event.StartDate.toISOString() : '';
+    let end = this.event.EndDate ? this.event.EndDate.toISOString() : '';
     let title = this.event.Title ? this.event.Title : 'No Title';
     let id = this.event.Id;
     this.databaseService.updateEvent(this.event).then(response => {
@@ -116,8 +108,7 @@ export class CalendarComponent implements OnInit {
       }
     });
 
-    this.dialogVisible = false;
-    this.event = undefined;
+    this.closeEvent();
   }
 
   deleteEvent() {
@@ -130,14 +121,12 @@ export class CalendarComponent implements OnInit {
       }
     });
 
-    this.dialogVisible = false;
-    this.event = undefined;
+    this.closeEvent();
   }
 
-  private DateToIsoString(event: Date): string {
-    let month = event.getMonth() < 10 ? '0' + (event.getMonth() + 1) : (event.getMonth() + 1);
-    let date = event.getDate() < 10 ? '0' + event.getDate() : event.getDate();
-    return event.getFullYear() + '-' + month + '-' + date;
+  closeEvent() {
+    this.dialogVisible = false;
+    this.event = undefined;
   }
 
   private EventIndexById(id: string): number {
