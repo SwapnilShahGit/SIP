@@ -107,7 +107,8 @@ export class SignUpPageComponent implements OnInit{
     if (this.verifyForm()) {
       let newUser = new User('', this.apiResponse.first_name, this.apiResponse.last_name, '', this.apiResponse.email, this.apiResponse.gender, this.apiResponse.userId, this.apiResponse.pictureUrl, this.apiResponse.selectedSchool);
       this.databaseService.addUser(newUser).then((response) => {
-        if (response === 'error') {
+        console.log(response);
+        if (response.error === 110) {
           window.alert('Error: User Already Exists in Database');
         } else {
           window.alert('User added');

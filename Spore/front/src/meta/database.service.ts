@@ -55,7 +55,7 @@ export class DatabaseService {
                 gender: user.Gender, school: user.School, theme: user.Theme
               })
             .toPromise()
-            .then(response => response.json().data as Response)
+            .then(response => response.json())
             .catch(this.handleError);
     }
 
