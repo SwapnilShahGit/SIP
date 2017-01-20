@@ -35,264 +35,293 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 import com.mdimension.jchronic.Chronic;
 import com.mdimension.jchronic.utils.Span;
-import net.soti.backend.PdfToText;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-
-
-
-public class SporeReader
-{
+public class SporeReader {
 	public static String rawtext;
 	public static String rawTextLines[];
 	public static String finalcoursecode;
-    public static String currentyear;
+	public static String currentyear;
 	public static String session;
-    public static String optionalcharacter = "";
-    public static JSONObject obj;
-    public static JSONArray nodeobj = new JSONArray();
+	public static String optionalcharacter = "";
+	public static JSONObject obj;
 
 	public static void main(String[] args) throws IOException {
-		 //get list of files in the PDF directory
-		 File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
-		 //System.out.println(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
-		 File[] listOfFiles = folder.listFiles();
-	     PdfToText pdfManager = new PdfToText();
-		 for (int i = 0; i < listOfFiles.length; i++){
-			 if (! listOfFiles[i].toString().endsWith(".pdf")){
-				 continue;
-			 }
-			 obj = new JSONObject();
-			 pdfManager.setFilePath(listOfFiles[i].toString());
-			 rawtext = pdfManager.ToText();
-			 obj.put("rawtext", rawtext);
-		     rawTextLines = rawtext.split("\\r?\\n");
-		     
-		     //UofT course code format
-		     finalcoursecode = coursecodefinder();
-		     obj.put("code", finalcoursecode);
-		    
-		     //obtains the university campus based on the course code
-		     obj.put("university", getUniversityCampus());
-		     
-		     //use information processed above to find corresponding course in API
-		     JSONObject json = null;
-		     try{
-			     json = connecttoCobalt();
-		     }catch (Exception e){
-		    	 //information not available in cobalt API
-		    	 e.printStackTrace();
-			     nodeobj.add(finalcoursecode);
-			     obj.put("graded_evaluations", getassignments());
-		    	 saveAsJSON();
-		    	 continue;
-		     }
-		     
-		     //id of the course
-		     obj.put("id",json.get("id").toString());
-		     nodeobj.add(json.get("id").toString());
-		     //name of the course
-		     obj.put("name", json.get("name").toString());
-		     //description of the course
-		     obj.put("description", json.get("description").toString());
-		     //division of the course
-		     obj.put("division", json.get("division").toString());
-		     //department the course is from
-		     obj.put("department", json.get("department").toString());
-		     //prerequisities of the course
-		     obj.put("prerequisites", json.get("prerequisites").toString());
-		     //exclusions from the course
-		     obj.put("exclusions", json.get("exclusions").toString());
-		     //grade level of the course
-		     obj.put("level", json.get("level").toString());
-		     //campus the course is being taught on
-		     obj.put("campus", json.get("campus").toString());
-		     //the term the course is being taught in
-		     obj.put("term", json.get("term").toString());
-		     //the meeting sections of the course
-		     obj.put("meeting_sections", json.get("meeting_sections").toString());
-		     //list of graded evaluations
-		     obj.put("graded_evaluations", getassignments());
-		     saveAsJSON();
-		     obj.put("mongodbevents", processeventsformongo(json).toString());
-		     System.out.println(obj.toString());
-		 }
-	 }
+		
+		for (String arg: args){
+			JSONObject coursecodeobj = new JSONObject();
+			coursecodeobj.put("code", arg);
+			coursecodeobj.put("university", getUniversityCampus(arg));
+			coursecodeobj.put("graded_evaluations", null);
+			coursecodeobj.put("id", arg);
+			URLConnection connection = null;
+			Scanner scanner = null;
+
+			try{
+				URL uoftRequest = new URL("http://localhost:4242/1.0/courses/" + arg);
+				connection = uoftRequest.openConnection();
+				scanner = new Scanner(uoftRequest.openStream());
+			} catch (Exception a) {
+				System.out.println("not able to connect to cobalt");
+			}
+			connection.setDoOutput(true);
+			String coursecoderesponse = scanner.useDelimiter("\\Z").next();
+			JSONParser coursecodeparser2 = new JSONParser();
+			JSONObject coursecodejson = null;
+			try {
+				coursecodejson = (JSONObject) coursecodeparser2.parse(coursecoderesponse);
+			} catch (org.json.simple.parser.ParseException e2) {
+				e2.printStackTrace();
+			}
+			scanner.close();
+			coursecodeobj.put("name", coursecodejson.get("name").toString());
+			coursecodeobj.put("description", coursecodejson.get("description"));
+			coursecodeobj.put("division", coursecodejson.get("division").toString());
+			coursecodeobj.put("department", coursecodejson.get("department").toString());
+			coursecodeobj.put("prerequisities", coursecodejson.get("prerequisites").toString());
+			coursecodeobj.put("exclusions", coursecodejson.get("exclusions").toString());
+			coursecodeobj.put("level", coursecodejson.get("level").toString());
+			coursecodeobj.put("campus", coursecodejson.get("campus").toString());
+			coursecodeobj.put("term", coursecodejson.get("term").toString());
+			coursecodeobj.put("meeting_sections", coursecodejson.get("meeting_sections").toString());
+			coursecodeobj.put("mongodbevents", processeventsformongo(coursecodejson));
+			System.out.println(processeventsformongo(coursecodejson));
+			return;
+			
+		}
+		
+		//get list of files in the PDF directory
+		File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
+		File[] listOfFiles = folder.listFiles();
+		PdfToText pdfManager = new PdfToText();
+		for (int i = 0; i < listOfFiles.length; i++){
+			if (! listOfFiles[i].toString().endsWith(".pdf")){
+				continue;
+			}
+			obj = new JSONObject();
+			pdfManager.setFilePath(listOfFiles[i].toString());
+			rawtext = pdfManager.ToText();
+			obj.put("rawtext", rawtext);
+			rawTextLines = rawtext.split("\\r?\\n");
+		
+			//UofT course code format
+			finalcoursecode = coursecodefinder();
+			obj.put("code", finalcoursecode);
+		
+			//obtains the university campus based on the course code
+			obj.put("university", getUniversityCampus(finalcoursecode));
+		
+			//use information processed above to find corresponding course in API
+			JSONObject json = null;
+			try{
+				json = connecttoCobalt();
+			} catch (Exception e) {
+				//information not available in cobalt API
+				e.printStackTrace();
+				obj.put("graded_evaluations", getassignments());
+				saveAsJSON();
+				continue;
+			}
+			obj.put("id",json.get("id").toString());
+			obj.put("name", json.get("name").toString());
+			obj.put("description", json.get("description").toString());
+			obj.put("division", json.get("division").toString());
+			obj.put("department", json.get("department").toString());
+			obj.put("prerequisites", json.get("prerequisites").toString());
+			obj.put("exclusions", json.get("exclusions").toString());
+			obj.put("level", json.get("level").toString());
+			obj.put("campus", json.get("campus").toString());
+			obj.put("term", json.get("term").toString());
+			obj.put("meeting_sections", json.get("meeting_sections"));
+			obj.put("graded_evaluations", getassignments());
+			obj.put("mongodbevents", processeventsformongo(json));
+			saveAsJSON();
+			System.out.println(processeventsformongo(json));
+			return;
+			
+		}
+		return;
+
+	}
 
 	public static String coursecodefinder() {
-		 String coursecodepattern = "[A-Z]{3}\\s?[0-9]{3}[H|Y][1|5][F|S|Y]?";
-		 Pattern coursecode = Pattern.compile(coursecodepattern);
-		 Map<String, Integer> results = new HashMap<String, Integer>();
-		 int count = 0;
-		 Matcher m = coursecode.matcher(rawtext);
-		 String finalcoursecode = "";
-		 int maxcoursecode = 0;
-		 while (m.find()){
-			 count++;
-			 if (results.containsKey(m.group())){
-				 results.put(m.group(), results.get(m.group()) + 1);
-				 if (results.get(m.group()) > maxcoursecode){
-					 finalcoursecode = m.group();
-					 maxcoursecode = results.get(m.group());
-				 }
+		String coursecodepattern = "[A-Z]{3}\\s?[0-9]{3}[H|Y][1|5][F|S|Y]?";
+		Pattern coursecode = Pattern.compile(coursecodepattern);
+		Map<String, Integer> results = new HashMap<String, Integer>();
+		int count = 0;
+		Matcher m = coursecode.matcher(rawtext);
+		String finalcoursecode = "";
+		int maxcoursecode = 0;
+		while (m.find()){
+			count++;
+			if (results.containsKey(m.group())){
+				results.put(m.group(), results.get(m.group()) + 1);
+				if (results.get(m.group()) > maxcoursecode){
+					finalcoursecode = m.group();
+					maxcoursecode = results.get(m.group());
+				}
 			} else {
 				results.put(m.group(), 1);
 				finalcoursecode = m.group();
 			}
-		 }
+		}
 		 
-		 if (finalcoursecode.length() == 8){
-			 finalcoursecode += "Y";
-		 }
+		if (finalcoursecode.length() == 8){
+			finalcoursecode += "Y";
+		}
 		
-		 return finalcoursecode.replaceAll("\\s+","");
+		return finalcoursecode.replaceAll("\\s+","");
 	 
-	 }
+	}
 
-	 
-	 
 	public static JSONObject connecttoCobalt() throws IOException{
-		     if (rawtext.contains("Summer") | rawtext.contains("summer")){
-		    	 session = "5";
-		    	 if (finalcoursecode.endsWith("F") | finalcoursecode.endsWith("S")){
-		    		 optionalcharacter = finalcoursecode.substring(8);
-		    	 }
-		     }else if (rawtext.contains("Winter")| rawtext.contains("winter")) {
-		    	 session = "1";
-		     } else if (rawtext.contains("Fall")| rawtext.contains("fall")){
-		    	 session = "9";
-		     } else {
-		    	 int month = Calendar.getInstance().get(Calendar.MONTH);
-		    	 if (month < 4){
-		    		 session = "1";
-		    	 } else if (month >= 4 && month < 8){
-		    		 session = "5";
-		    	 } else {
-		    		 session = "9";
-		    	 }
-		     }
-		     int year = Calendar.getInstance().get(Calendar.YEAR);
-		     if (rawtext.contains(Integer.toString(year))){
-		    	 currentyear = Integer.toString(year);
-		     }else {
-		    	 currentyear = Integer.toString(year +1);
-		     }
-		     String requestURL = "";
-		     URLConnection connection;
-		     URL uoftRequest;
-		     Scanner scanner;
-		     try{
-		    	 requestURL = "http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter;
-		    	 uoftRequest = new URL(requestURL);
-			     connection = uoftRequest.openConnection();
-			     scanner = new Scanner(uoftRequest.openStream());
-		     } catch (Exception e){
-		    	 year += 1;
-		         currentyear = Integer.toString(year);
-		    	 requestURL = "http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter;
-		    	 uoftRequest = new URL(requestURL);
-			     connection = uoftRequest.openConnection();
-			     scanner = new Scanner(uoftRequest.openStream());
-		     }
-			connection.setDoOutput(true);
-		     String response = scanner.useDelimiter("\\Z").next();
-		     JSONParser parser2 = new JSONParser();
-		     JSONObject json = null;
-			try {
-				json = (JSONObject)parser2.parse(response);
-
-			} catch (org.json.simple.parser.ParseException e1) {
-				e1.printStackTrace();
+		if (rawtext.contains("Summer") | rawtext.contains("summer")){
+			session = "5";
+			if (finalcoursecode.endsWith("F") | finalcoursecode.endsWith("S")){
+				optionalcharacter = finalcoursecode.substring(8);
+		    	}
+		} else if (rawtext.contains("Winter") | rawtext.contains("winter")) {
+		    	session = "1";
+		} else if (rawtext.contains("Fall") | rawtext.contains("fall")) {
+			session = "9";
+		} else {
+			int month = Calendar.getInstance().get(Calendar.MONTH);
+			if (month < 4){
+				session = "1";
+			} else if (month >= 4 && month < 8){
+				session = "5";
+			} else {
+				session = "9";
 			}
-		     scanner.close();
-		     return json;
-	 }
+		}
+		
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		if (rawtext.contains(Integer.toString(year))){
+			currentyear = Integer.toString(year);
+		} else {
+			currentyear = Integer.toString(year +1);
+		}
+		String requestURL = "";
+		URLConnection connection;
+		URL uoftRequest;
+		Scanner scanner;
+		try {
+			requestURL = "http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter;
+			uoftRequest = new URL(requestURL);
+			connection = uoftRequest.openConnection();
+			scanner = new Scanner(uoftRequest.openStream());
+		} catch (Exception e) {
+			try{
+				year += 1;
+				currentyear = Integer.toString(year);
+				requestURL = "http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter;
+				uoftRequest = new URL(requestURL);
+				connection = uoftRequest.openConnection();
+				scanner = new Scanner(uoftRequest.openStream()); 
+			} catch (Exception f) {
+				year -= 2;
+				currentyear = Integer.toString(year);
+				requestURL = "http://localhost:4242/1.0/courses/" + finalcoursecode + currentyear + session + optionalcharacter;
+				uoftRequest = new URL(requestURL);
+				connection = uoftRequest.openConnection();
+				scanner = new Scanner(uoftRequest.openStream());
+			}	 
+		}
+		
+		connection.setDoOutput(true);
+		String response = scanner.useDelimiter("\\Z").next();
+		JSONParser parser2 = new JSONParser();
+		JSONObject json = null;
+		try {
+			json = (JSONObject)parser2.parse(response);
 
-	 
-	 
+		} catch (org.json.simple.parser.ParseException e1) {
+			e1.printStackTrace();
+		}
+	     scanner.close();
+	     return json;
+	}
+
 	public static JSONArray getassignments(){
-		 List<String> assignmentlines = new ArrayList<String>();
-		 int assignmentcount = 0;
-		 for (String x : rawTextLines){
-			 if (x.contains("%")){
-				 if (x.contains("Total 100%")){
-					 continue;
-				 }
-		     	 assignmentcount += 1;
-		         assignmentlines.add(x);
-		     }
-		 }
-		 Parser parser = new Parser();
-		 List<DateTime> outputdates = new ArrayList<DateTime>();
-		 int counter = 0;
-		 JSONArray markedlist = new JSONArray();
-		 JSONArray minilist = new JSONArray();
-		 for (String y : assignmentlines){
-			 minilist = new JSONArray();
-			 List<DateGroup> group = parser.parse(y);
-			 if (y.contains("Final Exam")){
-				 minilist.add(y);
-				 markedlist.add(minilist);
-				 continue;
-			 } else if (group.toString() == "[]"){
-			      		   continue;
-			 }
-			 List<Date> date = (group.get(0)).getDates();
-			 Date sampledate = date.get(0);
-			 DateTime dt = new DateTime(sampledate);
-			 outputdates.add(dt);
-			 minilist.add(dt.toString());
-			 minilist.add(y);
+		List<String> assignmentlines = new ArrayList<String>();
+		int assignmentcount = 0;
+		for (String x : rawTextLines){
+			if (x.contains("%")){
+				if (x.contains("Total 100%")){
+					continue;
+				}
+			assignmentcount += 1;
+			assignmentlines.add(x);
+			}
+		}
+		Parser parser = new Parser();
+		List<DateTime> outputdates = new ArrayList<DateTime>();
+		int counter = 0;
+		JSONArray markedlist = new JSONArray();
+		JSONArray minilist = new JSONArray();
+		for (String y : assignmentlines){
+			minilist = new JSONArray();
+			List<DateGroup> group = parser.parse(y);
+			if (y.contains("Final Exam") || y.contains("On-going")) {
+				minilist.add(y);
+				markedlist.add(minilist);
+				continue;
+			} else if (group.toString() == "[]") {
+				continue;
+			}
+			List<Date> date = (group.get(0)).getDates();
+			Date sampledate = date.get(0);
+			DateTime dt = new DateTime(sampledate);
+			outputdates.add(dt);
+			minilist.add(dt.toString());
+			minilist.add(y);
 			 markedlist.add(minilist);
 		}
 		return markedlist;
 	}
 
-
-	 
 	public static void saveAsJSON(){
-		 //create a new JSON file with the global JSON file and save to filesystem
-		 try{
-			 FileWriter file = new FileWriter(System.getProperty("user.dir") + "/PDFS/JSONOutput/" 
+		//create a new JSON file with the global JSON file and save to filesystem
+		try{
+			FileWriter file = new FileWriter(System.getProperty("user.dir") + "/PDFS/JSONOutput/" 
 				+ finalcoursecode + currentyear + session + optionalcharacter + ".json");
-			 file.write(obj.toJSONString());
-			 file.flush();
-			 file.close();
-		 } catch (IOException e){	 
-			 e.printStackTrace();	
-		 }
-	 }
+			file.write(obj.toJSONString());
+			file.flush();
+			file.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-	 
-	 
 	//returns the name of the university based on the course code
-	public static String getUniversityCampus(){
-		 if (Character.toString(finalcoursecode.charAt(7)).equals("5")){
-			 return "UTM";
-		 } else {
-			 return "UTSG";
-		 }
-	 }
-	 
+	public static String getUniversityCampus(String coursecode){
+		if (Character.toString(coursecode.charAt(7)).equals("5")){
+			return "UTM";
+		} else {
+			return "UTSG";
+		}
+	}
+
 	private static JSONArray processeventsformongo(JSONObject json) {
 		JSONArray listtoreturn = new JSONArray();
 		JSONArray listoflecturesandtutorials = (JSONArray) json.get("meeting_sections");
 		for (int i = 0; i < listoflecturesandtutorials.size(); i++){
-		    JSONObject lectureortutorial = (JSONObject) listoflecturesandtutorials.get(i);
-		    JSONArray lectureortutorialtimes = (JSONArray) lectureortutorial.get("times");
-		    int numberoftimes = lectureortutorialtimes.size();
+			JSONObject lectureortutorial = (JSONObject) listoflecturesandtutorials.get(i);
+			JSONArray lectureortutorialtimes = (JSONArray) lectureortutorial.get("times");
+			int numberoftimes = lectureortutorialtimes.size();
 			for (int j = 0; j < numberoftimes ; j ++){
 				JSONObject templist = new JSONObject();
 				JSONObject tempJson = (JSONObject) lectureortutorialtimes.get(j);
 				templist.put("title", lectureortutorial.get("code"));
+				templist.put("day", tempJson.get("day").toString());
 				templist.put("startTime", tempJson.get("start").toString());
 				templist.put("endTime", tempJson.get("end").toString());
 				templist.put("backgroundColour", "#000000");
-				templist.put("description", (String) obj.get("description"));
+				templist.put("description", (String) json.get("description"));
 				templist.put("location", (String) tempJson.get("location"));
-				templist.put("contact", (String) tempJson.get("instructors"));
+				templist.put("contact", (JSONArray) (lectureortutorial.get("instructors")));
 				templist.put("course", finalcoursecode);
 				templist.put("repeat", "0");
 				listtoreturn.add(templist);
