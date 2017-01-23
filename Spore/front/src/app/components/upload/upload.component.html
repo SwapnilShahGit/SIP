@@ -1,0 +1,78 @@
+<div style="margin-bottom: 40px">
+  <h3>Select files to upload</h3>
+  <i>* Max file size 15 MB *</i>
+  <div ng2FileDrop
+    [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+    (fileOver)="fileOverBase($event)" [uploader]="uploader" class="well my-drop-zone">
+    <b class="centered">Drop your files here</b>
+  </div>
+  <div class="or-line-container">
+    <div class="or-line">
+      <span>or</span>
+    </div>
+  </div>
+  <div style="text-align: center;">
+    <input class="box" type="file" ng2FileSelect multiple [uploader]="uploader" style="margin:0px auto; display:block;padding-left: 50px;" /><br>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th width="50%">Name</th>
+        <th>Size</th>
+        <th width="25%">Progress</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of uploader.queue">
+        <td><strong>{{ item?.file?.name }}</strong></td>
+        <td nowrap>{{ (item?.file?.size/1024/1024).toFixed(2) }} MB</td>
+        <td>
+          <div class="progress" style="margin-bottom: 0;">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+          </div>
+        </td>
+        <td class="text-center">
+          <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+          <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+          <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+        </td>
+        <td nowrap>
+          <button type="button" class="btn btn-success btn-xs"
+                  (click)="startUpload(item)" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+            <span class="glyphicon glyphicon-upload"></span> Upload
+          </button>
+          <button type="button" class="btn btn-warning btn-xs"
+                  (click)="item.cancel()" [disabled]="!item.isUploading">
+            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+          </button>
+          <button type="button" class="btn btn-danger btn-xs"
+                  (click)="item.remove()">
+            <span class="glyphicon glyphicon-trash"></span> Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <div>
+      Queue progress:
+      <div class="progress">
+          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-success btn-s"
+            (click)="startUpload()" [disabled]="!uploader.getNotUploadedItems().length">
+      <span class="glyphicon glyphicon-upload"></span> Upload all
+    </button>
+    <button type="button" class="btn btn-warning btn-s"
+            (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+      <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+    </button>
+    <button type="button" class="btn btn-danger btn-s"
+            (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+      <span class="glyphicon glyphicon-trash"></span> Remove all
+    </button>
+  </div>
+</div>
