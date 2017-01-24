@@ -19,6 +19,6 @@ export class ThirdPartyButton {
   @Input()
   public buttonBorder;
 
-  constructor(){}
+  constructor() {}
 
 }

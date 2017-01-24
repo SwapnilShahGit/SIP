@@ -11,7 +11,8 @@ import { DatabaseService } from '../../../meta/database.service';
 })
 export class SettingsComponent implements OnInit {
 
-    @Input() user: User;
+    @Input()
+    public user: User;
 
     private supportedSchools: any[];
     private checkedGender = { male: '', female: '' };
@@ -23,25 +24,25 @@ export class SettingsComponent implements OnInit {
     }
 
     ngOnInit() {
-      if (this.user.Gender == 'male') {
+      if (this.user.Gender === 'male') {
         this.checkedGender.male = 'checked';
       } else {
         this.checkedGender.female = 'checked';
       }
     }
 
-    buildSupportedSchools() {
+    public buildSupportedSchools() {
       this.supportedSchools = ['-'];
-      for (var i = 0; i < _.flatMap(SupportedSchoolsEnum).length /2 ; i ++) {
+      for (let i = 0; i < _.flatMap(SupportedSchoolsEnum).length / 2 ; i ++) {
         this.supportedSchools.push(_.flatMap(SupportedSchoolsEnum)[i]);
       }
     }
 
-    updateUser() {
+    public updateUser() {
       this.closeAlert(true);
       this.databaseService.updateUser(this.user).then(response => {
         console.log(response);
-        if (response.error != '0') {
+        if (response.error !== 0) {
           window.alert('Error occured during update API call: ' + response.data);
         } else {
           this.successDisplay = '';
@@ -50,7 +51,7 @@ export class SettingsComponent implements OnInit {
       });
     }
 
-    closeAlert(force: boolean) {
+    public closeAlert(force: boolean) {
       this.successOpacity = '0';
       if (force) {
         this.successDisplay = 'none';
