@@ -9,7 +9,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { CheckBoxComponent } from './components/minor-page-elements/check-box/check-box.component';
-import { ThirdPartyButton } from './components/minor-page-elements/third-party-button/third-party-button.component';
+import { ThirdPartyButton }
+from './components/minor-page-elements/third-party-button/third-party-button.component';
 import { TextBoxComponent } from './components/minor-page-elements/text-box/text-box.component';
 import { SignUpPageComponent } from './components/signup-page/signup-page.component';
 import { CalendarModule, DialogModule, ButtonModule, ScheduleModule } from 'primeng/primeng';

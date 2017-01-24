@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FBConnector } from '../../../assets/facebook/facebook';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { NavService } from '../../../meta/nav.service';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
@@ -13,10 +13,10 @@ import { Observable } from 'rxjs/Rx';
 })
 export class StaticNavBar implements OnInit {
 
-  private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
+  private fbKey: string = ENV === 'production' ? '309270582738901' : '346211865751257';
   private _notificationCount: number = 0;
   private isNavOpen = true;
-  user: Observable<User>;    
+  private user: Observable<User>;
 
   constructor(
     private router: Router,
@@ -24,37 +24,37 @@ export class StaticNavBar implements OnInit {
     private databaseService: DatabaseService,
   ) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.user = this.databaseService.user;
-    var fbCon: FBConnector = new FBConnector(this.fbKey);
+    let fbCon: FBConnector = new FBConnector(this.fbKey);
     fbCon.initFB();
   }
 
-  closeNav() {
+  public closeNav() {
     if(!this.isNavOpen) {
       this.toggleOpenNav();
     }
   }
 
-  toggleOpenNav() {
+  public toggleOpenNav() {
     this.navService.toggleNav(this.isNavOpen);
     this.isNavOpen = !this.isNavOpen;
   }
 
-  notifiedUser() {
+  public notifiedUser() {
     this._notificationCount += 1;
   }
 
-  numNotifications() {
+  public numNotifications() {
     if (this._notificationCount > 9) {
       return '9+';
     }
     return this._notificationCount.toString();
   }
 
-  facebookLogout() {
+  public facebookLogout() {
     let router = this.router;
-    
+
     function checkResponse(response: FB.LoginStatusResponse) {
       console.log('status: ' + response.status);
       if(response && response.status === 'connected') {

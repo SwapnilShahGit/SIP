@@ -12,20 +12,21 @@ import { Moment } from 'moment';
 @Injectable()
 export class DatabaseService {
 
-    private server: string = ENV == "production" ? "https://spore.life" : "https://localhost:8081";
-    user: Observable<User>;
-    private _user: BehaviorSubject<User>;
+    private server: string = ENV === 'production'
+      ? 'https://spore.life' : 'https://localhost:8081';
+    public user: Observable<User>;
+    public _user: BehaviorSubject<User>;
     private dataStore: {
         user: User
-    }
+    };
 
     constructor(private http: Http) {
-        this.dataStore = { user: new User() },
+        this.dataStore = { user: new User() };
         this._user = <BehaviorSubject<User>>new BehaviorSubject(new User);
         this.user = this._user.asObservable();
     }
 
-    loadUser(id: string) {
+    public loadUser(id: string) {
         this.http
             .get(this.BuildGetUserRequest(id))
             .map(response => this.BuildUserFromResponse(response.json()))
@@ -36,7 +37,7 @@ export class DatabaseService {
             }, error => console.log('Could not load user.'));
     }
 
-    getUser(id: string): any {
+    public getUser(id: string): any {
         this.loadUser(id);
         return this.http
             .get(this.BuildGetUserRequest(id))
@@ -45,7 +46,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    addUser(user: User): any {
+    public addUser(user: User): any {
         this.loadUser(user.UserID);
         return this.http
             .post(this.BuildPostUserRequest(user),
@@ -59,7 +60,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    updateUser(user: User): any {
+    public updateUser(user: User): any {
         return this.http
             .put(this.BuildPutUserRequest(user),
               {
@@ -73,7 +74,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    echo(something: string): any {
+    public echo(something: string): any {
         return this.http
             .get(this.BuildEchoRequest(something))
             .toPromise()
@@ -81,7 +82,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    addEvent(userId: string, event: Event): any {
+    public addEvent(userId: string, event: Event): any {
         return this.http
             .post(this.BuildAddEventRequest(userId, event),
               {
@@ -92,7 +93,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    getUserEvents(userId: string, start: Moment, end: Moment): any {
+    public getUserEvents(userId: string, start: Moment, end: Moment): any {
         return this.http
             .get(this.BuildGetUserEventsRequest(userId, start, end))
             .toPromise()
@@ -100,7 +101,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    deleteEvent(eventId: string): any {
+    public deleteEvent(eventId: string): any {
         return this.http
             .delete(this.BuildDeleteEventRequest(eventId))
             .toPromise()
@@ -108,7 +109,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    deleteUserEvent(userId: string, eventId: string): any {
+    public deleteUserEvent(userId: string, eventId: string): any {
         return this.http
             .delete(this.BuildDeleteUserEventRequest(userId, eventId))
             .toPromise()
@@ -116,7 +117,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    updateEvent(event: Event) {
+    public updateEvent(event: Event) {
         return this.http
             .put(this.BuildUpdateEventRequest(event),
               {
@@ -165,14 +166,16 @@ export class DatabaseService {
     }
 
     private BuildAddEventRequest(userId: string, event: Event): string {
-        let startRequest = event.StartDate ? '&start=' + encodeURIComponent(event.StartDate.toISOString()) : '';
-        let endRequest = event.EndDate ? '&end=' + encodeURIComponent(event.EndDate.toISOString()) : '';
+        let startRequest = event.StartDate ? '&start='
+          + encodeURIComponent(event.StartDate.toISOString()) : '';
+        let endRequest = event.EndDate ? '&end='
+          + encodeURIComponent(event.EndDate.toISOString()) : '';
         let titleRequest = event.Title ? '&title=' + encodeURIComponent(event.Title) : '';
         return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
             + startRequest
             + endRequest
-            + titleRequest;;
+            + titleRequest;
     }
 
     private BuildGetUserEventsRequest(userId: string, start: Moment, end: Moment): string {
@@ -208,7 +211,9 @@ export class DatabaseService {
 
     private BuildUserFromResponse(response: any): User {
         if (response && response.data) {
-            return new User(response.data._id, response.data.first, response.data.last, response.data.pass, response.data.email, response.data.gender, response.data.facebook_id, response.data.picture_uri, response.data.school);
+            return new User(response.data._id, response.data.first, response.data.last,
+              response.data.pass, response.data.email, response.data.gender,
+              response.data.facebook_id, response.data.picture_uri, response.data.school);
         }
         return new User();
     }
