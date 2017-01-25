@@ -40,18 +40,21 @@ export class SignUpPageComponent implements OnInit {
   }
 
   public facebookLogin() {
-
     FB.getLoginStatus((response) => {
       if (response.status === 'connected') {
+        let userId = response.authResponse.userID;
         FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,' +
-        'locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
+        'locale,picture.width(250).height(250),timezone,updated_time,' +
+        'verified,education,birthday'}, (response) => {
           this.buildUIResponseObject(response);
         });
       } else if (response.status === 'unknown') {
         FB.login((response) => {
           if (response.status === 'connected') {
+            let userId = response.authResponse.userID;
             FB.api('/me', {fields: 'last_name,first_name,email,age_range,cover,name,link,gender,' +
-            'locale,picture,timezone,updated_time,verified,education,birthday'}, (response) => {
+            'locale,picture.width(250).height(250),timezone,updated_time,' +
+            'verified,education,birthday'}, (response) => {
               this.buildUIResponseObject(response);
             });
           }
@@ -59,7 +62,6 @@ export class SignUpPageComponent implements OnInit {
       } else if (response.status === 'not_authorized') {
       }
     });
-
   }
 
   public buildUIResponseObject(response) {
