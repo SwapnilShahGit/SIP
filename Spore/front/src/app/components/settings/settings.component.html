@@ -14,9 +14,10 @@
       <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
         [(ngModel)]="user.LastName" [textValue]="user.LastName" ngDefaultControl></text-box><br><br>
 
-      <label>Email</label><br>
-      <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
-        [(ngModel)]="user.Email" [textValue]="user.Email" ngDefaultControl></text-box><br><br>
+      <label>School</label><br>
+      <select *ngIf="user.UserID != ''" [(ngModel)]="user.School" ngDefaultControl>
+        <option *ngFor="let school of supportedSchools" [selected]="school === user.School">{{school}}</option>
+      </select><br><br>
 
       <label>Gender</label><br>
       <div *ngIf="user.UserID != ''" class="gender-container">
@@ -25,11 +26,6 @@
         <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.Gender"
           ngDefaultControl><span class="check-box">Female</span><br>
       </div>
-
-      <br><label>School</label><br>
-      <select *ngIf="user.UserID != ''" [(ngModel)]="user.School" ngDefaultControl>
-        <option *ngFor="let school of supportedSchools" [selected]="school === user.School">{{school}}</option>
-      </select>
 
     </div>
 
@@ -40,22 +36,21 @@
 
       <img *ngIf="user.PictureURL != user.FacebookDefaultPicture" class="profile-picture" src="{{temporaryProfilePicture != '' ? temporaryProfilePicture : user.PictureURL}}" alt="Profile Picture"><br><br>
 
-      <button class="btn-primary button lg" (click)="setFacebookPicture()">Facebook Picture</button><br>
+      <button class="btn-primary button lg" (click)="setFacebookPicture()">Facebook Picture</button>
+      <button class="btn-primary button lg" (click)="randomizePicture()">Randomize Picture</button><br>
 
       <h4>Custom:</h4>
 
       <div style="display: inline-block;">
         <button class="btn-primary button sm" (click)="customPicture('eyes')">Eyes</button>
         <button class="btn-primary button sm" (click)="customPicture('nose')">Nose</button>
-      </div>
-      <div style="display: inline-block;">
         <button class="btn-primary button sm" (click)="customPicture('mouth')">Mouth</button>
-        <button class="btn-primary button sm" (click)="customPicture()">Try it!</button>
       </div><br>
 
-      <button class="btn-primary button lg" (click)="randomizePicture()">Randomize Picture</button>
       <button class="button lg" [(colorPicker)]="avatarColour" [style.background]="avatarColour" [cpPresetColors]="basicColours"
         [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true" [cpAlphaChannel]="'disabled'">.</button>
+      <button class="btn-primary button sm" (click)="customPicture()">Try it!</button>
+
 
     </div>
 
