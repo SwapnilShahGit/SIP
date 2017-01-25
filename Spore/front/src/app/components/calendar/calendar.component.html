@@ -12,7 +12,7 @@
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-12">
-                <input class="text-box-style" [(ngModel)]="event.Title" type="text" placeholder="Name for your event"><br>
+                <input class="text-box-style" [(ngModel)]="event.title" type="text" placeholder="Name for your event"><br>
             </div>
         </div>
         <div class="ui-grid-row">
@@ -22,7 +22,7 @@
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-12 date-input-style">
-                <p-calendar [(ngModel)]="event.StartDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
+                <p-calendar [(ngModel)]="event.startDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
                     dateFormat="(DD) MM d, yy"> </p-calendar>
             </div>
         </div>
@@ -33,17 +33,17 @@
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-12 date-input-style">
-                <p-calendar [(ngModel)]="event.EndDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
+                <p-calendar [(ngModel)]="event.endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
                     dateFormat="(DD) MM d, yy"></p-calendar>
             </div>
         </div>
     </div>
     <footer *ngIf="event">
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button *ngIf="event.Id" type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
-            <button *ngIf="event.Id == undefined" type="button" pButton icon="fa-undo" (click)="closeEvent()" label="Cancel"></button>
-            <button *ngIf="event.Id" type="button" pButton icon="fa-check" (click)="updateEvent()" label="Update"></button>
-            <button *ngIf="event.Id == undefined" type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
+            <button *ngIf="event.id" type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
+            <button *ngIf="event.id == undefined" type="button" pButton icon="fa-undo" (click)="closeEvent()" label="Cancel"></button>
+            <button *ngIf="event.id" type="button" pButton icon="fa-check" (click)="updateEvent()" label="Update"></button>
+            <button *ngIf="event.id == undefined" type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
         </div>
     </footer>
 </p-dialog>

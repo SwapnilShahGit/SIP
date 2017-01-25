@@ -23,8 +23,8 @@ export class SettingsComponent implements OnInit {
       this.buildSupportedSchools();
     }
 
-    ngOnInit() {
-      if (this.user.Gender === 'male') {
+    public ngOnInit() {
+      if (this.user.gender === 'male') {
         this.checkedGender.male = 'checked';
       } else {
         this.checkedGender.female = 'checked';

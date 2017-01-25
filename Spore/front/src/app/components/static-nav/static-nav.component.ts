@@ -31,7 +31,7 @@ export class StaticNavBar implements OnInit {
   }
 
   public closeNav() {
-    if(!this.isNavOpen) {
+    if (!this.isNavOpen) {
       this.toggleOpenNav();
     }
   }
@@ -57,11 +57,11 @@ export class StaticNavBar implements OnInit {
 
     function checkResponse(response: FB.LoginStatusResponse) {
       console.log('status: ' + response.status);
-      if(response && response.status === 'connected') {
+      if (response && response.status === 'connected') {
         FB.logout(checkResponse);
-      } else if(response && response.status === 'unknown') {
+      } else if (response && response.status === 'unknown') {
         router.navigate(['/login']);
-      } else if(response && response.status === 'not_authorized') {
+      } else if (response && response.status === 'not_authorized') {
         router.navigate(['/login']); // not sure when this is possible...
       }
     }

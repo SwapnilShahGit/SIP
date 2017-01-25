@@ -26,7 +26,7 @@ export class SignUpPageComponent implements OnInit {
     password: '', confirmPassword: '', termsAndConditions: ''};
 
   constructor(private router: Router,
-              private databaseService: DatabaseService, public zone: NgZone){
+              private databaseService: DatabaseService, public zone: NgZone) {
     this.buildSupportedSchools();
   }
 
@@ -100,7 +100,7 @@ export class SignUpPageComponent implements OnInit {
 
   public buildSupportedSchools() {
     this.supportedSchools = ['-'];
-    for (let i = 0; i < _.flatMap(SupportedSchoolsEnum).length /2 ; i ++) {
+    for (let i = 0; i < _.flatMap(SupportedSchoolsEnum).length / 2 ; i ++) {
       this.supportedSchools.push(_.flatMap(SupportedSchoolsEnum)[i]);
     }
   }

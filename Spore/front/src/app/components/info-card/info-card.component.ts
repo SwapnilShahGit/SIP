@@ -8,10 +8,10 @@ import { Component, Input } from '@angular/core';
 export class InfoCardComponent {
 
   @Input()
-  public panelName:string;
+  public panelName: string;
   @Input()
-  public panelDescription:string;
+  public panelDescription: string;
   @Input()
-  public imageLocation:string;
+  public imageLocation: string;
 
 }

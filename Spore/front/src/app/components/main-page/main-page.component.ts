@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Rx';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  private CurrentTab: string;
+  private currentTab: string;
   private slideOutWidth: string = '0px';
   private bodyLeftMargin: string = '0px';
   private bodyWidth: string = 'auto';
@@ -28,7 +28,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private databaseService: DatabaseService,
     private navService: NavService
   ) {
-    this.CurrentTab = navService.CalendarTab;
+    this.currentTab = navService.calendarTab;
     this.subscription = navService.navOpen$.subscribe(
       isOpen => {
         if (isOpen) {
@@ -82,7 +82,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   public switchTabs(newTab) {
-    this.CurrentTab = newTab;
+    this.currentTab = newTab;
     if (window.innerHeight <= 767) {
       this.closeNav();
     }
