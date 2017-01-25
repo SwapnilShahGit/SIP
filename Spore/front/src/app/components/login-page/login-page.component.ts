@@ -58,11 +58,11 @@ export class LoginPageComponent implements OnInit {
     }
 
     function handleUser(user: User) {
-      databaseService.getUser(user.FacebookID).then(response => {
+      databaseService.getUser(user.facebookID).then(response => {
         if (response.error !== 0) {
           window.alert('Error: Not Found in Database. Please Sign Up');
         } else {
-          redirectUser(user.FacebookID);
+          redirectUser(user.facebookID);
         }
       });
     }

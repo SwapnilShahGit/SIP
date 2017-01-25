@@ -6,23 +6,23 @@
   </div>
 
   <label>First Name</label><br>
-  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.FirstName" [textValue]="user.FirstName" ngDefaultControl></text-box><br>
+  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.firstName" [textValue]="user.firstName" ngDefaultControl></text-box><br>
 
   <label>Last Name</label><br>
-  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.LastName" [textValue]="user.LastName" ngDefaultControl></text-box><br>
+  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.lastName" [textValue]="user.lastName" ngDefaultControl></text-box><br>
 
   <label>Email</label><br>
-  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.Email" [textValue]="user.Email" ngDefaultControl></text-box><br>
+  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.email" [textValue]="user.email" ngDefaultControl></text-box><br>
 
   <br><label>Gender</label><br>
   <div class="gender-container">
-    <input type="radio" name="gender" value="male" checked="{{checkedGender.male}}" [(ngModel)]="user.Gender" ngDefaultControl><span class="check-box">Male</span>
-    <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.Gender" ngDefaultControl><span class="check-box">Female</span><br>
+    <input type="radio" name="gender" value="male" checked="{{checkedGender.male}}" [(ngModel)]="user.gender" ngDefaultControl><span class="check-box">Male</span>
+    <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.gender" ngDefaultControl><span class="check-box">Female</span><br>
   </div>
 
   <br><label>School</label><br>
-  <select [(ngModel)]="user.School" ngDefaultControl>
-    <option *ngFor="let school of supportedSchools" [selected]="school === user.School">{{school}}</option>
+  <select [(ngModel)]="user.school" ngDefaultControl>
+    <option *ngFor="let school of supportedSchools" [selected]="school === user.school">{{school}}</option>
   </select>
 
   <h2>Theme:</h2>

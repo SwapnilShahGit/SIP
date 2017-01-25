@@ -6,16 +6,16 @@
     </a>
     <br> <span class="sidenav-header">Tools</span>
     <hr class="sidenav-hr">
-    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'CalendarTab'" (click)="switchTabs('CalendarTab')"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
-    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'CalculatorTab'" (click)="switchTabs('CalculatorTab')"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
-    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'CoursesTab'" (click)="switchTabs('CoursesTab')"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
-    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'RemindersTab'" (click)="switchTabs('RemindersTab')"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
-    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'FilesTab'" (click)="switchTabs('FilesTab')"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'CalendarTab'" (click)="switchTabs('CalendarTab')"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'CalculatorTab'" (click)="switchTabs('CalculatorTab')"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'CoursesTab'" (click)="switchTabs('CoursesTab')"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'RemindersTab'" (click)="switchTabs('RemindersTab')"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'FilesTab'" (click)="switchTabs('FilesTab')"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
     <br> <span class="sidenav-header">More</span>
     <hr class="sidenav-hr">
-    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'HelpTab'" (click)="switchTabs('HelpTab')"><span class="fa fa-lg fa-question-circle sidenav-icon"></span>Help</a>
-    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'MapTab'" (click)="switchTabs('MapTab')"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
-    <a class="sidenav-item" [class.selected]="this.CurrentTab === 'SettingsTab'" (click)="switchTabs('SettingsTab')"><span class="fa fa-cogs sidenav-icon"></span>Settings</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'HelpTab'" (click)="switchTabs('HelpTab')"><span class="fa fa-lg fa-question-circle sidenav-icon"></span>Help</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'MapTab'" (click)="switchTabs('MapTab')"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'SettingsTab'" (click)="switchTabs('SettingsTab')"><span class="fa fa-cogs sidenav-icon"></span>Settings</a>
     <br> <span class="sidenav-header">Redirect</span>
     <hr class="sidenav-hr">
     <a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
@@ -27,7 +27,7 @@
 
   <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px', 'padding-top': '75px'}">
 
-    <div *ngIf="CurrentTab == this.navService.CalculatorTab" style="padding-bottom:50px">
+    <div *ngIf="currentTab == this.navService.calculatorTab" style="padding-bottom:50px">
       <p>Spicy jalapeno bacon ipsum dolor amet ad est rump, short loin aute occaecat pork ex filet mignon kielbasa ham hock. Nisi
         pancetta turducken ribeye irure lorem. Aliquip pancetta swine brisket pastrami. In culpa aute pork chop esse. Beef
         turducken pariatur strip steak fugiat esse chicken pork chop cow nisi.</p>
@@ -41,11 +41,11 @@
       <p>Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!</p>
     </div>
 
-  <div *ngIf="CurrentTab == this.navService.CalendarTab">
-    <calendar *ngIf="(user | async).UserID" [userId]="(user | async).UserID"></calendar>
+  <div *ngIf="currentTab == this.navService.calendarTab">
+    <calendar *ngIf="(user | async).userID" [userId]="(user | async).userID"></calendar>
   </div>
 
-    <div *ngIf="CurrentTab == this.navService.CoursesTab">
+    <div *ngIf="currentTab == this.navService.coursesTab">
       <p>Bacon ipsum dolor amet jerky bresaola turducken bacon picanha pork meatball beef boudin t-bone corned beef. Tongue ribeye
         doner turkey sausage tri-tip meatloaf swine shoulder biltong. Jerky boudin tri-tip pancetta frankfurter brisket short
         ribs capicola meatloaf pork belly bacon tenderloin. Kevin bacon rump alcatra jerky. Pork loin pork chop venison biltong
@@ -57,7 +57,7 @@
         pork tongue ribeye biltong short ribs.</p>
     </div>
 
-    <div *ngIf="CurrentTab == this.navService.RemindersTab">
+    <div *ngIf="currentTab == this.navService.remindersTab">
       <p>Spicy jalapeno bacon ipsum dolor amet shank biltong short ribs tenderloin leberkas ham hamburger. Alcatra turducken salami
         pancetta, biltong tail doner cupim bacon pork fatback spare ribs chuck. Leberkas doner salami, beef jowl corned beef
         pork cupim meatloaf rump prosciutto pastrami ball tip spare ribs. Pork loin tongue kevin ham hock. Spare ribs cow tongue
@@ -65,11 +65,11 @@
         rump shankle corned beef bresaola. Strip steak bresaola t-bone, boudin pancetta ball tip swine alcatra.</p>
     </div>
 
-    <div *ngIf="CurrentTab == this.navService.FilesTab">
+    <div *ngIf="currentTab == this.navService.filesTab">
       <upload-factory></upload-factory>
     </div>
 
-    <div *ngIf="CurrentTab == this.navService.HelpTab" style="padding-bottom:50px">
+    <div *ngIf="currentTab == this.navService.helpTab" style="padding-bottom:50px">
       <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
         facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
         ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
@@ -93,11 +93,11 @@
       </p>
     </div>
 
-    <div *ngIf="CurrentTab == this.navService.SettingsTab">
+    <div *ngIf="currentTab == this.navService.settingsTab">
       <settings *ngIf="user | async" [user]="user | async"></settings>
     </div>
 
-    <div *ngIf="CurrentTab == this.navService.MapTab" style="padding-bottom:50px">
+    <div *ngIf="currentTab == this.navService.mapTab" style="padding-bottom:50px">
       <iframe width="800" height="600" frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB3-mPp46IkYBRCmyLnx_DmJeL7RZzII1A&q=SOTI Inc.,Hurontario Street #1100,Mississauga,ON"
         allowfullscreen></iframe>
     </div>
