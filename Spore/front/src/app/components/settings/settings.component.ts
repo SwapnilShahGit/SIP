@@ -128,11 +128,11 @@ export class SettingsComponent implements OnInit {
   setFacebookPicture() {
     FB.getLoginStatus((response) => {
       if (response.status === 'connected') {
-        FB.api('/me', { fields: 'picture' }, (response) => this.setPicture(response));
+        FB.api('/me/picture?width=250&height=250', (response) => this.setPicture(response));
       } else if (response.status === 'unknown') {
         FB.login((response) => {
           if (response.status === 'connected') {
-            FB.api('/me', { fields: 'picture' }, (response) => this.setPicture(response));
+            FB.api('/me/picture?width=250&height=250', (response) => this.setPicture(response));
           }
         });
       }
@@ -140,8 +140,8 @@ export class SettingsComponent implements OnInit {
   }
 
   setPicture(response) {
-    if (this.temporaryProfilePicture != response.picture.data.url && this.temporaryProfilePicture != '') {
-      this.temporaryProfilePicture = response.picture.data.url;
+    if (this.temporaryProfilePicture != response.data.url && this.temporaryProfilePicture != '') {
+      this.temporaryProfilePicture = response.data.url;
     }
   }
 
