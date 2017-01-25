@@ -20,10 +20,6 @@
     <br> <span class="sidenav-header">Redirect</span>
     <hr class="sidenav-hr">
     <a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
-    <!--todo: fix this up-->
-    <!--<a *ngIf="bodyWidth != 'auto'" class="sidenav-item">Notifications: TODO</a> -> visible only in small screen -->
-    <a class="sidenav-item">Notifications: TODO</a>
-    <!---->
   </div>
 
   <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px', 'padding-top': '75px', 'padding-bottom': '75px'}">
