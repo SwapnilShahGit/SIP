@@ -84,7 +84,6 @@ export class CalendarComponent implements OnInit {
   }
 
   public saveEvent() {
-    console.log(this.event);
     let start = this.event.startDate ? this.event.startDate.toISOString() : '';
     let end = this.event.endDate ? this.event.endDate.toISOString() : '';
     let title = this.event.title ? this.event.title : 'No Title';
