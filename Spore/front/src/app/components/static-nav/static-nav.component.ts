@@ -14,7 +14,6 @@ import { Observable } from 'rxjs/Rx';
 export class StaticNavBar implements OnInit {
 
   private fbKey: string = ENV === 'production' ? '309270582738901' : '346211865751257';
-  private _notificationCount: number = 0;
   private isNavOpen = true;
   private user: Observable<User>;
 
@@ -41,20 +40,8 @@ export class StaticNavBar implements OnInit {
     this.isNavOpen = !this.isNavOpen;
   }
 
-  public notifiedUser() {
-    this._notificationCount += 1;
-  }
-
-  public numNotifications() {
-    if (this._notificationCount > 9) {
-      return '9+';
-    }
-    return this._notificationCount.toString();
-  }
-
   public facebookLogout() {
     let router = this.router;
-
     function checkResponse(response: FB.LoginStatusResponse) {
       console.log('status: ' + response.status);
       if (response && response.status === 'connected') {
