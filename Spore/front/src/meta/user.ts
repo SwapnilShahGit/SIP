@@ -16,7 +16,7 @@ export class User implements IUser {
 
   constructor(userID?: string, firstName?: string, lastName?: string, password?: string,
               email?: string, gender?: string, facebookId?: string, pic?: string,
-              school?: string, theme?: string) {
+              school?: string, theme?: Theme) {
     this.userID = userID || '' ;
     this.firstName = firstName || '';
     this.lastName = lastName || '';
@@ -32,9 +32,9 @@ export class User implements IUser {
 }
 
 export class Theme {
-  PrimaryColour: String = '#f1ae03';
-  SecondaryColour: String = '#2c5268';
-  TertiaryColour: String = '#ec4040';
+  primaryColour: String = '#f1ae03';
+  secondaryColour: String = '#2c5268';
+  tertiaryColour: String = '#ec4040';
 }
 
 export interface IUser {
