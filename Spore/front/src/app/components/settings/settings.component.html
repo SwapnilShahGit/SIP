@@ -1,53 +1,87 @@
 <div>
+  <div class="container-fluid">
 
-  <h2>User Details:</h2>
+    <div class="col-sm-4">
 
-  <div class="or-line">
+      <h2>User Details:</h2>
+      <div class="or-line"></div>
+
+      <label>First Name</label><br>
+      <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
+        [(ngModel)]="user.FirstName" [textValue]="user.FirstName" ngDefaultControl></text-box><br><br>
+
+      <label>Last Name</label><br>
+      <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
+        [(ngModel)]="user.LastName" [textValue]="user.LastName" ngDefaultControl></text-box><br><br>
+
+      <label>School</label><br>
+      <select *ngIf="user.UserID != ''" [(ngModel)]="user.School" ngDefaultControl>
+        <option *ngFor="let school of supportedSchools" [selected]="school === user.School">{{school}}</option>
+      </select><br><br>
+
+      <label>Gender</label><br>
+      <div *ngIf="user.UserID != ''" class="gender-container">
+        <input type="radio" name="gender" value="male" checked="{{checkedGender.male}}" [(ngModel)]="user.Gender"
+          ngDefaultControl><span class="check-box">Male</span>
+        <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.Gender"
+          ngDefaultControl><span class="check-box">Female</span><br>
+      </div>
+
+    </div>
+
+    <div class="col-sm-4">
+
+      <h2>Profile Picture:</h2>
+      <div class="or-line"></div>
+
+      <img *ngIf="user.PictureURL != user.FacebookDefaultPicture" class="profile-picture" src="{{temporaryProfilePicture != '' ? temporaryProfilePicture : user.PictureURL}}" alt="Profile Picture"><br><br>
+
+      <button class="btn-primary button lg" (click)="setFacebookPicture()">Facebook Picture</button>
+      <button class="btn-primary button lg" (click)="randomizePicture()">Randomize Picture</button><br>
+
+      <h4>Custom:</h4>
+
+      <div style="display: inline-block;">
+        <button class="btn-primary button sm" (click)="customPicture('eyes')">Eyes</button>
+        <button class="btn-primary button sm" (click)="customPicture('nose')">Nose</button>
+        <button class="btn-primary button sm" (click)="customPicture('mouth')">Mouth</button>
+      </div><br>
+
+      <button class="button lg" [(colorPicker)]="avatarColour" [style.background]="avatarColour" [cpPresetColors]="basicColours"
+        [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true" [cpAlphaChannel]="'disabled'">.</button>
+      <button class="btn-primary button sm" (click)="customPicture()">Try it!</button>
+
+
+    </div>
+
+    <div class="col-sm-4">
+
+      <h2>Theme:</h2>
+      <div class="or-line"></div>
+
+      <label>Primary</label><br>
+      <button *ngIf="user.UserID != ''" class="button lg high" [(colorPicker)]="user.Theme.PrimaryColour"  [cpAlphaChannel]="'disabled'" [style.background]="user.Theme.PrimaryColour"
+        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
+
+      <label>Secondary</label><br>
+      <button *ngIf="user.UserID != ''" class="button lg high" [(colorPicker)]="user.Theme.SecondaryColour" [cpAlphaChannel]="'disabled'" [style.background]="user.Theme.SecondaryColour"
+        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
+
+      <label>Tertiary</label><br>
+      <button *ngIf="user.UserID != ''" class="button lg high" [(colorPicker)]="user.Theme.TertiaryColour" [cpAlphaChannel]="'disabled'" [style.background]="user.Theme.TertiaryColour"
+        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
+
+    </div>
+
   </div>
 
-  <label>First Name</label><br>
-  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.FirstName" [textValue]="user.FirstName" ngDefaultControl></text-box><br>
-
-  <label>Last Name</label><br>
-  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.LastName" [textValue]="user.LastName" ngDefaultControl></text-box><br>
-
-  <label>Email</label><br>
-  <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="user.Email" [textValue]="user.Email" ngDefaultControl></text-box><br>
-
-  <br><label>Gender</label><br>
-  <div class="gender-container">
-    <input type="radio" name="gender" value="male" checked="{{checkedGender.male}}" [(ngModel)]="user.Gender" ngDefaultControl><span class="check-box">Male</span>
-    <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.Gender" ngDefaultControl><span class="check-box">Female</span><br>
-  </div>
-
-  <br><label>School</label><br>
-  <select [(ngModel)]="user.School" ngDefaultControl>
-    <option *ngFor="let school of supportedSchools" [selected]="school === user.School">{{school}}</option>
-  </select>
-
-  <h2>Theme:</h2>
-
-  <div class="or-line">
-  </div>
-
-  <label>Primary Colour</label><br>
-  <i>Coming soon.</i><br><br>
-
-  <label>Secondary Colour</label><br>
-  <i>Coming soon.</i><br><br>
-
-  <label>Tertiary Colour</label><br>
-  <i>Coming soon.</i><br><br>
-
-  <div class="or-line">
-  </div>
-
+  <div class="or-line"></div>
   <div class="inline">
-    <button class="btn-warning btn-lg" (click)="updateUser()">Update</button>
+    <button class="btn-warning btn-lg lg" (click)="primaryColourToggle=false;secondaryColourToggle=false;tertiaryColourToggle=false;
+      avatarColourToggle=false;updateUser();">Update</button>
   </div>
   <div class="inline alert" [ngStyle]="{'opacity': successOpacity, 'display': successDisplay}">
     Success!<span class="closebtn" (click)="closeAlert(false)">&times;</span>
   </div>
-
 
 </div>

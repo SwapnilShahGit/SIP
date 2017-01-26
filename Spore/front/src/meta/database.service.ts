@@ -133,30 +133,11 @@ export class DatabaseService {
     }
 
     private BuildPutUserRequest(user: User): string {
-      return this.server + '/api/users?'
-            + 'user=' + encodeURIComponent(user.UserID)
-            + '&fb=' + encodeURIComponent(user.FacebookID)
-            + '&email=' + encodeURIComponent(user.Email)
-            + '&last=' + encodeURIComponent(user.LastName)
-            + '&first=' + encodeURIComponent(user.FirstName)
-            + '&pic=' + encodeURIComponent(user.PictureURL)
-            + '&pass=' + encodeURIComponent(user.Password)
-            + '&gender=' + encodeURIComponent(user.Gender)
-            + '&school=' + encodeURIComponent(user.School)
-            + '&theme=' + encodeURIComponent(user.Theme);
+      return this.server + '/api/users';
     }
 
     private BuildPostUserRequest(user: User): string {
-        return this.server + '/api/users?'
-            + 'fb=' + encodeURIComponent(user.FacebookID)
-            + '&email=' + encodeURIComponent(user.Email)
-            + '&last=' + encodeURIComponent(user.LastName)
-            + '&first=' + encodeURIComponent(user.FirstName)
-            + '&pic=' + encodeURIComponent(user.PictureURL)
-            + '&pass=' + encodeURIComponent(user.Password)
-            + '&gender=' + encodeURIComponent(user.Gender)
-            + '&school=' + encodeURIComponent(user.School)
-            + '&theme=' + encodeURIComponent(user.Theme);
+        return this.server + '/api/users';
     }
 
     private BuildEchoRequest(something: string): string {
@@ -208,7 +189,7 @@ export class DatabaseService {
 
     private BuildUserFromResponse(response: any): User {
         if (response && response.data) {
-            return new User(response.data._id, response.data.first, response.data.last, response.data.pass, response.data.email, response.data.gender, response.data.facebook_id, response.data.picture_uri, response.data.school);
+            return new User(response.data._id, response.data.first, response.data.last, response.data.pass, response.data.email, response.data.gender, response.data.facebook_id, response.data.picture_uri, response.data.school, response.data.theme);
         }
         return new User();
     }
