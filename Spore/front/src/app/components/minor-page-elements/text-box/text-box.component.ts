@@ -30,7 +30,7 @@ export class TextBoxComponent {
   @Input()
   public showBox = 'inherit';
 
-  constructor(){};
+  constructor() {};
 
   public get textboxValue() {
     return this.textValue;

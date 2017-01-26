@@ -1,4 +1,4 @@
-import { NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -9,7 +9,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { StaticNavBar } from './components/static-nav/static-nav.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { CheckBoxComponent } from './components/minor-page-elements/check-box/check-box.component';
-import { ThirdPartyButton } from './components/minor-page-elements/third-party-button/third-party-button.component';
+import { ThirdPartyButton }
+from './components/minor-page-elements/third-party-button/third-party-button.component';
 import { TextBoxComponent } from './components/minor-page-elements/text-box/text-box.component';
 import { SignUpPageComponent } from './components/signup-page/signup-page.component';
 import { CalendarModule, DialogModule, ButtonModule, ScheduleModule } from 'primeng/primeng';
@@ -20,6 +21,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import { ColorPickerModule } from 'angular2-color-picker';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -74,13 +76,14 @@ type StoreType = {
     ButtonModule,
     CalendarModule,
     ScheduleModule,
-    DialogModule
+    DialogModule,
+    ColorPickerModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
     DatabaseService,
-    NavService
+    NavService,
   ]
 })
 export class AppModule {

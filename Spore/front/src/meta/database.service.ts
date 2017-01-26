@@ -12,20 +12,21 @@ import { Moment } from 'moment';
 @Injectable()
 export class DatabaseService {
 
-    private server: string = ENV == "production" ? "https://spore.life" : "https://localhost:8081";
-    user: Observable<User>;
-    private _user: BehaviorSubject<User>;
+    public user: Observable<User>;
+    public _user: BehaviorSubject<User>;
     private dataStore: {
         user: User
-    }
+    };
+    private server: string = ENV === 'production'
+      ? 'https://spore.life' : 'https://localhost:8081';
 
     constructor(private http: Http) {
-        this.dataStore = { user: new User() },
+        this.dataStore = { user: new User() };
         this._user = <BehaviorSubject<User>>new BehaviorSubject(new User);
         this.user = this._user.asObservable();
     }
 
-    loadUser(id: string) {
+    public loadUser(id: string) {
         this.http
             .get(this.BuildGetUserRequest(id))
             .map(response => this.BuildUserFromResponse(response.json()))
@@ -36,7 +37,7 @@ export class DatabaseService {
             }, error => console.log('Could not load user.'));
     }
 
-    getUser(id: string): any {
+    public getUser(id: string): any {
         this.loadUser(id);
         return this.http
             .get(this.BuildGetUserRequest(id))
@@ -45,35 +46,35 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    addUser(user: User): any {
-        this.loadUser(user.UserID);
+    public addUser(user: User): any {
+        this.loadUser(user.userID);
         return this.http
             .post(this.BuildPostUserRequest(user),
               {
-                fb: user.FacebookID, first: user.FirstName, last: user.LastName,
-                email: user.Email, pic: user.PictureURL, pass: user.Password,
-                gender: user.Gender, school: user.School, theme: user.Theme
+                fb: user.facebookID, first: user.firstName, last: user.lastName,
+                email: user.email, pic: user.pictureURL, pass: user.password,
+                gender: user.gender, school: user.school, theme: user.theme
               })
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
     }
 
-    updateUser(user: User): any {
+    public updateUser(user: User): any {
         return this.http
             .put(this.BuildPutUserRequest(user),
               {
-                user: user.UserID, fb: user.FacebookID, first: user.FirstName,
-                last: user.LastName, email: user.Email, pic: user.PictureURL,
-                pass: user.Password, gender: user.Gender, school: user.School,
-                theme: user.Theme
+                user: user.userID, fb: user.facebookID, first: user.firstName,
+                last: user.lastName, email: user.email, pic: user.pictureURL,
+                pass: user.password, gender: user.gender, school: user.school,
+                theme: user.theme
               })
             .toPromise()
             .then(response => response.json() as Response)
             .catch(this.handleError);
     }
 
-    echo(something: string): any {
+    public echo(something: string): any {
         return this.http
             .get(this.BuildEchoRequest(something))
             .toPromise()
@@ -81,18 +82,18 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    addEvent(userId: string, event: Event): any {
+    public addEvent(userId: string, event: Event): any {
         return this.http
             .post(this.BuildAddEventRequest(userId, event),
               {
-                user: userId, start: event.StartDate, end: event.EndDate, title: event.Title
+                user: userId, start: event.startDate, end: event.endDate, title: event.title
               })
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
     }
 
-    getUserEvents(userId: string, start: Moment, end: Moment): any {
+    public getUserEvents(userId: string, start: Moment, end: Moment): any {
         return this.http
             .get(this.BuildGetUserEventsRequest(userId, start, end))
             .toPromise()
@@ -100,7 +101,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    deleteEvent(eventId: string): any {
+    public deleteEvent(eventId: string): any {
         return this.http
             .delete(this.BuildDeleteEventRequest(eventId))
             .toPromise()
@@ -108,7 +109,7 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    deleteUserEvent(userId: string, eventId: string): any {
+    public deleteUserEvent(userId: string, eventId: string): any {
         return this.http
             .delete(this.BuildDeleteUserEventRequest(userId, eventId))
             .toPromise()
@@ -116,11 +117,11 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    updateEvent(event: Event) {
+    public updateEvent(event: Event) {
         return this.http
             .put(this.BuildUpdateEventRequest(event),
               {
-                title: event.Title, start: event.StartDate, end: event.EndDate, event: event.Id
+                title: event.title, start: event.startDate, end: event.endDate, event: event.id
               })
             .toPromise()
             .then(response => response.json())
@@ -133,30 +134,11 @@ export class DatabaseService {
     }
 
     private BuildPutUserRequest(user: User): string {
-      return this.server + '/api/users?'
-            + 'user=' + encodeURIComponent(user.UserID)
-            + '&fb=' + encodeURIComponent(user.FacebookID)
-            + '&email=' + encodeURIComponent(user.Email)
-            + '&last=' + encodeURIComponent(user.LastName)
-            + '&first=' + encodeURIComponent(user.FirstName)
-            + '&pic=' + encodeURIComponent(user.PictureURL)
-            + '&pass=' + encodeURIComponent(user.Password)
-            + '&gender=' + encodeURIComponent(user.Gender)
-            + '&school=' + encodeURIComponent(user.School)
-            + '&theme=' + encodeURIComponent(user.Theme);
+      return this.server + '/api/users';
     }
 
     private BuildPostUserRequest(user: User): string {
-        return this.server + '/api/users?'
-            + 'fb=' + encodeURIComponent(user.FacebookID)
-            + '&email=' + encodeURIComponent(user.Email)
-            + '&last=' + encodeURIComponent(user.LastName)
-            + '&first=' + encodeURIComponent(user.FirstName)
-            + '&pic=' + encodeURIComponent(user.PictureURL)
-            + '&pass=' + encodeURIComponent(user.Password)
-            + '&gender=' + encodeURIComponent(user.Gender)
-            + '&school=' + encodeURIComponent(user.School)
-            + '&theme=' + encodeURIComponent(user.Theme);
+        return this.server + '/api/users';
     }
 
     private BuildEchoRequest(something: string): string {
@@ -165,14 +147,16 @@ export class DatabaseService {
     }
 
     private BuildAddEventRequest(userId: string, event: Event): string {
-        let startRequest = event.StartDate ? '&start=' + encodeURIComponent(event.StartDate.toISOString()) : '';
-        let endRequest = event.EndDate ? '&end=' + encodeURIComponent(event.EndDate.toISOString()) : '';
-        let titleRequest = event.Title ? '&title=' + encodeURIComponent(event.Title) : '';
+        let startRequest = event.startDate ? '&start='
+          + encodeURIComponent(event.startDate.toISOString()) : '';
+        let endRequest = event.endDate ? '&end='
+          + encodeURIComponent(event.endDate.toISOString()) : '';
+        let titleRequest = event.title ? '&title=' + encodeURIComponent(event.title) : '';
         return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
             + startRequest
             + endRequest
-            + titleRequest;;
+            + titleRequest;
     }
 
     private BuildGetUserEventsRequest(userId: string, start: Moment, end: Moment): string {
@@ -194,12 +178,12 @@ export class DatabaseService {
     }
 
     private BuildUpdateEventRequest(event: Event): string {
-        let titleRequest = event.Title ? '&title=' + event.Title : '';
-        let startRequest = event.StartDate ? '&start=' + event.StartDate.toISOString() : '';
-        let endRequest = event.EndDate ? '&end=' + event.EndDate.toISOString() : '';
-        let descriptionRequest = event.Description ? '&desc=' + event.Description : '';
+        let titleRequest = event.title ? '&title=' + event.title : '';
+        let startRequest = event.startDate ? '&start=' + event.startDate.toISOString() : '';
+        let endRequest = event.endDate ? '&end=' + event.endDate.toISOString() : '';
+        let descriptionRequest = event.description ? '&desc=' + event.description : '';
         return this.server + '/api/events?'
-            + 'Event=' + event.Id
+            + 'Event=' + event.id
             + titleRequest
             + startRequest
             + endRequest
@@ -208,7 +192,10 @@ export class DatabaseService {
 
     private BuildUserFromResponse(response: any): User {
         if (response && response.data) {
-            return new User(response.data._id, response.data.first, response.data.last, response.data.pass, response.data.email, response.data.gender, response.data.facebook_id, response.data.picture_uri, response.data.school);
+            return new User(response.data._id, response.data.first, response.data.last,
+              response.data.pass, response.data.email, response.data.gender,
+              response.data.facebook_id, response.data.picture_uri, 
+              response.data.school, response.data.theme);
         }
         return new User();
     }

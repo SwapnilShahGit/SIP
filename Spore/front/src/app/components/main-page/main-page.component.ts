@@ -1,7 +1,5 @@
-import { StaticNavBar } from '../static-nav/static-nav.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import { Http, Response } from '@angular/http';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
 import { Subscription } from 'rxjs/Subscription';
@@ -15,14 +13,14 @@ import { Observable } from 'rxjs/Rx';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  private CurrentTab: string;
+  private currentTab: string;
   private slideOutWidth: string = '0px';
   private bodyLeftMargin: string = '0px';
   private bodyWidth: string = 'auto';
   private bodyHeight = '0px';
-  subscription: Subscription;
-  user: Observable<User>;
-  userID: string;
+  private subscription: Subscription;
+  private user: Observable<User>;
+  private userID: string;
 
   constructor(
     private router: Router,
@@ -30,7 +28,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private databaseService: DatabaseService,
     private navService: NavService
   ) {
-    this.CurrentTab = navService.CalendarTab;
+    this.currentTab = navService.calendarTab;
     this.subscription = navService.navOpen$.subscribe(
       isOpen => {
         if (isOpen) {
@@ -42,7 +40,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.user = this.databaseService.user;
     console.log('_______ in main _______');
     this.activatedRouter.params.forEach((params: Params) => {
@@ -53,11 +51,15 @@ export class MainPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  navigateToLoginPage() {
+  public ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  public navigateToLoginPage() {
     this.router.navigate(['/login']);
   }
 
-  openNav() {
+  public openNav() {
     if (window.innerWidth <= 767) {
       this.slideOutWidth = window.innerWidth.toString() + 'px';
       this.bodyLeftMargin = '0px';
@@ -72,22 +74,18 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   }
 
-  closeNav() {
+  public closeNav() {
     this.slideOutWidth = '0px';
     this.bodyLeftMargin = '0px';
     this.bodyWidth = 'auto';
     this.bodyHeight = '0px';
   }
 
-  switchTabs(newTab) {
-    this.CurrentTab = newTab;
+  public switchTabs(newTab) {
+    this.currentTab = newTab;
     if (window.innerHeight <= 767) {
       this.closeNav();
     }
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
 }
