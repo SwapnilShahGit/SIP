@@ -1,16 +1,16 @@
 
 export class Event implements IEvent {
-    Id: string;
-    Title: string;
-    StartDate: Date;
-    EndDate: Date;
-    Description: string;
+    public id: string;
+    public title: string;
+    public startDate: Date;
+    public endDate: Date;
+    public description: string;
 }
 
 export interface IEvent {
-    Id: string;
-    Title: string;
-    StartDate: Date;
-    EndDate: Date;
-    Description: string;
+    id: string;
+    title: string;
+    startDate: Date;
+    endDate: Date;
+    description: string;
 }
