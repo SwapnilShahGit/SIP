@@ -40,7 +40,7 @@ export class SettingsComponent implements OnInit {
   public ngOnInit() {
     var fbCon: FBConnector = new FBConnector(this.fbKey);
     fbCon.initFB();
-    if (this.user.Gender == 'male') {
+    if (this.user.gender == 'male') {
       this.checkedGender.male = 'checked';
     } else {
       this.checkedGender.female = 'checked';
@@ -57,13 +57,13 @@ export class SettingsComponent implements OnInit {
   public updateUser() {
     this.closeAlert(true);
     let tempUser = this.user;
-    if (this.temporaryProfilePicture == '' || this.temporaryProfilePicture == this.user.PictureURL) {
-      tempUser.PictureURL = this.user.PictureURL;
+    if (this.temporaryProfilePicture == '' || this.temporaryProfilePicture == this.user.pictureURL) {
+      tempUser.pictureURL = this.user.pictureURL;
     } else {
-      tempUser.PictureURL = this.temporaryProfilePicture;
+      tempUser.pictureURL = this.temporaryProfilePicture;
     }
 
-    tempUser.Theme = this.user.Theme;
+    tempUser.theme = this.user.theme;
     this.databaseService.updateUser(tempUser).then(response => {
       if (response.error != '0') {
         window.alert('Error occured during update API call: ' + response.data);
