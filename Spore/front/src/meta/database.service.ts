@@ -134,30 +134,11 @@ export class DatabaseService {
     }
 
     private BuildPutUserRequest(user: User): string {
-      return this.server + '/api/users?'
-            + 'user=' + encodeURIComponent(user.userID)
-            + '&fb=' + encodeURIComponent(user.facebookID)
-            + '&email=' + encodeURIComponent(user.email)
-            + '&last=' + encodeURIComponent(user.lastName)
-            + '&first=' + encodeURIComponent(user.firstName)
-            + '&pic=' + encodeURIComponent(user.pictureURL)
-            + '&pass=' + encodeURIComponent(user.password)
-            + '&gender=' + encodeURIComponent(user.gender)
-            + '&school=' + encodeURIComponent(user.school)
-            + '&theme=' + encodeURIComponent(user.theme);
+      return this.server + '/api/users';
     }
 
     private BuildPostUserRequest(user: User): string {
-        return this.server + '/api/users?'
-            + 'fb=' + encodeURIComponent(user.facebookID)
-            + '&email=' + encodeURIComponent(user.email)
-            + '&last=' + encodeURIComponent(user.lastName)
-            + '&first=' + encodeURIComponent(user.firstName)
-            + '&pic=' + encodeURIComponent(user.pictureURL)
-            + '&pass=' + encodeURIComponent(user.password)
-            + '&gender=' + encodeURIComponent(user.gender)
-            + '&school=' + encodeURIComponent(user.school)
-            + '&theme=' + encodeURIComponent(user.theme);
+        return this.server + '/api/users';
     }
 
     private BuildEchoRequest(something: string): string {
@@ -213,7 +194,8 @@ export class DatabaseService {
         if (response && response.data) {
             return new User(response.data._id, response.data.first, response.data.last,
               response.data.pass, response.data.email, response.data.gender,
-              response.data.facebook_id, response.data.picture_uri, response.data.school);
+              response.data.facebook_id, response.data.picture_uri, 
+              response.data.school, response.data.theme);
         }
         return new User();
     }
