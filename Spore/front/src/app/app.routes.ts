@@ -1,12 +1,9 @@
-/**
- * Created by anatale on 10/11/2016.
- */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginPageComponent } from './components/login-page/login-page.component';
-import {MainPageComponent} from './components/main-page/main-page.component';
-import {SignUpPageComponent} from './components/signup-page/signup-page.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { SignUpPageComponent } from './components/signup-page/signup-page.component';
 
 const routes: Routes = [
   {

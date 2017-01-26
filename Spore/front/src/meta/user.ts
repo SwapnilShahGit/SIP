@@ -10,7 +10,9 @@ export class User implements IUser {
   public facebookID: string;
   public pictureURL: string;
   public school: string;
-  public theme: string;
+  public theme: Theme;
+
+  public facebookDefaultPicture: string = 'https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50/p50x50/10354686_10150004552801856_220367501106153455_n.jpg?oh=6c801f82cd5a32fd6e5a4258ce00a314&oe=589AAD2F';
 
   constructor(userID?: string, firstName?: string, lastName?: string, password?: string,
               email?: string, gender?: string, facebookId?: string, pic?: string,
@@ -22,12 +24,17 @@ export class User implements IUser {
     this.email = email || '';
     this.gender = gender || '';
     this.facebookID = facebookId || '';
-    this.pictureURL = pic || 'https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50/p50x50/10354686_' +
-      '10150004552801856_220367501106153455_n.jpg?oh=6c801f82cd5a32fd6e5a4258ce00a314&oe=589AAD2F';
+    this.pictureURL = pic || this.facebookDefaultPicture;
     this.school = school || '';
-    this.theme = theme || 'Default';
+    this.theme = theme || new Theme();
   }
 
+}
+
+export class Theme {
+  PrimaryColour: String = '#f1ae03';
+  SecondaryColour: String = '#2c5268';
+  TertiaryColour: String = '#ec4040';
 }
 
 export interface IUser {
@@ -40,6 +47,6 @@ export interface IUser {
   facebookID: string;
   pictureURL: string;
   school: string;
-  theme: string;
+  theme: Theme;
 }
 
