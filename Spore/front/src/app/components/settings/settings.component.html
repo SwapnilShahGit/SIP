@@ -8,22 +8,22 @@
 
       <label>First Name</label><br>
       <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
-        [(ngModel)]="user.FirstName" [textValue]="user.FirstName" ngDefaultControl></text-box><br><br>
+        [(ngModel)]="user.firstName" [textValue]="user.firstName" ngDefaultControl></text-box><br><br>
 
       <label>Last Name</label><br>
       <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
-        [(ngModel)]="user.LastName" [textValue]="user.LastName" ngDefaultControl></text-box><br><br>
+        [(ngModel)]="user.lastName" [textValue]="user.lastName" ngDefaultControl></text-box><br><br>
 
       <label>School</label><br>
-      <select *ngIf="user.UserID != ''" [(ngModel)]="user.School" ngDefaultControl>
-        <option *ngFor="let school of supportedSchools" [selected]="school === user.School">{{school}}</option>
+      <select *ngIf="user.userID != ''" [(ngModel)]="user.school" ngDefaultControl>
+        <option *ngFor="let school of supportedSchools" [selected]="school === user.school">{{school}}</option>
       </select><br><br>
 
       <label>Gender</label><br>
-      <div *ngIf="user.UserID != ''" class="gender-container">
-        <input type="radio" name="gender" value="male" checked="{{checkedGender.male}}" [(ngModel)]="user.Gender"
+      <div *ngIf="user.userID != ''" class="gender-container">
+        <input type="radio" name="gender" value="male" checked="{{checkedGender.male}}" [(ngModel)]="user.gender"
           ngDefaultControl><span class="check-box">Male</span>
-        <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.Gender"
+        <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.gender"
           ngDefaultControl><span class="check-box">Female</span><br>
       </div>
 
@@ -34,7 +34,7 @@
       <h2>Profile Picture:</h2>
       <div class="or-line"></div>
 
-      <img *ngIf="user.PictureURL != user.FacebookDefaultPicture" class="profile-picture" src="{{temporaryProfilePicture != '' ? temporaryProfilePicture : user.PictureURL}}" alt="Profile Picture"><br><br>
+      <img *ngIf="user.pictureURL != user.facebookDefaultPicture" class="profile-picture" src="{{temporaryProfilePicture != '' ? temporaryProfilePicture : user.pictureURL}}" alt="Profile Picture"><br><br>
 
       <button class="btn-primary button lg" (click)="setFacebookPicture()">Facebook Picture</button>
       <button class="btn-primary button lg" (click)="randomizePicture()">Randomize Picture</button><br>
@@ -60,15 +60,15 @@
       <div class="or-line"></div>
 
       <label>Primary</label><br>
-      <button *ngIf="user.UserID != ''" class="button lg high" [(colorPicker)]="user.Theme.PrimaryColour"  [cpAlphaChannel]="'disabled'" [style.background]="user.Theme.PrimaryColour"
+      <button *ngIf="user.userID != ''" class="button lg high" [(colorPicker)]="user.theme.primaryColour"  [cpAlphaChannel]="'disabled'" [style.background]="user.theme.primaryColour"
         [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
 
       <label>Secondary</label><br>
-      <button *ngIf="user.UserID != ''" class="button lg high" [(colorPicker)]="user.Theme.SecondaryColour" [cpAlphaChannel]="'disabled'" [style.background]="user.Theme.SecondaryColour"
+      <button *ngIf="user.userID != ''" class="button lg high" [(colorPicker)]="user.theme.secondaryColour" [cpAlphaChannel]="'disabled'" [style.background]="user.theme.secondaryColour"
         [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
 
       <label>Tertiary</label><br>
-      <button *ngIf="user.UserID != ''" class="button lg high" [(colorPicker)]="user.Theme.TertiaryColour" [cpAlphaChannel]="'disabled'" [style.background]="user.Theme.TertiaryColour"
+      <button *ngIf="user.userID != ''" class="button lg high" [(colorPicker)]="user.theme.tertiaryColour" [cpAlphaChannel]="'disabled'" [style.background]="user.theme.tertiaryColour"
         [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
 
     </div>
