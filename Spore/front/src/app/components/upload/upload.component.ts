@@ -8,16 +8,18 @@ import { FileUploader } from 'ng2-file-upload';
 })
 export class UploadComponent implements OnInit {
 
-    private server: string = ENV == "production" ? "https://spore.life" : "https://localhost:8081";
+    private server: string = ENV === 'production'
+      ? 'https://spore.life' : 'https://localhost:8081';
     private maxFileSize = 1024 * 1024 * 15;
-    private uploader: FileUploader = new FileUploader({url: this.server + '/api/parse', maxFileSize: this.maxFileSize});
+    private uploader: FileUploader = new FileUploader(
+      {url: this.server + '/api/parse', maxFileSize: this.maxFileSize});
     private hasBaseDropZoneOver: boolean = false;
 
     constructor(
       private changeDetector: ChangeDetectorRef
     ) { }
 
-    ngOnInit() {
+    public ngOnInit() {
       this.changeDetector.detectChanges();
     }
 
@@ -25,11 +27,11 @@ export class UploadComponent implements OnInit {
       this.hasBaseDropZoneOver = e;
     }
 
-    startUpload(item?) {
+    public startUpload(item?) {
       this.uploader.queue.forEach(i => {
         i.onProgress = (progress: any) => {
           this.changeDetector.detectChanges();
-        }
+        };
       });
 
       if (item) {

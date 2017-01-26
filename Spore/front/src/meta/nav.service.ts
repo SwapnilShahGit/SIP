@@ -5,24 +5,24 @@ import { Subject } from 'rxjs/Subject';
 export class NavService {
 
     // Constants
-    CalendarTab: string = 'CalendarTab';
-    CalculatorTab: string = 'CalculatorTab';
-    CoursesTab: string = 'CoursesTab';
-    RemindersTab: string = 'RemindersTab';
-    FilesTab: string = 'FilesTab';
-    HelpTab: string = 'HelpTab';
-    MapTab: string = 'MapTab';
-    SettingsTab: string = 'SettingsTab';
-    DefaultTab: string = 'DefaultTab';
+    public calendarTab: string = 'CalendarTab';
+    public calculatorTab: string = 'CalculatorTab';
+    public coursesTab: string = 'CoursesTab';
+    public remindersTab: string = 'RemindersTab';
+    public filesTab: string = 'FilesTab';
+    public helpTab: string = 'HelpTab';
+    public mapTab: string = 'MapTab';
+    public settingsTab: string = 'SettingsTab';
+    public defaultTab: string = 'DefaultTab';
 
     // Observable sources
-    private navOpenSource = new Subject<Boolean>();
+    public navOpenSource = new Subject<Boolean>();
 
     // Observable streams
-    navOpen$ = this.navOpenSource.asObservable();
+    public navOpen$ = this.navOpenSource.asObservable();
 
     // Service commands
-    toggleNav(isOpen: boolean) {
+    public toggleNav(isOpen: boolean) {
         this.navOpenSource.next(isOpen);
     }
 }
