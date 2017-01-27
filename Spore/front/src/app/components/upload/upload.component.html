@@ -12,7 +12,10 @@
     </div>
   </div>
   <div style="text-align: center;">
-    <input class="box" type="file" ng2FileSelect multiple [uploader]="uploader" style="margin:0px auto; display:block;padding-left: 50px;" /><br>
+    <button type="button" class="btn btn-primary btn-s">
+      <span class="glyphicon glyphicon-folder-open" style="padding: 5px 10px 0px 0px;"></span><label for="browse-files">Browse Files</label>
+    </button><br><br>
+    <input ng2FileSelect multiple id="browse-files" [uploader]="uploader" class="box" type="file"  style="display:none;" />
   </div>
   <table class="table">
     <thead>
