@@ -11,8 +11,9 @@ export class UploadComponent implements OnInit {
     private server: string = ENV === 'production'
       ? 'https://spore.life' : 'https://localhost:8081';
     private maxFileSize = 1024 * 1024 * 15;
-    private uploader: FileUploader = new FileUploader(
-      {url: this.server + '/api/parse', maxFileSize: this.maxFileSize});
+   
+private uploader: FileUploader = new FileUploader({url: this.server + '/api/parse', maxFileSize: this.maxFileSize, autoUpload: true});
+
     private hasBaseDropZoneOver: boolean = false;
 
     constructor(
