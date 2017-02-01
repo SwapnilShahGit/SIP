@@ -4,15 +4,20 @@
 // -- between 2010-01-01T00:00 and 2020-12-31T24:00
 // -- Created January 5, 2017
 //_________________________________________________________________________________________________
+
 var dj = require('dummy-json');
 var Promise = require ('bluebird');
 var mongoose = require('mongoose');
+require('./models/user');
+require('./models/event');
 var counter = 0;
 
 
 // -- get script arguments
-var numOfEvents = process.argv[2]
+var numOfEvents = process.argv[2];
 var userID = process.argv[3];
+var argStart = process.argv[4];
+var argEnd = process.argv[5];
 
 // -- set up db connection:
 var DATABASE_URI = 'mongodb://localhost/spore';
@@ -34,49 +39,23 @@ mongoose.connection.on( 'disconnected', function() {
 });
 
 
-
-// -- db schema/models
-var Schema = mongoose.Schema;
-
-var eventSchema = new Schema({
-	title: String,
-	start: Date,
-	end: Date,
-	background: String,
-	description: String,
-	location: String,
-	contact: String,
-	course: String,
-	repeat: Number
-});
-
-var userSchema = new Schema({
-	first: String,
-	last: String,
-	pass: String,
-	email: String,
-	gender: String,
-	facebook_id: String,
-	picture_uri: String,
-	event_ids: [Schema.Types.ObjectId],
-	school: String,
-	theme: String
-});
-
-
 // -- function to create give number of events and save into db
 function Populate(){
 	for (var i = 1; i <= numOfEvents; i++){
-		var user = mongoose.model('user', userSchema);
-		var event = mongoose.model('event', eventSchema);
+		var user = mongoose.model('user');
+		var event = mongoose.model('event');
 
-	   var date = '{{date "2015-01-01T00:00" "2020-12-31T24:00" "YYYY-MM-DDThh:mm:ss"}}';
 	   var fewHours ='{{int 1 3600000 round=1000}}';
 	   var sameDay = '{{int 1 86400000 round=1000}}';
 	   var differentDay = '{{int 86400000 604800000 round=1000}}';
 
-		var startTime = Date.parse(dj.parse(date));
+		var first = Date.parse(argStart);
+		var last = Date.parse(argEnd);
+
+
+		var startTime = Math.floor((Math.random() * (last - first +1) ) + first);
 		var endTime ;
+
 
 		// -- longer events will be created less frequently than
 		if ((i%100) == 0){
@@ -94,6 +73,7 @@ function Populate(){
 
 		var eventTitle = dj.parse('{{lorem 10}}');
 
+
 		var event = new event({
 			 title: eventTitle,
 			 start: new Date(startTime),
@@ -104,7 +84,7 @@ function Populate(){
 			counter++;
 			if ((counter+1) == numOfEvents ) console.log("DONE");
 		})).catch(function(err) {
-		 console.log ("ERRROR Saving");
+		 console.log ("Error Saving: " + err);
 		})
 	}
 }
