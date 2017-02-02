@@ -7,6 +7,7 @@ const restify = require('restify');
 const DATABASE_URI = 'mongodb://localhost/spore';
 const HTTP_PORT = process.env.HTTP_PORT || 8080;
 const HTTPS_PORT = process.env.HTTPS_PORT || 8081;
+const REDIRECT_PORT = process.env.REDIRECT_PORT || HTTPS_PORT;
 
 function dropPrivileges() {
 	if (typeof process.env.SPORE_GID !== 'undefined') {
@@ -25,7 +26,7 @@ function getHostname(host) {
 }
 
 function redirectToHttps(req, res, next) {
-	res.redirect('https://' + getHostname(req.headers.host) + ':' + HTTPS_PORT + req.url, next);
+	res.redirect('https://' + getHostname(req.headers.host) + ':' + REDIRECT_PORT + req.url, next);
 }
 
 if (!fs.existsSync('./uploads')){
