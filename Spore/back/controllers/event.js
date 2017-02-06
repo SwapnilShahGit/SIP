@@ -1,3 +1,5 @@
+const logger = require('winston');
+
 const coroutine = global.Promise.coroutine;
 const mongoose = require('mongoose');
 const utility = require('../libs/utility');
@@ -6,7 +8,7 @@ const model = mongoose.model('event');
 const user = mongoose.model('user');
 
 function addEvent(req, res, next) {
-	console.log("adding event");
+	logger.debug("adding event");
 	var event = new model({
 		title: req.body.title,
 		start: req.body.start ? new Date(req.body.start) : undefined,
@@ -42,7 +44,7 @@ function deleteEvent(req, res, next) {
 }
 
 function getEvent(req, res, next) {
-	console.log("fetching event");
+	logger.debug("fetching event");
 	user.findOne({_id: req.query.user}).then(function(doc) {
 		return model.find({
 			_id: {$in: doc.event_ids},

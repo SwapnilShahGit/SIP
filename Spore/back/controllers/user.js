@@ -1,10 +1,12 @@
+const logger = require('winston');
+
 const mongoose = require('mongoose');
 const utility = require('../libs/utility');
 
 const model = mongoose.model('user');
 
 function addUser(req, res, next) {
-	console.log("adding user");
+	logger.debug("adding user");
 	var user = new model({
 		first: req.body.first,
 		last: req.body.last,
@@ -31,7 +33,7 @@ function addUser(req, res, next) {
 }
 
 function getUser(req, res, next) {
-	console.log("fetching user with id:" + req.query.user);
+	logger.debug("fetching user with id:" + req.query.user);
 	var query = {
 		_id: req.query.user,
 		facebook_id: req.query.fb
