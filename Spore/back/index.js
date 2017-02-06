@@ -1,5 +1,16 @@
 global.Promise = require('bluebird');
 
+const logger = require('winston');
+logger.configure({
+	transports: [
+		new (logger.transports.Console)({
+			colorize: true,
+			timestamp: Date.now
+		})
+	]
+});
+logger.level = process.env.LOG_LEVEL || 'debug';
+
 const fs = require('fs');
 const mongoose = require('mongoose');
 const restify = require('restify');
@@ -12,11 +23,11 @@ const REDIRECT_PORT = process.env.REDIRECT_PORT || HTTPS_PORT;
 function dropPrivileges() {
 	if (typeof process.env.SPORE_GID !== 'undefined') {
 		process.setgid(process.env.SPORE_GID);
-		console.log('gid was set to %s', process.getgid());
+		logger.info('gid was set to %s', process.getgid());
 	}
 	if (typeof process.env.SPORE_UID !== 'undefined') {
 		process.setuid(process.env.SPORE_UID);
-		console.log('uid was set to %s', process.getuid());
+		logger.info('uid was set to %s', process.getuid());
 	}
 }
 
@@ -38,15 +49,15 @@ mongoose.Promise = global.Promise;
 mongoose.connect(DATABASE_URI);
 
 mongoose.connection.on( 'connected', function() {
-	console.log('Mongoose connected to ' + DATABASE_URI);
+	logger.info('Mongoose connected to ' + DATABASE_URI);
 });
 
 mongoose.connection.on( 'error', function( err ) {
-	console.log('Mongoose connection error: ' + err);
+	logger.error('Mongoose connection error: ' + err);
 });
 
 mongoose.connection.on( 'disconnected', function() {
-	console.log('Mongoose connection disconnected');
+	logger.info('Mongoose connection disconnected');
 });
 
 var server = restify.createServer({
@@ -82,9 +93,9 @@ require('./models/index');
 require('./controllers/index')(server);
 
 server.listen(HTTPS_PORT || 8081, function() {
-	console.log('%s listening at %s', server.name, server.url);
+	logger.info('%s listening at %s', server.name, server.url);
 	httpServer.listen(HTTP_PORT || 8080, function() {
-		console.log('%s listening at %s', httpServer.name, httpServer.url);
+		logger.info('%s listening at %s', httpServer.name, httpServer.url);
 		dropPrivileges();
 	});
 });
