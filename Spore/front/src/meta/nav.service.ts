@@ -14,6 +14,7 @@ export class NavService {
     public mapTab: string = 'MapTab';
     public settingsTab: string = 'SettingsTab';
     public defaultTab: string = 'DefaultTab';
+    public friendsTab: string = 'FriendsTab';
 
     // Observable sources
     public navOpenSource = new Subject<Boolean>();
