@@ -11,6 +11,7 @@
     <a class="sidenav-item" [class.selected]="this.currentTab === 'CoursesTab'" (click)="switchTabs('CoursesTab')"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'RemindersTab'" (click)="switchTabs('RemindersTab')"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'FilesTab'" (click)="switchTabs('FilesTab')"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'FriendsTab'" (click)="switchTabs('FriendsTab')"><span class="fa fa-heart sidenav-icon"></span>Friends</a>
     <br> <span class="sidenav-header">More</span>
     <hr class="sidenav-hr">
     <a class="sidenav-item" [class.selected]="this.currentTab === 'HelpTab'" (click)="switchTabs('HelpTab')"><span class="fa fa-lg fa-question-circle sidenav-icon"></span>Help</a>
@@ -100,6 +101,10 @@
     <div *ngIf="currentTab == this.navService.mapTab" style="padding-bottom:50px">
       <iframe width="800" height="600" frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB3-mPp46IkYBRCmyLnx_DmJeL7RZzII1A&q=SOTI Inc.,Hurontario Street #1100,Mississauga,ON"
         allowfullscreen></iframe>
+    </div>
+
+    <div *ngIf="currentTab == this.navService.friendsTab">
+      <friends-page></friends-page>
     </div>
 
   </div>
