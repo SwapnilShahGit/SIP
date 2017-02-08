@@ -22,6 +22,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { ColorPickerModule } from 'angular2-color-picker';
+import { FriendsPageComponent } from './components/friends-page/friends-page.component';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -66,7 +67,8 @@ type StoreType = {
     SettingsComponent,
     UploadComponent,
     FileSelectDirective,
-    FileDropDirective
+    FileDropDirective,
+    FriendsPageComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
