@@ -1,0 +1,22 @@
+<div *ngIf="courses" class="panel-group" id="courses-accordion">
+  <div *ngFor="let course of courses" class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#courses-accordion" href="#{{course.id}}">
+        {{course.code}} w/ {{course.instructor}}</a>
+      </h4>
+    </div>
+    <div id="{{course.id}}" class="panel-collapse collapse">
+      <div class="panel-body">
+        {{course.description}}
+      </div>
+      <div class="panel-footer">
+        <button>Some button</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!courses">
+  <h1>Ooops! Either courses tab failed to load, or you haven't uploaded any.</h1>
+</div>
