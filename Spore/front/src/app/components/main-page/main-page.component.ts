@@ -30,7 +30,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private navService: NavService,
     private cookieService: CookieService
   ) {
-    this.currentTab = navService.calendarTab;
+    this.currentTab = navService.coursesTab;
     this.subscription = navService.navOpen$.subscribe(
       isOpen => {
         if (isOpen) {

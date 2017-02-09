@@ -25,6 +25,7 @@ import { ColorPickerModule } from 'angular2-color-picker';
 import { FriendsPageComponent } from './components/friends-page/friends-page.component';
 import { SporeDialogComponent } from './components/minor-page-elements/spore-dialog/spore-dialog.component';
 import { CookieService } from 'angular2-cookie';
+import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -72,7 +73,8 @@ type StoreType = {
     FileSelectDirective,
     FileDropDirective,
     FriendsPageComponent,
-    SporeDialogComponent
+    SporeDialogComponent,
+    CoursesPageComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
