@@ -1,0 +1,18 @@
+textarea {
+  resize: vertical;
+  max-height: 160px;
+}
+
+.panel-default > .panel-heading-custom {
+  background-image: none;
+  background-color: #f07c4a;
+  color: #ffffff;
+  height: 50px;
+  text-align: left;
+}
+
+.panel-chevron-style {
+  padding: 4px;
+  margin: 2px;
+  width: 24px;
+}
