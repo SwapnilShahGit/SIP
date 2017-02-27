@@ -10,8 +10,8 @@ function redirectToFront(req, res, err, next) {
 	res.redirect('https://' + req.headers.host + '/#' + req.url, next);
 }
 
-module.exports = function(server) {
-	fs.readdirSync('./controllers').forEach(function(file) {
+module.exports = function (server) {
+	fs.readdirSync('./controllers').forEach(function (file) {
 		if (file.substr(-3) == '.js' && file != 'index.js') {
 			require('./' + file)(server);
 		}

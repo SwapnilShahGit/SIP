@@ -20,13 +20,13 @@ function addUser(req, res, next) {
 		theme: req.body.theme
 	});
 	user.save(user)
-		.then(function(doc) {
+		.then(function (doc) {
 			res.send({
 				error: 0,
 				data: doc
 			});
 		})
-		.catch(function(err) {
+		.catch(function (err) {
 			res.send({
 				error: 110,
 				data: err
@@ -43,7 +43,7 @@ function getUser(req, res, next) {
 	};
 	utility.removeUndefined(query);
 	model.findOne(query)
-		.then(function(user) {
+		.then(function (user) {
 			if (user === null) {
 				res.send({
 					error: 110,
@@ -56,7 +56,7 @@ function getUser(req, res, next) {
 				});
 			}
 		})
-		.catch(function(err) {
+		.catch(function (err) {
 			res.send({
 				error: 110,
 				data: "Unknown error."
@@ -80,13 +80,13 @@ function updateUser(req, res, next) {
 	};
 	utility.removeUndefined(updated);
 	model.findByIdAndUpdate(req.body.user, updated)
-		.then(function(doc) {
+		.then(function (doc) {
 			res.send({
 				error: 0,
 				data: doc
 			});
 		})
-		.catch(function(err) {
+		.catch(function (err) {
 			res.send({
 				error: 110,
 				data: err
@@ -95,7 +95,7 @@ function updateUser(req, res, next) {
 		.finally(next);
 }
 
-module.exports = function(server) {
+module.exports = function (server) {
 	server.get('/api/users', getUser);
 	server.post('/api/users', addUser);
 	server.put('/api/users', updateUser);

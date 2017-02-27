@@ -21,14 +21,14 @@ function addEvent(req, res, next) {
 		repeat: req.body.repeat
 	});
 	event.save(event)
-		.then(coroutine(function* (doc) {
+		.then(coroutine(function*(doc) {
 			yield user.update({_id: req.body.user}, {$push: {event_ids: doc.id}});
 			res.send({
 				error: 0,
 				data: doc
 			});
 		}))
-		.catch(function(err) {
+		.catch(function (err) {
 			res.send({
 				error: 110,
 				data: err
@@ -39,10 +39,10 @@ function addEvent(req, res, next) {
 
 function deleteEvent(req, res, next) {
 	user.update({_id: req.query.user}, {$pull: {event_ids: req.query.event}})
-		.then(function(doc) {
+		.then(function (doc) {
 			res.send(200);
 		})
-		.catch(function(err) {
+		.catch(function (err) {
 			res.send(404);
 		})
 		.finally(next);
@@ -51,14 +51,14 @@ function deleteEvent(req, res, next) {
 function getEvent(req, res, next) {
 	logger.debug("fetching event");
 	user.findOne({_id: req.query.user})
-		.then(function(doc) {
+		.then(function (doc) {
 			return model.find({
 				_id: {$in: doc.event_ids},
 				start: {$gte: req.query.start ? new Date(req.query.start) : null},
 				end: {$lte: req.query.end ? new Date(req.query.end) : null}
 			});
 		})
-		.then(function(doc) {
+		.then(function (doc) {
 			if (doc === null) {
 				res.send({
 					error: 110,
@@ -71,7 +71,7 @@ function getEvent(req, res, next) {
 				});
 			}
 		})
-		.catch(function(err) {
+		.catch(function (err) {
 			res.send({
 				error: 110,
 				data: "Unknown error."
@@ -94,13 +94,13 @@ function updateEvent(req, res, next) {
 	};
 	utility.removeUndefined(updated);
 	model.findByIdAndUpdate(req.body.event, updated)
-		.then(function(doc) {
+		.then(function (doc) {
 			res.send({
 				error: 0,
 				data: doc
 			});
 		})
-		.catch(function(err) {
+		.catch(function (err) {
 			res.send({
 				error: 110,
 				data: err
@@ -109,7 +109,7 @@ function updateEvent(req, res, next) {
 		.finally(next);
 }
 
-module.exports = function(server) {
+module.exports = function (server) {
 	server.del('/api/events', deleteEvent);
 	server.get('/api/events', getEvent);
 	server.post('/api/events', addEvent);
