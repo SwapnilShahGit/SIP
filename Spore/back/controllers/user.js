@@ -19,17 +19,20 @@ function addUser(req, res, next) {
 		school: req.body.school,
 		theme: req.body.theme
 	});
-	user.save(user).then(function(doc) {
-		res.send({
-			error: 0,
-			data: doc
-		});
-	}).catch(function(err) {
-		res.send({
-			error: 110,
-			data: err
-		});
-	}).finally(next);
+	user.save(user)
+		.then(function(doc) {
+			res.send({
+				error: 0,
+				data: doc
+			});
+		})
+		.catch(function(err) {
+			res.send({
+				error: 110,
+				data: err
+			});
+		})
+		.finally(next);
 }
 
 function getUser(req, res, next) {
@@ -39,24 +42,27 @@ function getUser(req, res, next) {
 		facebook_id: req.query.fb
 	};
 	utility.removeUndefined(query);
-	model.findOne(query).then(function(user) {
-		if (user === null) {
+	model.findOne(query)
+		.then(function(user) {
+			if (user === null) {
+				res.send({
+					error: 110,
+					data: "User not found."
+				});
+			} else {
+				res.send({
+					error: 0,
+					data: user
+				});
+			}
+		})
+		.catch(function(err) {
 			res.send({
 				error: 110,
-				data: "User not found."
+				data: "Unknown error."
 			});
-		} else {
-			res.send({
-				error: 0,
-				data: user
-			});
-		}
-	}).catch(function(err) {
-		res.send({
-			error: 110,
-			data: "Unknown error."
-		});
-	}).finally(next);
+		})
+		.finally(next);
 }
 
 function updateUser(req, res, next) {
@@ -73,17 +79,20 @@ function updateUser(req, res, next) {
 		theme: req.body.theme
 	};
 	utility.removeUndefined(updated);
-	model.findByIdAndUpdate(req.body.user, updated).then(function(doc) {
-		res.send({
-			error: 0,
-			data: doc
-		});
-	}).catch(function(err) {
-		res.send({
-			error: 110,
-			data: err
-		});
-	}).finally(next);
+	model.findByIdAndUpdate(req.body.user, updated)
+		.then(function(doc) {
+			res.send({
+				error: 0,
+				data: doc
+			});
+		})
+		.catch(function(err) {
+			res.send({
+				error: 110,
+				data: err
+			});
+		})
+		.finally(next);
 }
 
 module.exports = function(server) {
