@@ -9,7 +9,7 @@ const user = mongoose.model('user');
 
 function addEvent(req, res, next) {
 	logger.debug("adding event");
-	var event = new model({
+	let event = new model({
 		title: req.body.title,
 		start: req.body.start ? new Date(req.body.start) : undefined,
 		end: req.body.end ? new Date(req.body.end) : undefined,
@@ -72,7 +72,7 @@ function getEvent(req, res, next) {
 }
 
 function updateEvent(req, res, next) {
-	var updated = {
+	let updated = {
 		title: req.body.title,
 		start: req.body.start ? new Date(req.body.start) : undefined,
 		end: req.body.end ? new Date(req.body.end) : undefined,
@@ -102,4 +102,4 @@ module.exports = function(server) {
 	server.get('/api/events', getEvent);
 	server.post('/api/events', addEvent);
 	server.put('/api/events', updateEvent);
-}
+};
