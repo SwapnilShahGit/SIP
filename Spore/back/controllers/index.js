@@ -27,7 +27,7 @@ module.exports = function(server) {
 	}));
 
 	server.on('ResourceNotFound', redirectToFront);
-}
+};
 
 
 
