@@ -7,7 +7,7 @@ const model = mongoose.model('user');
 
 function addUser(req, res, next) {
 	logger.debug("adding user");
-	var user = new model({
+	let user = new model({
 		first: req.body.first,
 		last: req.body.last,
 		pass: req.body.pass,
@@ -34,7 +34,7 @@ function addUser(req, res, next) {
 
 function getUser(req, res, next) {
 	logger.debug("fetching user with id:" + req.query.user);
-	var query = {
+	let query = {
 		_id: req.query.user,
 		facebook_id: req.query.fb
 	};
@@ -60,7 +60,7 @@ function getUser(req, res, next) {
 }
 
 function updateUser(req, res, next) {
-	var updated = {
+	let updated = {
 		first: req.body.first,
 		last: req.body.last,
 		pass: req.body.pass,
@@ -90,4 +90,4 @@ module.exports = function(server) {
 	server.get('/api/users', getUser);
 	server.post('/api/users', addUser);
 	server.put('/api/users', updateUser);
-}
+};

@@ -1,6 +1,6 @@
 function removeUndefined(obj) {
-	for (var property in obj) {
-		if (typeof obj[property] === 'undefined') {
+	for (let property in obj) {
+		if (obj.hasOwnProperty(property) && typeof obj[property] === 'undefined') {
 			delete obj[property];
 		}
 	}
