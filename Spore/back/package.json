@@ -2,8 +2,10 @@
 	"name": "back-end",
 	"scripts": {
 		"genssl": "genssl.sh",
-		"start": "genssl.sh && node index.js",
-		"start:aws": "node index.js"
+		"start": "npm run genssl && node index.js",
+		"start:aws": "node index.js",
+		"start:debug": "npm run genssl && node --debug-brk index.js",
+		"start:inspect": "npm run genssl && node --inspect --debug-brk index.js"
 	},
 	"dependencies": {
 		"bluebird": "3.4.7",
@@ -13,7 +15,7 @@
 		"winston": "2.3.1"
 	},
 	"engines": {
-		"node": ">= 6.0",
+		"node": ">= 6.3",
 		"npm": ">= 3.10.2"
 	}
 }
