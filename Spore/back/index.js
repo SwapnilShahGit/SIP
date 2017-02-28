@@ -32,7 +32,7 @@ function dropPrivileges() {
 }
 
 function getHostname(host) {
-	var tokens = host.split(':');
+	let tokens = host.split(':');
 	return tokens[0];
 }
 
@@ -60,13 +60,13 @@ mongoose.connection.on( 'disconnected', function() {
 	logger.info('Mongoose connection disconnected');
 });
 
-var server = restify.createServer({
+let server = restify.createServer({
 	certificate: fs.readFileSync(process.env.CERT || 'cert.pem'),
 	key: fs.readFileSync(process.env.KEY || 'key.pem'),
 	name: 'Spore'
 });
 
-var httpServer = restify.createServer({
+let httpServer = restify.createServer({
 	name: 'HTTP Redirection Server'
 });
 
