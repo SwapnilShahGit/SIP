@@ -18,9 +18,9 @@ function java(req, res, next) {
 		output: child.stdin
 	})
 
-	rl.on('line', function(data) {
+	rl.on('line', function (data) {
 		var courseinfo = JSON.parse(data);
-		dbController.javaSaveEvent(courseinfo.mongodbevents, function(stat){
+		dbController.javaSaveEvent(courseinfo.mongodbevents, function (stat) {
 			// add events to listOfCourseEvents
 			listOfCourseEvents.concat(stat);
 		});
@@ -40,6 +40,6 @@ function saveCoursetoUser(req, res, next) {
 function parse(req, res, next) {
 	res.send(200);
 }
-module.exports = function(server) {
+module.exports = function (server) {
 	server.post('/api/parse', parse);
 }
