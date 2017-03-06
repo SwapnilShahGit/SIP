@@ -40,23 +40,23 @@ function redirectToHttps(req, res, next) {
 	res.redirect('https://' + getHostname(req.headers.host) + ':' + REDIRECT_PORT + req.url, next);
 }
 
-if (!fs.existsSync('./uploads')){
-    fs.mkdirSync('./uploads');
+if (!fs.existsSync('./uploads')) {
+	fs.mkdirSync('./uploads');
 }
 
 mongoose.Promise = global.Promise;
 
 mongoose.connect(DATABASE_URI);
 
-mongoose.connection.on( 'connected', function() {
+mongoose.connection.on('connected', function () {
 	logger.info('Mongoose connected to ' + DATABASE_URI);
 });
 
-mongoose.connection.on( 'error', function( err ) {
+mongoose.connection.on('error', function (err) {
 	logger.error('Mongoose connection error: ' + err);
 });
 
-mongoose.connection.on( 'disconnected', function() {
+mongoose.connection.on('disconnected', function () {
 	logger.info('Mongoose connection disconnected');
 });
 
@@ -92,9 +92,9 @@ server.use(restify.queryParser({
 require('./models/index');
 require('./controllers/index')(server);
 
-server.listen(HTTPS_PORT || 8081, function() {
+server.listen(HTTPS_PORT || 8081, function () {
 	logger.info('%s listening at %s', server.name, server.url);
-	httpServer.listen(HTTP_PORT || 8080, function() {
+	httpServer.listen(HTTP_PORT || 8080, function () {
 		logger.info('%s listening at %s', httpServer.name, httpServer.url);
 		dropPrivileges();
 	});

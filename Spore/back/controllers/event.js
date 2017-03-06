@@ -20,55 +20,64 @@ function addEvent(req, res, next) {
 		course: req.body.course,
 		repeat: req.body.repeat
 	});
-	event.save(event).then(coroutine(function* (doc) {
-		yield user.update({_id: req.body.user}, {$push: {event_ids: doc.id}});
-		res.send({
-			error: 0,
-			data: doc
-		});
-	})).catch(function(err) {
-		res.send({
-			error: 110,
-			data: err
-		});
-	}).finally(next);
-}
-
-function deleteEvent(req, res, next) {
-	user.update({_id: req.query.user}, {$pull: {event_ids: req.query.event}})
-		.then(function(doc) {
-			res.send(200);
-		}).catch(function(err) {
-			res.send(404);
-		}).finally(next);
-}
-
-function getEvent(req, res, next) {
-	logger.debug("fetching event");
-	user.findOne({_id: req.query.user}).then(function(doc) {
-		return model.find({
-			_id: {$in: doc.event_ids},
-			start: {$gte: req.query.start ? new Date(req.query.start) : null},
-			end: {$lte: req.query.end ? new Date(req.query.end) : null}
-		});
-	}).then(function(doc) {
-		if (doc === null) {
-			res.send({
-				error: 110,
-				data: "Event not found."
-			});
-		} else {
+	event.save(event)
+		.then(coroutine(function*(doc) {
+			yield user.update({_id: req.body.user}, {$push: {event_ids: doc.id}});
 			res.send({
 				error: 0,
 				data: doc
 			});
-		}
-	}).catch(function(err) {
-		res.send({
-			error: 110,
-			data: "Unknown error."
-		});
-	}).finally(next);
+		}))
+		.catch(function (err) {
+			res.send({
+				error: 110,
+				data: err
+			});
+		})
+		.finally(next);
+}
+
+function deleteEvent(req, res, next) {
+	user.update({_id: req.query.user}, {$pull: {event_ids: req.query.event}})
+		.then(function (doc) {
+			res.send(200);
+		})
+		.catch(function (err) {
+			res.send(404);
+		})
+		.finally(next);
+}
+
+function getEvent(req, res, next) {
+	logger.debug("fetching event");
+	user.findOne({_id: req.query.user})
+		.then(function (doc) {
+			return model.find({
+				_id: {$in: doc.event_ids},
+				start: {$gte: req.query.start ? new Date(req.query.start) : null},
+				end: {$lte: req.query.end ? new Date(req.query.end) : null}
+			});
+		})
+		.then(function (doc) {
+			if (doc === null) {
+				res.send({
+					error: 110,
+					data: "Event not found."
+				});
+			} else {
+				res.send({
+					error: 0,
+					data: doc
+				});
+			}
+		})
+		.catch(function (err) {
+			res.send({
+				error: 110,
+				data: "Unknown error."
+			});
+		})
+		.finally(next);
 }
 
 function updateEvent(req, res, next) {
@@ -84,20 +93,23 @@ function updateEvent(req, res, next) {
 		repeat: req.body.repeat
 	};
 	utility.removeUndefined(updated);
-	model.findByIdAndUpdate(req.body.event, updated).then(function(doc) {
-		res.send({
-			error: 0,
-			data: doc
-		});
-	}).catch(function(err) {
-		res.send({
-			error: 110,
-			data: err
-		});
-	}).finally(next);
+	model.findByIdAndUpdate(req.body.event, updated)
+		.then(function (doc) {
+			res.send({
+				error: 0,
+				data: doc
+			});
+		})
+		.catch(function (err) {
+			res.send({
+				error: 110,
+				data: err
+			});
+		})
+		.finally(next);
 }
 
-module.exports = function(server) {
+module.exports = function (server) {
 	server.del('/api/events', deleteEvent);
 	server.get('/api/events', getEvent);
 	server.post('/api/events', addEvent);
