@@ -1,7 +1,11 @@
-<div *ngIf="courses" class="panel-group" id="courses-accordion">
+<div *ngIf="!courses || courses.length == 0">
+  <h2>Looks like you dont have any courses uploaded!</h2>
+  <h4>Upload your syllabus above or click plus button to manually add a course.</h4>
+</div>
+<div *ngIf="courses && courses.length > 0" class="panel-group" id="courses-accordion">
   <div *ngFor="let course of courses" class="panel panel-default">
     <div class="panel-heading panel-heading-custom">
-      <a data-toggle="collapse" data-parent="#courses-accordion" href="#{{course.id}}" (click)="switchSlide(course);">
+      <a class="oneLineText" data-toggle="collapse" data-parent="#courses-accordion" href="#{{course.id}}" (click)="switchSlide(course);">
         <h4 class="panel-title">
           <span *ngIf="course.id == currentSlide" class="fa fa-chevron-down panel-chevron-style"></span>
           <span *ngIf="course.id != currentSlide" class="fa fa-chevron-right panel-chevron-style"></span>
@@ -16,98 +20,89 @@
             <div class="container-fluid form-group row">
               <label class="col-sm-2 col-form-label">Course:</label>
               <div class="col-sm-10">
-                <input class="form-control" type="text" value="{{course.code}}">
+                <input class="form-control" type="text" [value]="course.code" (input)="course.code = $event.target.value">
               </div>
             </div>
             <div class="container-fluid form-group row">
               <label for="inputPassword" class="col-sm-2 col-form-label">Instructor:</label>
               <div class="col-sm-10">
-                <input class="form-control" type="text" value="{{course.instructor}}">
+                <input class="form-control" type="text" [value]="course.instructor" (input)="course.instructor = $event.target.value">
               </div>
             </div>
           </form>
-          <!--DESCRIPTION-->
           <div class="form-group">
             <label>Course Description:</label>
-            <textarea class="form-control" rows="3">{{course.description}}</textarea>
+            <textarea class="form-control" rows="3" [value]="course.description" (input)="course.description = $event.target.value"></textarea>
           </div>
         </div>
-        <!--LECTURES-->
         <div class="col-sm-4 col-xs-12">
           <h2>Lecture Time</h2>
-          Selected index: {{course.lectureSelected}}
-          <div *ngIf="course.lectures">
+          <div *ngIf="course.lectures || course.lectures.length > 0">
             <div *ngFor="let lecture of course.lectures">
               <div class="input-group">
                 <span class="input-group-addon">
                   {{lecture.label}}
                 </span>
                 <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}lectureTime" value="{{lecture.index}}"
-                    [(ngModel)]="course.lectureSelected">
-                    <!-- ^ TODO Fix the which one is originally selected-->
+                  <input type="radio" name="{{course.id}}lectureTime" [value]="lecture.index" [(ngModel)]="course.lectureSelected">
                 </span>
-                <input type="text" class="form-control" value="{{lecture.time}}">
+                <input type="text" class="form-control" [value]="lecture.time" (input)="lecture.time = $event.target.value">
               </div>
             </div>
           </div>
-          <div *ngIf="!course.lectures">
-            No lectures!
+          <div *ngIf="!course.lectures || course.lectures.length == 0">
+            <h4>No lectures!</h4>
           </div>
         </div>
-        <!--TUTORIALS-->
         <div class="col-sm-4 col-xs-12">
           <h2>Tutorial Time</h2>
-          Selected index: {{course.tutorialSelected}}
-          <div *ngIf="course.tutorials">
+          <div *ngIf="course.tutorials || course.tutorials.length > 0">
             <div *ngFor="let tutorial of course.tutorials">
               <div class="input-group">
                 <span class="input-group-addon">
                   {{tutorial.label}}
                 </span>
                 <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}tutorialTime" value="{{tutorial.index}}"
-                    [(ngModel)]="course.tutorialSelected">
-                    <!-- ^ TODO Fix the which one is originally selected-->
+                  <input type="radio" name="{{course.id}}tutorialTime" [value]="tutorial.index" [(ngModel)]="course.tutorialSelected">
                 </span>
-                <input type="text" class="form-control" value="{{tutorial.time}}">
+                <input type="text" class="form-control" [value]="tutorial.time" (input)="tutorial.time = $event.target.value">
               </div>
             </div>
           </div>
-          <div *ngIf="!course.tutorials">
-            No tutorials!
+          <div *ngIf="!course.tutorials || course.tutorials.length == 0">
+            <h4>No tutorials!</h4>
           </div>
         </div>
-        <!--PRACTICALS-->
         <div class="col-sm-4 col-xs-12">
           <h2>Practical Time</h2>
-          Selected index: {{course.practicalSelected}}
-          <div *ngIf="course.practicals">
+          <div *ngIf="course.practicals || course.practicals.length > 0">
             <div *ngFor="let practical of course.practicals">
               <div class="input-group">
                 <span class="input-group-addon">
                   {{practical.label}}
                 </span>
                 <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}practicalTime"
-                    value="{{practical.index}}" [(ngModel)]="course.practicalSelected">
-                    <!-- ^ TODO Fix the which one is originally selected-->
+                  <input type="radio" name="{{course.id}}practicalTime" [value]="practical.index" [(ngModel)]="course.practicalSelected">
                 </span>
-                <input type="text" class="form-control" value="{{practical.time}}">
+                <input type="text" class="form-control" [value]="practical.time" (input)="practical.time = $event.target.value">
               </div>
             </div>
           </div>
-          <div *ngIf="!course.practicals">
-            No practicals!
+          <div *ngIf="!course.practicals || course.practicals.length == 0">
+            <h4>No practicals!</h4>
           </div>
         </div>
       </div>
-      <div class="panel-footer">
-        <button class="btn btn-primary" (click)="updateCourse(course);">Update</button>
+      <div class="panel-footer panel-footer-custom">
+        <div class="container-fluid">
+          <button *ngIf="course.isDraft" class="btn btn-success" (click)="saveCourse(course);">Save</button>
+          <button *ngIf="!course.isDraft" class="btn btn-warning" (click)="updateCourse(course);">Update</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<div *ngIf="!courses">
-  <h1>Ooops! Either courses tab failed to load, or you haven't uploaded any.</h1>
+
+<div>
+  <button class="btn btn-lg btn-warning" (click)="addCourse();"><span class="fa fa-plus"></span> Add Course</button>
 </div>
