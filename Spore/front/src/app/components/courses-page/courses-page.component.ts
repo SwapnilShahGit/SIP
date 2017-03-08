@@ -21,9 +21,14 @@ export class CoursesPageComponent implements OnInit {
     this.courses.push(course);
     course = new Course(false, 'CSC309', 'Cool Dude Arnold', 'This is a pretty cool class.', 'csc309faspfsaopfjapas');
     this.courses.push(course);
-    course = new Course(false, 'MAT111', 'Fuchs', 'This class is also pretty cool.', 'mat111fa124asfpfjapas', 1, tutorials, 0, tutorials);
+    var tutorials1: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
+    var tutorials2: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
+    course = new Course(false, 'MAT111', 'Fuchs', 'This class is also pretty cool.', 'mat111fa124asfpfjapas', 1, tutorials1, 0, tutorials2);
     this.courses.push(course);
-    course = new Course(false, 'ECO101', 'Bailey on Ice', 'Smooth as hell.', 'eco101ffas2aspfsaopfjapas', 0, lectures, 0, lectures, 0, lectures);
+    var lectures1: Array<CourseOption> = [new CourseOption('A', '1pm', 0)];
+    var lectures2: Array<CourseOption> = [new CourseOption('A', '2pm', 0)];
+    var lectures3: Array<CourseOption> = [new CourseOption('A', '3pm', 0)];
+    course = new Course(false, 'ECO101', 'Bailey on Ice', 'Smooth as hell.', 'eco101ffas2aspfsaopfjapas', 0, lectures1, 0, lectures2, 0, lectures3);
     this.courses.push(course);
   }
 
@@ -52,5 +57,10 @@ export class CoursesPageComponent implements OnInit {
     console.log('Add Course Called!');
     var course: Course = new Course();
     this.courses.push(course);
+  }
+
+  private addCourseOption(section: Array<CourseOption>): any {
+    console.log('Add Course Option Called!');
+    section.push(new CourseOption("ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(section.length % 26), Date.now().toString(), section.length));
   }
 }
