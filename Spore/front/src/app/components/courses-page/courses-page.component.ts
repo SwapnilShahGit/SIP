@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Course } from '../../../meta/course';
+import { CourseOption } from '../../../meta/courseOption';
 
 @Component({
   selector: 'courses-page',
@@ -6,204 +8,49 @@ import { Component } from '@angular/core';
   styleUrls: ['./courses-page.component.scss']
 })
 
-export class CoursesPageComponent {
+export class CoursesPageComponent implements OnInit {
 
   private currentSlide: string = "";
-  private courses: Array<any> =
-  [
-    {
-      code: "CSC309",
-      instructor: "Arnold",
-      description: "This is a pretty cool class.",
-      id: "csc309",
-      lectureSelected: 1,
-      lectures: [
-        {
-          label: "A",
-          time: "2017-01-14T14:00:00-04:00",
-          index: 0
-        },
-        {
-          label: "B",
-          time: "2017-01-12T16:00:00-04:00",
-          index: 1
-        },
-        {
-          label: "C",
-          time: "2017-01-15T18:00:00-04:00",
-          index: 2
-        }
-      ],
-      tutorialSelected: 2,
-      tutorials: [
-        {
-          label: "A",
-          time: "2017-01-14T15:00:00-04:00",
-          index: 0
-        },
-        {
-          label: "B",
-          time: "2017-01-12T16:00:00-04:00",
-          index: 1
-        },
-        {
-          label: "C",
-          time: "2017-01-15T19:00:00-04:00",
-          index: 2
-        }
-      ],
-      practicalSelected: 0,
-      practicals: [
-        {
-          label: "A",
-          time: "2017-01-14T16:00:00-04:00",
-          index: 0
-        },
-        {
-          label: "B",
-          time: "2017-01-12T17:00:00-04:00",
-          index: 1
-        },
-        {
-          label: "C",
-          time: "2017-01-15T20:00:00-04:00",
-          index: 2
-        }
-      ]
-    },
-    {
-      code: "MAT111",
-      instructor: "Fuchs",
-      description: "This class is also pretty cool.",
-      id: "mat111",
-      lectureSelected: 1,
-      lectures: [
-        {
-          label: "A",
-          time: "2017-01-14T14:00:00-04:00",
-          index: 0
-        },
-        {
-          label: "B",
-          time: "2017-01-12T16:00:00-04:00",
-          index: 1
-        },
-        {
-          label: "C",
-          time: "2017-01-15T18:00:00-04:00",
-          index: 2
-        }
-      ],
-      tutorialSelected: 2,
-      tutorials: [
-        {
-          label: "A",
-          time: "2017-01-14T15:00:00-04:00",
-          index: 0
-        },
-        {
-          label: "B",
-          time: "2017-01-12T16:00:00-04:00",
-          index: 1
-        },
-        {
-          label: "C",
-          time: "2017-01-15T19:00:00-04:00",
-          index: 2
-        }
-      ],
-      practicalSelected: 0,
-      practicals: [
-        {
-          label: "A",
-          time: "2017-01-14T16:00:00-04:00",
-          index: 0
-        },
-        {
-          label: "B",
-          time: "2017-01-12T17:00:00-04:00",
-          index: 1
-        },
-        {
-          label: "C",
-          time: "2017-01-15T20:00:00-04:00",
-          index: 2
-        }
-      ]
-    },
-    {
-      code: "ECO101",
-      instructor: "Bailey",
-      description: "Now this... Is the best class there is.",
-      id: "eco101",
-      lectureSelected: 1,
-      lectures: [
-        {
-          label: "A",
-          time: "2017-01-14T14:00:00-04:00",
-          index: 0
-        },
-        {
-          label: "B",
-          time: "2017-01-12T16:00:00-04:00",
-          index: 1
-        },
-        {
-          label: "C",
-          time: "2017-01-15T18:00:00-04:00",
-          index: 2
-        }
-      ],
-      tutorialSelected: 2,
-      tutorials: [
-        {
-          label: "A",
-          time: "2017-01-14T15:00:00-04:00",
-          index: 0
-        },
-        {
-          label: "B",
-          time: "2017-01-12T16:00:00-04:00",
-          index: 1
-        },
-        {
-          label: "C",
-          time: "2017-01-15T19:00:00-04:00",
-          index: 2
-        }
-      ],
-      practicalSelected: 0,
-      practicals: [
-        {
-          label: "A",
-          time: "2017-01-14T16:00:00-04:00",
-          index: 0
-        },
-        {
-          label: "B",
-          time: "2017-01-12T17:00:00-04:00",
-          index: 1
-        },
-        {
-          label: "C",
-          time: "2017-01-15T20:00:00-04:00",
-          index: 2
-        }
-      ]
-    }
-  ];
+  private courses: Array<Course> = [];
 
-  private updateCourse(course: any): any {
-    console.log('Course Update Called!');
-    console.log(course);
-    // API call here
+  public ngOnInit() {
+    var lectures: Array<CourseOption> = [new CourseOption('A', '1pm', 0)];
+    var tutorials: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
+    var practicals: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1), new CourseOption('C', '3pm', 2)];
+    var course: Course = new Course(false, 'ABC123', 'Dr. Guy', 'No clue what this is...', null, 0, lectures, 0, tutorials, 0, practicals);
+    this.courses.push(course);
+    course = new Course(false, 'CSC309', 'Cool Dude Arnold', 'This is a pretty cool class.', 'csc309faspfsaopfjapas');
+    this.courses.push(course);
+    course = new Course(false, 'MAT111', 'Fuchs', 'This class is also pretty cool.', 'mat111fa124asfpfjapas', 1, tutorials, 0, tutorials);
+    this.courses.push(course);
+    course = new Course(false, 'ECO101', 'Bailey on Ice', 'Smooth as hell.', 'eco101ffas2aspfsaopfjapas', 0, lectures, 0, lectures, 0, lectures);
+    this.courses.push(course);
   }
 
-  private switchSlide(course: any): any {
+  private updateCourse(course: Course): any {
+    console.log('Course Update Called!');
+    console.log(course);
+    // API Update Existing Event call here
+  }
+
+  private saveCourse(course: Course): any {
+    console.log('Course Save Called!');
+    console.log(course);
+    // API Save New Event call here
+    course.isDraft = false;
+  }
+
+  private switchSlide(course: Course): any {
     if (this.currentSlide != course.id) {
       this.currentSlide = course.id;
     } else {
       this.currentSlide = "";
     }
+  }
+
+  private addCourse(): any {
+    console.log('Add Course Called!');
+    var course: Course = new Course();
+    this.courses.push(course);
   }
 }
