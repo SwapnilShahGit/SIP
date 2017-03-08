@@ -36,7 +36,10 @@
           </div>
         </div>
         <div class="col-sm-4 col-xs-12">
-          <h2>Lecture Time</h2>
+          <h2>
+            Lectures
+            <button class="btn btn-sm btn-info" (click)="addCourseOption(course.lectures);"><span class="fa fa-plus"></span></button>
+          </h2>
           <div *ngIf="course.lectures || course.lectures.length > 0">
             <div *ngFor="let lecture of course.lectures">
               <div class="input-group">
@@ -55,7 +58,10 @@
           </div>
         </div>
         <div class="col-sm-4 col-xs-12">
-          <h2>Tutorial Time</h2>
+          <h2>
+            Tutorials
+            <button class="btn btn-sm btn-info" (click)="addCourseOption(course.tutorials);"><span class="fa fa-plus"></span></button>
+          </h2>
           <div *ngIf="course.tutorials || course.tutorials.length > 0">
             <div *ngFor="let tutorial of course.tutorials">
               <div class="input-group">
@@ -74,7 +80,10 @@
           </div>
         </div>
         <div class="col-sm-4 col-xs-12">
-          <h2>Practical Time</h2>
+          <h2>
+            Practicals
+            <button class="btn btn-sm btn-info" (click)="addCourseOption(course.practicals);"><span class="fa fa-plus"></span></button>
+          </h2>
           <div *ngIf="course.practicals || course.practicals.length > 0">
             <div *ngFor="let practical of course.practicals">
               <div class="input-group">
@@ -95,14 +104,15 @@
       </div>
       <div class="panel-footer panel-footer-custom">
         <div class="container-fluid">
-          <button *ngIf="course.isDraft" class="btn btn-success" (click)="saveCourse(course);">Save</button>
-          <button *ngIf="!course.isDraft" class="btn btn-warning" (click)="updateCourse(course);">Update</button>
+          <button *ngIf="course.isDraft" class="btn btn-success" (click)="saveCourse(course);">
+            <span class="fa fa-floppy-o"></span> Save</button>
+          <button *ngIf="!course.isDraft" class="btn btn-info" (click)="updateCourse(course);">
+            <span class="fa fa-pencil"></span> Update</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <div>
-  <button class="btn btn-lg btn-warning" (click)="addCourse();"><span class="fa fa-plus"></span> Add Course</button>
+  <button class="btn btn-lg btn-info" (click)="addCourse();"><span class="fa fa-plus"></span> Add Course</button>
 </div>
