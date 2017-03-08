@@ -7,9 +7,9 @@
 
 // PrimeNG
 // import 'script!primeui/primeui-ng-all.min'; <- not sure what this is
-import 'script!jquery/dist/jquery.min';
-import 'script!moment/moment';
-import 'script!fullcalendar/dist/fullcalendar';
+import 'script-loader!jquery/dist/jquery.min';
+import 'script-loader!moment/moment';
+import 'script-loader!fullcalendar/dist/fullcalendar';
 
 // Angular 2
 import '@angular/platform-browser';
