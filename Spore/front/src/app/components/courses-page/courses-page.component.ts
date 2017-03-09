@@ -59,8 +59,46 @@ export class CoursesPageComponent implements OnInit {
     this.courses.push(course);
   }
 
+  private deleteCourse(course: Course): any {
+    console.log('Delete Course Called!');
+    if (!course.isDraft) {
+      console.log('API Call for delete called!');
+      // API Call to delete this course
+      // if (!successfulCall) { some error mssg + break; }
+    }
+    this.courses.splice(this.courses.indexOf(course), 1);
+  }
+
   private addCourseOption(section: Array<CourseOption>): any {
     console.log('Add Course Option Called!');
-    section.push(new CourseOption("ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(section.length % 26), Date.now().toString(), section.length));
+    if (section.length < 26) {
+      section.push(new CourseOption("ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(section.length), Date.now().toString(), section.length));
+    }
+  }
+
+  private removeCourseOption(course: Course, section: Array<CourseOption>, type: string): any {
+    console.log('Remove Course Option Called!');
+    section.pop();
+    if (section.length) {
+      switch (type) {
+        case "Lecture":
+          if (course.lectureSelected >= section.length) {
+            course.lectureSelected = section.length - 1;
+          }
+          break;
+        case "Tutorial":
+          if (course.tutorialSelected >= section.length) {
+            course.tutorialSelected = section.length - 1;
+          }
+          break;
+        case "Practical":
+          if (course.practicalSelected >= section.length) {
+            course.practicalSelected = section.length - 1;
+          }
+          break;
+        default:
+          break;
+      }
+    }
   }
 }
