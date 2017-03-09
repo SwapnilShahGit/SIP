@@ -12,6 +12,7 @@ export class Course implements ICourse {
     public practicalSelected: number;
     public practicals: Array<CourseOption>;
     public isDraft: boolean = true;
+    public colour: string = '#F1AE03';
 
     constructor(isDraft?: boolean, code?: string, instructor?: string,
                 description?: string, id?: string,
@@ -44,6 +45,7 @@ export interface ICourse {
     practicalSelected: number;
     practicals: Array<CourseOption>;
     isDraft: boolean;
+    colour: string;
 }
 
 class Guid {
