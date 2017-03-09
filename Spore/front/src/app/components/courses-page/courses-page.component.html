@@ -38,7 +38,8 @@
         <div class="col-sm-4 col-xs-12">
           <h2>
             Lectures
-            <button class="btn btn-sm btn-info" (click)="addCourseOption(course.lectures);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-info" (click)="addCourseOption(course.lectures);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures, 'Lecture');"><span class="fa fa-minus"></span></button>
           </h2>
           <div *ngIf="course.lectures || course.lectures.length > 0">
             <div *ngFor="let lecture of course.lectures">
@@ -60,7 +61,8 @@
         <div class="col-sm-4 col-xs-12">
           <h2>
             Tutorials
-            <button class="btn btn-sm btn-info" (click)="addCourseOption(course.tutorials);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-info" (click)="addCourseOption(course.tutorials);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.tutorials, 'Tutorial');"><span class="fa fa-minus"></span></button>
           </h2>
           <div *ngIf="course.tutorials || course.tutorials.length > 0">
             <div *ngFor="let tutorial of course.tutorials">
@@ -82,7 +84,8 @@
         <div class="col-sm-4 col-xs-12">
           <h2>
             Practicals
-            <button class="btn btn-sm btn-info" (click)="addCourseOption(course.practicals);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-info " (click)="addCourseOption(course.practicals);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.practicals, 'Practical');"><span class="fa fa-minus"></span></button>
           </h2>
           <div *ngIf="course.practicals || course.practicals.length > 0">
             <div *ngFor="let practical of course.practicals">
@@ -108,6 +111,8 @@
             <span class="fa fa-floppy-o"></span> Save</button>
           <button *ngIf="!course.isDraft" class="btn btn-info" (click)="updateCourse(course);">
             <span class="fa fa-pencil"></span> Update</button>
+          <button class="btn btn-danger" (click)="deleteCourse(course);">
+            <span class="fa fa-trash"></span> Delete</button>
         </div>
       </div>
     </div>
