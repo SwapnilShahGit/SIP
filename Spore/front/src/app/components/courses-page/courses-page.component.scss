@@ -7,18 +7,24 @@ a {
   color: #ffffff;
 }
 
-.btn {
-  font-weight: bold;
-}
-
 #courses-accordion {
   margin: 20px 0px;
 }
 
-.oneLineText {
+.btn {
+  font-weight: bold;
+}
+
+.oneLineText-left {
   overflow: hidden;
   white-space: nowrap;
   text-decoration: none;
+}
+
+.oneLineText-right {
+  float: right;
+  width: 50px;
+  margin-left: 10px;
 }
 
 .panel-default {
@@ -41,7 +47,7 @@ a {
   text-align: left;
 }
 
-.panel-chevron-style {
+.panel-heading-icon {
   padding: 4px;
   margin: 2px;
   width: 24px;

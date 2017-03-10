@@ -12,6 +12,7 @@ export class CoursesPageComponent implements OnInit {
 
   private currentSlide: string = "";
   private courses: Array<Course> = [];
+  private basicColours: Array<String> = ['#ff7373', '#ffd700', '#3399ff', '#00ff00', '#ffa500', '#8a2be2'];
 
   public ngOnInit() {
     var lectures: Array<CourseOption> = [new CourseOption('A', '1pm', 0)];
