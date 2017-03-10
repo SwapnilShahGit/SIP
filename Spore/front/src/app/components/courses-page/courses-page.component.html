@@ -5,11 +5,11 @@
 <div *ngIf="courses && courses.length > 0" class="panel-group" id="courses-accordion">
   <div *ngFor="let course of courses" class="panel panel-default">
     <div class="panel-heading panel-heading-custom" [style.background-color]="course.colour">
-      <a class="oneLineText" data-toggle="collapse" data-parent="#courses-accordion" href="#{{course.id}}" (click)="switchSlide(course);">
+      <a class="oneLineText-left" data-toggle="collapse" data-parent="#courses-accordion" href="#{{course.id}}" (click)="switchSlide(course);">
         <h4 class="panel-title">
-          <span *ngIf="course.id == currentSlide" class="fa fa-chevron-down panel-chevron-style"></span>
-          <span *ngIf="course.id != currentSlide" class="fa fa-chevron-right panel-chevron-style"></span>
-          <b>{{course.code}} with {{course.instructor}}</b>
+          <span *ngIf="course.id == currentSlide" class="fa fa-chevron-down panel-heading-icon"></span>
+          <span *ngIf="course.id != currentSlide" class="fa fa-chevron-right panel-heading-icon"></span>
+          <b>{{course.code}}</b>
         </h4>
       </a>
     </div>
@@ -29,11 +29,13 @@
                 <input class="form-control" type="text" [value]="course.instructor" (input)="course.instructor = $event.target.value">
               </div>
             </div>
+            <div class="container-fluid form-group row">
+              <label class="col-sm-2 col-form-label">Course Description:</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" rows="3" [value]="course.description" (input)="course.description = $event.target.value"></textarea>
+              </div>
+            </div>
           </form>
-          <div class="form-group">
-            <label>Course Description:</label>
-            <textarea class="form-control" rows="3" [value]="course.description" (input)="course.description = $event.target.value"></textarea>
-          </div>
           <div class="form-group">
             <div class="container-fluid form-group row">
               <label class="col-sm-2 col-form-label">Colour:</label>
