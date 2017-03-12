@@ -15,16 +15,15 @@ a {
   font-weight: bold;
 }
 
-.oneLineText-left {
+.leftFloat {
   overflow: hidden;
   white-space: nowrap;
   text-decoration: none;
 }
 
-.oneLineText-right {
+.rightFloat {
   float: right;
-  width: 50px;
-  margin-left: 10px;
+  width: 45px;
 }
 
 .panel-default {
@@ -60,4 +59,14 @@ a {
 .colourButton {
   width: 271px;
   height: 35px;
+}
+
+.syllabiInstructions {
+  margin: 10px 20px;
+}
+
+.col-sm-6 {
+  padding-left: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

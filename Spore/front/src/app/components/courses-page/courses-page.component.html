@@ -1,15 +1,22 @@
 <div *ngIf="!courses || courses.length == 0">
   <h2>Looks like you dont have any courses uploaded!</h2>
-  <h4>Upload your syllabus above or click plus button to manually add a course.</h4>
+  <h4 class="syllabiInstructions">- Upload your syllabus above</h4>
+  <h4 class="syllabiInstructions">- Or try the 'Search By Code' to check existing syllabi</h4>
+  <h4 class="syllabiInstructions">- Alternatively you can use 'Add Manually' button</h4>
 </div>
+
 <div *ngIf="courses && courses.length > 0" class="panel-group" id="courses-accordion">
   <div *ngFor="let course of courses" class="panel panel-default">
     <div class="panel-heading panel-heading-custom" [style.background-color]="course.colour">
-      <a class="oneLineText-left" data-toggle="collapse" data-parent="#courses-accordion" href="#{{course.id}}" (click)="switchSlide(course);">
+      <a class="rightFloat" (click)="updateButtonCheck(course)">
+        <custom-colour-picker (keypress)="updateButtonCheck(course)" [(colour)]="course.colour"
+          [dropdownClass]="'dropdown-menu-right'" [buttonClass]="'btn btn-info'"></custom-colour-picker>
+      </a>
+      <a class="leftFloat" data-toggle="collapse" data-parent="#courses-accordion" href="#{{course.id}}" (click)="switchSlide(course);">
         <h4 class="panel-title">
           <span *ngIf="course.id == currentSlide" class="fa fa-chevron-down panel-heading-icon"></span>
           <span *ngIf="course.id != currentSlide" class="fa fa-chevron-right panel-heading-icon"></span>
-          <b>{{course.code}}</b>
+          <b>{{course.code.length > 12 ? course.code.substring(0,12) + '...' : course.code}}</b>
         </h4>
       </a>
     </div>
@@ -20,37 +27,30 @@
             <div class="container-fluid form-group row">
               <label class="col-sm-2 col-form-label">Course:</label>
               <div class="col-sm-10">
-                <input class="form-control" type="text" [value]="course.code" (input)="course.code = $event.target.value">
+                <input class="form-control" (keyup)="updateButtonCheck(course)" type="text"
+                  [value]="course.code" (input)="course.code = $event.target.value">
               </div>
             </div>
             <div class="container-fluid form-group row">
               <label class="col-sm-2 col-form-label">Instructor:</label>
               <div class="col-sm-10">
-                <input class="form-control" type="text" [value]="course.instructor" (input)="course.instructor = $event.target.value">
+                <input class="form-control" (keyup)="updateButtonCheck(course)" type="text"
+                  [value]="course.instructor" (input)="course.instructor = $event.target.value">
               </div>
             </div>
             <div class="container-fluid form-group row">
-              <label class="col-sm-2 col-form-label">Course Description:</label>
+              <label class="col-sm-2 col-form-label">Description:</label>
               <div class="col-sm-10">
-                <textarea class="form-control" rows="3" [value]="course.description" (input)="course.description = $event.target.value"></textarea>
+                <textarea class="form-control" (keyup)="updateButtonCheck(course)" rows="3"
+                  [value]="course.description" (input)="course.description = $event.target.value"></textarea>
               </div>
             </div>
           </form>
-          <div class="form-group">
-            <div class="container-fluid form-group row">
-              <label class="col-sm-2 col-form-label">Colour:</label>
-              <div class="col-sm-10">
-                <button class="btn colourButton" [(colorPicker)]="course.colour"  [cpAlphaChannel]="'disabled'"
-                  [style.background]="course.colour" [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'"
-                  [cpPositionRelativeToArrow]="true"></button>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="col-sm-4 col-xs-12">
           <h2>
             Lectures
-            <button class="btn btn-xs btn-info" (click)="addCourseOption(course.lectures);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);"><span class="fa fa-plus"></span></button>
             <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures, 'Lecture');"><span class="fa fa-minus"></span></button>
           </h2>
           <div *ngIf="course.lectures || course.lectures.length > 0">
@@ -60,9 +60,11 @@
                   {{lecture.label}}
                 </span>
                 <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}lectureTime" [value]="lecture.index" [(ngModel)]="course.lectureSelected">
+                  <input type="radio" name="{{course.id}}lectureTime" (change)="updateButtonCheck(course)"
+                    [value]="lecture.index" [(ngModel)]="course.lectureSelected">
                 </span>
-                <input type="text" class="form-control" [value]="lecture.time" (input)="lecture.time = $event.target.value">
+                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
+                  [value]="lecture.time" (input)="lecture.time = $event.target.value">
               </div>
             </div>
           </div>
@@ -73,7 +75,7 @@
         <div class="col-sm-4 col-xs-12">
           <h2>
             Tutorials
-            <button class="btn btn-xs btn-info" (click)="addCourseOption(course.tutorials);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.tutorials);"><span class="fa fa-plus"></span></button>
             <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.tutorials, 'Tutorial');"><span class="fa fa-minus"></span></button>
           </h2>
           <div *ngIf="course.tutorials || course.tutorials.length > 0">
@@ -83,9 +85,11 @@
                   {{tutorial.label}}
                 </span>
                 <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}tutorialTime" [value]="tutorial.index" [(ngModel)]="course.tutorialSelected">
+                  <input type="radio" name="{{course.id}}tutorialTime" (change)="updateButtonCheck(course)"
+                    [value]="tutorial.index" [(ngModel)]="course.tutorialSelected">
                 </span>
-                <input type="text" class="form-control" [value]="tutorial.time" (input)="tutorial.time = $event.target.value">
+                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
+                  [value]="tutorial.time" (input)="tutorial.time = $event.target.value">
               </div>
             </div>
           </div>
@@ -96,7 +100,7 @@
         <div class="col-sm-4 col-xs-12">
           <h2>
             Practicals
-            <button class="btn btn-xs btn-info " (click)="addCourseOption(course.practicals);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-info " (click)="addCourseOption(course, course.practicals);"><span class="fa fa-plus"></span></button>
             <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.practicals, 'Practical');"><span class="fa fa-minus"></span></button>
           </h2>
           <div *ngIf="course.practicals || course.practicals.length > 0">
@@ -106,9 +110,11 @@
                   {{practical.label}}
                 </span>
                 <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}practicalTime" [value]="practical.index" [(ngModel)]="course.practicalSelected">
+                  <input type="radio" name="{{course.id}}practicalTime" (change)="updateButtonCheck(course)"
+                    [value]="practical.index" [(ngModel)]="course.practicalSelected">
                 </span>
-                <input type="text" class="form-control" [value]="practical.time" (input)="practical.time = $event.target.value">
+                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
+                  [value]="practical.time" (input)="practical.time = $event.target.value">
               </div>
             </div>
           </div>
@@ -121,15 +127,49 @@
         <div class="container-fluid">
           <button *ngIf="course.isDraft" class="btn btn-success" (click)="saveCourse(course);">
             <span class="fa fa-floppy-o"></span> Save</button>
-          <button *ngIf="!course.isDraft" class="btn btn-info" (click)="updateCourse(course);">
-            <span class="fa fa-pencil"></span> Update</button>
-          <button class="btn btn-danger" (click)="deleteCourse(course);">
+          <button *ngIf="!course.isDraft" id="{{course.id}}UpdateButton" class="btn btn-info disabled"
+           (click)="updateCourse(course);"><span class="fa fa-pencil"></span> Update</button>
+          <button class="btn btn-danger" (click)="deleteCourseCode=course.code; deleteDialogVisible=true;">
             <span class="fa fa-trash"></span> Delete</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div>
-  <button class="btn btn-lg btn-info" (click)="addCourse();"><span class="fa fa-plus"></span> Add Course</button>
+
+<div class="cotainer-fluid">
+  <div class="col-sm-6">
+    <div class="input-group input-group-lg">
+      <input type="text" class="form-control" placeholder="Search for the following course...">
+      <span class="input-group-btn">
+        <button class="btn btn-success" (click)="searchDialogVisible=true;">
+          <span class="fa fa-search"></span> Check!</button>
+      </span>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <button class="btn btn-lg btn-info" (click)="addCourse();"><span class="fa fa-plus"></span> Add Manually</button>
+  </div>
 </div>
+
+<!--read TODO below-->
+<!--also need so that when you click add manually, it would open up first box and set pointer to first input field-->
+<!--also minor thing, to drop down the tab curser needs to be in the middle (cant hit bottom or top of header) -->
+<!--also figure out how to close p-dialog by clicking off the dialog-->
+<!--add check so you cant search empty strings (maybe disable/enable check button for this)-->
+
+<p-dialog header="Search Results" [(visible)]="searchDialogVisible" [responsive]="true" showEffect="fade"
+  [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
+  Results for TODO add request string here:<br>
+  TODO add some sort of for loop for results here with check box select which one you pick <br>
+  <button class="btn btn-success" (click)="searchDialogVisible=false;">Ok</button>
+</p-dialog>
+
+<p-dialog header="Warning" [(visible)]="deleteDialogVisible" [responsive]="true" showEffect="fade"
+  [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
+  Are you about to delete
+  {{deleteCourseCode.length > 12 ? deleteCourseCode.substring(0,12) + '...' : deleteCourseCode}}
+  from your calendar, continue?<br><br>
+  <button class="btn btn-info" (click)="deleteDialogVisible=false; deleteCourse();">Yes</button>
+  <button class="btn btn-danger" (click)="deleteDialogVisible=false;">No</button>
+</p-dialog>
