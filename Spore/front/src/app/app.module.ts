@@ -26,6 +26,7 @@ import { FriendsPageComponent } from './components/friends-page/friends-page.com
 import { SporeDialogComponent } from './components/minor-page-elements/spore-dialog/spore-dialog.component';
 import { CookieService } from 'angular2-cookie';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
+import { CustomColourPickerComponent } from './components/colour-picker/colour-picker.component';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -74,7 +75,8 @@ type StoreType = {
     FileDropDirective,
     FriendsPageComponent,
     SporeDialogComponent,
-    CoursesPageComponent
+    CoursesPageComponent,
+    CustomColourPickerComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
