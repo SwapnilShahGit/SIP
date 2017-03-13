@@ -1,1 +1,6 @@
-I have many many friends
+<div (click)="showDialog = !showDialog">I have many many friends</div>
+<div *ngIf="showDialog">
+  <spore-dialog (closeDialog)="showDialog = false">
+    Something Really Long
+  </spore-dialog>
+</div>
