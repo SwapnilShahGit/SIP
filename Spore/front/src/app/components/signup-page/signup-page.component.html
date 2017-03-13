@@ -68,21 +68,16 @@
       </div>
 
       <div id="left-box" class="col-sm-6 gender-terms-container">
-        <div class="gender-container">
-          <input type="radio" name="gender" value="male" checked="{{apiResponse.male}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Male</span>
-          <input type="radio" name="gender" value="female" checked="{{apiResponse.female}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Female</span><br>
-        </div>
         <div class="terms-conditions-container">
           <label class="required-field" [class.termsAndConditions]="true">{{requiredField.termsAndConditions}}</label>
           <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl><span style="font-size: 16px"><div class="terms-conditions-text" (click)="this.apiResponse.termsAndConditions = !this.apiResponse.termsAndConditions">I agree to the terms and conditions</div></span>
         </div>
-      </div>
 
-      <div id="right-box" class="col-sm-6 text-left">
-        <div id="sign-up-button-container"><button class="btn-warning btn-lg sign-up-button" (click)="signUpUser()">Sign Up</button> <br></div>
+        <div id="right-box" class="col-sm-6 text-left">
+          <div id="sign-up-button-container"><button class="btn-warning btn-lg sign-up-button" (click)="signUpUser()">Sign Up</button> <br></div>
+        </div>
       </div>
     </div>
-  </div>
   <div class="footer-container">
     <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'"></footer-bar>
   </div>

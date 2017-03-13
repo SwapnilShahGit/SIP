@@ -17,11 +17,10 @@ export class SignUpPageComponent implements OnInit {
   public supportedSchools;
   private fbKey: string = ENV === 'production' ? '309270582738901' : '346211865751257';
   private apiResponse = {userId: '', first_name: '', last_name: '', email: '', confirmEmail: '',
-    password: '', confirmPassword: '', dateOfBirth: '', selectedSchool: '', gender: '',
+    password: '', confirmPassword: '', dateOfBirth: '', selectedSchool: '',
     pictureUrl: '', termsAndConditions: ''};
   private disabledField = false;
   private hidePasswordField = 'inherit';
-  private checkedGender = {male: '', female: ''};
   private requiredField = {firstName: '', lastName: '', email: '', confirmEmail: '',
     password: '', confirmPassword: '', termsAndConditions: ''};
 
@@ -85,15 +84,6 @@ export class SignUpPageComponent implements OnInit {
       if (this.supportedSchools.indexOf(this.apiResponse.selectedSchool) === -1) {
         this.apiResponse.selectedSchool = 'Other';
       }
-
-      if (response.gender === 'male') {
-        this.checkedGender.male = 'checked';
-        this.checkedGender.female = '';
-      } else if (response.gender === 'female') {
-        this.checkedGender.female = 'checked';
-        this.checkedGender.male = '';
-      }
-      this.apiResponse.gender = response.gender;
       this.hidePasswordField = 'none';
       this.disabledField = true;
       this.verifyForm();
@@ -111,7 +101,7 @@ export class SignUpPageComponent implements OnInit {
     console.log(this.apiResponse);
     if (this.verifyForm()) {
       let newUser = new User('', this.apiResponse.first_name, this.apiResponse.last_name, '',
-        this.apiResponse.email, this.apiResponse.gender, this.apiResponse.userId,
+        this.apiResponse.email, this.apiResponse.userId,
         this.apiResponse.pictureUrl, this.apiResponse.selectedSchool);
       this.databaseService.addUser(newUser).then((response) => {
         if (response.error === 0) {
