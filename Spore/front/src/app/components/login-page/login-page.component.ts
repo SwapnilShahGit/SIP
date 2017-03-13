@@ -61,6 +61,7 @@ export class LoginPageComponent implements OnInit {
       databaseService.getUser(user.facebookID).then(response => {
         if (response.error !== 0) {
           window.alert('Error: Not Found in Database. Please Sign Up');
+          reDir.navigate(['/sign-up']);
         } else {
           redirectUser(user.facebookID);
         }
