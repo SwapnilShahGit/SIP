@@ -87,14 +87,6 @@ select {
 
 select option {color: $color-spore-grey}
 
-.gender-terms-container {
-  padding-top: 5px;
-}
-
-.gender-container {
-  padding-right: 108px;
-}
-
 .check-box {
   font-size: 18px;
   padding-left: 5px;
@@ -103,6 +95,7 @@ select option {color: $color-spore-grey}
 .terms-conditions-container {
   font-size: 14px;
   margin-right: -12px;
+  line-height: 60px;
 }
 
 .terms-conditions-text {
