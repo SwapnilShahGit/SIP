@@ -5,6 +5,7 @@ import { NavService } from '../../../meta/nav.service';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
 import { Observable } from 'rxjs/Rx';
+import { CookieService } from 'angular2-cookie/core';
 
 @Component({
   selector: 'static-nav',
@@ -21,6 +22,7 @@ export class StaticNavBar implements OnInit {
     private router: Router,
     private navService: NavService,
     private databaseService: DatabaseService,
+    private cookieService: CookieService
   ) { }
 
   public ngOnInit() {
@@ -42,13 +44,17 @@ export class StaticNavBar implements OnInit {
 
   public facebookLogout() {
     let router = this.router;
+    let cookieService = this.cookieService;
     function checkResponse(response: FB.LoginStatusResponse) {
       console.log('status: ' + response.status);
       if (response && response.status === 'connected') {
         FB.logout(checkResponse);
+        cookieService.remove('userID');
       } else if (response && response.status === 'unknown') {
+        cookieService.remove('userID');
         router.navigate(['/login']);
       } else if (response && response.status === 'not_authorized') {
+        cookieService.remove('userID');
         router.navigate(['/login']); // not sure when this is possible...
       }
     }
