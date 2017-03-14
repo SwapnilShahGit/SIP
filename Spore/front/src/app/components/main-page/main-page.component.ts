@@ -5,6 +5,7 @@ import { User } from '../../../meta/user';
 import { Subscription } from 'rxjs/Subscription';
 import { NavService } from '../../../meta/nav.service';
 import { Observable } from 'rxjs/Rx';
+import { CookieService } from 'angular2-cookie/core';
 
 @Component({
   selector: 'app-main-page',
@@ -26,7 +27,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private databaseService: DatabaseService,
-    private navService: NavService
+    private navService: NavService,
+    private cookieService: CookieService
   ) {
     this.currentTab = navService.calendarTab;
     this.subscription = navService.navOpen$.subscribe(
@@ -43,12 +45,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.user = this.databaseService.user;
     console.log('_______ in main _______');
-    this.activatedRouter.params.forEach((params: Params) => {
-      if (params['id'] !== undefined) {
-        this.userID = params['id'];
-        this.databaseService.loadUser(this.userID);
-      }
-    });
+    if (this.cookieService.get('userID')) {
+      this.userID = this.cookieService.get('userID');
+      this.databaseService.loadUser(this.userID);
+    }
   }
 
   public ngOnDestroy() {

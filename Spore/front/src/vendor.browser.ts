@@ -11,6 +11,9 @@ import 'script-loader!jquery/dist/jquery.min';
 import 'script-loader!moment/moment';
 import 'script-loader!fullcalendar/dist/fullcalendar';
 
+// angular2-cookie
+import 'angular2-cookie/core';
+
 // Angular 2
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
