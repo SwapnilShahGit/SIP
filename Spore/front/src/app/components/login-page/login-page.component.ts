@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FBConnector } from '../../../assets/facebook/facebook';
 import { User } from '../../../meta/user';
 import { DatabaseService } from '../../../meta/database.service';
+import { CookieService } from 'angular2-cookie/core';
 
 @Component({
   selector: 'app-login-page',
@@ -16,6 +17,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private router: Router,
     private databaseService: DatabaseService,
+    private cookieService: CookieService,
     zone: NgZone) {
     (<any>window).zoneImpl = zone;
   }
@@ -23,10 +25,13 @@ export class LoginPageComponent implements OnInit {
   public ngOnInit() {
     let fbCon: FBConnector = new FBConnector(this.fbKey);
     fbCon.initFB();
+    if (this.cookieService.get('userID')) {
+      this.router.navigate(['/main-page']);
+    }
   }
 
   public sporeLogin(event: Event) {
-    this.router.navigate(['/main-page', 0]);
+    this.router.navigate(['/main-page']);
     console.log('Spore Login');
   }
 
@@ -38,6 +43,7 @@ export class LoginPageComponent implements OnInit {
   public facebookLogin(event: Event) {
     let databaseService = this.databaseService;
     let reDir = this.router;
+    let cookieService = this.cookieService;
 
     function checkLogin(response: FB.LoginStatusResponse): void {
       if (response.status === 'connected') {
@@ -62,13 +68,14 @@ export class LoginPageComponent implements OnInit {
         if (response.error !== 0) {
           window.alert('Error: Not Found in Database. Please Sign Up');
         } else {
+          cookieService.put('userID', user.facebookID);
           redirectUser(user.facebookID);
         }
       });
     }
 
     function redirectUser(id: string) {
-      (<any>window).zoneImpl.run(() => reDir.navigate(['/main-page', id]));
+      (<any>window).zoneImpl.run(() => reDir.navigate(['/main-page']));
     }
 
     FB.getLoginStatus(checkLogin);
