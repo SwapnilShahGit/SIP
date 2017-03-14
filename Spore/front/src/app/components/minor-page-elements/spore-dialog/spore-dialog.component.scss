@@ -1,0 +1,26 @@
+@import '../../../../assets/styles/spore-colors';
+
+.overview-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  .overview-background {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    background: linear-gradient(transparentize(lighten($color-spore-grey, 8%), 0.2), transparentize($color-spore-grey, 0.1));
+    pointer-events: auto;
+    padding-top: 200px;
+    .contents {
+      width: 450px;
+      height: 450px;
+      background: white;
+      margin: auto;
+      border-radius: 8px;
+      z-index: 4;
+    }
+  }
+}
