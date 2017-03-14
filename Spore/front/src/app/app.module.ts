@@ -24,6 +24,7 @@ import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { ColorPickerModule } from 'angular2-color-picker';
 import { FriendsPageComponent } from './components/friends-page/friends-page.component';
 import { SporeDialogComponent } from './components/minor-page-elements/spore-dialog/spore-dialog.component';
+import { CookieService } from 'angular2-cookie';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -38,7 +39,8 @@ import { AppState, InternalStateType } from './app.service';
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  AppState
+  AppState,
+  CookieService
 ];
 
 type StoreType = {
