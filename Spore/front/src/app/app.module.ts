@@ -23,6 +23,7 @@ import { UploadComponent } from './components/upload/upload.component';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { ColorPickerModule } from 'angular2-color-picker';
 import { FriendsPageComponent } from './components/friends-page/friends-page.component';
+import { SporeDialogComponent } from './components/minor-page-elements/spore-dialog/spore-dialog.component';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -68,7 +69,8 @@ type StoreType = {
     UploadComponent,
     FileSelectDirective,
     FileDropDirective,
-    FriendsPageComponent
+    FriendsPageComponent,
+    SporeDialogComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
