@@ -1,30 +1,23 @@
 <div style="position: relative; min-height: 100%">
   <div id="login-body" class="text-center">
-    <img id="logo" src="/assets/spore-logo-login.png" draggable="false" />
-    <div class="row">
-      <div id="sign-in" class="col-sm-6">
-        <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'"></text-box><br>
-        <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'" [textboxType]="'password'"></text-box><br>
-        <check-box [checkboxText]="'Remember Me'" [fontWeight]="'500'" [fontColor]="'white'" style="padding-right: 8px"></check-box>
-        <a id="forgot-password" target="_blank" href="https://johnsmith:smith123@www.example.com">Forgot password?</a><br>
-        <button id="log-in" class="btn-primary" (click)="sporeLogin()">Log In</button>
-        <button id="sign-up" class="btn-primary" (click)="sporeSignUp()">Sign Up</button> <br>
-      </div>
-      <div id="sign-in-buttons" class="col-sm-6 text-left">
-        <third-party-button [buttonText]="'Sign in with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" (click)="facebookLogin()"></third-party-button><br>
-        <third-party-button [buttonText]="'Sign in with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'"></third-party-button><br>
-        <third-party-button [buttonText]="'Sign in with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'"></third-party-button><br>
+    <div class="login-wrapper">
+      <img id="logo" src="/assets/spore-logo-login.png" draggable="false" />
+      <div class="row">
+        <div id="sign-in" class="col-sm-6">
+          <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'"></text-box><br>
+          <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'" [textboxType]="'password'"></text-box><br>
+          <check-box [checkboxText]="'Remember Me'" [fontWeight]="'500'" [fontColor]="'white'" style="padding-right: 8px"></check-box>
+          <a id="forgot-password" target="_blank" href="https://johnsmith:smith123@www.example.com">Forgot password?</a><br>
+          <button id="log-in" class="btn-primary" (click)="sporeLogin()">Log In</button>
+          <button id="sign-up" class="btn-primary" (click)="sporeSignUp()">Sign Up</button> <br>
+        </div>
+        <div id="sign-in-buttons" class="col-sm-6 text-left">
+          <third-party-button [buttonText]="'Sign in with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" (click)="facebookLogin()"></third-party-button><br>
+          <third-party-button [buttonText]="'Sign in with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'"></third-party-button><br>
+          <third-party-button [buttonText]="'Sign in with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'"></third-party-button><br>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="container-fluid" style="padding-bottom: 50px">
-    <info-card [panelName]="'Parser'" [panelDescription]="'Spore comes equipped with a parser, which is able to automatically convert the important information such as lecture times, due dates, etc. and place them in your calendar. We are currently supporting Univeristy of Toronto with functionality for other universities coming very soon!'"
-      [imageLocation]="'assets/icons2-01.jpg'"></info-card>
-    <info-card [panelName]="'Calendar'" [panelDescription]="'Spore calendar is one of few which grants students the privilege of being able to manage their time, become more organized and socialize in a productive manner without any distractions. Including many modern qualities, Spore allows students to personalize their page with school colours, logos, or however they please.'"
-      [imageLocation]="'assets/icons2-02.jpg'"></info-card>
-    <info-card [panelName]="'Social'" [panelDescription]="'Spore social contains multiple great features that provide particular support to students who are intereseted in using the calendar in a social and school mode. Students can plan events, study sessions, share their calendar, chat and much more while remaining organized.'"
-      [imageLocation]="'assets/icons2-03.jpg'"></info-card>
   </div>
 
   <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'"></footer-bar>

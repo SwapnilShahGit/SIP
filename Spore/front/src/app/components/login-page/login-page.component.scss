@@ -8,6 +8,12 @@
   background: -o-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, $color-spore-orange, $color-spore-yellow); /* Standard syntax (must be last) */
+  height: 100vh;
+}
+.login-wrapper {
+  position: absolute;
+  width: 100vw;
+  top: 10%;
 }
 #logo {
   text-align: center;
@@ -62,5 +68,12 @@
 @media screen and (max-width: 767px) {
   #sign-in, #sign-in-buttons {
     text-align: center;
+  }
+  .login-wrapper {
+    background: $color-spore-orange; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left top, $color-spore-orange, $color-spore-yellow); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, $color-spore-orange, $color-spore-yellow); /* Standard syntax (must be last) */
   }
 }
