@@ -19,14 +19,6 @@
         <option *ngFor="let school of supportedSchools" [selected]="school === user.school">{{school}}</option>
       </select><br><br>
 
-      <label>Gender</label><br>
-      <div *ngIf="user.userID != ''" class="gender-container">
-        <input type="radio" name="gender" value="male" checked="{{checkedGender.male}}" [(ngModel)]="user.gender"
-          ngDefaultControl><span class="check-box">Male</span>
-        <input type="radio" name="gender" value="female" checked="{{checkedGender.female}}" [(ngModel)]="user.gender"
-          ngDefaultControl><span class="check-box">Female</span><br>
-      </div>
-
     </div>
 
     <div class="col-sm-4">

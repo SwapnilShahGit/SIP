@@ -52,7 +52,7 @@ export class LoginPageComponent implements OnInit {
         FB.api('/me', { fields: 'last_name,first_name,email,age_range,cover,name,' +
         'link,gender,locale,picture,timezone,updated_time,verified' }, function (response) {
           let user = new User('', response.first_name, response.last_name, '',
-            response.email, response.gender, userId, response.picture.data.url, '');
+            response.email, userId, response.picture.data.url, '');
           handleUser(user);
         });
       } else if (response.status === 'unknown') {

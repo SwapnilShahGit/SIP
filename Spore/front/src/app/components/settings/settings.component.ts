@@ -18,7 +18,6 @@ export class SettingsComponent implements OnInit {
   private fbKey: string = ENV == "production" ? "309270582738901" : "346211865751257";
   private avatarBaseUrl: string = "https://api.adorable.io/avatars/";
   private supportedSchools: any[];
-  private checkedGender = { male: '', female: '' };
   private successDisplay: string = 'none';
   private successOpacity: string = '1';
   private temporaryProfilePicture: string = '';
@@ -40,11 +39,6 @@ export class SettingsComponent implements OnInit {
   public ngOnInit() {
     var fbCon: FBConnector = new FBConnector(this.fbKey);
     fbCon.initFB();
-    if (this.user.gender == 'male') {
-      this.checkedGender.male = 'checked';
-    } else {
-      this.checkedGender.female = 'checked';
-    }
   }
 
   public buildSupportedSchools() {

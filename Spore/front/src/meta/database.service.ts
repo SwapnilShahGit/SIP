@@ -53,7 +53,7 @@ export class DatabaseService {
               {
                 fb: user.facebookID, first: user.firstName, last: user.lastName,
                 email: user.email, pic: user.pictureURL, pass: user.password,
-                gender: user.gender, school: user.school, theme: user.theme
+                school: user.school, theme: user.theme
               })
             .toPromise()
             .then(response => response.json())
@@ -66,8 +66,7 @@ export class DatabaseService {
               {
                 user: user.userID, fb: user.facebookID, first: user.firstName,
                 last: user.lastName, email: user.email, pic: user.pictureURL,
-                pass: user.password, gender: user.gender, school: user.school,
-                theme: user.theme
+                pass: user.password, school: user.school, theme: user.theme
               })
             .toPromise()
             .then(response => response.json() as Response)
@@ -193,7 +192,7 @@ export class DatabaseService {
     private BuildUserFromResponse(response: any): User {
         if (response && response.data) {
             return new User(response.data._id, response.data.first, response.data.last,
-              response.data.pass, response.data.email, response.data.gender,
+              response.data.pass, response.data.email,
               response.data.facebook_id, response.data.picture_uri,
               response.data.school, response.data.theme);
         }
