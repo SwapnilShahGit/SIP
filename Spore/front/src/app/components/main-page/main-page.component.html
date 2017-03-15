@@ -105,6 +105,6 @@
 
   </div>
   <div style="padding-top: 20px;">
-    <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'"></footer-bar>
+    <footer-bar [footerText]="'© 2016 Spore. All Rights Reserved. | Terms of Use | Privacy | Security Policy | Powered by SOTI ©'" [footerColour]="(user | async)?.theme.secondaryColour"></footer-bar>
   </div>
 </div>
