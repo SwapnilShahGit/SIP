@@ -40,10 +40,10 @@
     </div>
     <footer *ngIf="event">
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button *ngIf="event.id" type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
-            <button *ngIf="event.id == undefined" type="button" pButton icon="fa-undo" (click)="closeEvent()" label="Cancel"></button>
-            <button *ngIf="event.id" type="button" pButton icon="fa-check" (click)="updateEvent()" label="Update"></button>
-            <button *ngIf="event.id == undefined" type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
+            <button *ngIf="event.Id" type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
+            <button *ngIf="event.Id == undefined" type="button" pButton icon="fa-undo" (click)="closeEvent()" label="Cancel"></button>
+            <button *ngIf="event.Id" type="button" pButton icon="fa-check" (click)="updateEvent()" label="Update"></button>
+            <button *ngIf="event.Id == undefined" type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
         </div>
     </footer>
 </p-dialog>
