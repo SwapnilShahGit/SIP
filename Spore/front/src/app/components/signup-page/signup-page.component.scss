@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+.sign-up-wrapper {
+  padding-bottom: 30%;
+}
+
 #left-box {
   text-align: right;
   padding-bottom: 15px;
@@ -144,5 +148,11 @@ select option {color: $color-spore-grey}
 @media screen and (max-width: 615px) {
   #fb-sign-up, #google-sign-up, #linkedin-sign-up{
     text-align: center;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .sign-up-wrapper {
+    padding-bottom: 42%;
   }
 }
