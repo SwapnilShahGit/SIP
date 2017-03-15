@@ -156,7 +156,7 @@ export class DatabaseService {
             + 'user=' + encodeURIComponent(userId)
             + startRequest
             + endRequest
-            + titleRequest;;
+            + titleRequest;
     }
 
     private BuildGetUserEventsRequest(userId: string, start: Moment, end: Moment): string {
