@@ -76,4 +76,16 @@
     background: -moz-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to bottom right, $color-spore-orange, $color-spore-yellow); /* Standard syntax (must be last) */
   }
+  :host /deep/ {
+    #footer {
+      position: inherit !important;
+    }
+  }
+}
+
+
+@media screen and (max-height: 600px) {
+  #login-body {
+    padding-bottom: 70%;
+  }
 }
