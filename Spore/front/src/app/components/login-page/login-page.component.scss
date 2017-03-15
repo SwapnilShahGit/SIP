@@ -65,6 +65,19 @@
   margin-left: 0px;
   margin-right: 0px;
 }
+.or-wrapper {
+  padding: 10px 0;
+  span {
+    padding: 0 10px;
+  }
+}
+.or-line {
+  border-color: black;
+  width: 100px;
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
 @media screen and (max-width: 767px) {
   #sign-in, #sign-in-buttons {
     text-align: center;

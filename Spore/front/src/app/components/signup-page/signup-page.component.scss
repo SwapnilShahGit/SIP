@@ -36,27 +36,24 @@
 }
 
 .third-party-buttons-container {
-  padding-bottom: 30px;
 }
 
 #google-sign-up{
   text-align: center;
 }
 
-.or-line-container {
-  padding-bottom: 30px;
-}
-
-.or-line {
-  width: 100%;
-  text-align: center;
-  border-bottom: 1px solid #000;
-  line-height: 0.1em;
-  margin: 10px 0 20px;
+.or-wrapper {
+  padding: 40px 0;
   span {
-    background: white;
-    padding: 0 10px;
+    padding: 0 12px;
   }
+}
+.or-line {
+  border-color: black;
+  width: 200px;
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 4px;
 }
 
 .date-of-birth-text {
@@ -142,6 +139,9 @@ select option {color: $color-spore-grey}
 @media screen and (max-width: 767px) {
   #left-box, #right-box {
     text-align: center;
+  }
+  .or-line {
+    width: 125px;
   }
 }
 
