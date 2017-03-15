@@ -10,7 +10,6 @@ const userSchema = new Schema({
 		sparse: true,
 		unique: true
 	},
-	gender: String,
 	facebook_id: {
 		type: String,
 		sparse: true,
