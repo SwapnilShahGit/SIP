@@ -1,84 +1,86 @@
 <div style="position: relative; min-height: 100%">
-  <div class="container-fluid sign-up-container">
-    <div>
-      <i class="fa fa-close close-button" (click)="sporeLogin()"></i>
-      <div class="header-text">Join Spore Today</div>
-      <div class="container-fluid third-party-buttons-container">
-        <div id="google-sign-up" class="col-sm-12">
-          <third-party-button [buttonText]="'Sign up with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" [buttonBorder]="'none'" (click)="facebookLogin()"></third-party-button>
-          <third-party-button [buttonText]="'Sign up with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'" [buttonBorder]="'none'"></third-party-button>
-          <third-party-button [buttonText]="'Sign up with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'" [buttonBorder]="'none'"></third-party-button>
+  <div class="sign-up-wrapper">
+    <div class="container-fluid sign-up-container">
+      <div>
+        <i class="fa fa-close close-button" (click)="sporeLogin()"></i>
+        <div class="header-text">Join Spore Today</div>
+        <div class="container-fluid third-party-buttons-container">
+          <div id="google-sign-up" class="col-sm-12">
+            <third-party-button [buttonText]="'Sign up with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" [buttonBorder]="'none'" (click)="facebookLogin()"></third-party-button>
+            <third-party-button [buttonText]="'Sign up with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'" [buttonBorder]="'none'"></third-party-button>
+            <third-party-button [buttonText]="'Sign up with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'" [buttonBorder]="'none'"></third-party-button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="or-line-container">
-    <div class="or-line">
-      <span>or</span>
-    </div>
-  </div>
-  <div>
-    <div id="left-box" class="col-sm-6">
-      <label class="required-field">{{requiredField.firstName}}</label>
-      <text-box [placeholderText]="'First Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.first_name" [(ngModel)]="apiResponse.first_name" ngDefaultControl></text-box>
-    </div>
-    <div id="right-box" class="col-sm-6 text-left">
-      <label class="required-field">{{requiredField.lastName}}</label>
-      <text-box [placeholderText]="'Last Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.last_name" [(ngModel)]="apiResponse.last_name" ngDefaultControl></text-box>
-    </div>
-
-    <div id="left-box" class="col-sm-6">
-      <label class="required-field">{{requiredField.email}}</label>
-      <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.email" [(ngModel)]="apiResponse.email" ngDefaultControl></text-box>
-    </div>
-    <div id="right-box" class="col-sm-6 text-left">
-      <label class="required-field">{{requiredField.confirmEmail}}</label>
-      <text-box [placeholderText]="'Confirm Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="apiResponse.confirmEmail" ngDefaultControl></text-box>
-    </div>
-
-    <div id="left-box" class="col-sm-6">
-      <label class="required-field">{{requiredField.password}}</label>
-      <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.password" ngDefaultControl></text-box>
-    </div>
-    <div id="right-box" class="col-sm-6 text-left">
-      <label class="required-field">{{requiredField.confirmPassword}}</label>
-      <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.confirmPassword" ngDefaultControl></text-box>
-    </div>
-
-    <div>
-      <div id="left-box" class="col-sm-6">
-        <div class="select-school-label">Select a School:</div>
-      </div>
-
-      <div id="right-box" class="col-sm-6 text-left select-school-container">
-        <select [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
-          <option *ngFor="let school of supportedSchools" [selected]="school === apiResponse.selectedSchool">{{school}}</option>
-        </select>
+    <div class="or-line-container">
+      <div class="or-line">
+        <span>or</span>
       </div>
     </div>
-
     <div>
       <div id="left-box" class="col-sm-6">
-        <div class="date-of-birth-text">Date of Birth:</div>
+        <label class="required-field">{{requiredField.firstName}}</label>
+        <text-box [placeholderText]="'First Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.first_name" [(ngModel)]="apiResponse.first_name" ngDefaultControl></text-box>
       </div>
       <div id="right-box" class="col-sm-6 text-left">
-        <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
+        <label class="required-field">{{requiredField.lastName}}</label>
+        <text-box [placeholderText]="'Last Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.last_name" [(ngModel)]="apiResponse.last_name" ngDefaultControl></text-box>
       </div>
-    </div>
 
-    <div id="left-box" class="col-sm-6 gender-terms-container">
-      <div class="gender-container">
-        <input type="radio" name="gender" value="male" checked="{{apiResponse.male}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Male</span>
-        <input type="radio" name="gender" value="female" checked="{{apiResponse.female}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Female</span><br>
+      <div id="left-box" class="col-sm-6">
+        <label class="required-field">{{requiredField.email}}</label>
+        <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.email" [(ngModel)]="apiResponse.email" ngDefaultControl></text-box>
       </div>
-      <div class="terms-conditions-container">
-        <label class="required-field" [class.termsAndConditions]="true">{{requiredField.termsAndConditions}}</label>
-        <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl><span style="font-size: 16px"><div class="terms-conditions-text" (click)="this.apiResponse.termsAndConditions = !this.apiResponse.termsAndConditions">I agree to the terms and conditions</div></span>
+      <div id="right-box" class="col-sm-6 text-left">
+        <label class="required-field">{{requiredField.confirmEmail}}</label>
+        <text-box [placeholderText]="'Confirm Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="apiResponse.confirmEmail" ngDefaultControl></text-box>
       </div>
-    </div>
 
-    <div id="right-box" class="col-sm-6 text-left">
-      <div id="sign-up-button-container"><button class="btn-warning btn-lg sign-up-button" (click)="signUpUser()">Sign Up</button> <br></div>
+      <div id="left-box" class="col-sm-6">
+        <label class="required-field">{{requiredField.password}}</label>
+        <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.password" ngDefaultControl></text-box>
+      </div>
+      <div id="right-box" class="col-sm-6 text-left">
+        <label class="required-field">{{requiredField.confirmPassword}}</label>
+        <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.confirmPassword" ngDefaultControl></text-box>
+      </div>
+
+      <div>
+        <div id="left-box" class="col-sm-6">
+          <div class="select-school-label">Select a School:</div>
+        </div>
+
+        <div id="right-box" class="col-sm-6 text-left select-school-container">
+          <select [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
+            <option *ngFor="let school of supportedSchools" [selected]="school === apiResponse.selectedSchool">{{school}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <div id="left-box" class="col-sm-6">
+          <div class="date-of-birth-text">Date of Birth:</div>
+        </div>
+        <div id="right-box" class="col-sm-6 text-left">
+          <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
+        </div>
+      </div>
+
+      <div id="left-box" class="col-sm-6 gender-terms-container">
+        <div class="gender-container">
+          <input type="radio" name="gender" value="male" checked="{{apiResponse.male}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Male</span>
+          <input type="radio" name="gender" value="female" checked="{{apiResponse.female}}" [(ngModel)]="this.apiResponse.gender" ngDefaultControl><span class="check-box">Female</span><br>
+        </div>
+        <div class="terms-conditions-container">
+          <label class="required-field" [class.termsAndConditions]="true">{{requiredField.termsAndConditions}}</label>
+          <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl><span style="font-size: 16px"><div class="terms-conditions-text" (click)="this.apiResponse.termsAndConditions = !this.apiResponse.termsAndConditions">I agree to the terms and conditions</div></span>
+        </div>
+      </div>
+
+      <div id="right-box" class="col-sm-6 text-left">
+        <div id="sign-up-button-container"><button class="btn-warning btn-lg sign-up-button" (click)="signUpUser()">Sign Up</button> <br></div>
+      </div>
     </div>
   </div>
   <div class="footer-container">
