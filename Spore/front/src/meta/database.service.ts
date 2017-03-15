@@ -194,7 +194,7 @@ export class DatabaseService {
         if (response && response.data) {
             return new User(response.data._id, response.data.first, response.data.last,
               response.data.pass, response.data.email, response.data.gender,
-              response.data.facebook_id, response.data.picture_uri, 
+              response.data.facebook_id, response.data.picture_uri,
               response.data.school, response.data.theme);
         }
         return new User();
