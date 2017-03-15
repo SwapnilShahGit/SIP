@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Event } from '../../../meta/event';
 import { DatabaseService } from '../../../meta/database.service';
 import * as moment from 'moment';
-import { Moment } from 'moment';
 import * as jstz from 'jstz';
 
 @Component({
