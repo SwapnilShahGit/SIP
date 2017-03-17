@@ -11,18 +11,3 @@
   box-sizing: border-box;
   width: 100%;
 }
-
-:host /deep/ {
-  .ui-button {
-    background-color: $color-spore-orange;
-    border-color: darken($color-spore-orange, 10%);
-    &.ui-state-hover {
-      background-color: darken($color-spore-orange, 10%) !important;
-      border-color: darken($color-spore-orange, 10%) !important;
-    }
-    &.ui-state-active {
-      background-color: darken($color-spore-orange, 10%) !important;
-      border-color: darken($color-spore-orange, 10%) !important;
-    }
-  }
-}
