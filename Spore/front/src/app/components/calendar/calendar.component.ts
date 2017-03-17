@@ -1,15 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import { Event } from '../../../meta/event';
 import { DatabaseService } from '../../../meta/database.service';
 import * as moment from 'moment';
 import * as jstz from 'jstz';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input()
   public userId: string;
@@ -25,8 +26,10 @@ export class CalendarComponent implements OnInit {
   public timezone = jstz.determine().name();
   // Currently not used (may be useful) - if not remove 'jstz' from package.json
 
+  public userSub: Subscription;
+
   constructor(
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService, private elementRef: ElementRef
   ) { }
 
   public ngOnInit() {
@@ -43,6 +46,26 @@ export class CalendarComponent implements OnInit {
         }
       }
     });
+  }
+
+  public ngAfterViewInit() {
+    this.userSub = this.databaseService.user.subscribe((user) => {
+      for (let button = 0; button < this.elementRef.nativeElement.querySelectorAll('button').length; button ++) {
+        console.log(this.elementRef.nativeElement.querySelectorAll('button')[button]);
+        this.elementRef.nativeElement.querySelectorAll('button')[button].style.backgroundColor = user.theme.tertiaryColour;
+        this.elementRef.nativeElement.querySelectorAll('button')[button].style.borderColor = user.theme.tertiaryColour;
+        this.elementRef.nativeElement.querySelectorAll('button')[button].style.textTransform = 'capitalize';
+        this.elementRef.nativeElement.querySelectorAll('button')[button].style.borderRadius = '3px';
+        this.elementRef.nativeElement.querySelectorAll('button')[button].style.marginTop = '40px';
+        if (button === 0 || button === 3 || button === 4) {
+          this.elementRef.nativeElement.querySelectorAll('button')[button].style.marginRight = '0.75em';
+        }
+      }
+    });
+  }
+
+  public ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 
   public handleEventClick(e) {
