@@ -26,18 +26,6 @@
   user-select: none;
   -webkit-user-drag: none;
   -moz-user: none;
-  opacity: .5;
-}
-#sign-in {
-  padding: 25px;
-  text-align: right;
-}
-#checkbox {
-  transform: scale(1.5);
-}
-#remember-me {
-  padding-right: 8px;
-  margin: 5px;
 }
 #forgot-password {
   margin: 5px;
@@ -50,16 +38,6 @@
 #sign-up {
   width: 110px;
   margin: 5px 0px 5px 0px;
-}
-#sign-in-buttons {
-  padding: 25px;
-  line-height: 1.8;
-}
-.g-ico-margin, .in-ico-margin {
-  margin-right: 10px;
-}
-.f-ico-margin {
-  margin-right: 12px;
 }
 .row {
   margin-left: 0px;
@@ -78,27 +56,123 @@
   margin-top: 0;
   margin-bottom: 4px;
 }
+
+// TODO double check if we need to keep this
 @media screen and (max-width: 767px) {
-  #sign-in, #sign-in-buttons {
-    text-align: center;
-  }
-  .login-wrapper {
-    background: $color-spore-orange; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(left top, $color-spore-orange, $color-spore-yellow); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to bottom right, $color-spore-orange, $color-spore-yellow); /* Standard syntax (must be last) */
-  }
-  :host /deep/ {
-    #footer {
-      position: inherit !important;
-    }
+  // #sign-in, #sign-in-buttons {
+  //   text-align: center;
+  // }
+  // .login-wrapper {
+  //   background: $color-spore-orange; /* For browsers that do not support gradients */
+  //   background: -webkit-linear-gradient(left top, $color-spore-orange, $color-spore-yellow); /* For Safari 5.1 to 6.0 */
+  //   background: -o-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Opera 11.1 to 12.0 */
+  //   background: -moz-linear-gradient(bottom right, $color-spore-orange, $color-spore-yellow); /* For Firefox 3.6 to 15 */
+  //   background: linear-gradient(to bottom right, $color-spore-orange, $color-spore-yellow); /* Standard syntax (must be last) */
+  // }
+  // :host /deep/ {
+  //   #footer {
+  //     position: inherit !important;
+  //   }
+  // }
+}
+
+@media screen and (max-height: 750px) {
+  #login-body {
+    padding-bottom: 70%;
   }
 }
 
+.bubbles{
+	z-index: 1;
 
-@media screen and (max-height: 600px) {
-  #login-body {
-    padding-bottom: 70%;
+	li{
+		position: absolute;
+		list-style: none;
+		display: block;
+		width: 40px;
+		height: 40px;
+		bottom: 0px;
+    background-color: white;
+    border-radius: 50%;
+		-webkit-animation: circle 25s infinite;
+		animation: circle 25s infinite;
+		-webkit-transition-timing-function: linear;
+		transition-timing-function: linear;
+    opacity: 0.5;
+
+    // ### Left side
+    &:nth-child(1) { left: 4%; animation-delay: 0s; animation-duration: 36s; }
+    &:nth-child(2) { left: 7%; animation-delay: 9s; animation-duration: 36s; }
+    &:nth-child(3) { left: 8%; animation-delay: 18s; animation-duration: 36s; }
+    &:nth-child(4) { left: 7%; animation-delay: 27s; animation-duration: 36s; }
+
+    &:nth-child(5) { left: 9%; animation-delay: 5s; animation-duration: 20s; }
+    &:nth-child(6) { left: 13%; animation-delay: 10s; animation-duration: 20s; }
+    &:nth-child(7) { left: 14%; animation-delay: 15s; animation-duration: 20s; }
+    &:nth-child(8) { left: 19%; animation-delay: 0s; animation-duration: 27s; }
+    &:nth-child(9) { left: 13%; animation-delay: 8s; animation-duration: 27s; }
+    &:nth-child(10) { left: 18%; animation-delay: 20s; animation-duration: 27s; }
+
+    &:nth-child(11) { left: 27%; animation-delay: 2s; animation-duration: 34s; }
+    &:nth-child(12) { left: 30%; animation-delay: 11s; animation-duration: 34s; }
+    &:nth-child(13) { left: 32%; animation-delay: 20s; animation-duration: 34s; }
+    &:nth-child(14) { left: 29%; animation-delay: 29s; animation-duration: 34s; }
+
+
+    // ### Right Side
+    &:nth-child(15) { left: 93%; animation-delay: 0s; animation-duration: 36s; }
+    &:nth-child(16) { left: 92%; animation-delay: 9s; animation-duration: 36s; }
+    &:nth-child(17) { left: 94%; animation-delay: 18s; animation-duration: 36s; }
+    &:nth-child(18) { left: 91%; animation-delay: 27s; animation-duration: 36s; }
+
+    &:nth-child(19) { left: 90%; animation-delay: 5s; animation-duration: 20s; }
+    &:nth-child(20) { left: 87%; animation-delay: 10s; animation-duration: 20s; }
+    &:nth-child(21) { left: 84%; animation-delay: 15s; animation-duration: 20s; }
+    &:nth-child(22) { left: 81%; animation-delay: 0s; animation-duration: 27s; }
+    &:nth-child(23) { left: 89%; animation-delay: 8s; animation-duration: 27s; }
+    &:nth-child(24) { left: 82%; animation-delay: 20s; animation-duration: 27s; }
+
+    &:nth-child(25) { left: 74%; animation-delay: 2s; animation-duration: 34s; }
+    &:nth-child(26) { left: 71%; animation-delay: 11s; animation-duration: 34s; }
+    &:nth-child(27) { left: 69%; animation-delay: 20s; animation-duration: 34s; }
+    &:nth-child(28) { left: 71%; animation-delay: 29s; animation-duration: 34s; }
+
+    // ### Middle
+    &:nth-child(29) { left: 50%; animation-delay: 15s; animation-duration: 40s; }
+    &:nth-child(30) { left: 34%; animation-delay: 9s; animation-duration: 30s; }
+    &:nth-child(31) { left: 66%; animation-delay: 25s; animation-duration: 30s; }
+
+    &:nth-child(32) { left: 48%; animation-delay: 6s; animation-duration: 30s; }
+    &:nth-child(33) { left: 39%; animation-delay: 20s; animation-duration: 35s; }
+    &:nth-child(34) { left: 61%; animation-delay: 33s; animation-duration: 40s; }
+
+    &:nth-child(35) { left: 52%; animation-delay: 32s; animation-duration: 35s; }
+    &:nth-child(36) { left: 43%; animation-delay: 13s; animation-duration: 40s; }
+    &:nth-child(36) { left: 57%; animation-delay: 29s; animation-duration: 35s; }
+	}
+}
+
+@-webkit-keyframes circle {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-2000px) rotate(600deg); }
+}
+@keyframes circle {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-2000px) rotate(600deg); }
+}
+
+@media screen and (max-width: 767px) {
+  .hideSmallScreen {
+    visibility: hidden;
+  }
+}
+@media screen and (max-width: 917px) {
+  .hideMediumScreen {
+    visibility: hidden;
+  }
+}
+@media screen and (max-width: 1067px) {
+  .hideLargeScreen {
+    visibility: hidden;
   }
 }
