@@ -16,32 +16,37 @@ export class CoursesPageComponent implements OnInit {
   private deleteDialogVisible: boolean = false;
   private deleteCourseCode: string = "";
   private searchDialogVisible: boolean = false;
+  private searchDialogRequest: string = "";
+  private mockedSearchResults: Array<Course> = [];
+  private searchResultSelected: string = "";
 
   public ngOnInit() {
-    // let lectures: Array<CourseOption> = [new CourseOption('A', '1pm', 0)];
-    // let tutorials: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
-    // let practicals: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1), new CourseOption('C', '3pm', 2)];
-    // let course: Course = new Course(false, 'ABC123', 'Dr. Guy', 'No clue what this is...', null, 0, lectures, 0, tutorials, 0, practicals);
-    // this.courses.push(course);
-    // let courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    // this.coursesMaster.push(courseMaster);
-    // course = new Course(false, 'CSC309', 'Cool Dude Arnold', 'This is a pretty cool class.', 'csc309faspfsaopfjapas');
-    // this.courses.push(course);
-    // courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    // this.coursesMaster.push(courseMaster);
-    // let tutorials1: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
-    // let tutorials2: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
-    // course = new Course(false, 'MAT111', 'Fuchs', 'This class is also pretty cool.', 'mat111fa124asfpfjapas', 1, tutorials1, 0, tutorials2);
-    // this.courses.push(course);
-    // courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    // this.coursesMaster.push(courseMaster);
-    // let lectures1: Array<CourseOption> = [new CourseOption('A', '1pm', 0)];
-    // let lectures2: Array<CourseOption> = [new CourseOption('A', '2pm', 0)];
-    // let lectures3: Array<CourseOption> = [new CourseOption('A', '3pm', 0)];
-    // course = new Course(false, 'ECO101', 'Bailey on Ice', 'Smooth as hell.', 'eco101ffas2aspfsaopfjapas', 0, lectures1, 0, lectures2, 0, lectures3);
-    // this.courses.push(course);
-    // courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    // this.coursesMaster.push(courseMaster);
+    let lectures: Array<CourseOption> = [new CourseOption('A', '1pm', 0)];
+    let tutorials: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
+    let practicals: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1), new CourseOption('C', '3pm', 2)];
+    let course: Course = new Course(false, 'ABC123', 'Dr. Guy', 'No clue what this is...', null, 0, lectures, 0, tutorials, 0, practicals);
+    this.courses.push(course);
+    this.mockedSearchResults.push(course);
+    let courseMaster = <Course>JSON.parse(JSON.stringify(course));
+    this.coursesMaster.push(courseMaster);
+    course = new Course(false, 'CSC309', 'Cool Dude Arnold', 'This is a pretty cool class.', 'csc309faspfsaopfjapas');
+    this.courses.push(course);
+    this.mockedSearchResults.push(course);
+    courseMaster = <Course>JSON.parse(JSON.stringify(course));
+    this.coursesMaster.push(courseMaster);
+    let tutorials1: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
+    let tutorials2: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
+    course = new Course(false, 'MAT111', 'Fuchs', 'This class is also pretty cool.', 'mat111fa124asfpfjapas', 1, tutorials1, 0, tutorials2);
+    this.courses.push(course);
+    courseMaster = <Course>JSON.parse(JSON.stringify(course));
+    this.coursesMaster.push(courseMaster);
+    let lectures1: Array<CourseOption> = [new CourseOption('A', '1pm', 0)];
+    let lectures2: Array<CourseOption> = [new CourseOption('A', '2pm', 0)];
+    let lectures3: Array<CourseOption> = [new CourseOption('A', '3pm', 0)];
+    course = new Course(false, 'ECO101', 'Bailey on Ice', 'Smooth as hell.', 'eco101ffas2aspfsaopfjapas', 0, lectures1, 0, lectures2, 0, lectures3);
+    this.courses.push(course);
+    courseMaster = <Course>JSON.parse(JSON.stringify(course));
+    this.coursesMaster.push(courseMaster);
   }
 
   private updateCourse(course: Course): any {
@@ -72,10 +77,25 @@ export class CoursesPageComponent implements OnInit {
     }
   }
 
-  private addCourse(): any {
+  private addCourse(id?: string): any {
     console.log('Add Course Called!');
-    let course: Course = new Course();
+    let course: Course;
+    if (id) {
+      course = this.mockedSearchResults.find(c => c.id == id);
+    } else {
+      course = new Course();
+    }
     this.courses.push(course);
+    setTimeout(function() {
+      let panel = document.getElementById(course.id + 'Toggle');
+      let courseField = document.getElementById(course.id + 'Course');
+      if (panel) {
+        panel.click();
+        if (courseField) {
+          courseField.focus();
+        }
+      }
+    }, 50)
   }
 
   private deleteCourse(): any {

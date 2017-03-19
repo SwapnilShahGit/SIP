@@ -12,7 +12,7 @@
         <custom-colour-picker (keypress)="updateButtonCheck(course)" [(colour)]="course.colour"
           [dropdownClass]="'dropdown-menu-right'" [buttonClass]="'btn btn-info'"></custom-colour-picker>
       </a>
-      <a class="leftFloat" data-toggle="collapse" data-parent="#courses-accordion" href="#{{course.id}}" (click)="switchSlide(course);">
+      <a id="{{course.id}}Toggle" class="leftFloat" data-toggle="collapse" data-parent="#courses-accordion" href="#{{course.id}}" (click)="switchSlide(course);">
         <h4 class="panel-title">
           <span *ngIf="course.id == currentSlide" class="fa fa-chevron-down panel-heading-icon"></span>
           <span *ngIf="course.id != currentSlide" class="fa fa-chevron-right panel-heading-icon"></span>
@@ -27,8 +27,8 @@
             <div class="container-fluid form-group row">
               <label class="col-sm-2 col-form-label">Course:</label>
               <div class="col-sm-10">
-                <input class="form-control" (keyup)="updateButtonCheck(course)" type="text"
-                  [value]="course.code" (input)="course.code = $event.target.value">
+                <input id="{{course.id}}Course" class="form-control" (keyup)="updateButtonCheck(course)"
+                  type="text" [value]="course.code" (input)="course.code = $event.target.value">
               </div>
             </div>
             <div class="container-fluid form-group row">
@@ -140,9 +140,9 @@
 <div class="cotainer-fluid">
   <div class="col-sm-6">
     <div class="input-group input-group-lg">
-      <input type="text" class="form-control" placeholder="Search for the following course...">
+      <input type="text" class="form-control" placeholder="Search for the following course..." [(ngModel)]="searchDialogRequest">
       <span class="input-group-btn">
-        <button class="btn btn-success" (click)="searchDialogVisible=true;">
+        <button class="btn btn-success" (click)="searchResultSelected=''; searchDialogVisible=true;" [disabled]="searchDialogRequest.length <= 0">
           <span class="fa fa-search"></span> Check!</button>
       </span>
     </div>
@@ -152,23 +152,33 @@
   </div>
 </div>
 
-<!--read TODO below-->
-<!--also need so that when you click add manually, it would open up first box and set pointer to first input field-->
-<!--also minor thing, to drop down the tab curser needs to be in the middle (cant hit bottom or top of header) -->
-<!--also figure out how to close p-dialog by clicking off the dialog-->
-<!--add check so you cant search empty strings (maybe disable/enable check button for this)-->
-
 <p-dialog header="Search Results" [(visible)]="searchDialogVisible" [responsive]="true" showEffect="fade"
   [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
-  Results for TODO add request string here:<br>
-  TODO add some sort of for loop for results here with check box select which one you pick <br>
-  <button class="btn btn-success" (click)="searchDialogVisible=false;">Ok</button>
+  <div *ngIf="mockedSearchResults && mockedSearchResults.length > 0">
+    <p><i>{{mockedSearchResults.length}}</i> results for
+      '{{searchDialogRequest.length > 12 ? searchDialogRequest.substring(0,12) + '...' : searchDialogRequest}}':</p>
+    <div *ngFor="let course of mockedSearchResults">
+      <div class="radio">
+        <label>
+          <input type="radio" name="searchDialogRadio" value="course.id" (click)="searchResultSelected = course.id">
+          {{course.code.length > 12 ? course.code.substring(0,12) + '...' : course.code}}
+        </label>
+      </div>
+    </div> <br>
+    <button class="btn btn-info" (click)="searchDialogVisible=false; addCourse(searchResultSelected);"
+      [disabled]="searchResultSelected.length <= 0">Add</button>
+    <button class="btn btn-danger" (click)="searchDialogVisible=false;">Cancel</button>
+  </div>
+  <div *ngIf="!mockedSearchResults || mockedSearchResults.length <= 0">
+    <p>No results found!</p> <br>
+    <button class="btn btn-success" (click)="searchDialogVisible=false;">Ok</button>
+  </div>
 </p-dialog>
 
 <p-dialog header="Warning" [(visible)]="deleteDialogVisible" [responsive]="true" showEffect="fade"
   [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
   Are you about to delete
-  {{deleteCourseCode.length > 12 ? deleteCourseCode.substring(0,12) + '...' : deleteCourseCode}}
+  '{{deleteCourseCode.length > 12 ? deleteCourseCode.substring(0,12) + '...' : deleteCourseCode}}'
   from your calendar, continue?<br><br>
   <button class="btn btn-info" (click)="deleteDialogVisible=false; deleteCourse();">Yes</button>
   <button class="btn btn-danger" (click)="deleteDialogVisible=false;">No</button>
