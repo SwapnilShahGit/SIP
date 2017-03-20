@@ -1,0 +1,36 @@
+#newInputTask{
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#addBtn{
+    height: 46px;
+    font-weight: bold;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
+    overflow: visible;
+}
+
+#plus{
+    margin: 5px;
+}
+
+#newAdd{
+     display: flex;
+}

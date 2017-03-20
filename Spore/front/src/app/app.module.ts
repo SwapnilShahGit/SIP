@@ -31,6 +31,7 @@ import { CustomColourPickerComponent } from './components/colour-picker/colour-p
 import { MapPageComponent } from './components/map-page/map-page.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { GMapsService } from '../meta/googleMapService';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -81,7 +82,8 @@ type StoreType = {
     SporeDialogComponent,
     CoursesPageComponent,
     CustomColourPickerComponent,
-    MapPageComponent
+    MapPageComponent,
+    TasksComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
