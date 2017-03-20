@@ -17,6 +17,7 @@ import { CalendarModule, DialogModule, ButtonModule, ScheduleModule } from 'prim
 import { AppRoutingModule } from './app.routes';
 import { DatabaseService } from '../meta/database.service';
 import { NavService } from '../meta/nav.service';
+import { UserService } from '../meta/user.service'
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { UploadComponent } from './components/upload/upload.component';
@@ -90,6 +91,7 @@ type StoreType = {
     APP_PROVIDERS,
     DatabaseService,
     NavService,
+    UserService
   ]
 })
 export class AppModule {
