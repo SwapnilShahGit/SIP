@@ -5,6 +5,7 @@ import { SupportedSchoolsEnum } from '../../../meta/SupportedSchools';
 import { FBConnector } from '../../../assets/facebook/facebook';
 import { User } from '../../../meta/user';
 import { DatabaseService } from '../../../meta/database.service';
+import { UserService } from '../../../meta/user.service';
 
 @Component({
   selector: 'signup-page',
@@ -25,7 +26,9 @@ export class SignUpPageComponent implements OnInit {
     password: '', confirmPassword: '', termsAndConditions: ''};
 
   constructor(private router: Router,
-              private databaseService: DatabaseService, public zone: NgZone) {
+              private databaseService: DatabaseService,
+              private userService: UserService,
+              public zone: NgZone) {
     this.buildSupportedSchools();
   }
 
@@ -100,9 +103,10 @@ export class SignUpPageComponent implements OnInit {
   public signUpUser() {
     console.log(this.apiResponse);
     if (this.verifyForm()) {
+      let pictureUrl = this.apiResponse.pictureUrl || this.userService.getRandomPicture();
       let newUser = new User('', this.apiResponse.first_name, this.apiResponse.last_name, '',
         this.apiResponse.email, this.apiResponse.userId,
-        this.apiResponse.pictureUrl, this.apiResponse.selectedSchool);
+        pictureUrl, this.apiResponse.selectedSchool);
       this.databaseService.addUser(newUser).then((response) => {
         if (response.error === 0) {
           window.alert('User added');
