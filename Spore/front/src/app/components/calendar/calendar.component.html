@@ -2,8 +2,8 @@
     [timezone]="'local'" (onEventClick)="handleEventClick($event)" (onEventDrop)="handleEventDrop($event)"></p-schedule>
 <br>
 
-<p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false"
-    [closeOnEscape]="true" [resizable]="false">
+<p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="true"
+    [closeOnEscape]="true" [resizable]="false" [width]="300" [height]="700" [resizable]="true" [dismissableMask]="true">
     <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
         <div class="ui-grid-row">
             <div class="ui-grid-col-12">
@@ -34,16 +34,16 @@
         <div class="ui-grid-row">
             <div class="ui-grid-col-12 date-input-style">
                 <p-calendar [(ngModel)]="event.endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
-                    dateFormat="(DD) MM d, yy"></p-calendar>
+                    dateFormat="(DD) MM d, yy" [showTime]="true" hourFormat="12" stepMinute="15"></p-calendar>
             </div>
         </div>
     </div>
     <footer *ngIf="event">
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
             <button *ngIf="event.id" type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
-            <button *ngIf="event.id == undefined" type="button" pButton icon="fa-undo" (click)="closeEvent()" label="Cancel"></button>
+            <button *ngIf="!event.id" type="button" pButton icon="fa-undo" (click)="closeEvent()" label="Cancel"></button>
             <button *ngIf="event.id" type="button" pButton icon="fa-check" (click)="updateEvent()" label="Update"></button>
-            <button *ngIf="event.id == undefined" type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
+            <button *ngIf="!event.id" type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
         </div>
     </footer>
 </p-dialog>

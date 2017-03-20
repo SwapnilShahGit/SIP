@@ -51,7 +51,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   public ngAfterViewInit() {
     this.userSub = this.databaseService.user.subscribe((user) => {
       for (let button = 0; button < this.elementRef.nativeElement.querySelectorAll('button').length; button ++) {
-        console.log(this.elementRef.nativeElement.querySelectorAll('button')[button]);
         this.elementRef.nativeElement.querySelectorAll('button')[button].style.backgroundColor = user.theme.tertiaryColour;
         this.elementRef.nativeElement.querySelectorAll('button')[button].style.borderColor = user.theme.tertiaryColour;
         this.elementRef.nativeElement.querySelectorAll('button')[button].style.textTransform = 'capitalize';
