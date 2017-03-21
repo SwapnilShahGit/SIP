@@ -7,7 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class FooterBarComponent {
   @Input()
-  public footerText: string;
-  @Input()
   public footerColour: string = '#2c5268';
 }
