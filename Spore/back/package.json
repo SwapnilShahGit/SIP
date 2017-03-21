@@ -9,6 +9,7 @@
 	},
 	"dependencies": {
 		"bluebird": "3.4.7",
+		"dummy-json":"2.0.0",
 		"mongoose": "4.9.0",
 		"restify": "4.1.1",
 		"winston": "2.3.1"
