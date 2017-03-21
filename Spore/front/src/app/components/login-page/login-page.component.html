@@ -1,5 +1,5 @@
 <div style="position: relative; min-height: 100%">
-  <div id="login-body" class="text-center">
+  <div id="login-body" class="text-center" [style.background]="'linear-gradient(to bottom right,' + temp + ', ' + temp2 + ')'">
     <div id="backBubbles"></div>
     <div id="frontBubbles"></div>
     <div class="login-wrapper">
@@ -16,6 +16,10 @@
         <hr class="or-line">
       </div>
       <third-party-button [buttonText]="'Sign in with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" (click)="facebookLogin()"></third-party-button><br>
+      <button class="button lg high" [(colorPicker)]="temp" [cpAlphaChannel]="'disabled'" [style.background]="temp" [style.width]="'100px'" [style.height]="'20px'"
+              [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
+      <button class="button lg high" [(colorPicker)]="temp2" [cpAlphaChannel]="'disabled'" [style.background]="temp2" [style.width]="'100px'" [style.height]="'20px'"
+              [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
     </div>
   </div>
   <div>

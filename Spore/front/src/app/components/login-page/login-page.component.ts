@@ -13,6 +13,10 @@ import { CookieService } from 'angular2-cookie/core';
 export class LoginPageComponent implements OnInit {
 
   private fbKey: string = ENV === 'production' ? '309270582738901' : '346211865751257';
+  private temp = '#ff7373';
+  private temp2 = '#ffd700';
+  private temp3 = 'linear-gradient(to bottom right, #ff7373, #ffd700)';
+  private basicColours: Array<String> = ['#ff7373', '#ffd700', '#3399ff', '#00ff00', '#ffa500', '#8a2be2'];
 
   constructor(
     private router: Router,
@@ -80,5 +84,19 @@ export class LoginPageComponent implements OnInit {
     }
 
     FB.getLoginStatus(checkLogin);
+  }
+
+  private _temp1(event) {
+    if (event) {
+      console.log(event);
+      this.temp = event;
+      this.temp3 = 'linear-gradient(to bottom right, ' + this.temp + ', ' + this.temp2 + ')';
+    }
+  }
+  private _temp2(event) {
+    if (event) {
+      this.temp2 = event;
+      this.temp3 = 'linear-gradient(to bottom right, ' + this.temp + ', ' + this.temp2 + ')';
+    }
   }
 }
