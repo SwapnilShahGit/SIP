@@ -12,7 +12,6 @@ require('./models/user');
 require('./models/event');
 var counter = 0;
 
-
 // -- get script arguments
 var numOfEvents = process.argv[2];
 var userID = process.argv[3];
@@ -38,41 +37,32 @@ mongoose.connection.on( 'disconnected', function() {
 	console.log('Mongoose connection disconnected');
 });
 
-
 // -- function to create give number of events and save into db
-function Populate(){
-	for (var i = 1; i <= numOfEvents; i++){
+function populate() {
+	for (var i = 1; i <= numOfEvents; i++) {
 		var user = mongoose.model('user');
 		var event = mongoose.model('event');
 
-	   var fewHours ='{{int 1 3600000 round=1000}}';
-	   var sameDay = '{{int 1 86400000 round=1000}}';
-	   var differentDay = '{{int 86400000 604800000 round=1000}}';
+	    var fewHours ='{{int 1 3600000 round=1000}}';
+	    var sameDay = '{{int 1 86400000 round=1000}}';
+	    var differentDay = '{{int 86400000 604800000 round=1000}}';
 
 		var first = Date.parse(argStart);
 		var last = Date.parse(argEnd);
 
-
 		var startTime = Math.floor((Math.random() * (last - first +1) ) + first);
-		var endTime ;
-
+		var endTime;
 
 		// -- longer events will be created less frequently than
-		if ((i%100) == 0){
-			//console.log("differentDay");
+		if ((i%100) == 0) {
 			endTime = startTime + parseInt(dj.parse(differentDay));
-		}
-		else if((i%75) == 0){
-			//console.log("sameDay");
+		} else if((i%75) == 0) {
 			endTime = startTime + parseInt(dj.parse(sameDay));
-		}
-		else{
-			//console.log("fewHours");
+		} else {
 			endTime = startTime + parseInt(dj.parse(fewHours));
 		}
 
 		var eventTitle = dj.parse('{{lorem 10}}');
-
 
 		var event = new event({
 			 title: eventTitle,
@@ -88,6 +78,5 @@ function Populate(){
 		})
 	}
 }
-Populate();
 
-
+populate();
