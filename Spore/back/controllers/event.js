@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const utility = require('../libs/utility');
 
 const model = mongoose.model('event');
-const user = mongoose.model('user');
 
 function addEvent(req, res, next) {
 	logger.debug("adding event");
@@ -13,6 +12,8 @@ function addEvent(req, res, next) {
 		title: req.body.title,
 		start: req.body.start ? new Date(req.body.start) : undefined,
 		end: req.body.end ? new Date(req.body.end) : undefined,
+		owner: req.body.owner,
+		users: req.body.users,
 		background: req.body.bg,
 		description: req.body.desc,
 		location: req.body.location,
@@ -21,13 +22,12 @@ function addEvent(req, res, next) {
 		repeat: req.body.repeat
 	});
 	event.save(event)
-		.then(coroutine(function*(doc) {
-			yield user.update({_id: req.body.user}, {$push: {event_ids: doc.id}});
+		.then(function (doc) {
 			res.send({
 				error: 0,
 				data: doc
 			});
-		}))
+		})
 		.catch(function (err) {
 			res.send({
 				error: 110,
@@ -38,7 +38,7 @@ function addEvent(req, res, next) {
 }
 
 function deleteEvent(req, res, next) {
-	user.update({_id: req.query.user}, {$pull: {event_ids: req.query.event}})
+	model.remove({_id: req.query.event})
 		.then(function (doc) {
 			res.send(200);
 		})
@@ -50,14 +50,13 @@ function deleteEvent(req, res, next) {
 
 function getEvent(req, res, next) {
 	logger.debug("fetching event");
-	user.findOne({_id: req.query.user})
-		.then(function (doc) {
-			return model.find({
-				_id: {$in: doc.event_ids},
-				start: {$gte: req.query.start ? new Date(req.query.start) : null},
-				end: {$lte: req.query.end ? new Date(req.query.end) : null}
-			});
-		})
+	let query = {
+		owner: {$in: req.query.user},
+		users: {$in: req.query.user},
+		start: {$gte: req.query.start ? new Date(req.query.start) : null},
+		end: {$lte: req.query.end ? new Date(req.query.end) : null}
+	};
+	model.find(query)
 		.then(function (doc) {
 			if (doc === null) {
 				res.send({
@@ -85,6 +84,7 @@ function updateEvent(req, res, next) {
 		title: req.body.title,
 		start: req.body.start ? new Date(req.body.start) : undefined,
 		end: req.body.end ? new Date(req.body.end) : undefined,
+		users: req.body.users,
 		background: req.body.bg,
 		description: req.body.desc,
 		location: req.body.location,

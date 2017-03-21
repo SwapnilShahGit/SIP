@@ -14,7 +14,6 @@ function addUser(req, res, next) {
 		email: req.body.email,
 		facebook_id: req.body.fb,
 		picture_uri: req.body.pic,
-		event_ids: req.body.events,
 		school: req.body.school,
 		theme: req.body.theme
 	});
@@ -72,7 +71,6 @@ function updateUser(req, res, next) {
 		email: req.body.email,
 		facebook_id: req.body.fb,
 		picture_uri: req.body.pic,
-		event_ids: req.body.events,
 		school: req.body.school,
 		theme: req.body.theme
 	};

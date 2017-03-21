@@ -16,7 +16,6 @@ const userSchema = new Schema({
 		unique: true
 	},
 	picture_uri: String,
-	event_ids: [Schema.Types.ObjectId],
 	school: String,
 	theme: Object
 });
