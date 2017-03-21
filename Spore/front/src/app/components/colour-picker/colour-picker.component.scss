@@ -1,0 +1,29 @@
+.colour-picker-container {
+    display: inline-block;
+}
+
+.current-colour {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.colour-picker-colour {
+    display: inline-block;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+.colour-picker-dropdown {
+    padding-bottom: 0;
+}
+
+.rightFloat {
+  float: right;
+  white-space: nowrap;
+}
+
+.panel-heading-icon {
+  padding: 4px;
+  margin: 2px;
+  width: 24px;
+}

@@ -1,0 +1,185 @@
+<div *ngIf="!courses || courses.length == 0">
+  <h2>Looks like you dont have any courses uploaded!</h2>
+  <h4 class="syllabiInstructions">- Upload your syllabus above</h4>
+  <h4 class="syllabiInstructions">- Or try the 'Search By Code' to check existing syllabi</h4>
+  <h4 class="syllabiInstructions">- Alternatively you can use 'Add Manually' button</h4>
+</div>
+
+<div *ngIf="courses && courses.length > 0" class="panel-group" id="courses-accordion">
+  <div *ngFor="let course of courses" class="panel panel-default">
+    <div class="panel-heading panel-heading-custom" [style.background-color]="course.colour">
+      <a class="rightFloat" (click)="updateButtonCheck(course)">
+        <custom-colour-picker (keypress)="updateButtonCheck(course)" [(colour)]="course.colour"
+          [dropdownClass]="'dropdown-menu-right'" [buttonClass]="'btn btn-info'"></custom-colour-picker>
+      </a>
+      <a id="{{course.id}}Toggle" class="leftFloat" data-toggle="collapse" data-parent="#courses-accordion" href="#{{course.id}}" (click)="switchSlide(course);">
+        <h4 class="panel-title">
+          <span *ngIf="course.id == currentSlide" class="fa fa-chevron-down panel-heading-icon"></span>
+          <span *ngIf="course.id != currentSlide" class="fa fa-chevron-right panel-heading-icon"></span>
+          <b>{{course.code.length > 12 ? course.code.substring(0,12) + '...' : course.code}}</b>
+        </h4>
+      </a>
+    </div>
+    <div id="{{course.id}}" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="container-fluid">
+          <form>
+            <div class="container-fluid form-group row">
+              <label class="col-sm-2 col-form-label">Course:</label>
+              <div class="col-sm-10">
+                <input id="{{course.id}}Course" class="form-control" (keyup)="updateButtonCheck(course)"
+                  type="text" [value]="course.code" (input)="course.code = $event.target.value">
+              </div>
+            </div>
+            <div class="container-fluid form-group row">
+              <label class="col-sm-2 col-form-label">Instructor:</label>
+              <div class="col-sm-10">
+                <input class="form-control" (keyup)="updateButtonCheck(course)" type="text"
+                  [value]="course.instructor" (input)="course.instructor = $event.target.value">
+              </div>
+            </div>
+            <div class="container-fluid form-group row">
+              <label class="col-sm-2 col-form-label">Description:</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" (keyup)="updateButtonCheck(course)" rows="3"
+                  [value]="course.description" (input)="course.description = $event.target.value"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-4 col-xs-12">
+          <h2>
+            Lectures
+            <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures, 'Lecture');"><span class="fa fa-minus"></span></button>
+          </h2>
+          <div *ngIf="course.lectures || course.lectures.length > 0">
+            <div *ngFor="let lecture of course.lectures">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  {{lecture.label}}
+                </span>
+                <span class="input-group-addon">
+                  <input type="radio" name="{{course.id}}lectureTime" (change)="updateButtonCheck(course)"
+                    [value]="lecture.index" [(ngModel)]="course.lectureSelected">
+                </span>
+                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
+                  [value]="lecture.time" (input)="lecture.time = $event.target.value">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!course.lectures || course.lectures.length == 0">
+            <h4>No lectures!</h4>
+          </div>
+        </div>
+        <div class="col-sm-4 col-xs-12">
+          <h2>
+            Tutorials
+            <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.tutorials);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.tutorials, 'Tutorial');"><span class="fa fa-minus"></span></button>
+          </h2>
+          <div *ngIf="course.tutorials || course.tutorials.length > 0">
+            <div *ngFor="let tutorial of course.tutorials">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  {{tutorial.label}}
+                </span>
+                <span class="input-group-addon">
+                  <input type="radio" name="{{course.id}}tutorialTime" (change)="updateButtonCheck(course)"
+                    [value]="tutorial.index" [(ngModel)]="course.tutorialSelected">
+                </span>
+                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
+                  [value]="tutorial.time" (input)="tutorial.time = $event.target.value">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!course.tutorials || course.tutorials.length == 0">
+            <h4>No tutorials!</h4>
+          </div>
+        </div>
+        <div class="col-sm-4 col-xs-12">
+          <h2>
+            Practicals
+            <button class="btn btn-xs btn-info " (click)="addCourseOption(course, course.practicals);"><span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.practicals, 'Practical');"><span class="fa fa-minus"></span></button>
+          </h2>
+          <div *ngIf="course.practicals || course.practicals.length > 0">
+            <div *ngFor="let practical of course.practicals">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  {{practical.label}}
+                </span>
+                <span class="input-group-addon">
+                  <input type="radio" name="{{course.id}}practicalTime" (change)="updateButtonCheck(course)"
+                    [value]="practical.index" [(ngModel)]="course.practicalSelected">
+                </span>
+                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
+                  [value]="practical.time" (input)="practical.time = $event.target.value">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!course.practicals || course.practicals.length == 0">
+            <h4>No practicals!</h4>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer panel-footer-custom">
+        <div class="container-fluid">
+          <button *ngIf="course.isDraft" class="btn btn-success" (click)="saveCourse(course);">
+            <span class="fa fa-floppy-o"></span> Save</button>
+          <button *ngIf="!course.isDraft" id="{{course.id}}UpdateButton" class="btn btn-info disabled"
+           (click)="updateCourse(course);"><span class="fa fa-pencil"></span> Update</button>
+          <button class="btn btn-danger" (click)="deleteCourseCode=course.code; deleteDialogVisible=true;">
+            <span class="fa fa-trash"></span> Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cotainer-fluid">
+  <div class="col-sm-6">
+    <div class="input-group input-group-lg">
+      <input type="text" class="form-control" placeholder="Search for the following course..." [(ngModel)]="searchDialogRequest">
+      <span class="input-group-btn">
+        <button class="btn btn-success" (click)="searchResultSelected=''; searchDialogVisible=true;" [disabled]="searchDialogRequest.length <= 0">
+          <span class="fa fa-search"></span> Check!</button>
+      </span>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <button class="btn btn-lg btn-info" (click)="addCourse();"><span class="fa fa-plus"></span> Add Manually</button>
+  </div>
+</div>
+
+<p-dialog header="Search Results" [(visible)]="searchDialogVisible" [responsive]="true" showEffect="fade"
+  [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
+  <div *ngIf="mockedSearchResults && mockedSearchResults.length > 0">
+    <p><i>{{mockedSearchResults.length}}</i> results for
+      '{{searchDialogRequest.length > 12 ? searchDialogRequest.substring(0,12) + '...' : searchDialogRequest}}':</p>
+    <div *ngFor="let course of mockedSearchResults">
+      <div class="radio">
+        <label>
+          <input type="radio" name="searchDialogRadio" value="course.id" (click)="searchResultSelected = course.id">
+          {{course.code.length > 12 ? course.code.substring(0,12) + '...' : course.code}}
+        </label>
+      </div>
+    </div> <br>
+    <button class="btn btn-info" (click)="searchDialogVisible=false; addCourse(searchResultSelected);"
+      [disabled]="searchResultSelected.length <= 0">Add</button>
+    <button class="btn btn-danger" (click)="searchDialogVisible=false;">Cancel</button>
+  </div>
+  <div *ngIf="!mockedSearchResults || mockedSearchResults.length <= 0">
+    <p>No results found!</p> <br>
+    <button class="btn btn-success" (click)="searchDialogVisible=false;">Ok</button>
+  </div>
+</p-dialog>
+
+<p-dialog header="Warning" [(visible)]="deleteDialogVisible" [responsive]="true" showEffect="fade"
+  [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
+  Are you about to delete
+  '{{deleteCourseCode.length > 12 ? deleteCourseCode.substring(0,12) + '...' : deleteCourseCode}}'
+  from your calendar, continue?<br><br>
+  <button class="btn btn-info" (click)="deleteDialogVisible=false; deleteCourse();">Yes</button>
+  <button class="btn btn-danger" (click)="deleteDialogVisible=false;">No</button>
+</p-dialog>
