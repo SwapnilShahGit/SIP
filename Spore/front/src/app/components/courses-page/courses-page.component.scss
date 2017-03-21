@@ -1,0 +1,76 @@
+textarea {
+  resize: vertical;
+  max-height: 160px;
+}
+
+a {
+  color: #ffffff;
+}
+
+h4 {
+  pointer-events: none;
+}
+
+#courses-accordion {
+  margin: 20px 0px;
+}
+
+.btn {
+  font-weight: bold;
+}
+
+.leftFloat {
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.rightFloat {
+  float: right;
+  width: 45px;
+}
+
+.panel-default {
+  margin-bottom: 15px;
+}
+
+.panel-default .panel-heading-custom {
+  background-image: none;
+  background-color: #F1AE03;
+  color: #ffffff;
+  height: 50px;
+  text-align: left;
+}
+
+.panel-default .panel-footer-custom {
+  background-image: none;
+  background-color: #2C5268;
+  color: #ffffff;
+  height: 54px;
+  text-align: left;
+}
+
+.panel-heading-icon {
+  padding: 4px;
+  margin: 2px;
+  width: 24px;
+}
+
+.input-group-addon {
+  width: 36px;
+}
+
+.colourButton {
+  width: 271px;
+  height: 35px;
+}
+
+.syllabiInstructions {
+  margin: 10px 20px;
+}
+
+.col-sm-6 {
+  padding-left: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
