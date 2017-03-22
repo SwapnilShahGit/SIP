@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 import { Event } from '../../../meta/event';
 import { DatabaseService } from '../../../meta/database.service';
-import * as moment from 'moment';
-import * as jstz from 'jstz';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'calendar',
@@ -17,19 +16,18 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public event: Event;
   public events: any = [];
-  public dialogVisible: boolean = false;
+  public dialogUpdate: boolean = false;
+  public dialogCreate: boolean = false;
+  public userSub: Subscription;
   public header: any = {
     left: 'prev,next today',
     center: 'title',
     right: 'month,agendaWeek,agendaDay'
   };
-  public timezone = jstz.determine().name();
-  // Currently not used (may be useful) - if not remove 'jstz' from package.json
-
-  public userSub: Subscription;
 
   constructor(
-    private databaseService: DatabaseService, private elementRef: ElementRef
+    private databaseService: DatabaseService,
+    private elementRef: ElementRef
   ) { }
 
   public ngOnInit() {
@@ -42,7 +40,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           let title = event.title ? event.title : '';
           let start = event.start ? event.start : '';
           let end = event.end ? event.end : '';
-          this.events.push({id: event._id, title: title, start: start, end: end});
+          let colour = event.bg ? event.bg : '#E7EAEE'; //todo double check that .bg is correct here
+          this.events.push({id: event._id, title: title, start: start, end: end, colour: colour});
         }
       }
     });
@@ -50,7 +49,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public ngAfterViewInit() {
     this.userSub = this.databaseService.user.subscribe((user) => {
-      for (let button = 0; button < this.elementRef.nativeElement.querySelectorAll('button').length; button ++) {
+      for (let button = 0; button < 6; button ++) { // 6 because there are 6 buttons we want to adjust at the top of p-schedule
         this.elementRef.nativeElement.querySelectorAll('button')[button].style.backgroundColor = user.theme.tertiaryColour;
         this.elementRef.nativeElement.querySelectorAll('button')[button].style.borderColor = user.theme.tertiaryColour;
         this.elementRef.nativeElement.querySelectorAll('button')[button].style.textTransform = 'capitalize';
@@ -70,21 +69,24 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   public handleEventClick(e) {
     this.event = new Event();
     if (e.calEvent.end) {
-      this.event.endDate = new Date(e.calEvent.end.year(),
-        e.calEvent.end.month(), e.calEvent.end.date());
+      this.event.endDate = new Date(e.calEvent.end.year(), e.calEvent.end.month(),
+        e.calEvent.end.date(), e.calEvent.end.hours(), e.calEvent.end.minutes());
     }
 
-    this.event.startDate = new Date(e.calEvent.start.year(),
-      e.calEvent.start.month(), e.calEvent.start.date());
+    this.event.startDate = new Date(e.calEvent.start.year(), e.calEvent.start.month(),
+      e.calEvent.start.date(), e.calEvent.start.hours(), e.calEvent.start.minutes());
     this.event.title = e.calEvent.title;
     this.event.id = e.calEvent.id;
-    this.dialogVisible = true;
+    this.event.colour = e.calEvent.colour;
+    this.dialogUpdate = true;
+    this.toggleModal();
   }
 
   public handleDayClick(e) {
     this.event = new Event();
     this.event.startDate = new Date(e.date.year(), e.date.month(), e.date.date());
-    this.dialogVisible = true;
+    this.dialogUpdate = true;
+    this.toggleModal();
   }
 
   public handleEventDrop(e) {
@@ -109,11 +111,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     let start = this.event.startDate ? this.event.startDate.toISOString() : '';
     let end = this.event.endDate ? this.event.endDate.toISOString() : '';
     let title = this.event.title ? this.event.title : 'No Title';
+    let colour = this.event.colour ? this.event.colour : '#E7EAEE';
     this.databaseService.addEvent(this.userId, this.event).then(response => {
       if (response.error !== 0) {
         window.alert('Error during addEvent API call: ' + response.data);
       } else {
-        this.events.push({id: response.data._id, title: title, start: start, end: end});
+        this.events.push({id: response.data._id, title: title, start: start, end: end, colour: colour});
       }
     });
 
@@ -124,13 +127,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     let start = this.event.startDate ? this.event.startDate.toISOString() : '';
     let end = this.event.endDate ? this.event.endDate.toISOString() : '';
     let title = this.event.title ? this.event.title : 'No Title';
+    let colour = this.event.colour ? this.event.colour : '#E7EAEE';
     let id = this.event.id;
     this.databaseService.updateEvent(this.event).then(response => {
       if (response.error !== 0) {
         window.alert('Error during event update: ' + response.data);
       } else {
         this.events.splice(this.EventIndexById(id), 1);
-        this.events.push({title: title, start: start, end: end, id: id});
+        this.events.push({id: id, title: title, start: start, end: end, colour: colour});
       }
     });
 
@@ -151,8 +155,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public closeEvent() {
-    this.dialogVisible = false;
-    this.event = undefined;
+    this.toggleModal();
+    setTimeout(function() {
+      this.dialogUpdate = false;
+      this.event = undefined;
+    }, 100);
   }
 
   private EventIndexById(id: string): number {
@@ -163,6 +170,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     return -1;
+  }
+
+  private toggleModal() {
+    document.getElementById("hiddenModalOpener").click();
   }
 
 }
