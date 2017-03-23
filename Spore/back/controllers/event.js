@@ -55,7 +55,10 @@ function getEvent(req, res, next) {
 			return model.find({
 				_id: {$in: doc.event_ids},
 				start: {$gte: req.query.start ? new Date(req.query.start) : null},
-				end: {$lte: req.query.end ? new Date(req.query.end) : null}
+				$or: [
+					{end: {$exists: false}},
+					{end: {$lte: req.query.end ? new Date(req.query.end) : null}}
+				]
 			});
 		})
 		.then(function (doc) {
