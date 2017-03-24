@@ -12,6 +12,18 @@ textarea {
   border: none;
 }
 
+#invalidLegend {
+  float: left;
+}
+
+.invalidColour {
+  color: red;
+}
+
+.fa {
+  width: 14px;
+}
+
 .btn {
   font-weight: bold;
 }
@@ -23,4 +35,3 @@ textarea {
 .colourPickerResult {
   cursor: default;
 }
-

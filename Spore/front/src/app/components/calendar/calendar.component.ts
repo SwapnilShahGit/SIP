@@ -19,6 +19,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   public dialogUpdate: boolean = false;
   public dialogCreate: boolean = false;
   public userSub: Subscription;
+  public invalid: any = null;
   public header: any = {
     left: 'prev,next today',
     center: 'title',
@@ -40,7 +41,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           let title = event.title ? event.title : '';
           let start = event.start ? event.start : '';
           let end = event.end ? event.end : '';
-          let colour = event.bg ? event.bg : '#E7EAEE'; //todo double check that .bg is correct here
+          let colour = event.bg ? event.bg : '#E7EAEE';
           this.events.push({id: event._id, title: title, start: start, end: end, colour: colour});
         }
       }
@@ -90,6 +91,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public handleEventDrop(e) {
+    if (!this.validateEvent(e)) {
+      return;
+    }
+
     let newEvent = new Event();
     newEvent.startDate = e.event.start;
     newEvent.endDate = e.event.end;
@@ -108,6 +113,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public saveEvent() {
+    if (!this.validateEvent(this.event)) {
+      return;
+    }
+
     let start = this.event.startDate ? this.event.startDate.toISOString() : '';
     let end = this.event.endDate ? this.event.endDate.toISOString() : '';
     let title = this.event.title ? this.event.title : 'No Title';
@@ -124,6 +133,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public updateEvent() {
+    if (!this.validateEvent(this.event)) {
+      return;
+    }
+
     let start = this.event.startDate ? this.event.startDate.toISOString() : '';
     let end = this.event.endDate ? this.event.endDate.toISOString() : '';
     let title = this.event.title ? this.event.title : 'No Title';
@@ -172,8 +185,52 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     return -1;
   }
 
-  private toggleModal() {
+  private toggleModal(): void {
+    this.invalid = null;
     document.getElementById("hiddenModalOpener").click();
+    let restyleInput = this.restyleInput;
+    setTimeout(function() {
+      restyleInput("startTime", "3");
+      restyleInput("endTime", "2");
+    }, 1);
+  }
+
+  private restyleInput(className: String, zIndex: String): void {
+    let startTimeOuter = document.getElementsByClassName(className + "Outer");
+      if (startTimeOuter.length > 0) {
+        let startTimeInput = startTimeOuter[0] as HTMLElement;
+        startTimeInput.style.padding = "0px";
+        startTimeInput.style.border = "none";
+        startTimeInput.style.borderRadius = "4px";
+        startTimeInput.style.zIndex = zIndex.toString();
+      }
+
+      let startTimeInner = document.getElementsByClassName(className + "Inner");
+      if (startTimeInner.length > 0) {
+        let startTimeInput = startTimeInner[0] as HTMLElement;
+        startTimeInput.style.borderRadius = "4px";
+      }
+  }
+
+  private validateEvent(event: Event): boolean {
+    this.invalid = null;
+    if (!event.title || !event.startDate) {
+      this.handleInvalidEvent(event);
+      return false;
+    }
+
+    return true;
+  }
+
+  private handleInvalidEvent(event: Event): void {
+    this.invalid = {};
+    if (!event.startDate) {
+      this.invalid.startDate = true;
+    }
+
+    if (!event.title) {
+      this.invalid.title = true;
+    }
   }
 
 }
