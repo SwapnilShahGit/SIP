@@ -1,45 +1,95 @@
-const exec = require('child_process').spawn;
+const logger = require('winston');
+
+const exec = global.Promise.promisify(require('child_process').exec);
+const mongoose = require('mongoose');
 const readline = require('readline');
+const utility = require('../libs/utility');
 
-// TODO: Consider moving to libs
-// -- execute the parser to process JSON files
-function java(req, res, next) {
-	listOfCourseEvents = [];
-	// TODO: check to see if course being requested already exists in the db
-	//if dbController.checkCourseExists(req.query.id)
-	// TODO: if it exists
-	// TODO: find events related to that course and add them to listOfCourseEvents
+const course = mongoose.model('course');
+const template = mongoose.model('courseTemplate');
+const user = mongoose.model('user');
 
-	// if course DNE
-
-	var child = exec('java', ['-jar', '../parser/Parser-jar-with-dependencies.jar']);
-	const rl = readline.createInterface({
-		input: child.stdout,
-		output: child.stdin
-	})
-
-	rl.on('line', function (data) {
-		var courseinfo = JSON.parse(data);
-		dbController.javaSaveEvent(courseinfo.mongodbevents, function (stat) {
-			// add events to listOfCourseEvents
-			listOfCourseEvents.concat(stat);
-		});
-		// TODO: make a new course in the courses table with the newly generated id's
-	});
-
-	// TODO: check with the user to see which lecture/tutorial section they're in
-	// TODO: add listOfCourseEvents to the user requesting this information
+function getSections(meetingSections) {
+	let sectionObject = {
+		primary: null,
+		lectures: [],
+		tutorials: [],
+		practicals: []
+	};
+	for (let i = 0; i < meetingSections.length; i++) {
+		if (meetingSections[i].instructors.length != 0) {
+			sectionObject.primary = meetingSections[i];
+		}
+		if (meetingSections[i].code.startsWith('L')) {
+			sectionObject.lectures.push(meetingSections[i]);
+		} else if (meetingSections[i].code.startsWith('T')) {
+			sectionObject.tutorials.push(meetingSections[i]);
+		} else if (meetingSections[i].code.startsWith('P')) {
+			sectionObject.practicals.push(meetingSections[i]);
+		}
+	}
+	return sectionObject;
 }
 
-// TODO: If any business logic has to be done here, place it in user model.
-function saveCoursetoUser(req, res, next) {
-	// TODO: function should take in userID, course code, lecture section, tutorial section,
-	// and practical section that they're in
+function processFile(file) {
+	return exec('java -jar ../parser/Parser-jar-with-dependencies.jar "' + file.path + '"')
+		.then(function (stdout) {
+			let parsedData = JSON.parse(stdout);
+			let sections = getSections(parsedData.meeting_sections);
+			let templateData = new template({
+				hash: file.hash,
+				course_code: parsedData.code,
+				instructor: sections.primary.instructors[0],
+				description: parsedData.description,
+				lectures: sections.lectures,
+				tutorials: sections.tutorials,
+				practicals: sections.practicals
+			});
+			return templateData.save(templateData);
+		});
 }
 
 function parse(req, res, next) {
-	res.send(200);
+	template.findOne({hash: req.files.file.hash})
+		.then(function (doc) {
+			if (doc === null) {
+				return processFile(req.files.file);
+			} else {
+				return doc;
+			}
+		})
+		.then(function (doc) {
+			let courseData = new course({
+				code: doc.course_code,
+				instructor: doc.instructor,
+				description: doc.description,
+				lectureSelected: req.body.lectureSelected,
+				lectures: doc.lectures,
+				tutorialSelected: req.body.tutorialSelected,
+				tutorials: doc.tutorials,
+				practicalSelected: req.body.practicalSelected,
+				practicals: doc.practicals,
+				exams: true
+			});
+			return courseData.save(courseData);
+		})
+		.then(function (doc) {
+			return user.update({_id: req.body.user}, {$push: {course_ids: doc.id}});
+		})
+		.then(function (doc) {
+			res.send(200);
+		})
+		.catch(function (err) {
+			let failedPdfExp = new RegExp('.*IOException.*');
+			if (failedPdfExp.test(err)) {
+				res.send(415);
+			} else {
+				res.send(520);
+			}
+		})
+		.finally(next);
 }
+
 module.exports = function (server) {
 	server.post('/api/parse', parse);
-}
+};
