@@ -35,10 +35,7 @@
   text-align: center;
 }
 
-.third-party-buttons-container {
-}
-
-#google-sign-up{
+#sign-up{
   text-align: center;
 }
 
@@ -82,7 +79,9 @@ select {
   width: 250px;
 }
 
-select option {color: $color-spore-grey}
+select option {
+  color: $color-spore-grey;
+}
 
 .check-box {
   font-size: 18px;
@@ -134,13 +133,7 @@ select option {color: $color-spore-grey}
     text-align: center;
   }
   .or-line {
-    width: 125px;
-  }
-}
-
-@media screen and (max-width: 615px) {
-  #fb-sign-up, #google-sign-up, #linkedin-sign-up{
-    text-align: center;
+    width: 100px;
   }
 }
 
