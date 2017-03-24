@@ -4,11 +4,9 @@
       <div>
         <i class="fa fa-close close-button" (click)="sporeLogin()"></i>
         <div class="header-text">Join Spore Today</div>
-        <div class="container-fluid third-party-buttons-container">
-          <div id="google-sign-up" class="col-sm-12">
+        <div class="container-fluid">
+          <div id="sign-up" class="col-sm-12">
             <third-party-button [buttonText]="'Sign up with Facebook'" [buttonIcon]="'fa-facebook'" [buttonColor]="'#3b5998'" [buttonBorder]="'none'" (click)="facebookLogin()"></third-party-button>
-            <third-party-button [buttonText]="'Sign up with Google'" [buttonIcon]="'fa-google'" [buttonColor]="'#dd4b39'" [buttonBorder]="'none'"></third-party-button>
-            <third-party-button [buttonText]="'Sign up with LinkedIn'" [buttonIcon]="'fa-linkedin'" [buttonColor]="'#005983'" [buttonBorder]="'none'"></third-party-button>
             <div class="or-wrapper">
               <hr class="or-line">
               <span>or</span>
@@ -46,25 +44,21 @@
         <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.confirmPassword" ngDefaultControl></text-box>
       </div>
 
-      <div>
-        <div id="left-box" class="col-sm-6">
-          <div class="select-school-label">Select a School:</div>
-        </div>
-
-        <div id="right-box" class="col-sm-6 text-left select-school-container">
-          <select [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
-            <option *ngFor="let school of supportedSchools" [selected]="school === apiResponse.selectedSchool">{{school}}</option>
-          </select>
-        </div>
+      <div id="left-box" class="col-sm-6">
+        <div class="select-school-label">Select a School:</div>
       </div>
 
-      <div>
-        <div id="left-box" class="col-sm-6">
-          <div class="date-of-birth-text">Date of Birth:</div>
-        </div>
-        <div id="right-box" class="col-sm-6 text-left">
-          <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
-        </div>
+      <div id="right-box" class="col-sm-6 text-left select-school-container">
+        <select [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
+          <option *ngFor="let school of supportedSchools" [selected]="school === apiResponse.selectedSchool">{{school}}</option>
+        </select>
+      </div>
+
+      <div id="left-box" class="col-sm-6">
+        <div class="date-of-birth-text">Date of Birth:</div>
+      </div>
+      <div id="right-box" class="col-sm-6 text-left">
+        <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
       </div>
 
       <div id="left-box" class="col-sm-6 gender-terms-container">
@@ -72,13 +66,16 @@
           <label class="required-field" [class.termsAndConditions]="true">{{requiredField.termsAndConditions}}</label>
           <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl><span style="font-size: 16px"><div class="terms-conditions-text" (click)="this.apiResponse.termsAndConditions = !this.apiResponse.termsAndConditions">I agree to the terms and conditions</div></span>
         </div>
+      </div>
 
-        <div id="right-box" class="col-sm-6 text-left">
-          <div id="sign-up-button-container"><button class="btn-warning btn-lg sign-up-button" (click)="signUpUser()">Sign Up</button> <br></div>
+      <div id="right-box" class="col-sm-6 text-left">
+        <div id="sign-up-button-container">
+          <button class="btn-warning btn-lg sign-up-button" (click)="signUpUser()">Sign Up</button><br>
         </div>
       </div>
     </div>
-  <div class="footer-container">
-    <footer-bar></footer-bar>
+    <div class="footer-container">
+      <footer-bar></footer-bar>
+    </div>
   </div>
 </div>
