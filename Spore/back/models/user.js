@@ -20,7 +20,7 @@ const userSchema = new Schema({
 	school: String,
 	theme: Object,
 	tasks: [],
-	courses_id: []
+	course_ids: []
 });
 
 mongoose.model('user', userSchema);
