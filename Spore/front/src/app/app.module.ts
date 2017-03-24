@@ -28,6 +28,7 @@ import { SporeDialogComponent } from './components/minor-page-elements/spore-dia
 import { CookieService } from 'angular2-cookie';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 import { CustomColourPickerComponent } from './components/colour-picker/colour-picker.component';
+import { MapPageComponent } from './components/map-page/map-page.component';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -77,7 +78,8 @@ type StoreType = {
     FriendsPageComponent,
     SporeDialogComponent,
     CoursesPageComponent,
-    CustomColourPickerComponent
+    CustomColourPickerComponent,
+    MapPageComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
