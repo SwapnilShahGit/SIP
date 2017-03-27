@@ -85,7 +85,7 @@ export class DatabaseService {
         return this.http
             .post(this.BuildAddEventRequest(userId, event),
               {
-                user: userId, start: event.startDate, end: event.endDate, title: event.title
+                user: userId, start: event.startDate, end: event.endDate, title: event.title, bg: event.colour
               })
             .toPromise()
             .then(response => response.json())
@@ -120,7 +120,7 @@ export class DatabaseService {
         return this.http
             .put(this.BuildUpdateEventRequest(event),
               {
-                title: event.title, start: event.startDate, end: event.endDate, event: event.id
+                title: event.title, start: event.startDate, end: event.endDate, event: event.id, bg: event.colour
               })
             .toPromise()
             .then(response => response.json())
@@ -151,11 +151,13 @@ export class DatabaseService {
         let endRequest = event.endDate ? '&end='
           + encodeURIComponent(event.endDate.toISOString()) : '';
         let titleRequest = event.title ? '&title=' + encodeURIComponent(event.title) : '';
+        let colourRequest = event.colour ? '&bg=' + encodeURIComponent(event.colour) : '';
         return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
             + startRequest
             + endRequest
-            + titleRequest;
+            + titleRequest
+            + colourRequest;
     }
 
     private BuildGetUserEventsRequest(userId: string, start: Moment, end: Moment): string {
@@ -177,16 +179,18 @@ export class DatabaseService {
     }
 
     private BuildUpdateEventRequest(event: Event): string {
-        let titleRequest = event.title ? '&title=' + event.title : '';
-        let startRequest = event.startDate ? '&start=' + event.startDate.toISOString() : '';
-        let endRequest = event.endDate ? '&end=' + event.endDate.toISOString() : '';
-        let descriptionRequest = event.description ? '&desc=' + event.description : '';
+        let titleRequest = event.title ? '&title=' + encodeURIComponent(event.title) : '';
+        let startRequest = event.startDate ? '&start=' + encodeURIComponent(event.startDate.toISOString()) : '';
+        let endRequest = event.endDate ? '&end=' + encodeURIComponent(event.endDate.toISOString()) : '';
+        let descriptionRequest = event.description ? '&desc=' + encodeURIComponent(event.description) : '';
+        let colourRequest = event.colour ? '&bg=' + encodeURIComponent(event.colour) : '';
         return this.server + '/api/events?'
-            + 'Event=' + event.id
+            + 'Event=' + encodeURIComponent(event.id)
             + titleRequest
             + startRequest
             + endRequest
-            + descriptionRequest;
+            + descriptionRequest
+            + colourRequest;
     }
 
     private BuildUserFromResponse(response: any): User {

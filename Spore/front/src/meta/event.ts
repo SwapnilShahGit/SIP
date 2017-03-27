@@ -5,6 +5,7 @@ export class Event implements IEvent {
     public startDate: Date;
     public endDate: Date;
     public description: string;
+    public colour: string = '#E7EAEE';
 }
 
 export interface IEvent {
@@ -13,4 +14,5 @@ export interface IEvent {
     startDate: Date;
     endDate: Date;
     description: string;
+    colour: string;
 }

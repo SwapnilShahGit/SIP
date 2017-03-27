@@ -1,49 +1,116 @@
 <p-schedule [events]="events" [editable]="true" [header]="header" (onDayClick)="handleDayClick($event)"
-    [timezone]="'local'" (onEventClick)="handleEventClick($event)" (onEventDrop)="handleEventDrop($event)"></p-schedule>
+  [timezone]="'local'" (onEventClick)="handleEventClick($event)" (onEventDrop)="handleEventDrop($event)"></p-schedule>
 <br>
 
-<p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true" [draggable]="false"
-    [closeOnEscape]="true" [resizable]="false">
-    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-12">
-                <label for="vin">Title</label>
+<button id="hiddenModalOpener" data-toggle="modal" data-target=".eventModal"></button>
+
+<div class="modal fade eventModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div *ngIf="event" class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="!event.id">Create Event</span>
+            <span *ngIf="event.id">Update Event</span>
+            <button type="button" class="close" data-dismiss="modal">
+              <span class="fa fa-close"></span>
+            </button>
+          </h4>
+      </div>
+      <div *ngIf="event" class="modal-body">
+        <form>
+          <div class="container-fluid form-group row">
+            <label class="col-sm-2 col-form-label">
+              <i *ngIf="invalid && invalid.title" class="invalidColour">* Title:</i>
+              <span *ngIf="!invalid || (invalid && !invalid.title)">Title:</span>
+            </label>
+            <div class="col-sm-10">
+              <input id="titleInput" class="form-control" [(ngModel)]="event.title" type="text" placeholder="Name for your event" name="title">
             </div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-12">
-                <input class="text-box-style" [(ngModel)]="event.title" type="text" placeholder="Name for your event"><br>
+          </div>
+          <div class="container-fluid form-group row">
+            <label class="col-sm-2 col-form-label">Description:</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" rows="3" [(ngModel)]="event.description" type="text" name="description"></textarea>
             </div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-12">
-                <label for="vin">Start</label>
+          </div>
+          <div class="container-fluid form-group row">
+            <label class="col-sm-2 col-form-label">Colour:</label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <custom-colour-picker class="inputSideButton" [(colour)]="event.colour"
+                    [buttonClass]="'btn btn-info'" name="colour"></custom-colour-picker>
+                </span>
+                <input class="form-control colourPickerResult" [style.background-color]="event.colour" disabled
+                  style="border-top-left-radius: 4px; border-bottom-left-radius: 4px;">
+              </div>
             </div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-12 date-input-style">
-                <p-calendar [(ngModel)]="event.startDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
-                    dateFormat="(DD) MM d, yy"> </p-calendar>
+          </div>
+          <div class="container-fluid form-group row">
+            <label class="col-sm-2 col-form-label">
+              <i *ngIf="invalid && invalid.startDate" class="invalidColour">* Start:</i>
+              <span *ngIf="!invalid || (invalid && !invalid.startDate)">Start:</span>
+            </label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <div class="inputSideButton">
+                    <button class="btn btn-warning" (click)="event.startDate=null">
+                      <span class="fa fa-trash"></span>
+                    </button>
+                  </div>
+                </span>
+                <p-calendar [(ngModel)]="event.startDate" [monthNavigator]="true" [yearNavigator]="true"
+                  [maxDate]="event.endDate" yearRange="1900:2100" placeholder="(day) month date, year"
+                  dateFormat="(DD) MM d, yy" [showTime]="true" hourFormat="12"
+                  inputStyleClass="form-control startTimeInner" styleClass="form-control startTimeOuter"
+                  name="startDate"></p-calendar>
+              </div>
             </div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-12">
-                <label for="vin">End</label>
+          </div>
+          <div class="container-fluid form-group row">
+            <label class="col-sm-2 col-form-label">End:</label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <div class="inputSideButton">
+                    <button class="btn btn-warning" (click)="event.endDate=null">
+                      <span class="fa fa-trash"></span>
+                    </button>
+                  </div>
+                </span>
+                <p-calendar [(ngModel)]="event.endDate" [monthNavigator]="true" [yearNavigator]="true" [minDate]="event.startDate"
+                  yearRange="1900:2100" placeholder="(day) month date, year" dateFormat="(DD) MM d, yy"
+                  [showTime]="true" hourFormat="12" inputStyleClass="form-control endTimeInner"
+                  styleClass="form-control endTimeOuter" name="endDate"></p-calendar>
+              </div>
             </div>
-        </div>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-12 date-input-style">
-                <p-calendar [(ngModel)]="event.endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" placeholder="(day) month date, year"
-                    dateFormat="(DD) MM d, yy"></p-calendar>
-            </div>
-        </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="!event" class="modal-body">
+        <i>Oops,</i> something went wrong!
+      </div>
+      <div *ngIf="event" class="modal-footer">
+        <i *ngIf="invalid" id="invalidLegend" class="invalidColour">
+          * Required fields
+        </i>
+        <button *ngIf="!event.id" type="button" class="btn btn-success" (click)="saveEvent()">
+          <span class="fa fa-floppy-o"></span> Save
+        </button>
+        <button *ngIf="!event.id" type="button" class="btn btn-danger" (click)="closeEvent()">
+          <span class="fa fa-close"></span> Cancel
+        </button>
+        <button *ngIf="event.id" type="button" class="btn btn-info" (click)="updateEvent()">
+          <span class="fa fa-pencil"></span> Update
+        </button>
+        <button *ngIf="event.id" type="button" class="btn btn-danger" (click)="deleteEvent()">
+          <span class="fa fa-close"></span> Delete
+        </button>
+      </div>
+      <div *ngIf="!event" class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="closeEvent()">Ok</button>
+      </div>
     </div>
-    <footer *ngIf="event">
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button *ngIf="event.id" type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
-            <button *ngIf="event.id == undefined" type="button" pButton icon="fa-undo" (click)="closeEvent()" label="Cancel"></button>
-            <button *ngIf="event.id" type="button" pButton icon="fa-check" (click)="updateEvent()" label="Update"></button>
-            <button *ngIf="event.id == undefined" type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
-        </div>
-    </footer>
-</p-dialog>
+  </div>
+</div>
