@@ -4,6 +4,7 @@ import { FBConnector } from '../../../assets/facebook/facebook';
 import { User } from '../../../meta/user';
 import { DatabaseService } from '../../../meta/database.service';
 import { CookieService } from 'angular2-cookie/core';
+import { ColourThemes } from '../../../meta/ColourThemesLogin.ts';
 
 @Component({
   selector: 'app-login-page',
@@ -13,10 +14,10 @@ import { CookieService } from 'angular2-cookie/core';
 export class LoginPageComponent implements OnInit {
 
   private fbKey: string = ENV === 'production' ? '309270582738901' : '346211865751257';
-  private temp = '#ff7373';
-  private temp2 = '#ffd700';
-  private temp3 = 'linear-gradient(to bottom right, #ff7373, #ffd700)';
-  private basicColours: Array<String> = ['#ff7373', '#ffd700', '#3399ff', '#00ff00', '#ffa500', '#8a2be2'];
+  private topLeftColour = '#ff7373';
+  private bottomRightColour = '#ffd700';
+  private gradient = 'linear-gradient(to bottom right, #ff7373, #ffd700)';
+  private fontColour = '#337ab7';
 
   constructor(
     private router: Router,
@@ -27,6 +28,11 @@ export class LoginPageComponent implements OnInit {
   }
 
   public ngOnInit() {
+    let theme = Math.floor(Math.random() * ColourThemes.length);
+    this.topLeftColour  = ColourThemes[theme].primaryColour;
+    this.bottomRightColour = ColourThemes[theme].secondaryColour;
+    this.gradient = 'linear-gradient(to bottom right, ' + this.topLeftColour + ', ' + this.bottomRightColour + ')';
+    this.fontColour = ColourThemes[theme].fontColour;
     let fbCon: FBConnector = new FBConnector(this.fbKey);
     fbCon.initFB();
     if (this.cookieService.get('userID')) {
@@ -84,19 +90,5 @@ export class LoginPageComponent implements OnInit {
     }
 
     FB.getLoginStatus(checkLogin);
-  }
-
-  private _temp1(event) {
-    if (event) {
-      console.log(event);
-      this.temp = event;
-      this.temp3 = 'linear-gradient(to bottom right, ' + this.temp + ', ' + this.temp2 + ')';
-    }
-  }
-  private _temp2(event) {
-    if (event) {
-      this.temp2 = event;
-      this.temp3 = 'linear-gradient(to bottom right, ' + this.temp + ', ' + this.temp2 + ')';
-    }
   }
 }
