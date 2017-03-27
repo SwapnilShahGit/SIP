@@ -1,5 +1,4 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { MapResult } from '../../../meta/mapResult';
 import { GMapsService } from '../../../meta/googleMapService';
 declare var google;
 
