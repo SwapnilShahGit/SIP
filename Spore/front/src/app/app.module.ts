@@ -30,6 +30,7 @@ import { CoursesPageComponent } from './components/courses-page/courses-page.com
 import { CustomColourPickerComponent } from './components/colour-picker/colour-picker.component';
 import { MapPageComponent } from './components/map-page/map-page.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import { GMapsService } from '../meta/googleMapService';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -101,7 +102,8 @@ type StoreType = {
     APP_PROVIDERS,
     DatabaseService,
     NavService,
-    UserService
+    UserService,
+    GMapsService
   ]
 })
 export class AppModule {

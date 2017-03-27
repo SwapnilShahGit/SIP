@@ -1,9 +1,8 @@
-
 <div class="cotainer-fluid" style="margin-top: 50px;">
   <div class="col-sm-6">
-    <div class="input-group input-group-lg">
-      <input class="form-control" type="text" placeholder="Address or general area..." [(ngModel)]="address">
-      <!--todo make above auto compile during typing and add enter to compile as well-->
+    <div class="input-group input-group-lg inputButtons">
+      <input class="form-control" type="text" placeholder="Address or general area..." [(ngModel)]="address"
+        (keyup)="$event.keyCode == 13 && address.length > 0 && searchByAddress()">
       <span class="input-group-btn">
         <button class="btn btn-success" [disabled]="address.length <= 0" (click)="searchByAddress();">
           <span class="fa fa-search"></span> Go
@@ -12,7 +11,7 @@
     </div>
   </div>
   <div class="col-sm-6">
-    <button class="btn btn-lg btn-info" (click)="geoLocateMe();">
+    <button class="btn btn-lg btn-info inputButtons" (click)="geoLocate();">
       <span class="fa fa-map-marker"></span> Locate me
     </button>
   </div>
@@ -22,14 +21,29 @@
   <div class="col-md-8">
     <h2>Map</h2>
     <sebm-google-map [latitude]="lat" [longitude]="lng">
-      <!--<sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>-->
+      <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
     </sebm-google-map>
   </div>
 
   <div class="col-md-4">
     <h2>Results</h2>
     <div *ngIf="results">
-      Some results here for '{{address.length > 12 ? address.substring(0,12) + '...' : address}}'...
+      <h4>Displaying results for <b>'{{googleAddress}}'</b></h4>
+      <h4>Search around for:</h4>
+      <div>
+        <button class="btn btn-lg btn-info inputButtons">
+          <span class="fa fa-cutlery"></span> Food
+        </button> <br>
+        <button class="btn btn-lg btn-info inputButtons">
+          <span class="fa fa-book"></span> Study Space
+        </button> <br>
+        <button class="btn btn-lg btn-info inputButtons">
+          <span class="fa fa-ticket"></span> Entertainment
+        </button> <br>
+      </div>
+    </div>
+    <div *ngIf="!results">
+      <h4>Use the search bar or click Locate me button.</h4>
     </div>
   </div>
 </div>
