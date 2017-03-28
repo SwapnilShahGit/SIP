@@ -35,6 +35,20 @@
   -moz-user: none;
 }
 
+#powered-by {
+  position: absolute;
+  bottom: 32px;
+  right: 212px;
+}
+
+#soti {
+  width: 10%;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 4;
+}
+
 #forgot-password {
   margin: 5px;
   font-size: x-small;
@@ -84,6 +98,12 @@
   to {
     left: -10000px;
     top: -2000px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #soti {
+    display: none;
   }
 }
 
