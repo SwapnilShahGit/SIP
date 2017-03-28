@@ -146,18 +146,7 @@ export class DatabaseService {
     }
 
     private BuildAddEventRequest(userId: string, event: Event): string {
-        let startRequest = event.startDate ? '&start='
-          + encodeURIComponent(event.startDate.toISOString()) : '';
-        let endRequest = event.endDate ? '&end='
-          + encodeURIComponent(event.endDate.toISOString()) : '';
-        let titleRequest = event.title ? '&title=' + encodeURIComponent(event.title) : '';
-        let colourRequest = event.colour ? '&bg=' + encodeURIComponent(event.colour) : '';
-        return this.server + '/api/events?'
-            + 'user=' + encodeURIComponent(userId)
-            + startRequest
-            + endRequest
-            + titleRequest
-            + colourRequest;
+        return this.server + '/api/events';
     }
 
     private BuildGetUserEventsRequest(userId: string, start: Moment, end: Moment): string {
@@ -179,18 +168,7 @@ export class DatabaseService {
     }
 
     private BuildUpdateEventRequest(event: Event): string {
-        let titleRequest = event.title ? '&title=' + encodeURIComponent(event.title) : '';
-        let startRequest = event.startDate ? '&start=' + encodeURIComponent(event.startDate.toISOString()) : '';
-        let endRequest = event.endDate ? '&end=' + encodeURIComponent(event.endDate.toISOString()) : '';
-        let descriptionRequest = event.description ? '&desc=' + encodeURIComponent(event.description) : '';
-        let colourRequest = event.colour ? '&bg=' + encodeURIComponent(event.colour) : '';
-        return this.server + '/api/events?'
-            + 'Event=' + encodeURIComponent(event.id)
-            + titleRequest
-            + startRequest
-            + endRequest
-            + descriptionRequest
-            + colourRequest;
+        return this.server + '/api/events';
     }
 
     private BuildUserFromResponse(response: any): User {
