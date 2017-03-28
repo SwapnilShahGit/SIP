@@ -58,7 +58,7 @@
         <div class="date-of-birth-text">Date of Birth:</div>
       </div>
       <div id="right-box" class="col-sm-6 text-left">
-        <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100"></p-calendar>
+        <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" [maxDate]="currentDate"></p-calendar>
       </div>
 
       <div id="left-box" class="col-sm-6 gender-terms-container">
