@@ -34,18 +34,6 @@ export var ColourThemes = [{
   secondaryColour: '#8a00ff',
   fontColour: 'white'
 },{
-  primaryColour: '#000',
-  secondaryColour: '#6584a4',
-  fontColour: 'white'
-},{
-  primaryColour: '#000',
-  secondaryColour: '#007cff',
-  fontColour: 'white'
-},{
-  primaryColour: '#000000',
-  secondaryColour: '#ffd700',
-  fontColour: 'white'
-},{
   primaryColour: '#eeeeee',
   secondaryColour: '#45c4af',
   fontColour: 'black'
@@ -56,9 +44,5 @@ export var ColourThemes = [{
 },{
   primaryColour: '#014a99',
   secondaryColour: '#014a99',
-  fontColour: 'white'
-},{
-  primaryColour: '#a2bece',
-  secondaryColour: '#080808',
   fontColour: 'white'
 }];
