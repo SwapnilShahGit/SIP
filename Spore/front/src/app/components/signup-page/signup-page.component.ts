@@ -24,6 +24,7 @@ export class SignUpPageComponent implements OnInit {
   private hidePasswordField = 'inherit';
   private requiredField = {firstName: '', lastName: '', email: '', confirmEmail: '',
     password: '', confirmPassword: '', termsAndConditions: ''};
+  private currentDate = new Date();
 
   constructor(private router: Router,
               private databaseService: DatabaseService,
