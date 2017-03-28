@@ -7,6 +7,7 @@
     width: 100%;
     cursor: pointer;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 #addBtn{
@@ -29,8 +30,42 @@
 
 #plus{
     margin: 5px;
+    float: left;
+    margin-left: 0px;
 }
 
 #newAdd{
      display: flex;
+}
+
+ul{
+     padding: 0;
+    list-style: none;
+}
+
+label {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    width: 100%;
+    border: 1px solid;
+    border-color: #ccc;
+    margin: 10px;
+    margin-left: 0px;
+}
+
+#close {
+    float: right;
+    color: #999;
+}
+
+#close:hover{
+     cursor: pointer;
+     color: black;
+}
+
+#list li.done label{
+    
 }

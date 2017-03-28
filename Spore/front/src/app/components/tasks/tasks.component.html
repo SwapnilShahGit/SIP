@@ -7,9 +7,9 @@
     </div>
     <div id ="tasklist">
       <ul id ="list">
-        <li *ngFor="let item of items">
+        <li *ngFor="let item of items; let i = index">
           <div class="view">
-            <label>{{item.text}}</label>
+            <label (click)="clickTask(item, i)">{{item.text}}<span id= "close" class="fa fa-times" (click)="removeTask(i)"></span></label>
           </div>
         </li>
       </ul>
