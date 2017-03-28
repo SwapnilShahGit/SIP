@@ -1,5 +1,13 @@
 @import '../../../assets/styles/spore-colors';
 
+:host /deep/ {
+  footer-bar {
+    #footer {
+      background: none !important;
+    }
+  }
+}
+
 #login-body {
   line-height: 1.8;
   padding: 15px 0;
