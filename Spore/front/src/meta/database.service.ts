@@ -85,7 +85,7 @@ export class DatabaseService {
         return this.http
             .post(this.BuildAddEventRequest(userId, event),
               {
-                user: userId, start: event.startDate, end: event.endDate, title: event.title, bg: event.colour
+                user: userId, start: event.startDate, end: event.endDate, title: event.title, colour: event.colour
               })
             .toPromise()
             .then(response => response.json())
@@ -120,7 +120,7 @@ export class DatabaseService {
         return this.http
             .put(this.BuildUpdateEventRequest(event),
               {
-                title: event.title, start: event.startDate, end: event.endDate, event: event.id, bg: event.colour
+                title: event.title, start: event.startDate, end: event.endDate, event: event.id, colour: event.colour
               })
             .toPromise()
             .then(response => response.json())
