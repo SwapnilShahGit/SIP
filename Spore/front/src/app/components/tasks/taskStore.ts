@@ -1,12 +1,10 @@
 
 export class TaskItem {
-  text: String;
+    text: String;
+    done: boolean;
 }
 
 export class TaskStore {
-  items: TaskItem[] = [
-      {text: 'Feed the cat'},
-     {text: 'Do the shopping'}
-  ];
+  items: TaskItem[] = [ ];
 
 }
