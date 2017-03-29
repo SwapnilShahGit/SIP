@@ -41,7 +41,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
           let title = event.title ? event.title : '';
           let start = event.start ? event.start : '';
           let end = event.end ? event.end : '';
-          let colour = event.bg ? event.bg : '#E7EAEE';
+          let colour = event.colour ? event.colour : '#E7EAEE';
           this.events.push({id: event._id, title: title, start: start, end: end, colour: colour});
         }
       }
