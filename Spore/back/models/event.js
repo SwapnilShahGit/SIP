@@ -10,7 +10,8 @@ const eventSchema = new Schema({
 	location: String,
 	contact: String,
 	course: String,
-	repeat: Number
+	repeat: Number,
+	exam: Boolean
 });
 
 mongoose.model('event', eventSchema);
