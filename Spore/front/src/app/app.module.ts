@@ -28,6 +28,9 @@ import { SporeDialogComponent } from './components/minor-page-elements/spore-dia
 import { CookieService } from 'angular2-cookie';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 import { CustomColourPickerComponent } from './components/colour-picker/colour-picker.component';
+import { MapPageComponent } from './components/map-page/map-page.component';
+import { AgmCoreModule } from 'angular2-google-maps/core';
+import { GMapsService } from '../meta/googleMapService';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -77,7 +80,8 @@ type StoreType = {
     FriendsPageComponent,
     SporeDialogComponent,
     CoursesPageComponent,
-    CustomColourPickerComponent
+    CustomColourPickerComponent,
+    MapPageComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -88,14 +92,18 @@ type StoreType = {
     CalendarModule,
     ScheduleModule,
     DialogModule,
-    ColorPickerModule
+    ColorPickerModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDKZhrDYxKakINx9bskMeg1NLe66OMaPBA'
+    })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
     DatabaseService,
     NavService,
-    UserService
+    UserService,
+    GMapsService
   ]
 })
 export class AppModule {
