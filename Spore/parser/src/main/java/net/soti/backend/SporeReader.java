@@ -29,8 +29,8 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 import org.joda.time.format.DateTimeParser;
 import org.joda.time.format.ISODateTimeFormat;
-import org.ocpsoft.prettytime.PrettyTime;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 import com.mdimension.jchronic.Chronic;
@@ -39,9 +39,6 @@ import net.soti.backend.PdfToText;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-
-
 
 public class SporeReader
 {
@@ -55,14 +52,17 @@ public class SporeReader
 	public static JSONArray nodeobj = new JSONArray();
 
 	public static void main(String[] args) throws IOException {
-		//get list of files in the PDF directory
 		File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
-		//System.out.println(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
 		File[] listOfFiles = folder.listFiles();
 		PdfToText pdfManager = new PdfToText();
 		for (int i = 0; i < listOfFiles.length; i++){
 			if (! listOfFiles[i].toString().endsWith(".pdf")){
 				continue;
+			}
+			String name = listOfFiles[i].getName();
+			int pos = name.lastIndexOf(".");
+			if (pos > 0) {
+				name = name.substring(0,pos);
 			}
 			obj = new JSONObject();
 			pdfManager.setFilePath(listOfFiles[i].toString());
@@ -70,49 +70,33 @@ public class SporeReader
 			obj.put("rawtext", rawtext);
 			rawTextLines = rawtext.split("\\r?\\n");
 		
-			//UofT course code format
 			finalcoursecode = coursecodefinder();
 			obj.put("code", finalcoursecode);
-			//obtains the university campus based on the course code
 			obj.put("university", getUniversityCampus());
-			//use information processed above to find corresponding course in API
 			JSONObject json = null;
 			try{
 				json = connecttoCobalt();
 			}catch (Exception e){
-				//information not available in cobalt API
 				e.printStackTrace();
 				nodeobj.add(finalcoursecode);
 				obj.put("graded_evaluations", getassignments());
-				saveAsJSON();
+				saveAsJSON(name);
 				continue;
 			}
-			//id of the course
 			obj.put("id",json.get("id").toString());
 			nodeobj.add(json.get("id").toString());
-			//name of the course
 			obj.put("name", json.get("name").toString());
-			//description of the course
 			obj.put("description", json.get("description").toString());
-			//division of the course
 			obj.put("division", json.get("division").toString());
-			//department the course is from
 			obj.put("department", json.get("department").toString());
-			//prerequisities of the course
 			obj.put("prerequisites", json.get("prerequisites").toString());
-			//exclusions from the course
 			obj.put("exclusions", json.get("exclusions").toString());
-			//grade level of the course
 			obj.put("level", json.get("level").toString());
-			//campus the course is being taught on
 			obj.put("campus", json.get("campus").toString());
-			//the term the course is being taught in
 			obj.put("term", json.get("term").toString());
-			//the meeting sections of the course
 			obj.put("meeting_sections", json.get("meeting_sections").toString());
-			//list of graded evaluations
 			obj.put("graded_evaluations", getassignments());
-			saveAsJSON();
+			saveAsJSON(name);
 			obj.put("mongodbevents", processeventsformongo(json).toString());
 			System.out.println(obj.toString());
 		}
@@ -240,11 +224,10 @@ public class SporeReader
 		return markedlist;
 	}
 
-	public static void saveAsJSON(){
-		//create a new JSON file with the global JSON file and save to filesystem
+	public static void saveAsJSON(String name){
 		try{
 			FileWriter file = new FileWriter(System.getProperty("user.dir") + "/PDFS/JSONOutput/" 
-				+ finalcoursecode + currentyear + session + optionalcharacter + ".json");
+				+ name + ".json");
 			file.write(obj.toJSONString());
 			file.flush();
 			file.close();
@@ -253,7 +236,6 @@ public class SporeReader
 		}
 	}
 
-	//return the name of the university based on the course code
 	public static String getUniversityCampus(){
 		if (Character.toString(finalcoursecode.charAt(7)).equals("5")){
 			return "UTM";
