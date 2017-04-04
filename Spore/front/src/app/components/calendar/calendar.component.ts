@@ -91,7 +91,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public handleEventDrop(e) {
-    if (!this.validateEvent(e)) {
+    if (!this.validateEvent(e.event)) {
       return;
     }
 
@@ -212,9 +212,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       }
   }
 
-  private validateEvent(event: Event): boolean {
+  private validateEvent(event): boolean {
     this.invalid = null;
-    if (!event.title || !event.startDate) {
+    if (!event.title || !(event.start || event.startDate)) {
       this.handleInvalidEvent(event);
       return false;
     }
