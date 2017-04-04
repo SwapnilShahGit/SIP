@@ -52,8 +52,12 @@ public class SporeReader
 	public static JSONArray nodeobj = new JSONArray();
 
 	public static void main(String[] args) throws IOException {
-		File folder = new File(System.getProperty("user.dir")+ "/PDFS/UnParsedFiles");
+		File folder = new File(args[0]);
 		File[] listOfFiles = folder.listFiles();
+		if (listOfFiles == null) {
+			System.out.println("invalid path");
+			System.exit(0);
+		}
 		PdfToText pdfManager = new PdfToText();
 		for (int i = 0; i < listOfFiles.length; i++){
 			if (! listOfFiles[i].toString().endsWith(".pdf")){
