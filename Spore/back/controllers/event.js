@@ -18,8 +18,7 @@ function addEvent(req, res, next) {
 		location: req.body.location,
 		contact: req.body.contact,
 		course: req.body.course,
-		repeat: req.body.repeat,
-		exam: req.body.exam
+		repeat: req.body.repeat
 	});
 	event.save(event)
 		.then(coroutine(function*(doc) {
