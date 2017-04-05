@@ -44,6 +44,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.user = this.databaseService.user;
+    this.user.subscribe((val) => {
+      console.log(val);
+    });
     console.log('_______ in main _______');
     if (this.cookieService.get('userID')) {
       this.userID = this.cookieService.get('userID');
