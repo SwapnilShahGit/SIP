@@ -45,7 +45,7 @@ function getExam(req, res, next) {
 			if (exam === null) {
 				res.send({
 					error: 110,
-					data: "exam not found."
+					data: "exam not found. "
 				});
 			} else {
 				res.send({
@@ -172,7 +172,6 @@ function collectExams(req, res, next) {
 
 module.exports = function (server) {
 	server.get('/api/exam', getExam);
-	//server.post('/api/exam', updateExam);
 	server.post('/api/exam', collectExams);
 
 };
