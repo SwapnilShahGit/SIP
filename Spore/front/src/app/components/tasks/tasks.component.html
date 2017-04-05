@@ -1,15 +1,15 @@
 <div>
   <div class="container-fluid">
-  <h1>Add a Task</h1>
+    <h1 id = "title" >Tasks List</h1>
     <div id="newAdd">
       <input class= "form-control" type="text" id="newInputTask" placeholder="New Task"  [(ngModel)]='newTask'(keyup.enter)="addTask()">
-      <button class= "btn btn-lg btn-info" id="addBtn" (click)="addTask()"><span id= "plus" class="fa fa-plus"></span>Add</button>
+      <button class= "btn btn-lg btn-info" id="addBtn" (click)="addTask()"><span id= "plus" class="fa fa-plus"></span> Add</button>
     </div>
     <div id ="tasklist">
       <ul id ="list">
         <li *ngFor="let item of items; let i = index">
           <div class="view">
-            <label (click)="clickTask(item, i)">{{item.text}}<span id= "close" class="fa fa-times" (click)="removeTask(i)"></span></label>
+            <label (click)="clickTask(item, i)" [class.crossed]="item.done">{{item.text}}<span id= "close" class="fa fa-times" (click)="removeTask(i)"></span></label>
           </div>
         </li>
       </ul>

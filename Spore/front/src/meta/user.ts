@@ -10,10 +10,11 @@ export class User implements IUser {
   public pictureURL: string;
   public school: string;
   public theme: Theme;
+  public tasks: any[]; 
 
   constructor(userID?: string, firstName?: string, lastName?: string, password?: string,
               email?: string, facebookId?: string, pic?: string,
-              school?: string, theme?: Theme) {
+              school?: string, theme?: Theme, tasks?: any[]) {
     this.userID = userID || '' ;
     this.firstName = firstName || '';
     this.lastName = lastName || '';
@@ -23,6 +24,7 @@ export class User implements IUser {
     this.pictureURL = pic || '';
     this.school = school || '';
     this.theme = theme || new Theme();
+    this.tasks = tasks || [];
   }
 
 }
@@ -43,5 +45,6 @@ export interface IUser {
   pictureURL: string;
   school: string;
   theme: Theme;
+  tasks: any[];
 }
 

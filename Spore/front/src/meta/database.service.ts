@@ -53,7 +53,7 @@ export class DatabaseService {
               {
                 fb: user.facebookID, first: user.firstName, last: user.lastName,
                 email: user.email, pic: user.pictureURL, pass: user.password,
-                school: user.school, theme: user.theme
+                school: user.school, theme: user.theme, tasks: user.tasks
               })
             .toPromise()
             .then(response => response.json())
@@ -66,7 +66,7 @@ export class DatabaseService {
               {
                 user: user.userID, fb: user.facebookID, first: user.firstName,
                 last: user.lastName, email: user.email, pic: user.pictureURL,
-                pass: user.password, school: user.school, theme: user.theme
+                pass: user.password, school: user.school, theme: user.theme, tasks: user.tasks
               })
             .toPromise()
             .then(response => response.json() as Response)
@@ -176,7 +176,7 @@ export class DatabaseService {
             return new User(response.data._id, response.data.first, response.data.last,
               response.data.pass, response.data.email,
               response.data.facebook_id, response.data.picture_uri,
-              response.data.school, response.data.theme);
+              response.data.school, response.data.theme, response.data.tasks);
         }
         return new User();
     }

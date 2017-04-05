@@ -47,7 +47,7 @@
     </div>
 
     <div *ngIf="currentTab == this.navService.tasksTab">
-      <tasks></tasks>
+      <tasks [user]="(user | async)"></tasks>
     </div>
 
     <div *ngIf="currentTab == this.navService.filesTab">

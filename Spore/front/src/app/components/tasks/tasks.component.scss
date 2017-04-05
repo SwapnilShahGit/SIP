@@ -1,3 +1,8 @@
+#title{
+    width: 100%;
+    font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
 #newInputTask{
     height: 46px;
     padding: 10px 16px;
@@ -23,19 +28,20 @@
     display: inline-block;
     text-align: center;
     white-space: nowrap;
-    cursor: pointer;
     border: 1px solid transparent;
     overflow: visible;
-}
+    width: 120px;
 
-#plus{
-    margin: 5px;
-    float: left;
-    margin-left: 0px;
+    &:hover{
+        cursor: pointer;
+        background-color: #2bacd4;
+        border-color: #46b8da;
+    }
 }
 
 #newAdd{
      display: flex;
+     margin-bottom: 20px;
 }
 
 ul{
@@ -50,22 +56,25 @@ label {
     line-height: 1.3333333;
     border-radius: 6px;
     width: 100%;
-    border: 1px solid;
-    border-color: #ccc;
+    border: 3px solid;
+    border-color: #d9534f;
     margin: 10px;
     margin-left: 0px;
+
+    &.crossed {
+        text-decoration: line-through;
+        border-color: #46a046;
+        
+    }
 }
 
 #close {
     float: right;
     color: #999;
-}
 
-#close:hover{
-     cursor: pointer;
-     color: black;
-}
+    &:hover{
+        cursor: pointer;
+        color: black;
+    }
 
-#list li.done label{
-    
 }
