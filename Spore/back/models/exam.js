@@ -8,7 +8,7 @@ const examSchema = new Schema({
 	end: Date ,
 	duration: String,
 	location: String,
-	instructor: String,
+	instructor: String
 
 });
 
