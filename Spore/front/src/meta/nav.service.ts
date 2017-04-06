@@ -8,7 +8,7 @@ export class NavService {
     public calendarTab: string = 'CalendarTab';
     public calculatorTab: string = 'CalculatorTab';
     public coursesTab: string = 'CoursesTab';
-    public remindersTab: string = 'RemindersTab';
+    public tasksTab: string = 'TasksTab';
     public filesTab: string = 'FilesTab';
     public helpTab: string = 'HelpTab';
     public mapTab: string = 'MapTab';

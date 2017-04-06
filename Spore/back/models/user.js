@@ -18,7 +18,8 @@ const userSchema = new Schema({
 	picture_uri: String,
 	event_ids: [Schema.Types.ObjectId],
 	school: String,
-	theme: Object
+	theme: Object,
+	tasks: []
 });
 
 mongoose.model('user', userSchema);

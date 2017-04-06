@@ -16,7 +16,8 @@ function addUser(req, res, next) {
 		picture_uri: req.body.pic,
 		event_ids: req.body.events,
 		school: req.body.school,
-		theme: req.body.theme
+		theme: req.body.theme,
+		tasks:  req.body.tasks
 	});
 	user.save(user)
 		.then(function (doc) {
@@ -74,7 +75,8 @@ function updateUser(req, res, next) {
 		picture_uri: req.body.pic,
 		event_ids: req.body.events,
 		school: req.body.school,
-		theme: req.body.theme
+		theme: req.body.theme,
+		tasks:  req.body.tasks
 	};
 	utility.removeUndefined(updated);
 	model.findByIdAndUpdate(req.body.user, updated)
