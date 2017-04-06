@@ -1,4 +1,3 @@
-
 export class TaskItem {
     text: String;
     done: boolean;
@@ -6,5 +5,4 @@ export class TaskItem {
 
 export class TaskStore {
   items: TaskItem[] = [ ];
-
 }
