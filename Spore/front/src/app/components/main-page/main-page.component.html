@@ -9,7 +9,7 @@
     <a class="sidenav-item" [class.selected]="this.currentTab === 'CalendarTab'" (click)="switchTabs('CalendarTab')"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'CalculatorTab'" (click)="switchTabs('CalculatorTab')"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'CoursesTab'" (click)="switchTabs('CoursesTab')"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
-    <a class="sidenav-item" [class.selected]="this.currentTab === 'RemindersTab'" (click)="switchTabs('RemindersTab')"><span class="fa fa-list sidenav-icon"></span>Reminders</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'TasksTab'" (click)="switchTabs('TasksTab')"><span class="fa fa-list sidenav-icon"></span>Tasks</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'FilesTab'" (click)="switchTabs('FilesTab')"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'FriendsTab'" (click)="switchTabs('FriendsTab')"><span class="fa fa-heart sidenav-icon"></span>Friends</a>
     <br> <span class="sidenav-header">More</span>
@@ -46,12 +46,8 @@
       <courses-page></courses-page>
     </div>
 
-    <div *ngIf="currentTab == this.navService.remindersTab">
-      <p>Spicy jalapeno bacon ipsum dolor amet shank biltong short ribs tenderloin leberkas ham hamburger. Alcatra turducken salami
-        pancetta, biltong tail doner cupim bacon pork fatback spare ribs chuck. Leberkas doner salami, beef jowl corned beef
-        pork cupim meatloaf rump prosciutto pastrami ball tip spare ribs. Pork loin tongue kevin ham hock. Spare ribs cow tongue
-        bacon turducken pork t-bone, pork belly ground round boudin doner frankfurter pastrami. Fatback filet mignon ball tip,
-        rump shankle corned beef bresaola. Strip steak bresaola t-bone, boudin pancetta ball tip swine alcatra.</p>
+    <div *ngIf="currentTab == this.navService.tasksTab">
+      <tasks [user]="(user | async)"></tasks>
     </div>
 
     <div *ngIf="currentTab == this.navService.filesTab">
