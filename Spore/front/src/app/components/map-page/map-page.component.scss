@@ -1,7 +1,51 @@
-.sebm-google-map-container {
-  height: 500px;
+#mapSection #resultSection {
+  margin: 20px 10px;
 }
 
-.inputButtons {
-  margin-top: 10px;
+#resultsList {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+#searchInfo {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.searchOptions {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.placePhoto {
+  max-width: 175px;
+  max-height: 175px;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.placeLabel {
+  float: right;
+  font-size: 20px;
+}
+
+.address {
+  font-size: 18px;
+}
+
+.name {
+  font-size: 24px;
+}
+
+.searchText {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.sebm-google-map-container {
+  height: 560px;
+}
+
+.pointsOfInterestButtons {
+  margin: 2px;
 }

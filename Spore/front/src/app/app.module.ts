@@ -96,7 +96,8 @@ type StoreType = {
     DialogModule,
     ColorPickerModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDKZhrDYxKakINx9bskMeg1NLe66OMaPBA'
+      apiKey: 'AIzaSyDKZhrDYxKakINx9bskMeg1NLe66OMaPBA',
+      libraries: ['places']
     })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

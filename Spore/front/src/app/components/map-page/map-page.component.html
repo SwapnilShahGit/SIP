@@ -1,49 +1,89 @@
-<div class="cotainer-fluid" style="margin-top: 50px;">
-  <div class="col-sm-6">
-    <div class="input-group input-group-lg inputButtons">
+<div class="cotainer-fluid row" style="margin-top: 30px;">
+  <div id="mapSection" class="col-md-8">
+    <div class="input-group input-group-lg searchOptions">
       <input class="form-control" type="text" placeholder="Address or general area..." [(ngModel)]="address"
-        (keyup)="$event.keyCode == 13 && address.length > 0 && searchByAddress()">
+        (keyup.enter)="searchByAddress();" spellcheck="false">
       <span class="input-group-btn">
         <button class="btn btn-success" [disabled]="address.length <= 0" (click)="searchByAddress();">
-          <span class="fa fa-search"></span> Go
+          <span class="fa fa-search"></span> Search
+        </button>
+        <button class="btn btn-info" (click)="geoLocate();">
+          <span class="fa fa-map-marker"></span> Geolocate
         </button>
       </span>
     </div>
-  </div>
-  <div class="col-sm-6">
-    <button class="btn btn-lg btn-info inputButtons" (click)="geoLocate();">
-      <span class="fa fa-map-marker"></span> Locate me
-    </button>
-  </div>
-</div>
 
-<div class="container-fluid row">
-  <div class="col-md-8">
-    <h2>Map</h2>
-    <sebm-google-map [latitude]="lat" [longitude]="lng">
-      <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+    <sebm-google-map [latitude]="lat || pointsOfInterest[0].lat" [longitude]="lng || pointsOfInterest[0].lng" [zoom]="12">
+      <div *ngFor="let point of pointsOfInterest.slice(1)">
+        <sebm-google-map-marker [latitude]="point.lat" [longitude]="point.lng" [label]="point.label">
+          <sebm-google-map-info-window>
+            <b>{{point.name}}</b>
+          </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+      </div>
+      <sebm-google-map-marker [latitude]="pointsOfInterest[0].lat" [longitude]="pointsOfInterest[0].lng"></sebm-google-map-marker>
     </sebm-google-map>
   </div>
 
-  <div class="col-md-4">
-    <h2>Results</h2>
-    <div *ngIf="results">
-      <h4>Displaying results for <b>'{{googleAddress}}'</b></h4>
-      <h4>Search around for:</h4>
-      <div>
-        <button class="btn btn-lg btn-info inputButtons">
-          <span class="fa fa-cutlery"></span> Food
-        </button> <br>
-        <button class="btn btn-lg btn-info inputButtons">
-          <span class="fa fa-book"></span> Study Space
-        </button> <br>
-        <button class="btn btn-lg btn-info inputButtons">
-          <span class="fa fa-ticket"></span> Entertainment
-        </button> <br>
+  <div id="resultSection" class="col-md-4">
+    <div *ngIf="locationResults">
+      <div class="input-group input-group-lg searchOptions">
+        <input class="form-control" type="text" placeholder="Find..." [(ngModel)]="pointOfInterest"
+          (keyup.enter)="getPointsOfInterest(pointOfInterest);" spellcheck="false">
+        <span class="input-group-btn">
+          <button class="btn btn-success" [disabled]="pointOfInterest.length <= 0" (click)="getPointsOfInterest(pointOfInterest);">
+            <span class="fa fa-search"></span> Search
+          </button>
+          <button class="btn btn-info" (click)="getPointsOfInterest('cafe');">
+            <span class="fa fa-coffee"></span>
+          </button>
+          <button class="btn btn-info" (click)="getPointsOfInterest('food');">
+            <span class="fa fa-cutlery"></span>
+          </button>
+          <button class="btn btn-info" (click)="getPointsOfInterest('entertainment');">
+            <span class="fa fa-ticket"></span>
+          </button>
+        </span>
+      </div>
+      <h3 class="searchInfo">
+        <span *ngIf="!searchResults">
+          Displaying <b>{{googleAddress}}</b>.
+        </span>
+        <span *ngIf="searchResults">
+          Displaying <b>{{pointsOfInterest.length-1}}</b> results for <b>{{parsedPointOfInterest}}</b> near <b>{{googleAddress}}</b>.
+        </span>
+      </h3>
+      <div *ngIf="searchResults">
+        <div id="resultsList" class="container-fluid list-group">
+          <div *ngFor="let point of pointsOfInterest.slice(1)">
+            <div class="list-group-item list-group-item-action" (click)="focusMarker(point);">
+              <h2 class="searchText">
+                <span class="fa-stack" style="font-size: 24px;">
+                  <span class="fa fa-stack-1x">{{point.label}}</span>
+                  <span class="fa fa-circle-thin fa-stack-2x"></span>
+                </span>
+                <span class="name">{{point.name.length > 40 ? point.name.substring(0, 37) + '...' : point.name}}</span>
+                <span *ngIf="point.rating" class="label label-warning placeLabel">
+                  {{point.rating}} <span class="fa fa-star"></span>
+                </span>
+                <span *ngIf="point.open && point.open" class="label label-success placeLabel">
+                  Open <span class="fa fa-check"></span>
+                </span>
+                <span *ngIf="point.open && !point.open" class="label label-danger placeLabel">
+                  Closed <span class="fa fa-times"></span>
+                </span>
+                <br>
+                <span class="address">{{point.address.length > 80 ? point.address.substring(0, 77) + '...' : point.address}}</span>
+              </h2>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div *ngIf="!results">
-      <h4>Use the search bar or click Locate me button.</h4>
+    <div *ngIf="!locationResults">
+      <h3 class="searchInfo">Use the search bar or click Geolocate button to look around specific area.</h3>
     </div>
   </div>
 </div>
+
+<div id="map" style="width: 0; height: 0;"></div>
