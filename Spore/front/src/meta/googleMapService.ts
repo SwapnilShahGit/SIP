@@ -8,8 +8,84 @@ declare var google;
 @Injectable()
 export class GMapsService extends GoogleMapsAPIWrapper {
 
-    constructor(private __loader: MapsAPILoader, private __zone: NgZone) {
-      super(__loader, __zone);
+    constructor(private loader: MapsAPILoader, private zone: NgZone) {
+      super(loader, zone);
+    }
+
+    // Gets bunch of places around location. (Doesnt seem to matter much
+    // what place you specify - better to use getTextSearch)
+    public getPointsOfInterest(lat: number, lng: number, place: string) {
+      let map = new google.maps.Map(document.getElementById('map'), {
+        center: new google.maps.LatLng(lat, lng),
+        zoom: 15
+      });
+      var service = new google.maps.places.PlacesService(map);
+      return Observable.create(observer => {
+        service.nearbySearch({
+          location: {lat: lat, lng: lng},
+          radius: '1000',
+          types: [place]
+        }, function(results, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+              observer.next(results[i]);
+            }
+            observer.complete();
+          } else {
+            observer.error('No points of interest found.');
+            observer.complete();
+          }
+        });
+      });
+    }
+
+    // Good search if you have an address and point of interest in mind.
+    // i.e Food near Square One Mississauga
+    public getTextSearch(lat: number, lng: number, address: string, place: string) {
+      let map = new google.maps.Map(document.getElementById('map'), {
+        center: new google.maps.LatLng(lat, lng),
+        zoom: 15
+      });
+      var service = new google.maps.places.PlacesService(map);
+      return Observable.create(observer => {
+        service.textSearch({
+          location: {lat: lat, lng: lng},
+          radius: '1000',
+          query: place + ' near ' + address
+        }, function(results, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+              observer.next(results[i]);
+            }
+            observer.complete();
+          } else {
+            observer.error('No points of interest found.');
+            observer.complete();
+          }
+        });
+      });
+    }
+
+    // Using placeId you can get extra details about that place.
+    public getPlaceDetails(lat: number, lng: number, placeId: string) {
+      let map = new google.maps.Map(document.getElementById('map'), {
+        center: new google.maps.LatLng(lat, lng),
+        zoom: 15
+      });
+      var service = new google.maps.places.PlacesService(map);
+      return Observable.create(observer => {
+        service.getDetails({
+            placeId: placeId
+          }, function(place, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              observer.next(place);
+              observer.complete();
+            } else {
+              observer.error('No place details found.');
+              observer.complete();
+            }
+        });
+      });
     }
 
     public getLatLan(address: string) {
@@ -20,7 +96,7 @@ export class GMapsService extends GoogleMapsAPIWrapper {
             observer.next(results);
             observer.complete();
           } else {
-            observer.error('No results for ' + address);
+            observer.error('No results for ' + address + '.');
             observer.complete();
           }
         });
