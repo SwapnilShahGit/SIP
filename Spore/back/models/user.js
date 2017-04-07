@@ -19,7 +19,8 @@ const userSchema = new Schema({
 	event_ids: [Schema.Types.ObjectId],
 	school: String,
 	theme: Object,
-	tasks: []
+	tasks: [],
+	courses_id: []
 });
 
 mongoose.model('user', userSchema);
