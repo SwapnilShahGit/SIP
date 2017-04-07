@@ -162,4 +162,11 @@ export class CoursesPageComponent implements OnInit {
       }
     }
   }
+
+  public checkCourse() {
+    if (this.searchDialogRequest.length > 0) {
+      this.searchResultSelected = '';
+      this.searchDialogVisible = true;
+    }
+  }
 }
