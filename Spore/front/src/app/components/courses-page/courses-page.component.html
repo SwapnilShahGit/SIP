@@ -140,10 +140,11 @@
 <div class="cotainer-fluid">
   <div class="col-sm-6">
     <div class="input-group input-group-lg">
-      <input type="text" class="form-control" placeholder="Search for the following course..." [(ngModel)]="searchDialogRequest">
+      <input type="text" class="form-control" placeholder="Search for the following course..."
+        [(ngModel)]="searchDialogRequest"  (keyup.enter)="checkCourse();">
       <span class="input-group-btn">
-        <button class="btn btn-success" (click)="searchResultSelected=''; searchDialogVisible=true;" [disabled]="searchDialogRequest.length <= 0">
-          <span class="fa fa-search"></span> Check!</button>
+        <button class="btn btn-success" (click)="checkCourse();" [disabled]="searchDialogRequest.length <= 0">
+          <span class="fa fa-search"></span> Check</button>
       </span>
     </div>
   </div>
