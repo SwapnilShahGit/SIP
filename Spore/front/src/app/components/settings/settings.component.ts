@@ -22,8 +22,7 @@ export class SettingsComponent implements OnInit {
   private successDisplay: string = 'none';
   private successOpacity: string = '1';
   private temporaryProfilePicture: string = '';
-  private avatarColour: string;
-  private basicColours: Array<String> = ['#ff7373', '#ffd700', '#3399ff', '#00ff00', '#ffa500', '#8a2be2'];
+  // private avatarColour: string;
 
   constructor(
     private databaseService: DatabaseService,
@@ -33,7 +32,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.avatarColour = '#' + this.userService.getColour();
+    // this.avatarColour = this.userService.getColour();
     var fbCon: FBConnector = new FBConnector(this.fbKey);
     fbCon.initFB();
   }
@@ -78,13 +77,13 @@ export class SettingsComponent implements OnInit {
   }
 
   public randomizePicture() {
-    this.userService.setAvatarColour(this.avatarColour);
     let url = this.userService.getRandomPicture();
     this.setAvatar(url);
+    // this.avatarColour = this.userService.getColour();
   }
 
   public customPicture(part: string) {
-    this.userService.setAvatarColour(this.avatarColour);
+    // this.userService.setAvatarColour(this.avatarColour);
     let url = this.userService.nextProfilePictureByPart(part);
     this.setAvatar(url);
   }
