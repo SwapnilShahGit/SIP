@@ -5,7 +5,7 @@ const utility = require('../libs/utility');
 
 const model = mongoose.model('courseTemplate');
 
-function addCourseTemplate(req, res, next) {
+function addCourseTemplate() {
 	logger.debug("adding course template");
 	let courseTemplate = new model({
 		hash:  req.body.hash,
@@ -19,51 +19,35 @@ function addCourseTemplate(req, res, next) {
 	});
 	courseTemplate.save(courseTemplate)
 		.then(function (doc) {
-			res.send({
-				error: 0,
-				data: doc
-			});
+			console.log ("course template saved");
 		})
 		.catch(function (err) {
-			res.send({
-				error: 110,
-				data: err
-			});
-		})
-		.finally(next);
+			console.log ("course template saving ERROR: " + err);
+		});
 }
 
-function getCourseTemplate(req, res, next) {
+function getCourseTemplate() {
 	logger.debug("fetching CourseTemplate with course code:" + req.query.course);
 	let query = {
 		course_code: req.query.course,
 	};
 	utility.removeUndefined(query);
-	model.findOne(query)
+	return model.findOne(query)
 		.then(function (courseTemplate) {
 			if (courseTemplate === null) {
-				res.send({
-					error: 110,
-					data: "courseTemplate not found."
-				});
+				console.log ("course template NOT FOUND");
 			} else {
-				console.log(courseTemplate);
-				res.send({
-					error: 0,
-					data: courseTemplate
-				});
+				("course template found");
 			}
 		})
 		.catch(function (err) {
-			res.send({
-				error: 110,
-				data: "Unknown error."
-			});
+			("course template UNKNOWN ERROR: " + err);
 		})
-		.finally(next);
 }
 
-module.exports = function (server) {
-	server.post('/api/courseTemplate', addCourseTemplate);
-	server.get('/api/courseTemplate', getCourseTemplate);
+var m ={};
+module.exports = function () {
+	m.addCourseTemplate = addCourseTemplate;
+	m.getCourseTemplate = getCourseTemplate;
 };
+return m;

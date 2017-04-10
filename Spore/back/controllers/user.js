@@ -17,7 +17,7 @@ function addUser(req, res, next) {
 		event_ids: req.body.events,
 		school: req.body.school,
 		theme: req.body.theme,
-		tasks:  req.body.tasks,
+		tasks:  req.body.tasks
 	});
 	user.save(user)
 		.then(function (doc) {
