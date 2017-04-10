@@ -13,40 +13,38 @@ export class CoursesPageComponent implements OnInit {
   private currentSlide: string = "";
   private courses: Array<Course> = [];
   private coursesMaster: Array<Course> = [];
-  private deleteDialogVisible: boolean = false;
   private deleteCourseCode: string = "";
-  private searchDialogVisible: boolean = false;
   private searchDialogRequest: string = "";
   private mockedSearchResults: Array<Course> = [];
   private searchResultSelected: string = "";
 
   public ngOnInit() {
-    let lectures: Array<CourseOption> = [new CourseOption('A', '1pm', 0)];
-    let tutorials: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
-    let practicals: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1), new CourseOption('C', '3pm', 2)];
+    let lectures: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0)];
+    let tutorials: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0), new CourseOption(new Date('1491857951850'), 1)];
+    let practicals: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0), new CourseOption(new Date('1491857951850'), 1), new CourseOption(new Date('1491857951850'), 2)];
     let course: Course = new Course(false, 'ABC123', 'Dr. Guy', 'No clue what this is...', null, 0, lectures, 0, tutorials, 0, practicals);
     this.courses.push(course);
     this.mockedSearchResults.push(course);
     let courseMaster = <Course>JSON.parse(JSON.stringify(course));
     this.coursesMaster.push(courseMaster);
-    course = new Course(false, 'CSC309', 'Cool Dude Arnold', 'This is a pretty cool class.', 'csc309faspfsaopfjapas');
-    this.courses.push(course);
-    this.mockedSearchResults.push(course);
-    courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    this.coursesMaster.push(courseMaster);
-    let tutorials1: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
-    let tutorials2: Array<CourseOption> = [new CourseOption('A', '1pm', 0), new CourseOption('B', '2pm', 1)];
-    course = new Course(false, 'MAT111', 'Fuchs', 'This class is also pretty cool.', 'mat111fa124asfpfjapas', 1, tutorials1, 0, tutorials2);
-    this.courses.push(course);
-    courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    this.coursesMaster.push(courseMaster);
-    let lectures1: Array<CourseOption> = [new CourseOption('A', '1pm', 0)];
-    let lectures2: Array<CourseOption> = [new CourseOption('A', '2pm', 0)];
-    let lectures3: Array<CourseOption> = [new CourseOption('A', '3pm', 0)];
-    course = new Course(false, 'ECO101', 'Bailey on Ice', 'Smooth as hell.', 'eco101ffas2aspfsaopfjapas', 0, lectures1, 0, lectures2, 0, lectures3);
-    this.courses.push(course);
-    courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    this.coursesMaster.push(courseMaster);
+    // course = new Course(false, 'CSC309', 'Cool Dude Arnold', 'This is a pretty cool class.', 'csc309faspfsaopfjapas');
+    // this.courses.push(course);
+    // this.mockedSearchResults.push(course);
+    // courseMaster = <Course>JSON.parse(JSON.stringify(course));
+    // this.coursesMaster.push(courseMaster);
+    // let tutorials1: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0), new CourseOption(new Date('1491857951850'), 1)];
+    // let tutorials2: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0), new CourseOption(new Date('1491857951850'), 1)];
+    // course = new Course(false, 'MAT111', 'Fuchs', 'This class is also pretty cool.', 'mat111fa124asfpfjapas', 1, tutorials1, 0, tutorials2);
+    // this.courses.push(course);
+    // courseMaster = <Course>JSON.parse(JSON.stringify(course));
+    // this.coursesMaster.push(courseMaster);
+    // let lectures1: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0)];
+    // let lectures2: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0)];
+    // let lectures3: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0)];
+    // course = new Course(false, 'ECO101', 'Bailey on Ice', 'Smooth as hell.', 'eco101ffas2aspfsaopfjapas', 0, lectures1, 0, lectures2, 0, lectures3);
+    // this.courses.push(course);
+    // courseMaster = <Course>JSON.parse(JSON.stringify(course));
+    // this.coursesMaster.push(courseMaster);
   }
 
   private updateCourse(course: Course): any {
@@ -72,9 +70,33 @@ export class CoursesPageComponent implements OnInit {
   private switchSlide(course: Course): any {
     if (this.currentSlide != course.id) {
       this.currentSlide = course.id;
+      let restyleInput = this.restyleInput;
+      setTimeout(function() {
+        restyleInput("time");
+      }, 1);
     } else {
       this.currentSlide = "";
     }
+  }
+
+  private restyleInput(className: String): void {
+    let startTimeOuter = document.getElementsByClassName(className + "Outer");
+      if (startTimeOuter.length > 0) {
+        for (var i = 0; i < startTimeOuter.length; i++) {
+          let startTimeInput = startTimeOuter[i] as HTMLElement;
+          startTimeInput.style.padding = "0px";
+          startTimeInput.style.border = "none";
+          startTimeInput.style.borderRadius = "4px";
+        }
+      }
+
+      let startTimeInner = document.getElementsByClassName(className + "Inner");
+      if (startTimeInner.length > 0) {
+        for (var i = 0; i < startTimeOuter.length; i++) {
+          let startTimeInput = startTimeInner[i] as HTMLElement;
+          startTimeInput.style.borderRadius = "4px";
+        }
+      }
   }
 
   private addCourse(id?: string): any {
@@ -114,7 +136,11 @@ export class CoursesPageComponent implements OnInit {
   private addCourseOption(course: Course, section: Array<CourseOption>): any {
     console.log('Add Course Option Called!');
     if (section.length < 26) {
-      section.push(new CourseOption("ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(section.length), Date.now().toString(), section.length));
+      section.push(new CourseOption(new Date('000000000'), section.length));
+      let restyleInput = this.restyleInput;
+      setTimeout(function() {
+        restyleInput("time");
+      }, 1);
     }
     this.updateButtonCheck(course);
   }
@@ -146,7 +172,7 @@ export class CoursesPageComponent implements OnInit {
     this.updateButtonCheck(course);
   }
 
-  public updateButtonCheck(course: Course): any {
+  private updateButtonCheck(course: Course): any {
     console.log('In Update Button Check!');
     let masterCourse = this.coursesMaster.find(c => c.id == course.id);
     let btn = document.getElementById(course.id + "UpdateButton");
@@ -163,10 +189,10 @@ export class CoursesPageComponent implements OnInit {
     }
   }
 
-  public checkCourse() {
+  private openSearch(): any {
     if (this.searchDialogRequest.length > 0) {
       this.searchResultSelected = '';
-      this.searchDialogVisible = true;
+      document.getElementById('checkButton').click();
     }
   }
 }
