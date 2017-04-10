@@ -57,14 +57,15 @@
             <div *ngFor="let lecture of course.lectures">
               <div class="input-group">
                 <span class="input-group-addon">
-                  {{lecture.label}}
-                </span>
-                <span class="input-group-addon">
                   <input type="radio" name="{{course.id}}lectureTime" (change)="updateButtonCheck(course)"
                     [value]="lecture.index" [(ngModel)]="course.lectureSelected">
                 </span>
-                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
-                  [value]="lecture.time" (input)="lecture.time = $event.target.value">
+                <p-calendar [(ngModel)]="lecture.time" [monthNavigator]="false" [yearNavigator]="false"
+                  placeholder="(day)" dateFormat="(DD)" [showTime]="true" hourFormat="12"
+                  inputStyleClass="form-control timeInner" styleClass="form-control timeOuter" (click)="updateButtonCheck(course)"></p-calendar>
+                  <!--todo ^^^^ todo-->
+                <!--<input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
+                  [value]="lecture.time" (input)="lecture.time = $event.target.value">-->
               </div>
             </div>
           </div>
@@ -82,14 +83,15 @@
             <div *ngFor="let tutorial of course.tutorials">
               <div class="input-group">
                 <span class="input-group-addon">
-                  {{tutorial.label}}
-                </span>
-                <span class="input-group-addon">
                   <input type="radio" name="{{course.id}}tutorialTime" (change)="updateButtonCheck(course)"
                     [value]="tutorial.index" [(ngModel)]="course.tutorialSelected">
                 </span>
-                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
-                  [value]="tutorial.time" (input)="tutorial.time = $event.target.value">
+                <p-calendar [(ngModel)]="tutorial.time" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="1900:2100" placeholder="(day) month date, year"
+                  dateFormat="(DD) MM d, yy" [showTime]="true" hourFormat="12"
+                  inputStyleClass="form-control timeInner" styleClass="form-control timeOuter" (click)="updateButtonCheck(course)"></p-calendar>
+                <!--<input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
+                  [value]="tutorial.time" (input)="tutorial.time = $event.target.value">-->
               </div>
             </div>
           </div>
@@ -107,14 +109,15 @@
             <div *ngFor="let practical of course.practicals">
               <div class="input-group">
                 <span class="input-group-addon">
-                  {{practical.label}}
-                </span>
-                <span class="input-group-addon">
                   <input type="radio" name="{{course.id}}practicalTime" (change)="updateButtonCheck(course)"
                     [value]="practical.index" [(ngModel)]="course.practicalSelected">
                 </span>
-                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
-                  [value]="practical.time" (input)="practical.time = $event.target.value">
+                <p-calendar [(ngModel)]="practical.time" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="1900:2100" placeholder="(day) month date, year"
+                  dateFormat="(DD) MM d, yy" [showTime]="true" hourFormat="12"
+                  inputStyleClass="form-control timeInner" styleClass="form-control timeOuter" (click)="updateButtonCheck(course)"></p-calendar>
+                <!--<input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
+                  [value]="practical.time" (input)="practical.time = $event.target.value">-->
               </div>
             </div>
           </div>
@@ -129,7 +132,7 @@
             <span class="fa fa-floppy-o"></span> Save</button>
           <button *ngIf="!course.isDraft" id="{{course.id}}UpdateButton" class="btn btn-info disabled"
            (click)="updateCourse(course);"><span class="fa fa-pencil"></span> Update</button>
-          <button class="btn btn-danger" (click)="deleteCourseCode=course.code; deleteDialogVisible=true;">
+          <button class="btn btn-danger" data-toggle="modal" data-target="#deleteDialog" (click)="deleteCourseCode=course.code;">
             <span class="fa fa-trash"></span> Delete</button>
         </div>
       </div>
@@ -141,9 +144,10 @@
   <div class="col-sm-6">
     <div class="input-group input-group-lg">
       <input type="text" class="form-control" placeholder="Search for the following course..."
-        [(ngModel)]="searchDialogRequest"  (keyup.enter)="checkCourse();">
+        [(ngModel)]="searchDialogRequest" (keyup.enter)="openSearch();" spellcheck="false">
       <span class="input-group-btn">
-        <button class="btn btn-success" (click)="checkCourse();" [disabled]="searchDialogRequest.length <= 0">
+        <button id="checkButton" class="btn btn-success" (click)="searchResultSelected = '';"
+          [disabled]="searchDialogRequest.length <= 0" data-toggle="modal" data-target="#searchDialog">
           <span class="fa fa-search"></span> Check</button>
       </span>
     </div>
@@ -153,34 +157,59 @@
   </div>
 </div>
 
-<p-dialog header="Search Results" [(visible)]="searchDialogVisible" [responsive]="true" showEffect="fade"
-  [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
-  <div *ngIf="mockedSearchResults && mockedSearchResults.length > 0">
-    <p><i>{{mockedSearchResults.length}}</i> results for
-      '{{searchDialogRequest.length > 12 ? searchDialogRequest.substring(0,12) + '...' : searchDialogRequest}}':</p>
-    <div *ngFor="let course of mockedSearchResults">
-      <div class="radio">
-        <label>
-          <input type="radio" name="searchDialogRadio" value="course.id" (click)="searchResultSelected = course.id">
-          {{course.code.length > 12 ? course.code.substring(0,12) + '...' : course.code}}
-        </label>
+<div id="searchDialog" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Search Results</h3>
       </div>
-    </div> <br>
-    <button class="btn btn-info" (click)="searchDialogVisible=false; addCourse(searchResultSelected);"
-      [disabled]="searchResultSelected.length <= 0">Add</button>
-    <button class="btn btn-danger" (click)="searchDialogVisible=false;">Cancel</button>
+      <div class="modal-body">
+        <div *ngIf="mockedSearchResults && mockedSearchResults.length > 0">
+          <p><i>{{mockedSearchResults.length}}</i> results for
+            '{{searchDialogRequest.length > 12 ? searchDialogRequest.substring(0,12) + '...' : searchDialogRequest}}':</p>
+          <div *ngFor="let course of mockedSearchResults">
+            <div class="radio">
+              <label>
+                <input type="radio" name="searchDialogRadio" value="course.id" (click)="searchResultSelected = course.id">
+                {{course.code.length > 12 ? course.code.substring(0,12) + '...' : course.code}}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!mockedSearchResults || mockedSearchResults.length <= 0">
+          <p>No results found!</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="mockedSearchResults && mockedSearchResults.length > 0" class="btn btn-info"
+          (click)="addCourse(searchResultSelected);" [disabled]="searchResultSelected.length <= 0" data-dismiss="modal">Add</button>
+        <button *ngIf="mockedSearchResults && mockedSearchResults.length > 0" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <button *ngIf="!mockedSearchResults || mockedSearchResults.length <= 0" class="btn btn-success" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
   </div>
-  <div *ngIf="!mockedSearchResults || mockedSearchResults.length <= 0">
-    <p>No results found!</p> <br>
-    <button class="btn btn-success" (click)="searchDialogVisible=false;">Ok</button>
-  </div>
-</p-dialog>
+</div>
 
-<p-dialog header="Warning" [(visible)]="deleteDialogVisible" [responsive]="true" showEffect="fade"
-  [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
-  Are you about to delete
-  '{{deleteCourseCode.length > 12 ? deleteCourseCode.substring(0,12) + '...' : deleteCourseCode}}'
-  from your calendar, continue?<br><br>
-  <button class="btn btn-info" (click)="deleteDialogVisible=false; deleteCourse();">Yes</button>
-  <button class="btn btn-danger" (click)="deleteDialogVisible=false;">No</button>
-</p-dialog>
+<div id="deleteDialog" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <span class="fa fa-exclamation-triangle"></span> Warning
+        </h3>
+      </div>
+      <div class="modal-body">
+        <p>
+          You are about to delete
+          '{{deleteCourseCode.length > 12 ? deleteCourseCode.substring(0,12) + '...' : deleteCourseCode}}'
+          from your calendar, continue?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-info" (click)="deleteCourse();" data-dismiss="modal">Yes</button>
+        <button class="btn btn-danger" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
