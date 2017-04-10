@@ -1,5 +1,6 @@
 <div class="dropdown colour-picker-container">
-  <button [ngClass]="buttonClass" data-toggle="dropdown" id="dropdownMenu1"  aria-haspopup="true" aria-expanded="true">
+  <button [ngClass]="buttonClass" data-toggle="dropdown" id="dropdownMenu1"
+    aria-haspopup="true" aria-expanded="true" [ngStyle]="{'background': buttonColour}">
     <span class="fa fa-paint-brush current-colour"></span>
   </button>
   <ul dropdownMenu [ngClass]="dropdownClass" class="dropdown-menu colour-picker-dropdown" aria-labelledby="dropdownMenu1">

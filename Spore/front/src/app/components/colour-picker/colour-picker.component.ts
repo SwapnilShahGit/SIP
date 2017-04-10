@@ -24,6 +24,9 @@ export class CustomColourPickerComponent {
   ];
 
   @Input()
+  public buttonColour;
+
+  @Input()
   public dropdownClass;
 
   @Input()
