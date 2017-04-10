@@ -37,12 +37,8 @@
         <button class="btn-primary button sm" (click)="customPicture('eyes')">Eyes</button>
         <button class="btn-primary button sm" (click)="customPicture('nose')">Nose</button>
         <button class="btn-primary button sm" (click)="customPicture('mouth')">Mouth</button>
+        <button class="btn-primary button sm" (click)="customPicture('colour')">Colour</button>
       </div><br>
-
-      <button class="button lg" [(colorPicker)]="avatarColour" [style.background]="avatarColour" [cpPresetColors]="basicColours"
-        [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true" [cpAlphaChannel]="'disabled'">.</button>
-      <button class="btn-primary button sm" (click)="customPicture()">Try it!</button>
-
 
     </div>
 
@@ -52,16 +48,13 @@
       <div class="or-line"></div>
 
       <label>Primary</label><br>
-      <button *ngIf="user.userID != ''" class="button lg high" [(colorPicker)]="user.theme.primaryColour"  [cpAlphaChannel]="'disabled'" [style.background]="user.theme.primaryColour"
-        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
+      <custom-colour-picker *ngIf="user.userID != ''" [(colour)]="user.theme.primaryColour" [buttonClass]="'btn'" [buttonColour]="user.theme.primaryColour"></custom-colour-picker><br><br>
 
       <label>Secondary</label><br>
-      <button *ngIf="user.userID != ''" class="button lg high" [(colorPicker)]="user.theme.secondaryColour" [cpAlphaChannel]="'disabled'" [style.background]="user.theme.secondaryColour"
-        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
+      <custom-colour-picker *ngIf="user.userID != ''" [(colour)]="user.theme.secondaryColour" [buttonClass]="'btn'" [buttonColour]="user.theme.secondaryColour"></custom-colour-picker><br><br>
 
       <label>Tertiary</label><br>
-      <button *ngIf="user.userID != ''" class="button lg high" [(colorPicker)]="user.theme.tertiaryColour" [cpAlphaChannel]="'disabled'" [style.background]="user.theme.tertiaryColour"
-        [cpPresetColors]="basicColours" [cpOutputFormat]="'hex'" [cpPositionRelativeToArrow]="true"></button><br><br>
+      <custom-colour-picker *ngIf="user.userID != ''" [(colour)]="user.theme.tertiaryColour" [buttonClass]="'btn'" [buttonColour]="user.theme.tertiaryColour"></custom-colour-picker><br><br>
 
     </div>
 
