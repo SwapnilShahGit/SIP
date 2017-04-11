@@ -50,22 +50,45 @@
         <div class="col-sm-4 col-xs-12">
           <h2>
             Lectures
-            <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);"><span class="fa fa-plus"></span></button>
-            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures, 'Lecture');"><span class="fa fa-minus"></span></button>
+            <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);" [disabled]="course.lectures.length >= 5">
+              <span class="fa fa-plus"></span></button>
+            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures, 'Lecture');" [disabled]="course.lectures.length <= 0">
+              <span class="fa fa-minus"></span></button>
           </h2>
           <div *ngIf="course.lectures || course.lectures.length > 0">
             <div *ngFor="let lecture of course.lectures">
-              <div class="input-group">
-                <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}lectureTime" (change)="updateButtonCheck(course)"
-                    [value]="lecture.index" [(ngModel)]="course.lectureSelected">
-                </span>
-                <p-calendar [(ngModel)]="lecture.time" [monthNavigator]="false" [yearNavigator]="false"
-                  placeholder="(day)" dateFormat="(DD)" [showTime]="true" hourFormat="12"
-                  inputStyleClass="form-control timeInner" styleClass="form-control timeOuter" (click)="updateButtonCheck(course)"></p-calendar>
-                  <!--todo ^^^^ todo-->
-                <!--<input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
-                  [value]="lecture.time" (input)="lecture.time = $event.target.value">-->
+              <hr>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3">Day:</div>
+                  <div class="col-sm-9">
+                    <select class="form-control">
+                      <option (click)="lecture.day='Sunday'">Sunday</option>
+                      <option (click)="lecture.day='Monday'">Monday</option>
+                      <option (click)="lecture.day='Tuesday'">Tuesday</option>
+                      <option (click)="lecture.day='Wednesday'">Wednesday</option>
+                      <option (click)="lecture.day='Thursday'">Thursday</option>
+                      <option (click)="lecture.day='Friday'">Friday</option>
+                      <option (click)="lecture.day='Saturday'">Saturday</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3">From:</div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="time" [(ngModel)]="lecture.startTime" (keyup)="updateButtonCheck(course)">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3">To:</div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="time" [(ngModel)]="lecture.endTime" (keyup)="updateButtonCheck(course)">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -81,17 +104,38 @@
           </h2>
           <div *ngIf="course.tutorials || course.tutorials.length > 0">
             <div *ngFor="let tutorial of course.tutorials">
-              <div class="input-group">
-                <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}tutorialTime" (change)="updateButtonCheck(course)"
-                    [value]="tutorial.index" [(ngModel)]="course.tutorialSelected">
-                </span>
-                <p-calendar [(ngModel)]="tutorial.time" [monthNavigator]="true" [yearNavigator]="true"
-                  yearRange="1900:2100" placeholder="(day) month date, year"
-                  dateFormat="(DD) MM d, yy" [showTime]="true" hourFormat="12"
-                  inputStyleClass="form-control timeInner" styleClass="form-control timeOuter" (click)="updateButtonCheck(course)"></p-calendar>
-                <!--<input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
-                  [value]="tutorial.time" (input)="tutorial.time = $event.target.value">-->
+              <hr>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3">Day:</div>
+                  <div class="col-sm-9">
+                    <select class="form-control">
+                      <option (click)="tutorial.day='Sunday'">Sunday</option>
+                      <option (click)="tutorial.day='Monday'">Monday</option>
+                      <option (click)="tutorial.day='Tuesday'">Tuesday</option>
+                      <option (click)="tutorial.day='Wednesday'">Wednesday</option>
+                      <option (click)="tutorial.day='Thursday'">Thursday</option>
+                      <option (click)="tutorial.day='Friday'">Friday</option>
+                      <option (click)="tutorial.day='Saturday'">Saturday</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3">From:</div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="time" [(ngModel)]="tutorial.startTime" (keyup)="updateButtonCheck(course)">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3">To:</div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="time" [(ngModel)]="tutorial.endTime" (keyup)="updateButtonCheck(course)">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -107,17 +151,38 @@
           </h2>
           <div *ngIf="course.practicals || course.practicals.length > 0">
             <div *ngFor="let practical of course.practicals">
-              <div class="input-group">
-                <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}practicalTime" (change)="updateButtonCheck(course)"
-                    [value]="practical.index" [(ngModel)]="course.practicalSelected">
-                </span>
-                <p-calendar [(ngModel)]="practical.time" [monthNavigator]="true" [yearNavigator]="true"
-                  yearRange="1900:2100" placeholder="(day) month date, year"
-                  dateFormat="(DD) MM d, yy" [showTime]="true" hourFormat="12"
-                  inputStyleClass="form-control timeInner" styleClass="form-control timeOuter" (click)="updateButtonCheck(course)"></p-calendar>
-                <!--<input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
-                  [value]="practical.time" (input)="practical.time = $event.target.value">-->
+              <hr>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3">Day:</div>
+                  <div class="col-sm-9">
+                    <select class="form-control">
+                      <option (click)="practical.day='Sunday'">Sunday</option>
+                      <option (click)="practical.day='Monday'">Monday</option>
+                      <option (click)="practical.day='Tuesday'">Tuesday</option>
+                      <option (click)="practical.day='Wednesday'">Wednesday</option>
+                      <option (click)="practical.day='Thursday'">Thursday</option>
+                      <option (click)="practical.day='Friday'">Friday</option>
+                      <option (click)="practical.day='Saturday'">Saturday</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3">From:</div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="time" [(ngModel)]="practical.startTime" (keyup)="updateButtonCheck(course)">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3">To:</div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="time" [(ngModel)]="practical.endTime" (keyup)="updateButtonCheck(course)">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
