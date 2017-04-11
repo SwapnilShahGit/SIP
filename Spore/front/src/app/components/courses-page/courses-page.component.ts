@@ -19,9 +19,9 @@ export class CoursesPageComponent implements OnInit {
   private searchResultSelected: string = "";
 
   public ngOnInit() {
-    let lectures: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0)];
-    let tutorials: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0), new CourseOption(new Date('1491857951850'), 1)];
-    let practicals: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0), new CourseOption(new Date('1491857951850'), 1), new CourseOption(new Date('1491857951850'), 2)];
+    let lectures: Array<CourseOption> = [new CourseOption()];
+    let tutorials: Array<CourseOption> = [new CourseOption()];
+    let practicals: Array<CourseOption> = [new CourseOption(), new CourseOption()];
     let course: Course = new Course(false, 'ABC123', 'Dr. Guy', 'No clue what this is...', null, 0, lectures, 0, tutorials, 0, practicals);
     this.courses.push(course);
     this.mockedSearchResults.push(course);
@@ -70,33 +70,9 @@ export class CoursesPageComponent implements OnInit {
   private switchSlide(course: Course): any {
     if (this.currentSlide != course.id) {
       this.currentSlide = course.id;
-      let restyleInput = this.restyleInput;
-      setTimeout(function() {
-        restyleInput("time");
-      }, 1);
     } else {
       this.currentSlide = "";
     }
-  }
-
-  private restyleInput(className: String): void {
-    let startTimeOuter = document.getElementsByClassName(className + "Outer");
-      if (startTimeOuter.length > 0) {
-        for (var i = 0; i < startTimeOuter.length; i++) {
-          let startTimeInput = startTimeOuter[i] as HTMLElement;
-          startTimeInput.style.padding = "0px";
-          startTimeInput.style.border = "none";
-          startTimeInput.style.borderRadius = "4px";
-        }
-      }
-
-      let startTimeInner = document.getElementsByClassName(className + "Inner");
-      if (startTimeInner.length > 0) {
-        for (var i = 0; i < startTimeOuter.length; i++) {
-          let startTimeInput = startTimeInner[i] as HTMLElement;
-          startTimeInput.style.borderRadius = "4px";
-        }
-      }
   }
 
   private addCourse(id?: string): any {
@@ -135,12 +111,8 @@ export class CoursesPageComponent implements OnInit {
 
   private addCourseOption(course: Course, section: Array<CourseOption>): any {
     console.log('Add Course Option Called!');
-    if (section.length < 26) {
-      section.push(new CourseOption(new Date('000000000'), section.length));
-      let restyleInput = this.restyleInput;
-      setTimeout(function() {
-        restyleInput("time");
-      }, 1);
+    if (section.length < 5) {
+      section.push(new CourseOption());
     }
     this.updateButtonCheck(course);
   }
