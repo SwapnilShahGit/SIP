@@ -52,58 +52,57 @@ public class SporeReader
 	public static JSONArray nodeobj = new JSONArray();
 
 	public static void main(String[] args) throws IOException {
-		File folder = new File(args[0]);
-		File[] listOfFiles = folder.listFiles();
-		if (listOfFiles == null) {
+		File courseFile = new File(args[0]);
+		if (courseFile == null) {
 			System.out.println("invalid path");
 			System.exit(0);
 		}
 		PdfToText pdfManager = new PdfToText();
-		for (int i = 0; i < listOfFiles.length; i++){
-			if (! listOfFiles[i].toString().endsWith(".pdf")){
-				continue;
-			}
-			String name = listOfFiles[i].getName();
-			int pos = name.lastIndexOf(".");
-			if (pos > 0) {
-				name = name.substring(0,pos);
-			}
-			obj = new JSONObject();
-			pdfManager.setFilePath(listOfFiles[i].toString());
-			rawtext = pdfManager.ToText();
-			obj.put("rawtext", rawtext);
-			rawTextLines = rawtext.split("\\r?\\n");
-		
-			finalcoursecode = coursecodefinder();
-			obj.put("code", finalcoursecode);
-			obj.put("university", getUniversityCampus());
-			JSONObject json = null;
-			try{
-				json = connecttoCobalt();
-			}catch (Exception e){
-				e.printStackTrace();
-				nodeobj.add(finalcoursecode);
-				obj.put("graded_evaluations", getassignments());
-				saveAsJSON(name);
-				continue;
-			}
-			obj.put("id",json.get("id").toString());
-			nodeobj.add(json.get("id").toString());
-			obj.put("name", json.get("name").toString());
-			obj.put("description", json.get("description").toString());
-			obj.put("division", json.get("division").toString());
-			obj.put("department", json.get("department").toString());
-			obj.put("prerequisites", json.get("prerequisites").toString());
-			obj.put("exclusions", json.get("exclusions").toString());
-			obj.put("level", json.get("level").toString());
-			obj.put("campus", json.get("campus").toString());
-			obj.put("term", json.get("term").toString());
-			obj.put("meeting_sections", json.get("meeting_sections").toString());
-			obj.put("graded_evaluations", getassignments());
-			saveAsJSON(name);
-			obj.put("mongodbevents", processeventsformongo(json).toString());
-			System.out.println(obj.toString());
+		if (! courseFile.toString().endsWith(".pdf")){
+			System.out.println("invalid file type");
+			System.exit(0);
 		}
+		String name = courseFile.getName();
+		int pos = name.lastIndexOf(".");
+		if (pos > 0) {
+			name = name.substring(0,pos);
+		}
+		obj = new JSONObject();
+		pdfManager.setFilePath(courseFile.toString());
+		rawtext = pdfManager.ToText();
+		obj.put("rawtext", rawtext);
+		rawTextLines = rawtext.split("\\r?\\n");
+		
+		finalcoursecode = coursecodefinder();
+		obj.put("code", finalcoursecode);
+		obj.put("university", getUniversityCampus());
+		JSONObject json = null;
+		try{
+			json = connecttoCobalt();
+		}catch (Exception e){
+			e.printStackTrace();
+			nodeobj.add(finalcoursecode);
+			obj.put("graded_evaluations", getassignments());
+			String returnpath = saveAsJSON(name);
+			System.out.println(returnpath);
+		}
+		obj.put("id",json.get("id").toString());
+		nodeobj.add(json.get("id").toString());
+		obj.put("name", json.get("name").toString());
+		obj.put("description", json.get("description").toString());
+		obj.put("division", json.get("division").toString());
+		obj.put("department", json.get("department").toString());
+		obj.put("prerequisites", json.get("prerequisites").toString());
+		obj.put("exclusions", json.get("exclusions").toString());
+		obj.put("level", json.get("level").toString());
+		obj.put("campus", json.get("campus").toString());
+		obj.put("term", json.get("term").toString());
+		obj.put("meeting_sections", json.get("meeting_sections").toString());
+		obj.put("graded_evaluations", getassignments());
+		String returnpath = saveAsJSON(name);
+		obj.put("mongodbevents", processeventsformongo(json).toString());
+		System.out.println(returnpath);
+		
 	 }
 
 	public static String coursecodefinder() {
@@ -228,15 +227,18 @@ public class SporeReader
 		return markedlist;
 	}
 
-	public static void saveAsJSON(String name){
+	public static String saveAsJSON(String name){
 		try{
-			FileWriter file = new FileWriter(System.getProperty("user.dir") + "/PDFS/JSONOutput/" 
-				+ name + ".json");
+			String savepath = System.getProperty("user.dir") + "/PDFS/JSONOutput/"
+			                                + name + ".json";
+			FileWriter file = new FileWriter(savepath);
 			file.write(obj.toJSONString());
 			file.flush();
 			file.close();
+			return savepath;
 		} catch (IOException e){	 
 			e.printStackTrace();	
+			return "not able to save";
 		}
 	}
 
