@@ -39,6 +39,26 @@
               </div>
             </div>
             <div class="container-fluid form-group row">
+              <label class="col-sm-2 col-form-label">Exam:</label>
+              <div class="col-sm-10">
+                <div class="form-inline">
+                  <div class="form-group">
+                    <small class="examInfoLabel">Recieve notifications for exam?</small>
+                    <div class="btn-group btn-toggle examInfoLabel">
+                      <button *ngIf="course.examNotifications" class="btn btn-primary active" (click)="toggleSwitch(course);">Yes</button>
+                      <button *ngIf="!course.examNotifications" class="btn btn-default" (click)="toggleSwitch(course);">Yes</button>
+                      <button *ngIf="course.examNotifications" class="btn btn-default" (click)="toggleSwitch(course);">No</button>
+                      <button *ngIf="!course.examNotifications" class="btn btn-primary active" (click)="toggleSwitch(course);">No</button>
+                    </div>
+                  </div>
+                  <div *ngIf="course.examNotifications" class="form-group">
+                    <label *ngIf="course.examInfo" class="examInfoLabel">{{course.examInfo}}</label>
+                    <label *ngIf="!course.examInfo" class="examInfoLabel">No results yet available.</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container-fluid form-group row">
               <label class="col-sm-2 col-form-label">Description:</label>
               <div class="col-sm-10">
                 <textarea class="form-control" (keyup)="updateButtonCheck(course)" rows="3"
@@ -46,148 +66,161 @@
               </div>
             </div>
           </form>
-        </div>
-        <div class="col-sm-4 col-xs-12">
-          <h2>
-            Lectures
-            <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);" [disabled]="course.lectures.length >= 5">
-              <span class="fa fa-plus"></span></button>
-            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures, 'Lecture');" [disabled]="course.lectures.length <= 0">
-              <span class="fa fa-minus"></span></button>
-          </h2>
-          <div *ngIf="course.lectures || course.lectures.length > 0">
-            <div *ngFor="let lecture of course.lectures">
-              <hr>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-3">Day:</div>
-                  <div class="col-sm-9">
-                    <select class="form-control">
-                      <option (click)="lecture.day='Sunday'">Sunday</option>
-                      <option (click)="lecture.day='Monday'">Monday</option>
-                      <option (click)="lecture.day='Tuesday'">Tuesday</option>
-                      <option (click)="lecture.day='Wednesday'">Wednesday</option>
-                      <option (click)="lecture.day='Thursday'">Thursday</option>
-                      <option (click)="lecture.day='Friday'">Friday</option>
-                      <option (click)="lecture.day='Saturday'">Saturday</option>
-                    </select>
+          <div>
+            <h2>
+              Lectures
+              <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);" [disabled]="course.lectures.length >= 5">
+                <span class="fa fa-plus"></span></button>
+              <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures);" [disabled]="course.lectures.length <= 0">
+                <span class="fa fa-minus"></span></button>
+            </h2>
+            <div *ngIf="course.lectures || course.lectures.length > 0">
+              <div *ngFor="let lecture of course.lectures">
+                <hr>
+                <div class="form-inline">
+                  <div class="form-group">
+                      <label class="courseOptionLabel">Day:</label>
+                      <select class="form-control courseOptionInput">
+                        <option (click)="lecture.day='Sunday'">Sunday</option>
+                        <option (click)="lecture.day='Monday'">Monday</option>
+                        <option (click)="lecture.day='Tuesday'">Tuesday</option>
+                        <option (click)="lecture.day='Wednesday'">Wednesday</option>
+                        <option (click)="lecture.day='Thursday'">Thursday</option>
+                        <option (click)="lecture.day='Friday'">Friday</option>
+                        <option (click)="lecture.day='Saturday'">Saturday</option>
+                      </select>
                   </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-3">From:</div>
-                  <div class="col-sm-9">
-                    <input class="form-control" type="time" [(ngModel)]="lecture.startTime" (keyup)="updateButtonCheck(course)">
+                  <div class="form-group">
+                    <label class="courseOptionLabel">From:</label>
+                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="lecture.startTime" (keyup)="updateButtonCheck(course)">
                   </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-3">To:</div>
-                  <div class="col-sm-9">
-                    <input class="form-control" type="time" [(ngModel)]="lecture.endTime" (keyup)="updateButtonCheck(course)">
+                  <div class="form-group">
+                    <label class="courseOptionLabel">To:</label>
+                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="lecture.endTime" (keyup)="updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
             </div>
+            <div *ngIf="!course.lectures || course.lectures.length == 0">
+              <h4>No lectures.</h4>
+            </div>
           </div>
-          <div *ngIf="!course.lectures || course.lectures.length == 0">
-            <h4>No lectures!</h4>
-          </div>
-        </div>
-        <div class="col-sm-4 col-xs-12">
-          <h2>
-            Tutorials
-            <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.tutorials);"><span class="fa fa-plus"></span></button>
-            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.tutorials, 'Tutorial');"><span class="fa fa-minus"></span></button>
-          </h2>
-          <div *ngIf="course.tutorials || course.tutorials.length > 0">
-            <div *ngFor="let tutorial of course.tutorials">
-              <hr>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-3">Day:</div>
-                  <div class="col-sm-9">
-                    <select class="form-control">
-                      <option (click)="tutorial.day='Sunday'">Sunday</option>
-                      <option (click)="tutorial.day='Monday'">Monday</option>
-                      <option (click)="tutorial.day='Tuesday'">Tuesday</option>
-                      <option (click)="tutorial.day='Wednesday'">Wednesday</option>
-                      <option (click)="tutorial.day='Thursday'">Thursday</option>
-                      <option (click)="tutorial.day='Friday'">Friday</option>
-                      <option (click)="tutorial.day='Saturday'">Saturday</option>
-                    </select>
+          <div>
+            <h2>
+              Tutorials
+              <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.tutorials);" [disabled]="course.tutorials.length >= 5">
+                <span class="fa fa-plus"></span></button>
+              <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.tutorials);" [disabled]="course.tutorials.length <= 0">
+                <span class="fa fa-minus"></span></button>
+            </h2>
+            <div *ngIf="course.tutorials || course.tutorials.length > 0">
+              <div *ngFor="let tutorial of course.tutorials">
+                <hr>
+                <div class="form-inline">
+                  <div class="form-group">
+                      <label class="courseOptionLabel">Day:</label>
+                      <select class="form-control courseOptionInput">
+                        <option (click)="tutorial.day='Sunday'">Sunday</option>
+                        <option (click)="tutorial.day='Monday'">Monday</option>
+                        <option (click)="tutorial.day='Tuesday'">Tuesday</option>
+                        <option (click)="tutorial.day='Wednesday'">Wednesday</option>
+                        <option (click)="tutorial.day='Thursday'">Thursday</option>
+                        <option (click)="tutorial.day='Friday'">Friday</option>
+                        <option (click)="tutorial.day='Saturday'">Saturday</option>
+                      </select>
                   </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-3">From:</div>
-                  <div class="col-sm-9">
-                    <input class="form-control" type="time" [(ngModel)]="tutorial.startTime" (keyup)="updateButtonCheck(course)">
+                  <div class="form-group">
+                    <label class="courseOptionLabel">From:</label>
+                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="tutorial.startTime" (keyup)="updateButtonCheck(course)">
                   </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-3">To:</div>
-                  <div class="col-sm-9">
-                    <input class="form-control" type="time" [(ngModel)]="tutorial.endTime" (keyup)="updateButtonCheck(course)">
+                  <div class="form-group">
+                    <label class="courseOptionLabel">To:</label>
+                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="tutorial.endTime" (keyup)="updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
             </div>
+            <div *ngIf="!course.tutorials || course.tutorials.length == 0">
+              <h4>No tutorials.</h4>
+            </div>
           </div>
-          <div *ngIf="!course.tutorials || course.tutorials.length == 0">
-            <h4>No tutorials!</h4>
-          </div>
-        </div>
-        <div class="col-sm-4 col-xs-12">
-          <h2>
-            Practicals
-            <button class="btn btn-xs btn-info " (click)="addCourseOption(course, course.practicals);"><span class="fa fa-plus"></span></button>
-            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.practicals, 'Practical');"><span class="fa fa-minus"></span></button>
-          </h2>
-          <div *ngIf="course.practicals || course.practicals.length > 0">
-            <div *ngFor="let practical of course.practicals">
-              <hr>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-3">Day:</div>
-                  <div class="col-sm-9">
-                    <select class="form-control">
-                      <option (click)="practical.day='Sunday'">Sunday</option>
-                      <option (click)="practical.day='Monday'">Monday</option>
-                      <option (click)="practical.day='Tuesday'">Tuesday</option>
-                      <option (click)="practical.day='Wednesday'">Wednesday</option>
-                      <option (click)="practical.day='Thursday'">Thursday</option>
-                      <option (click)="practical.day='Friday'">Friday</option>
-                      <option (click)="practical.day='Saturday'">Saturday</option>
-                    </select>
+          <div>
+            <h2>
+              Practicals
+              <button class="btn btn-xs btn-info " (click)="addCourseOption(course, course.practicals);" [disabled]="course.practicals.length >= 5">
+                <span class="fa fa-plus"></span></button>
+              <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.practicals);" [disabled]="course.practicals.length <= 0">
+                <span class="fa fa-minus"></span></button>
+            </h2>
+            <div *ngIf="course.practicals || course.practicals.length > 0">
+              <div *ngFor="let practical of course.practicals">
+                <hr>
+                <div class="form-inline">
+                  <div class="form-group">
+                      <label class="courseOptionLabel">Day:</label>
+                      <select class="form-control courseOptionInput">
+                        <option (click)="practical.day='Sunday'">Sunday</option>
+                        <option (click)="practical.day='Monday'">Monday</option>
+                        <option (click)="practical.day='Tuesday'">Tuesday</option>
+                        <option (click)="practical.day='Wednesday'">Wednesday</option>
+                        <option (click)="practical.day='Thursday'">Thursday</option>
+                        <option (click)="practical.day='Friday'">Friday</option>
+                        <option (click)="practical.day='Saturday'">Saturday</option>
+                      </select>
                   </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-3">From:</div>
-                  <div class="col-sm-9">
-                    <input class="form-control" type="time" [(ngModel)]="practical.startTime" (keyup)="updateButtonCheck(course)">
+                  <div class="form-group">
+                    <label class="courseOptionLabel">From:</label>
+                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="practical.startTime" (keyup)="updateButtonCheck(course)">
                   </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-3">To:</div>
-                  <div class="col-sm-9">
-                    <input class="form-control" type="time" [(ngModel)]="practical.endTime" (keyup)="updateButtonCheck(course)">
+                  <div class="form-group">
+                    <label class="courseOptionLabel">To:</label>
+                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="practical.endTime" (keyup)="updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
             </div>
+            <div *ngIf="!course.practicals || course.practicals.length == 0">
+              <h4>No practicals.</h4>
+            </div>
           </div>
-          <div *ngIf="!course.practicals || course.practicals.length == 0">
-            <h4>No practicals!</h4>
+          <div>
+            <h2>
+              Office Hours
+              <button class="btn btn-xs btn-info " (click)="addCourseOption(course, course.officeHours);" [disabled]="course.officeHours.length >= 5">
+                <span class="fa fa-plus"></span></button>
+              <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.officeHours);" [disabled]="course.officeHours.length <= 0">
+                <span class="fa fa-minus"></span></button>
+            </h2>
+            <div *ngIf="course.officeHours || course.officeHours.length > 0">
+              <div *ngFor="let officeHour of course.officeHours">
+                <hr>
+                <div class="form-inline">
+                  <div class="form-group">
+                      <label class="courseOptionLabel">Day:</label>
+                      <select class="form-control courseOptionInput">
+                        <option (click)="officeHour.day='Sunday'">Sunday</option>
+                        <option (click)="officeHour.day='Monday'">Monday</option>
+                        <option (click)="officeHour.day='Tuesday'">Tuesday</option>
+                        <option (click)="officeHour.day='Wednesday'">Wednesday</option>
+                        <option (click)="officeHour.day='Thursday'">Thursday</option>
+                        <option (click)="officeHour.day='Friday'">Friday</option>
+                        <option (click)="officeHour.day='Saturday'">Saturday</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="courseOptionLabel">From:</label>
+                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="officeHour.startTime" (keyup)="updateButtonCheck(course)">
+                  </div>
+                  <div class="form-group">
+                    <label class="courseOptionLabel">To:</label>
+                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="officeHour.endTime" (keyup)="updateButtonCheck(course)">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!course.officeHours || course.officeHours.length == 0">
+              <h4>No office hours.</h4>
+            </div>
           </div>
         </div>
       </div>

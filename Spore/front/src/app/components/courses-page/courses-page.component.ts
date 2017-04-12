@@ -22,29 +22,12 @@ export class CoursesPageComponent implements OnInit {
     let lectures: Array<CourseOption> = [new CourseOption()];
     let tutorials: Array<CourseOption> = [new CourseOption()];
     let practicals: Array<CourseOption> = [new CourseOption(), new CourseOption()];
-    let course: Course = new Course(false, 'ABC123', 'Dr. Guy', 'No clue what this is...', null, 0, lectures, 0, tutorials, 0, practicals);
+    let officeHours: Array<CourseOption> = [new CourseOption()];
+    let course: Course = new Course(false, 'ABC123', 'Dr. Guy', 'No clue what this is...', null, true, "Exam will be held in IB 110 at 3:00pm until 5:00pm", lectures, tutorials, practicals, officeHours);
     this.courses.push(course);
     this.mockedSearchResults.push(course);
     let courseMaster = <Course>JSON.parse(JSON.stringify(course));
     this.coursesMaster.push(courseMaster);
-    // course = new Course(false, 'CSC309', 'Cool Dude Arnold', 'This is a pretty cool class.', 'csc309faspfsaopfjapas');
-    // this.courses.push(course);
-    // this.mockedSearchResults.push(course);
-    // courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    // this.coursesMaster.push(courseMaster);
-    // let tutorials1: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0), new CourseOption(new Date('1491857951850'), 1)];
-    // let tutorials2: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0), new CourseOption(new Date('1491857951850'), 1)];
-    // course = new Course(false, 'MAT111', 'Fuchs', 'This class is also pretty cool.', 'mat111fa124asfpfjapas', 1, tutorials1, 0, tutorials2);
-    // this.courses.push(course);
-    // courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    // this.coursesMaster.push(courseMaster);
-    // let lectures1: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0)];
-    // let lectures2: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0)];
-    // let lectures3: Array<CourseOption> = [new CourseOption(new Date('1491857951850'), 0)];
-    // course = new Course(false, 'ECO101', 'Bailey on Ice', 'Smooth as hell.', 'eco101ffas2aspfsaopfjapas', 0, lectures1, 0, lectures2, 0, lectures3);
-    // this.courses.push(course);
-    // courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    // this.coursesMaster.push(courseMaster);
   }
 
   private updateCourse(course: Course): any {
@@ -120,27 +103,6 @@ export class CoursesPageComponent implements OnInit {
   private removeCourseOption(course: Course, section: Array<CourseOption>, type: string): any {
     console.log('Remove Course Option Called!');
     section.pop();
-    if (section.length) {
-      switch (type) {
-        case "Lecture":
-          if (course.lectureSelected >= section.length) {
-            course.lectureSelected = section.length - 1;
-          }
-          break;
-        case "Tutorial":
-          if (course.tutorialSelected >= section.length) {
-            course.tutorialSelected = section.length - 1;
-          }
-          break;
-        case "Practical":
-          if (course.practicalSelected >= section.length) {
-            course.practicalSelected = section.length - 1;
-          }
-          break;
-        default:
-          break;
-      }
-    }
     this.updateButtonCheck(course);
   }
 
@@ -166,5 +128,10 @@ export class CoursesPageComponent implements OnInit {
       this.searchResultSelected = '';
       document.getElementById('checkButton').click();
     }
+  }
+
+  private toggleSwitch(course: Course): any {
+    course.examNotifications = !course.examNotifications;
+    this.updateButtonCheck(course);
   }
 }

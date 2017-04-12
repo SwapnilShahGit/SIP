@@ -5,31 +5,30 @@ export class Course implements ICourse {
     public instructor: string;
     public description: string;
     public id: string;
-    public lectureSelected: number;
     public lectures: Array<CourseOption>;
-    public tutorialSelected: number;
     public tutorials: Array<CourseOption>;
-    public practicalSelected: number;
     public practicals: Array<CourseOption>;
+    public officeHours: Array<CourseOption>;
     public isDraft: boolean = true;
     public colour: string = '#F1AE03';
+    public examNotifications: boolean = true;
+    public examInfo: string;
 
     constructor(isDraft?: boolean, code?: string, instructor?: string,
-                description?: string, id?: string,
-                lectureSelected?: number, lectures?: Array<CourseOption>,
-                tutorialSelected?: number, tutorials?: Array<CourseOption>,
-                practicalSelected?: number, practicals?: Array<CourseOption>) {
+                description?: string, id?: string, examNotification?: boolean, examInfo?: string,
+                lectures?: Array<CourseOption>, tutorials?: Array<CourseOption>,
+                practicals?: Array<CourseOption>, officeHours?: Array<CourseOption>) {
       this.isDraft = isDraft == undefined ? true : isDraft;
       this.code = code || 'Course Code';
       this.instructor = instructor || 'Instructors Name';
       this.description = description || '';
       this.id = id || Guid.newGuid();
-      this.lectureSelected = lectureSelected || 0;
+      this.examNotifications = examNotification || true;
+      this.examInfo = examInfo || "No results yet available.";
       this.lectures = lectures || [];
-      this.tutorialSelected = tutorialSelected || 0;
       this.tutorials = tutorials || [];
-      this.practicalSelected = practicalSelected || 0;
       this.practicals = practicals || [];
+      this.officeHours = officeHours || [];
     }
 }
 
@@ -38,14 +37,14 @@ export interface ICourse {
     instructor: string;
     description: string;
     id: string;
-    lectureSelected: number;
     lectures: Array<CourseOption>;
-    tutorialSelected: number;
     tutorials: Array<CourseOption>;
-    practicalSelected: number;
     practicals: Array<CourseOption>;
+    officeHours: Array<CourseOption>;
     isDraft: boolean;
     colour: string;
+    examNotifications: boolean;
+    examInfo: string;
 }
 
 class Guid {

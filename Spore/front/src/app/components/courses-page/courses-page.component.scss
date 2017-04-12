@@ -11,6 +11,11 @@ h4 {
   pointer-events: none;
 }
 
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 #courses-accordion {
   margin: 20px 0px;
 }
@@ -23,6 +28,10 @@ h4 {
   overflow: hidden;
   white-space: nowrap;
   text-decoration: none;
+}
+
+.courseOptionLabel, .courseOptionInput, .examInfoLabel {
+  margin-right: 10px;
 }
 
 .rightFloat {
