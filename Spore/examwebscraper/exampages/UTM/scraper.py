@@ -1,21 +1,26 @@
 from bs4 import BeautifulSoup
-import urllib2, json, io, time, os
+import urllib2, json, io, time, os, datetime
 
 #figure out what exam this is for
-now = time.strftime("%m")
+mydate = datetime.datetime.now()
+now = mydate.strftime("%B")
 filename = ""
-April = 4
-July = 7
-June = 6
-September = 9
-if now <= April:
+currentsemestercode = ""
+April = ["January", "February", "March", "April"]
+June = ["May", "June"]
+August = ["July", "August"]
+if now in April:
     filename += "apr" + time.strftime("%y")
-elif now > April and now < July:
+    currentsemestercode = "1"
+elif now in June:
     filename += "jun" + time.strftime("%y")
-elif now > June and now < September:
+    currentsemestercode = "5F"
+elif now in August:
     filename += "aug" + time.strftime("%y")
+    currentsemestercode = "5S"
 else:
     filename += "dec" + time.strftime("%y")
+    currentsemestercode = "9"
 
 #create appropriate directory to store files
 if not os.path.exists(filename):
@@ -37,6 +42,9 @@ rows = table_body.find_all('tr')
 for row in rows:
     cols = row.find_all('td')
     cols = [ele.get_text() for ele in cols]
+    sep = ' '
+    cols[0] = cols[0].split(sep, 1)[0]
+    cols[0] = cols[0] + mydate.strftime("%Y") + currentsemestercode
     class_exams.append([ele.encode('ascii', 'ignore') for ele in cols if ele])
 
 #get names of columns
