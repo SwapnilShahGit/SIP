@@ -60,13 +60,15 @@ ul{
 label {
     height: 46px;
     padding: 10px 16px;
+    padding-bottom: 0px;
     font-size: 18px;
-    line-height: 1.3333333;
+    line-height: 1;
     border-radius: 6px;
     width: 100%;
     border: none;
     margin-left: 0px;
     margin-bottom: 0px;
+     height: 10px;
 
    &.crossed {
         text-decoration: line-through; 
@@ -77,10 +79,24 @@ label {
     }
 }
 
+#Timestamp{
+    color: #4d4d4d;
+    font-style: italic;
+    font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    padding-top : 0px;
+    padding-left : 28px;
+    padding-right : 0px;
+    padding-bottom : 0px;
+    width: 200px;
+    height: 10px
+   
+}
+
 #close {
     margin-top: 2px;
     float: right;
-    color: #999;
+    color: #4d4d4d;
 
     &:hover{
         cursor: pointer;
@@ -94,10 +110,12 @@ label {
     margin-bottom: 10px;
     border: 2px solid;
     border-radius: 6px;
-    border-color: #d9534f;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
     
     &.crossed{
-        border-color: #5cb85c;
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
     }
 
     &:hover{

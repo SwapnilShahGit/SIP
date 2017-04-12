@@ -39,9 +39,13 @@ export class TasksComponent implements OnInit {
 
   public addTask() {
     if (this.newTask === "") return;
+    var tempdate = new Date();
+    var currentdate = "Created " + tempdate.toLocaleString('en-US', { month: "long" }) + " " + tempdate.getDate() + ", " + tempdate.getFullYear() + " " + tempdate.toLocaleString('en-US', { hour: 'numeric',minute:'numeric', hour12: true });
+
     this.items.push({
-      text: this.newTask,
-      done: false
+      text: this.newTask,  
+      done: false,  
+      date: currentdate
     });
     this.updateUser();
     this.newTask = "";
