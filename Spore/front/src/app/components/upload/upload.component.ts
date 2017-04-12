@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
+import { CookieService } from 'angular2-cookie/core';
 
 @Component({
     selector: 'upload-factory',
@@ -8,17 +9,26 @@ import { FileUploader } from 'ng2-file-upload';
 })
 export class UploadComponent implements OnInit {
 
-    private server: string = ENV === 'production'
-      ? 'https://spore.life' : 'https://localhost:8081';
+    private server: string = ENV === 'production' ? 'https://spore.life' : 'https://localhost:8081';
     private maxFileSize = 1024 * 1024 * 15;
-   
-private uploader: FileUploader = new FileUploader({url: this.server + '/api/parse', maxFileSize: this.maxFileSize, autoUpload: true});
-
     private hasBaseDropZoneOver: boolean = false;
+    private userID: string;
+    private uploader: FileUploader;
 
     constructor(
-      private changeDetector: ChangeDetectorRef
-    ) { }
+      private changeDetector: ChangeDetectorRef,
+      private cookieService: CookieService
+    ) {
+      this.userID = this.cookieService.get('userID');
+      this.uploader = new FileUploader({
+        url: this.server + '/api/parse',
+        maxFileSize: this.maxFileSize,
+        autoUpload: true,
+        additionalParameter: {
+          user: this.userID
+        }
+      });
+    }
 
     public ngOnInit() {
       this.changeDetector.detectChanges();
