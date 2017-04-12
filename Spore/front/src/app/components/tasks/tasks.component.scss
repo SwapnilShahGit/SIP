@@ -37,6 +37,14 @@
         background-color: #2bacd4;
         border-color: #46b8da;
     }
+
+    &:disabled{
+            background-color: #5bc0de;
+            border-color: #46b8da;
+            cursor: not-allowed;
+    }
+    
+    
 }
 
 #newAdd{
@@ -56,23 +64,51 @@ label {
     line-height: 1.3333333;
     border-radius: 6px;
     width: 100%;
-    border: 3px solid;
-    border-color: #d9534f;
-    margin: 10px;
+    border: none;
     margin-left: 0px;
+    margin-bottom: 0px;
 
-    &.crossed {
-        text-decoration: line-through;
-        border-color: #46a046;  
+   &.crossed {
+        text-decoration: line-through; 
+    }
+
+    &:hover{
+        cursor: pointer;
     }
 }
 
 #close {
+    margin-top: 2px;
     float: right;
     color: #999;
 
     &:hover{
         cursor: pointer;
         color: black;
+    }
+}
+
+#theList{
+    padding: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid;
+    border-radius: 6px;
+    border-color: #d9534f;
+    
+    &.crossed{
+        border-color: #5cb85c;
+    }
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+#check{
+    visibility: hidden;
+
+    &.crossed{
+        visibility: visible;
     }
 }
