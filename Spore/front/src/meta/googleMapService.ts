@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, Directive, Input, OnInit } from '@angular/core';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import { MapsAPILoader } from 'angular2-google-maps/core';
 import { Observable, Observer } from 'rxjs';
@@ -124,4 +124,40 @@ export class GMapsService extends GoogleMapsAPIWrapper {
         });
       });
     }
+}
+
+@Directive({
+  selector: 'sebm-google-map-directions'
+})
+export class DirectionsMapDirective implements OnInit {
+
+  @Input()
+  origin;
+
+  @Input()
+  destination;
+
+  constructor (
+    private gmapsApi: GoogleMapsAPIWrapper
+  ) {}
+
+  public ngOnInit() {
+    var x = this.origin;
+    this.gmapsApi.getNativeMap().then(map => {
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer;
+      directionsDisplay.setMap(map);
+      directionsService.route({
+          origin: 'Toronto ON',
+          destination: 'Oakville ON',
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            console.log('Directions request failed due to ' + status);
+          }
+      });
+    });
+  }
 }
