@@ -58,10 +58,6 @@ public class SporeReader
 			System.exit(0);
 		}
 		PdfToText pdfManager = new PdfToText();
-		if (! courseFile.toString().endsWith(".pdf")){
-			System.out.println("invalid file type");
-			System.exit(0);
-		}
 		String name = courseFile.getName();
 		int pos = name.lastIndexOf(".");
 		if (pos > 0) {
