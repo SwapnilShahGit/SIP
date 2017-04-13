@@ -1,6 +1,5 @@
-import { Injectable, NgZone, Directive, Input, OnInit } from '@angular/core';
-import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
-import { MapsAPILoader } from 'angular2-google-maps/core';
+import { Injectable, NgZone, Directive, Input, OnChanges } from '@angular/core';
+import { GoogleMapsAPIWrapper, MapsAPILoader } from 'angular2-google-maps/core';
 import { Observable, Observer } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 declare var google;
@@ -8,13 +7,16 @@ declare var google;
 @Injectable()
 export class GMapsService extends GoogleMapsAPIWrapper {
 
-    constructor(private loader: MapsAPILoader, private zone: NgZone) {
+    constructor(
+      private loader: MapsAPILoader,
+      private zone: NgZone
+    ) {
       super(loader, zone);
     }
 
     // Gets bunch of places around location. (Doesnt seem to matter much
     // what place you specify - better to use getTextSearch)
-    public getPointsOfInterest(lat: number, lng: number, place: string) {
+    public getPointsOfInterest(lat: number, lng: number, place: string): any {
       let map = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(lat, lng),
         zoom: 15
@@ -41,7 +43,7 @@ export class GMapsService extends GoogleMapsAPIWrapper {
 
     // Good search if you have an address and point of interest in mind.
     // i.e Food near Square One Mississauga
-    public getTextSearch(lat: number, lng: number, address: string, place: string) {
+    public getTextSearch(lat: number, lng: number, address: string, place: string): any {
       let map = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(lat, lng),
         zoom: 15
@@ -67,7 +69,7 @@ export class GMapsService extends GoogleMapsAPIWrapper {
     }
 
     // Using placeId you can get extra details about that place.
-    public getPlaceDetails(lat: number, lng: number, placeId: string) {
+    public getPlaceDetails(lat: number, lng: number, placeId: string): any {
       let map = new google.maps.Map(document.getElementById('map'), {
         center: new google.maps.LatLng(lat, lng),
         zoom: 15
@@ -88,7 +90,7 @@ export class GMapsService extends GoogleMapsAPIWrapper {
       });
     }
 
-    public getLatLan(address: string) {
+    public getLatLan(address: string): any {
       let geocoder = new google.maps.Geocoder();
       return Observable.create(observer => {
         geocoder.geocode({'address': address}, function(results, status) {
@@ -103,7 +105,7 @@ export class GMapsService extends GoogleMapsAPIWrapper {
       });
     }
 
-    public geolocate() {
+    public geolocate(): any {
       return Observable.create(observer => {
         if (!navigator.geolocation) {
           observer.error('Geolocation is not supported by your browser.');
@@ -129,31 +131,52 @@ export class GMapsService extends GoogleMapsAPIWrapper {
 @Directive({
   selector: 'sebm-google-map-directions'
 })
-export class DirectionsMapDirective implements OnInit {
+export class DirectionsMapDirective {
+
+  private directionsDisplay: any;
 
   @Input()
-  origin;
+  public origin: any;
 
   @Input()
-  destination;
+  public destination: any;
 
   constructor (
-    private gmapsApi: GoogleMapsAPIWrapper
+    private gmapsApi: GoogleMapsAPIWrapper,
   ) {}
 
-  public ngOnInit() {
-    var x = this.origin;
+  public ngOnChanges() {
     this.gmapsApi.getNativeMap().then(map => {
+      if (!this.origin || !this.destination) {
+        return;
+      }
+
+      var me = this;
       var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer;
-      directionsDisplay.setMap(map);
+      if (me.directionsDisplay) {
+        me.directionsDisplay.setMap(null);
+      }
+
+      if (!this.destination.lat || !this.destination.lng) {
+        me.directionsDisplay = new google.maps.DirectionsRenderer({
+          suppressMarkers: true,
+          suppressPolylines: true
+        });
+        me.directionsDisplay.setMap(map);
+        return;
+      }
+
+      me.directionsDisplay = new google.maps.DirectionsRenderer({
+        suppressMarkers: true
+      });
+      me.directionsDisplay.setMap(map);
       directionsService.route({
-          origin: 'Toronto ON',
-          destination: 'Oakville ON',
-          travelMode: 'DRIVING'
+          origin: {lat: this.origin.lat, lng: this.origin.lng},
+          destination: {lat: this.destination.lat, lng: this.destination.lng},
+          travelMode: google.maps.DirectionsTravelMode.DRIVING
         }, function(response, status) {
           if (status === 'OK') {
-            directionsDisplay.setDirections(response);
+            me.directionsDisplay.setDirections(response);
           } else {
             console.log('Directions request failed due to ' + status);
           }
