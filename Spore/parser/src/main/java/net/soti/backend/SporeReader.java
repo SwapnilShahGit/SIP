@@ -97,7 +97,7 @@ public class SporeReader
 		obj.put("graded_evaluations", getassignments());
 		String returnpath = saveAsJSON(name);
 		obj.put("mongodbevents", processeventsformongo(json).toString());
-		System.out.println(returnpath);
+		System.out.println(obj);
 		
 	 }
 
