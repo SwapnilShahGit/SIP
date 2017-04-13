@@ -1,8 +1,8 @@
 export class TaskItem {
-    text: String;
-    done: boolean;
+  text: String;
+  done: boolean;
 }
 
 export class TaskStore {
-  items: TaskItem[] = [ ];
+  items: TaskItem[] = [];
 }
