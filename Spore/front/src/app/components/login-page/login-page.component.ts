@@ -74,12 +74,12 @@ export class LoginPageComponent implements OnInit {
     }
 
     function handleUser(user: User) {
-      databaseService.getUser(user.facebookID).then(response => {
+      databaseService.getUserFromFacebookID(user.facebookID).then(response => {
         if (response.error !== 0) {
           window.alert('Error: Not Found in Database. Please Sign Up');
           reDir.navigate(['/sign-up']);
         } else {
-          cookieService.put('userID', user.facebookID);
+          cookieService.put('userID', response.data._id);
           redirectUser(user.facebookID);
         }
       });

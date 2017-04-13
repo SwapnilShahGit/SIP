@@ -37,17 +37,19 @@ export class DatabaseService {
             }, error => console.log('Could not load user.'));
     }
 
-    public getUser(id: string): any {
-        this.loadUser(id);
+    public getUserFromFacebookID(id: string): any {
         return this.http
-            .get(this.BuildGetUserRequest(id))
+            .get(this.BuildGetUserRequestWithFacebook(id))
             .toPromise()
-            .then(response => response.json())
+            .then(response => {
+                let responseObj = response.json();
+                this.loadUser(responseObj.data._id);
+                return responseObj;
+            })
             .catch(this.handleError);
     }
 
     public addUser(user: User): any {
-        this.loadUser(user.userID);
         return this.http
             .post(this.BuildPostUserRequest(user),
               {
@@ -128,6 +130,11 @@ export class DatabaseService {
     }
 
     private BuildGetUserRequest(id: string): string {
+        return this.server + '/api/users?'
+            + 'user=' + encodeURIComponent(id);
+    }
+
+    private BuildGetUserRequestWithFacebook(id: string): string {
         return this.server + '/api/users?'
             + 'fb=' + encodeURIComponent(id);
     }
