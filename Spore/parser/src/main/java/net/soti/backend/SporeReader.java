@@ -93,7 +93,7 @@ public class SporeReader
 		obj.put("level", json.get("level").toString());
 		obj.put("campus", json.get("campus").toString());
 		obj.put("term", json.get("term").toString());
-		obj.put("meeting_sections", json.get("meeting_sections").toString());
+		obj.put("meeting_sections", json.get("meeting_sections"));
 		obj.put("graded_evaluations", getassignments());
 		String returnpath = saveAsJSON(name);
 		obj.put("mongodbevents", processeventsformongo(json).toString());
