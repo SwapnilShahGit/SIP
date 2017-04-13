@@ -25,6 +25,9 @@ export class MapPageComponent implements OnDestroy {
   private lng: number = undefined;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
+  private origin = { longitude: 4.333, lattitude: -1.2222 };  // its a example aleatory position
+  private destination = { longitude: 22.311, lattitude: -0.123 };  // its a example aleatory position
+
   constructor(
     private googleMapService: GMapsService,
     private zone: NgZone
