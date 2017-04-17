@@ -95,6 +95,7 @@ public class SporeReader
 		obj.put("term", json.get("term").toString());
 		obj.put("meeting_sections", json.get("meeting_sections"));
 		obj.put("graded_evaluations", getassignments());
+		obj.put("office_hours", getOfficeHours());
 		String returnpath = saveAsJSON(name);
 		obj.put("mongodbevents", processeventsformongo(json).toString());
 		System.out.println(obj);
@@ -221,6 +222,18 @@ public class SporeReader
 			markedlist.add(minilist);
 		}
 		return markedlist;
+	}
+
+	public static String getOfficeHours(){
+		Pattern stopWords = Pattern.compile("\\b(?:Office|Hours|office|hours)\\b\\s*", Pattern.CASE_INSENSITIVE);
+		for (String rawTextLine: rawTextLines){
+			if (rawTextLine.contains("Office Hours")){
+				Matcher matcher = stopWords.matcher(rawTextLine);
+				String clean = matcher.replaceAll("");
+				return clean;
+			};
+		}
+		return "Not Available";
 	}
 
 	public static String saveAsJSON(String name){
