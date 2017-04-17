@@ -8,10 +8,15 @@
     <div id ="tasklist">
       <ul class="list-group" dnd-sortable-container [sortableData] = "items" id ="list">
         <li id = "theList" *ngFor="let item of items; let i = index"  class="list-group-item" dnd-sortable [sortableIndex]="i" [class.crossed]="item.done" >
-          <div class="view" (click)="clickTask(item, i)">
-            <label (click)="clickTask(item, i)" [class.crossed]="item.done"><span [class.crossed]="item.done" id= "check" class="fa fa-check"></span>{{item.text}}<span id= "close" class="fa fa-times" (click)="removeTask(i)"></span></label>
-            <label id ="Timestamp" (click)="clickTask(item, i)">{{item.date}}</label>
+          <div (click)="clickTask(item, i)">
+              <div id="checkandtext">
+                <span [class.crossed]="item.done" id= "check" class="fa fa-check"></span>
+                <textarea rows="1"[class.crossed]="item.done" id= "itemTextArea" readonly>{{item.text}}</textarea>
+                <span id= "close" class="fa fa-times" (click)="removeTask(i)"></span>
+              </div>
+              <p id ="Timestamp">{{item.date}}</p>
           </div>
+          {{auto_grow()}}
         </li>
       </ul>
     </div>

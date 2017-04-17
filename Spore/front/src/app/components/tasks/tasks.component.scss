@@ -57,6 +57,21 @@ ul{
     list-style: none;
 }
 
+#itemTextArea{
+    resize: none;
+    overflow: hidden;
+    width: 98%;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    font-weight: bold;
+}
+
 label {
     height: 46px;
     padding: 10px 16px;
@@ -89,14 +104,16 @@ label {
     padding-right : 0px;
     padding-bottom : 0px;
     width: 200px;
-    height: 10px
+    height: 10px;
+    margin-bottom: 0px;
    
 }
 
 #close {
     margin-top: 2px;
     float: right;
-    color: #4d4d4d;
+    color: #999999;
+    margin-right: 5px;
 
     &:hover{
         cursor: pointer;
@@ -116,17 +133,32 @@ label {
     &.crossed{
         background-color: #dff0d8;
         border-color: #d6e9c6;
+        
+        &:hover{
+            cursor: pointer;
+            background-color: #d6e9c6;
+        }
     }
 
     &:hover{
         cursor: pointer;
+        background-color: #faebcc;
     }
 }
 
 #check{
     visibility: hidden;
+    margin-left: 5px;
 
     &.crossed{
         visibility: visible;
     }
+}
+
+#checkandtext{
+    display: flex;
+}
+
+#checktextclose{
+    display: flex;
 }
