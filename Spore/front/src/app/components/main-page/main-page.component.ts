@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
@@ -28,7 +28,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private activatedRouter: ActivatedRoute,
     private databaseService: DatabaseService,
     private navService: NavService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private elementRef: ElementRef
   ) {
     this.currentTab = navService.calendarTab;
     this.subscription = navService.navOpen$.subscribe(
@@ -85,6 +86,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.currentTab = newTab;
     if (window.innerHeight <= 767) {
       this.closeNav();
+    }
+  }
+
+  public updateSearch(text) {
+    if (text === 'cats') {
+      this.elementRef.nativeElement.querySelectorAll('div')[4].innerHTML = '<img src="https://placekitten.com/g/250/824">';
     }
   }
 
