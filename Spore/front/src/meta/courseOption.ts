@@ -1,18 +1,18 @@
 
 export class CourseOption implements ICourseOption {
-    public label: string;
-    public time: string;
-    public index: number;
+    public day: string;
+    public startTime: Date;
+    public endTime: Date;
 
-    constructor(label?: string, time?: string, index?: number) {
-      this.label = label || '' ;
-      this.time = time || '';
-      this.index = index || 0;
+    constructor(day?: string, startTime?: Date, endTime?: Date) {
+      this.day = day;
+      this.startTime = startTime;
+      this.endTime = endTime;
     }
 }
 
 export interface ICourseOption {
-    label: string;
-    time: string; // Change to Date object later on...
-    index: number;
+    day: string,
+    startTime: Date,
+    endTime: Date
 }
