@@ -1,8 +1,8 @@
 <div style="position: relative; min-height: 100%">
   <static-nav></static-nav>
-  <div class="sidenav" [ngStyle]="{'width': slideOutWidth, 'height': bodyHeight}">
+  <div class="sidenav" #sidenav [ngStyle]="{'width': slideOutWidth, 'height': bodyHeight}">
     <a style="padding: 4px 10px 0px 10px;">
-      <search-bar></search-bar>
+      <search-bar (_output)="updateSearch($event)"></search-bar>
     </a>
     <br> <span class="sidenav-header">Tools</span>
     <hr class="sidenav-hr">
