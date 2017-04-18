@@ -59,7 +59,8 @@ export class TasksComponent implements OnInit{
     this.items.push({
       text: this.newTask,  
       done: false,  
-      date: currentdate
+      date: currentdate,
+      edit: false
     });
     this.updateUser();
     this.newTask = "";
@@ -71,7 +72,27 @@ export class TasksComponent implements OnInit{
   }
 
   public clickTask(item: any, index: number) {
-    this.items[index].done = !item.done;
+    if (this.items[index].edit == false){
+      this.items[index].done = !item.done;
+      this.updateUser();
+    }
+  }
+
+  public editTask(item: any, index: number){
+    this.items[index].edit = true;
+    var textAreas= document.querySelectorAll("textArea");
+    var textarea = textAreas[index];
+    (<HTMLTextAreaElement>textarea).focus();
+    (<HTMLTextAreaElement> textarea).readOnly = false;
+    this.updateUser();
+  }
+
+  public saveTask(item: any, index: number){
+    this.items[index].edit = false;
+    var textAreas= document.querySelectorAll("textArea");
+    var textarea = textAreas[index];
+    (<HTMLTextAreaElement> textarea).readOnly = true;
+    this.items[index].text = (<HTMLTextAreaElement> textarea).value;
     this.updateUser();
   }
 
