@@ -3,6 +3,7 @@ export class TaskItem {
   done: boolean;
   date: string;
   edit: boolean;
+  editDate: string;
 }
 
 export class TaskStore {
