@@ -22,6 +22,8 @@
         </sebm-google-map-marker>
       </div>
       <sebm-google-map-marker [latitude]="pointsOfInterest[0].lat" [longitude]="pointsOfInterest[0].lng"></sebm-google-map-marker>
+      <sebm-google-map-directions *ngIf="destination" [origin]="{'lat': pointsOfInterest[0].lat, 'lng': pointsOfInterest[0].lng}"
+        [destination]="destination"></sebm-google-map-directions>
     </sebm-google-map>
   </div>
 
