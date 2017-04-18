@@ -11,13 +11,13 @@
           <div >
               <div id="checkandtext" (click)="clickTask(item, i)">
                 <span [class.crossed]="item.done" id= "check" class="fa fa-check"></span>
-                <textarea rows="1"[class.crossed]="item.done" [class.editable]="item.edit"id="itemTextArea" (blur)="saveTask(item, i)" (keypress)="auto_grow()" readonly>{{item.text}}</textarea>
+                <textarea rows="1"[class.crossed]="item.done" [class.editable]="item.edit"id="itemTextArea" (change)= "saveTask(item, i)" (blur)="blur(item, i)" (keypress)="auto_grow()" readonly>{{item.text}}</textarea>
                 <span id= "close" class="fa fa-times" (click)="removeTask(i)"></span>
               </div>
               <div id="timeandedit" >
-                <p id ="Timestamp" (click)="clickTask(item, i)">{{item.date}}</p>
-                <span id= "save" class="fa fa-floppy-o" [class.editable]="item.edit" (click)="saveTask(item, i)" ></span>
+                <p id ="Timestamp" (click)="clickTask(item, i)">{{item.date}}{{item.editDate}}</p>
                 <span id= "edit" class="fa fa-pencil" [class.editable]="item.edit" (click)="editTask(item, i)"></span>
+                <span id= "save" class="fa fa-floppy-o" [class.editable]="item.edit" (click)="saveTask(item, i)"></span>
               </div>
           </div>
           {{auto_grow()}}

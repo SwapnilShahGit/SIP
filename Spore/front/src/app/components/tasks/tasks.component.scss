@@ -70,6 +70,10 @@ ul{
     -moz-box-shadow: none;
     box-shadow: none;
     font-weight: bold;
+    
+    &.crossed {
+        text-decoration: line-through; 
+    }
 }
 
 label {
@@ -103,7 +107,7 @@ label {
     padding-left : 28px;
     padding-right : 0px;
     padding-bottom : 0px;
-    width: 98%;;
+    width: 100%;;
     height: 10px;
     margin-bottom: 0px;
    
