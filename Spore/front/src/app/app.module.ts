@@ -29,8 +29,8 @@ import { CookieService } from 'angular2-cookie';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 import { CustomColourPickerComponent } from './components/colour-picker/colour-picker.component';
 import { MapPageComponent } from './components/map-page/map-page.component';
-import { AgmCoreModule } from 'angular2-google-maps/core';
-import { GMapsService } from '../meta/googleMapService';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
+import { GMapsService, DirectionsMapDirective } from '../meta/googleMapService';
 import { TasksComponent } from './components/tasks/tasks.component';
 
 /*
@@ -83,7 +83,8 @@ type StoreType = {
     CoursesPageComponent,
     CustomColourPickerComponent,
     MapPageComponent,
-    TasksComponent
+    TasksComponent,
+    DirectionsMapDirective
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -106,7 +107,8 @@ type StoreType = {
     DatabaseService,
     NavService,
     UserService,
-    GMapsService
+    GMapsService,
+    GoogleMapsAPIWrapper
   ]
 })
 export class AppModule {

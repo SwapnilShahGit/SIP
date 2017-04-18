@@ -1,6 +1,6 @@
-import { Component, NgZone, OnDestroy } from '@angular/core';
+import { Component, NgZone, OnDestroy, } from '@angular/core';
 import { FormControl } from "@angular/forms";
-import { GMapsService } from '../../../meta/googleMapService';
+import { GMapsService, DirectionsMapDirective } from '../../../meta/googleMapService';
 import 'rxjs/add/operator/takeUntil';
 import { Subject } from 'rxjs/Subject';
 declare var google;
@@ -24,6 +24,8 @@ export class MapPageComponent implements OnDestroy {
   private lat: number = undefined;
   private lng: number = undefined;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  private destination: any;
+  private directionsDisplay: any;
 
   constructor(
     private googleMapService: GMapsService,
@@ -99,6 +101,7 @@ export class MapPageComponent implements OnDestroy {
     this.parsedPointOfInterest = "";
     this.lat = undefined;
     this.lng = undefined;
+    this.destination = { lat: null, lng: null };
     this.searchResults = false;
     while (this.pointsOfInterest.length > 1) {
       this.pointsOfInterest.pop();
@@ -123,5 +126,6 @@ export class MapPageComponent implements OnDestroy {
   private focusMarker(place: any): void {
     this.lat = place.lat;
     this.lng = place.lng;
+    this.destination = { lat: place.lat, lng: place.lng };
   }
 }
