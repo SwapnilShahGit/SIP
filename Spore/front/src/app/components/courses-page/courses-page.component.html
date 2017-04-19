@@ -39,6 +39,26 @@
               </div>
             </div>
             <div class="container-fluid form-group row">
+              <label class="col-sm-2 col-form-label">Exam:</label>
+              <div class="col-sm-10">
+                <div class="form-inline">
+                  <div class="form-group">
+                    <small class="examInfoLabel">Recieve notifications for exam?</small>
+                    <div class="btn-group btn-toggle examInfoLabel">
+                      <button *ngIf="course.examNotifications" class="btn btn-primary active" (click)="toggleSwitch(course);">Yes</button>
+                      <button *ngIf="!course.examNotifications" class="btn btn-default" (click)="toggleSwitch(course);">Yes</button>
+                      <button *ngIf="course.examNotifications" class="btn btn-default" (click)="toggleSwitch(course);">No</button>
+                      <button *ngIf="!course.examNotifications" class="btn btn-primary active" (click)="toggleSwitch(course);">No</button>
+                    </div>
+                  </div>
+                  <div *ngIf="course.examNotifications" class="form-group">
+                    <label *ngIf="course.examInfo" class="examInfoLabel">{{course.examInfo}}</label>
+                    <label *ngIf="!course.examInfo" class="examInfoLabel">No results yet available.</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container-fluid form-group row">
               <label class="col-sm-2 col-form-label">Description:</label>
               <div class="col-sm-10">
                 <textarea class="form-control" (keyup)="updateButtonCheck(course)" rows="3"
@@ -46,80 +66,169 @@
               </div>
             </div>
           </form>
-        </div>
-        <div class="col-sm-4 col-xs-12">
-          <h2>
-            Lectures
-            <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);"><span class="fa fa-plus"></span></button>
-            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures, 'Lecture');"><span class="fa fa-minus"></span></button>
-          </h2>
-          <div *ngIf="course.lectures || course.lectures.length > 0">
-            <div *ngFor="let lecture of course.lectures">
-              <div class="input-group">
-                <span class="input-group-addon">
-                  {{lecture.label}}
-                </span>
-                <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}lectureTime" (change)="updateButtonCheck(course)"
-                    [value]="lecture.index" [(ngModel)]="course.lectureSelected">
-                </span>
-                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
-                  [value]="lecture.time" (input)="lecture.time = $event.target.value">
+          <div>
+            <h2>
+              Lectures
+              <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);" [disabled]="course.lectures.length >= 5">
+                <span class="fa fa-plus"></span></button>
+              <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures);" [disabled]="course.lectures.length <= 0">
+                <span class="fa fa-minus"></span></button>
+            </h2>
+            <div *ngIf="course.lectures || course.lectures.length > 0">
+              <div *ngFor="let lecture of course.lectures">
+                <hr>
+                <div class="form-inline">
+                  <div class="form-group">
+                      <label class="courseOptionLabel">Day:</label>
+                      <select class="form-control courseOptionInput" [(ngModel)]="lecture.day" (change)="updateButtonCheck(course)">
+                        <option [value]="'Sunday'">Sunday</option>
+                        <option [value]="'Monday'">Monday</option>
+                        <option [value]="'Tuesday'">Tuesday</option>
+                        <option [value]="'Wednesday'">Wednesday</option>
+                        <option [value]="'Thursday'">Thursday</option>
+                        <option [value]="'Friday'">Friday</option>
+                        <option [value]="'Saturday'">Saturday</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="courseOptionLabel">From:</label>
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.startTime"
+                      (input)="lecture.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                  </div>
+                  <div class="form-group">
+                    <label class="courseOptionLabel">To:</label>
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.endTime"
+                      (input)="lecture.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div *ngIf="!course.lectures || course.lectures.length == 0">
-            <h4>No lectures!</h4>
-          </div>
-        </div>
-        <div class="col-sm-4 col-xs-12">
-          <h2>
-            Tutorials
-            <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.tutorials);"><span class="fa fa-plus"></span></button>
-            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.tutorials, 'Tutorial');"><span class="fa fa-minus"></span></button>
-          </h2>
-          <div *ngIf="course.tutorials || course.tutorials.length > 0">
-            <div *ngFor="let tutorial of course.tutorials">
-              <div class="input-group">
-                <span class="input-group-addon">
-                  {{tutorial.label}}
-                </span>
-                <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}tutorialTime" (change)="updateButtonCheck(course)"
-                    [value]="tutorial.index" [(ngModel)]="course.tutorialSelected">
-                </span>
-                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
-                  [value]="tutorial.time" (input)="tutorial.time = $event.target.value">
-              </div>
+            <div *ngIf="!course.lectures || course.lectures.length == 0">
+              <h4>No lectures.</h4>
             </div>
           </div>
-          <div *ngIf="!course.tutorials || course.tutorials.length == 0">
-            <h4>No tutorials!</h4>
-          </div>
-        </div>
-        <div class="col-sm-4 col-xs-12">
-          <h2>
-            Practicals
-            <button class="btn btn-xs btn-info " (click)="addCourseOption(course, course.practicals);"><span class="fa fa-plus"></span></button>
-            <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.practicals, 'Practical');"><span class="fa fa-minus"></span></button>
-          </h2>
-          <div *ngIf="course.practicals || course.practicals.length > 0">
-            <div *ngFor="let practical of course.practicals">
-              <div class="input-group">
-                <span class="input-group-addon">
-                  {{practical.label}}
-                </span>
-                <span class="input-group-addon">
-                  <input type="radio" name="{{course.id}}practicalTime" (change)="updateButtonCheck(course)"
-                    [value]="practical.index" [(ngModel)]="course.practicalSelected">
-                </span>
-                <input type="text" class="form-control" (keyup)="updateButtonCheck(course)"
-                  [value]="practical.time" (input)="practical.time = $event.target.value">
+          <div>
+            <h2>
+              Tutorials
+              <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.tutorials);" [disabled]="course.tutorials.length >= 5">
+                <span class="fa fa-plus"></span></button>
+              <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.tutorials);" [disabled]="course.tutorials.length <= 0">
+                <span class="fa fa-minus"></span></button>
+            </h2>
+            <div *ngIf="course.tutorials || course.tutorials.length > 0">
+              <div *ngFor="let tutorial of course.tutorials">
+                <hr>
+                <div class="form-inline">
+                  <div class="form-group">
+                      <label class="courseOptionLabel">Day:</label>
+                      <select class="form-control courseOptionInput" [(ngModel)]="tutorial.day" (change)="updateButtonCheck(course)">
+                        <option [value]="'Sunday'">Sunday</option>
+                        <option [value]="'Monday'">Monday</option>
+                        <option [value]="'Tuesday'">Tuesday</option>
+                        <option [value]="'Wednesday'">Wednesday</option>
+                        <option [value]="'Thursday'">Thursday</option>
+                        <option [value]="'Friday'">Friday</option>
+                        <option [value]="'Saturday'">Saturday</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="courseOptionLabel">From:</label>
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.startTime"
+                      (input)="tutorial.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                  </div>
+                  <div class="form-group">
+                    <label class="courseOptionLabel">To:</label>
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.endTime"
+                      (input)="tutorial.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                  </div>
+                </div>
               </div>
             </div>
+            <div *ngIf="!course.tutorials || course.tutorials.length == 0">
+              <h4>No tutorials.</h4>
+            </div>
           </div>
-          <div *ngIf="!course.practicals || course.practicals.length == 0">
-            <h4>No practicals!</h4>
+          <div>
+            <h2>
+              Practicals
+              <button class="btn btn-xs btn-info " (click)="addCourseOption(course, course.practicals);" [disabled]="course.practicals.length >= 5">
+                <span class="fa fa-plus"></span></button>
+              <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.practicals);" [disabled]="course.practicals.length <= 0">
+                <span class="fa fa-minus"></span></button>
+            </h2>
+            <div *ngIf="course.practicals || course.practicals.length > 0">
+              <div *ngFor="let practical of course.practicals">
+                <hr>
+                <div class="form-inline">
+                  <div class="form-group">
+                      <label class="courseOptionLabel">Day:</label>
+                      <select class="form-control courseOptionInput" [(ngModel)]="practical.day" (change)="updateButtonCheck(course)">
+                        <option [value]="'Sunday'">Sunday</option>
+                        <option [value]="'Monday'">Monday</option>
+                        <option [value]="'Tuesday'">Tuesday</option>
+                        <option [value]="'Wednesday'">Wednesday</option>
+                        <option [value]="'Thursday'">Thursday</option>
+                        <option [value]="'Friday'">Friday</option>
+                        <option [value]="'Saturday'">Saturday</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="courseOptionLabel">From:</label>
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.startTime"
+                      (input)="practical.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                  </div>
+                  <div class="form-group">
+                    <label class="courseOptionLabel">To:</label>
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.endTime"
+                      (input)="practical.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!course.practicals || course.practicals.length == 0">
+              <h4>No practicals.</h4>
+            </div>
+          </div>
+          <div>
+            <h2>
+              Office Hours
+              <button class="btn btn-xs btn-info " (click)="addCourseOption(course, course.officeHours);" [disabled]="course.officeHours.length >= 5">
+                <span class="fa fa-plus"></span></button>
+              <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.officeHours);" [disabled]="course.officeHours.length <= 0">
+                <span class="fa fa-minus"></span></button>
+            </h2>
+            <div *ngIf="course.officeHours || course.officeHours.length > 0">
+              <div *ngFor="let officeHour of course.officeHours">
+                <hr>
+                <div class="form-inline">
+                  <div class="form-group">
+                      <label class="courseOptionLabel">Day:</label>
+                      <select class="form-control courseOptionInput" [(ngModel)]="officeHour.day" (change)="updateButtonCheck(course)">
+                        <option [value]="'Sunday'">Sunday</option>
+                        <option [value]="'Monday'">Monday</option>
+                        <option [value]="'Tuesday'">Tuesday</option>
+                        <option [value]="'Wednesday'">Wednesday</option>
+                        <option [value]="'Thursday'">Thursday</option>
+                        <option [value]="'Friday'">Friday</option>
+                        <option [value]="'Saturday'">Saturday</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="courseOptionLabel">From:</label>
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="officeHour.startTime"
+                      (input)="officeHour.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                  </div>
+                  <div class="form-group">
+                    <label class="courseOptionLabel">To:</label>
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="officeHour.endTime"
+                      (input)="officeHour.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!course.officeHours || course.officeHours.length == 0">
+              <h4>No office hours.</h4>
+            </div>
           </div>
         </div>
       </div>
@@ -129,7 +238,7 @@
             <span class="fa fa-floppy-o"></span> Save</button>
           <button *ngIf="!course.isDraft" id="{{course.id}}UpdateButton" class="btn btn-info disabled"
            (click)="updateCourse(course);"><span class="fa fa-pencil"></span> Update</button>
-          <button class="btn btn-danger" (click)="deleteCourseCode=course.code; deleteDialogVisible=true;">
+          <button class="btn btn-danger" data-toggle="modal" data-target="#deleteDialog" (click)="deleteCourseCode=course.code;">
             <span class="fa fa-trash"></span> Delete</button>
         </div>
       </div>
@@ -141,9 +250,10 @@
   <div class="col-sm-6">
     <div class="input-group input-group-lg">
       <input type="text" class="form-control" placeholder="Search for the following course..."
-        [(ngModel)]="searchDialogRequest"  (keyup.enter)="checkCourse();">
+        [(ngModel)]="searchDialogRequest" (keyup.enter)="openSearch();" spellcheck="false">
       <span class="input-group-btn">
-        <button class="btn btn-success" (click)="checkCourse();" [disabled]="searchDialogRequest.length <= 0">
+        <button id="checkButton" class="btn btn-success" (click)="searchResultSelected = '';"
+          [disabled]="searchDialogRequest.length <= 0" data-toggle="modal" data-target="#searchDialog">
           <span class="fa fa-search"></span> Check</button>
       </span>
     </div>
@@ -153,34 +263,59 @@
   </div>
 </div>
 
-<p-dialog header="Search Results" [(visible)]="searchDialogVisible" [responsive]="true" showEffect="fade"
-  [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
-  <div *ngIf="mockedSearchResults && mockedSearchResults.length > 0">
-    <p><i>{{mockedSearchResults.length}}</i> results for
-      '{{searchDialogRequest.length > 12 ? searchDialogRequest.substring(0,12) + '...' : searchDialogRequest}}':</p>
-    <div *ngFor="let course of mockedSearchResults">
-      <div class="radio">
-        <label>
-          <input type="radio" name="searchDialogRadio" value="course.id" (click)="searchResultSelected = course.id">
-          {{course.code.length > 12 ? course.code.substring(0,12) + '...' : course.code}}
-        </label>
+<div id="searchDialog" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Search Results</h3>
       </div>
-    </div> <br>
-    <button class="btn btn-info" (click)="searchDialogVisible=false; addCourse(searchResultSelected);"
-      [disabled]="searchResultSelected.length <= 0">Add</button>
-    <button class="btn btn-danger" (click)="searchDialogVisible=false;">Cancel</button>
+      <div class="modal-body">
+        <div *ngIf="mockedSearchResults && mockedSearchResults.length > 0">
+          <p><i>{{mockedSearchResults.length}}</i> results for
+            '{{searchDialogRequest.length > 12 ? searchDialogRequest.substring(0,12) + '...' : searchDialogRequest}}':</p>
+          <div *ngFor="let course of mockedSearchResults">
+            <div class="radio">
+              <label>
+                <input type="radio" name="searchDialogRadio" value="course.id" (click)="searchResultSelected = course.id">
+                {{course.code.length > 12 ? course.code.substring(0,12) + '...' : course.code}}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!mockedSearchResults || mockedSearchResults.length <= 0">
+          <p>No results found!</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="mockedSearchResults && mockedSearchResults.length > 0" class="btn btn-info"
+          (click)="addCourse(searchResultSelected);" [disabled]="searchResultSelected.length <= 0" data-dismiss="modal">Add</button>
+        <button *ngIf="mockedSearchResults && mockedSearchResults.length > 0" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <button *ngIf="!mockedSearchResults || mockedSearchResults.length <= 0" class="btn btn-success" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
   </div>
-  <div *ngIf="!mockedSearchResults || mockedSearchResults.length <= 0">
-    <p>No results found!</p> <br>
-    <button class="btn btn-success" (click)="searchDialogVisible=false;">Ok</button>
-  </div>
-</p-dialog>
+</div>
 
-<p-dialog header="Warning" [(visible)]="deleteDialogVisible" [responsive]="true" showEffect="fade"
-  [modal]="true" [draggable]="false" [closeOnEscape]="true" [resizable]="false">
-  Are you about to delete
-  '{{deleteCourseCode.length > 12 ? deleteCourseCode.substring(0,12) + '...' : deleteCourseCode}}'
-  from your calendar, continue?<br><br>
-  <button class="btn btn-info" (click)="deleteDialogVisible=false; deleteCourse();">Yes</button>
-  <button class="btn btn-danger" (click)="deleteDialogVisible=false;">No</button>
-</p-dialog>
+<div id="deleteDialog" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <span class="fa fa-exclamation-triangle"></span> Warning
+        </h3>
+      </div>
+      <div class="modal-body">
+        <p>
+          You are about to delete
+          '{{deleteCourseCode.length > 12 ? deleteCourseCode.substring(0,12) + '...' : deleteCourseCode}}'
+          from your calendar, continue?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-info" (click)="deleteCourse();" data-dismiss="modal">Yes</button>
+        <button class="btn btn-danger" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
