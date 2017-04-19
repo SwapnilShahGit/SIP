@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { NavService } from '../../../meta/nav.service';
 import { Observable } from 'rxjs/Rx';
 import { CookieService } from 'angular2-cookie/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-main-page',
@@ -22,6 +23,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private user: Observable<User>;
   private userID: string;
+  private userEvents = [];
 
   constructor(
     private router: Router,
@@ -49,6 +51,15 @@ export class MainPageComponent implements OnInit, OnDestroy {
     if (this.cookieService.get('userID')) {
       this.userID = this.cookieService.get('userID');
       this.databaseService.loadUser(this.userID);
+
+      this.databaseService.getUserEvents(this.userID, moment('2016-01-01', 'YYYY-MM-DD'),
+        moment('2018-01-01', 'YYYY-MM-DD')).then(response => {
+        if (response.error !== 0) {
+          console.log('Error during event population: ' + response.data);
+        } else {
+          this.userEvents = response.data;
+        }
+      });
     }
   }
 
@@ -92,6 +103,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public updateSearch(text) {
     if (text === 'cats') {
       this.elementRef.nativeElement.querySelectorAll('div')[4].innerHTML = '<img src="https://placekitten.com/g/250/824">';
+      for (var i = 0; i < this.elementRef.nativeElement.querySelectorAll('td').length; i++) {
+        if (this.elementRef.nativeElement.querySelectorAll('td')[i].className.includes('fc-day ui-widget-content')) {
+          this.elementRef.nativeElement.querySelectorAll('td')[i].innerHTML = '<img src="https://placekitten.com/g/230/230">';
+        }
+      }
     }
   }
 
