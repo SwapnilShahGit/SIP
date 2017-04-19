@@ -1,5 +1,5 @@
 <p-schedule [events]="events" [editable]="true" [header]="header" (onDayClick)="handleDayClick($event)"
-  [timezone]="'local'" (onEventClick)="handleEventClick($event)" (onEventDrop)="handleEventDrop($event)"></p-schedule>
+  [timezone]="'local'" (onEventClick)="handleEventClick($event)" (onEventDrop)="handleEventDrop($event)" (onViewRender)="renderColours()"></p-schedule>
 <br>
 
 <button id="hiddenModalOpener" data-toggle="modal" data-target=".eventModal"></button>

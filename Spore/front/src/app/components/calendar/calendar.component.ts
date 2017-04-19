@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, AfterViewChecked, ElementRef, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { Event } from '../../../meta/event';
@@ -9,7 +9,7 @@ import { DatabaseService } from '../../../meta/database.service';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
 
   @Input()
   public userId: string;
@@ -63,6 +63,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  public ngAfterViewChecked() {
+    this.renderColours();
+  }
+
   public ngOnDestroy() {
     this.userSub.unsubscribe();
   }
@@ -100,6 +104,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
     newEvent.endDate = e.event.end;
     newEvent.title = e.event.title;
     newEvent.id = e.event.id;
+    newEvent.colour = e.event.colour;
     this.databaseService.updateEvent(newEvent).then(response => {
       if (response.error !== 0) {
         e.revertFunc();
@@ -107,7 +112,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
       } else {
         this.events.splice(this.EventIndexById(newEvent.id), 1);
         this.events.push({id: newEvent.id, title: newEvent.title,
-          start: newEvent.startDate.toISOString(), end: newEvent.endDate.toISOString()});
+          start: newEvent.startDate.toISOString(), end: newEvent.endDate.toISOString(), colour: newEvent.colour});
+        this.renderColours();
       }
     });
   }
@@ -230,6 +236,22 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (!event.title) {
       this.invalid.title = true;
+    }
+  }
+
+  private renderColours() {
+    if (this.elementRef.nativeElement.querySelectorAll('a').length > 0) {
+      for (let i = 0; i < this.elementRef.nativeElement.querySelectorAll('a').length; i ++) {
+        if (this.elementRef.nativeElement.querySelectorAll('a')[i].className.includes('fc-day-grid-event') && this.elementRef.nativeElement.querySelectorAll('a')[i].children[0].children) {
+          for (let j = 0; j < this.elementRef.nativeElement.querySelectorAll('a')[i].children[0].children.length; j ++) {
+            if (this.elementRef.nativeElement.querySelectorAll('a')[i].children[0].children[j].className === 'fc-title') {
+              let currentEvent = this.events.find(val => val.title === this.elementRef.nativeElement.querySelectorAll('a')[i].children[0].children[j].innerHTML);
+              this.elementRef.nativeElement.querySelectorAll('a')[i].style.backgroundColor = currentEvent.colour;
+              this.elementRef.nativeElement.querySelectorAll('a')[i].style.borderColor = currentEvent.colour;
+            }
+          }
+        }
+      }
     }
   }
 
