@@ -80,23 +80,25 @@
                 <div class="form-inline">
                   <div class="form-group">
                       <label class="courseOptionLabel">Day:</label>
-                      <select class="form-control courseOptionInput">
-                        <option (click)="lecture.day='Sunday'">Sunday</option>
-                        <option (click)="lecture.day='Monday'">Monday</option>
-                        <option (click)="lecture.day='Tuesday'">Tuesday</option>
-                        <option (click)="lecture.day='Wednesday'">Wednesday</option>
-                        <option (click)="lecture.day='Thursday'">Thursday</option>
-                        <option (click)="lecture.day='Friday'">Friday</option>
-                        <option (click)="lecture.day='Saturday'">Saturday</option>
+                      <select class="form-control courseOptionInput" [(ngModel)]="lecture.day" (change)="updateButtonCheck(course)">
+                        <option [value]="'Sunday'">Sunday</option>
+                        <option [value]="'Monday'">Monday</option>
+                        <option [value]="'Tuesday'">Tuesday</option>
+                        <option [value]="'Wednesday'">Wednesday</option>
+                        <option [value]="'Thursday'">Thursday</option>
+                        <option [value]="'Friday'">Friday</option>
+                        <option [value]="'Saturday'">Saturday</option>
                       </select>
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">From:</label>
-                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="lecture.startTime" (keyup)="updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.startTime"
+                      (input)="lecture.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">To:</label>
-                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="lecture.endTime" (keyup)="updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.endTime"
+                      (input)="lecture.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
@@ -119,23 +121,25 @@
                 <div class="form-inline">
                   <div class="form-group">
                       <label class="courseOptionLabel">Day:</label>
-                      <select class="form-control courseOptionInput">
-                        <option (click)="tutorial.day='Sunday'">Sunday</option>
-                        <option (click)="tutorial.day='Monday'">Monday</option>
-                        <option (click)="tutorial.day='Tuesday'">Tuesday</option>
-                        <option (click)="tutorial.day='Wednesday'">Wednesday</option>
-                        <option (click)="tutorial.day='Thursday'">Thursday</option>
-                        <option (click)="tutorial.day='Friday'">Friday</option>
-                        <option (click)="tutorial.day='Saturday'">Saturday</option>
+                      <select class="form-control courseOptionInput" [(ngModel)]="tutorial.day" (change)="updateButtonCheck(course)">
+                        <option [value]="'Sunday'">Sunday</option>
+                        <option [value]="'Monday'">Monday</option>
+                        <option [value]="'Tuesday'">Tuesday</option>
+                        <option [value]="'Wednesday'">Wednesday</option>
+                        <option [value]="'Thursday'">Thursday</option>
+                        <option [value]="'Friday'">Friday</option>
+                        <option [value]="'Saturday'">Saturday</option>
                       </select>
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">From:</label>
-                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="tutorial.startTime" (keyup)="updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.startTime"
+                      (input)="tutorial.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">To:</label>
-                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="tutorial.endTime" (keyup)="updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.endTime"
+                      (input)="tutorial.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
@@ -158,23 +162,25 @@
                 <div class="form-inline">
                   <div class="form-group">
                       <label class="courseOptionLabel">Day:</label>
-                      <select class="form-control courseOptionInput">
-                        <option (click)="practical.day='Sunday'">Sunday</option>
-                        <option (click)="practical.day='Monday'">Monday</option>
-                        <option (click)="practical.day='Tuesday'">Tuesday</option>
-                        <option (click)="practical.day='Wednesday'">Wednesday</option>
-                        <option (click)="practical.day='Thursday'">Thursday</option>
-                        <option (click)="practical.day='Friday'">Friday</option>
-                        <option (click)="practical.day='Saturday'">Saturday</option>
+                      <select class="form-control courseOptionInput" [(ngModel)]="practical.day" (change)="updateButtonCheck(course)">
+                        <option [value]="'Sunday'">Sunday</option>
+                        <option [value]="'Monday'">Monday</option>
+                        <option [value]="'Tuesday'">Tuesday</option>
+                        <option [value]="'Wednesday'">Wednesday</option>
+                        <option [value]="'Thursday'">Thursday</option>
+                        <option [value]="'Friday'">Friday</option>
+                        <option [value]="'Saturday'">Saturday</option>
                       </select>
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">From:</label>
-                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="practical.startTime" (keyup)="updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.startTime"
+                      (input)="practical.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">To:</label>
-                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="practical.endTime" (keyup)="updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.endTime"
+                      (input)="practical.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
@@ -197,23 +203,25 @@
                 <div class="form-inline">
                   <div class="form-group">
                       <label class="courseOptionLabel">Day:</label>
-                      <select class="form-control courseOptionInput">
-                        <option (click)="officeHour.day='Sunday'">Sunday</option>
-                        <option (click)="officeHour.day='Monday'">Monday</option>
-                        <option (click)="officeHour.day='Tuesday'">Tuesday</option>
-                        <option (click)="officeHour.day='Wednesday'">Wednesday</option>
-                        <option (click)="officeHour.day='Thursday'">Thursday</option>
-                        <option (click)="officeHour.day='Friday'">Friday</option>
-                        <option (click)="officeHour.day='Saturday'">Saturday</option>
+                      <select class="form-control courseOptionInput" [(ngModel)]="officeHour.day" (change)="updateButtonCheck(course)">
+                        <option [value]="'Sunday'">Sunday</option>
+                        <option [value]="'Monday'">Monday</option>
+                        <option [value]="'Tuesday'">Tuesday</option>
+                        <option [value]="'Wednesday'">Wednesday</option>
+                        <option [value]="'Thursday'">Thursday</option>
+                        <option [value]="'Friday'">Friday</option>
+                        <option [value]="'Saturday'">Saturday</option>
                       </select>
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">From:</label>
-                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="officeHour.startTime" (keyup)="updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="officeHour.startTime"
+                      (input)="officeHour.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">To:</label>
-                    <input class="form-control courseOptionInput" type="time" [(ngModel)]="officeHour.endTime" (keyup)="updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="officeHour.endTime"
+                      (input)="officeHour.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                 </div>
               </div>

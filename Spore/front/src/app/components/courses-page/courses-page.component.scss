@@ -83,3 +83,9 @@ hr {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
+@media (max-width: 767px) {
+  .col-sm-2, .col-sm-10 {
+    padding-left: 0px;
+  }
+}

@@ -5,9 +5,9 @@ export class CourseOption implements ICourseOption {
     public endTime: Date;
 
     constructor(day?: string, startTime?: Date, endTime?: Date) {
-      this.day = day;
-      this.startTime = startTime;
-      this.endTime = endTime;
+      this.day = day || "Monday";
+      this.startTime = startTime || new Date(1970, 0, 1, new Date().getHours(), 0, 0, 0);
+      this.endTime = endTime || new Date(1970, 0, 1, new Date().getHours(), 0, 0, 0);
     }
 }
 
