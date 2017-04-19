@@ -8,7 +8,9 @@ const courseTemplateSchema = new Schema({
 	description: String,
 	lectures: [],
 	tutorials: [],
-	practicals: []
+	practicals: [],
+	office_hours: String,
+	office_location: String
 });
 
 mongoose.model('courseTemplate', courseTemplateSchema);

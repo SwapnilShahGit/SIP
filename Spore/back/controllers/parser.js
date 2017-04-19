@@ -43,7 +43,9 @@ function processFile(file) {
 				description: parsedData.description,
 				lectures: sections.lectures,
 				tutorials: sections.tutorials,
-				practicals: sections.practicals
+				practicals: sections.practicals,
+				office_hours: sections.office_hours,
+				office_location: sections.office_location
 			});
 			return templateData.save(templateData);
 		});
@@ -69,6 +71,8 @@ function parse(req, res, next) {
 				tutorials: doc.tutorials,
 				practicalSelected: req.body.practicalSelected,
 				practicals: doc.practicals,
+				office_hours: doc.office_hours,
+				office_location: doc.office_location,
 				exams: true
 			});
 			return courseData.save(courseData);
