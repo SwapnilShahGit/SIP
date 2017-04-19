@@ -32,7 +32,7 @@ import { MapPageComponent } from './components/map-page/map-page.component';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import { GMapsService, DirectionsMapDirective } from '../meta/googleMapService';
 import { TasksComponent } from './components/tasks/tasks.component';
-
+import {DndModule} from 'ng2-dnd';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -96,6 +96,7 @@ type StoreType = {
     ScheduleModule,
     DialogModule,
     ColorPickerModule,
+    DndModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDKZhrDYxKakINx9bskMeg1NLe66OMaPBA',
       libraries: ['places']
