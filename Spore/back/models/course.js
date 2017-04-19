@@ -12,6 +12,8 @@ const courseSchema = new Schema({
 	tutorials: [],
 	practicalSelected: Number,
 	practicals: [],
+	office_hours: String,
+	office_location: String,
 	exams: Boolean,
 	user: String
 });
