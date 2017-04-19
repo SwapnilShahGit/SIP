@@ -1,8 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {User} from '../../../meta/user';
-import {TaskStore} from './task-store';
-import {DatabaseService} from '../../../meta/database.service';
-
+import { Component, Input, OnInit, OnDestroy} from '@angular/core';
+import { User} from '../../../meta/user';
+import {TaskStore}from './TaskStore';
+import { DatabaseService } from '../../../meta/database.service';
 
 @Component({
   selector: 'tasks',
@@ -10,17 +9,10 @@ import {DatabaseService} from '../../../meta/database.service';
   styleUrls: ['./tasks.component.scss']
 })
 
-<<<<<<< HEAD
-export class TasksComponent implements OnInit {
-  private newTask = "";
-  private store = new TaskStore();
-  private items = this.store.items;
-=======
-export class TasksComponent implements OnInit{
+export class TasksComponent implements OnInit, OnDestroy{
     private newTask = "";
     private store = new TaskStore();
-    private items = this.store.items; 
->>>>>>> the tasks now autogrow to fit the entire task text [#486]
+    private items = this.store.items;
 
   @Input()
   public user: User;
@@ -31,6 +23,10 @@ export class TasksComponent implements OnInit{
   public ngOnInit() {
     this.items = this.user.tasks;
   }
+
+  public ngOnDestroy(){
+    this.updateUser();
+  } 
 
   public auto_grow() {
       var textAreas= document.querySelectorAll("textArea");
@@ -101,9 +97,9 @@ export class TasksComponent implements OnInit{
 
   public blur(item: any, index: number){
       this.items[index].edit = false;
+      this.updateUser();
       var textAreas= document.querySelectorAll("textArea");
       var textarea = textAreas[index];
       (<HTMLTextAreaElement> textarea).readOnly = true;
   }
-
 };

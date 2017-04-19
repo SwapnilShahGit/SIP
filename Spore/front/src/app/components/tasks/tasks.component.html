@@ -7,11 +7,11 @@
     </div>
     <div id ="tasklist">
       <ul class="list-group" dnd-sortable-container [sortableData] = "items" id ="list">
-        <li id = "theList" *ngFor="let item of items; let i = index"  class="list-group-item" dnd-sortable [sortableIndex]="i" [class.crossed]="item.done">
-          <div >
+        <li id = "theList" *ngFor="let item of items; let i = index"  class="list-group-item" dnd-sortable [sortableIndex]="i" [class.crossed]="item.done" (onDragEnd) = "updateUser()">
+          <div id="itemWrapper" >
               <div id="checkandtext" (click)="clickTask(item, i)">
                 <span [class.crossed]="item.done" id= "check" class="fa fa-check"></span>
-                <textarea rows="1"[class.crossed]="item.done" [class.editable]="item.edit"id="itemTextArea" (change)= "saveTask(item, i)" (blur)="blur(item, i)" (keypress)="auto_grow()" readonly>{{item.text}}</textarea>
+                <textarea rows="1"[class.crossed]="item.done" [class.editable]="item.edit"id="itemTextArea" (change)= "saveTask(item, i)" (blur)="blur(item, i)" (keypress)="auto_grow();" readonly>{{item.text}}</textarea>
                 <span id= "close" class="fa fa-times" (click)="removeTask(i)"></span>
               </div>
               <div id="timeandedit" >
