@@ -37,6 +37,14 @@
         background-color: #2bacd4;
         border-color: #46b8da;
     }
+
+    &:disabled{
+        background-color: #5bc0de;
+        border-color: #46b8da;
+        cursor: not-allowed;
+    }
+    
+    
 }
 
 #newAdd{
@@ -49,30 +57,127 @@ ul{
     list-style: none;
 }
 
-label {
-    height: 46px;
-    padding: 10px 16px;
-    font-size: 18px;
-    line-height: 1.3333333;
-    border-radius: 6px;
-    width: 100%;
-    border: 3px solid;
-    border-color: #d9534f;
-    margin: 10px;
-    margin-left: 0px;
+#itemTextArea{
+    resize: none;
+    overflow: hidden;
+    width: 98%;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    font-weight: bold;
+}
 
-    &.crossed {
-        text-decoration: line-through;
-        border-color: #46a046;  
-    }
+#Timestamp{
+    color: #4d4d4d;
+    font-style: italic;
+    font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    padding-top : 0px;
+    padding-left : 28px;
+    padding-right : 0px;
+    padding-bottom : 0px;
+    width: 100%;;
+    height: 10px;
+    margin-bottom: 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
 }
 
 #close {
+    margin-top: 2px;
     float: right;
-    color: #999;
+    color: #999999;
+    margin-right: 5px;
 
     &:hover{
         cursor: pointer;
         color: black;
+    }
+}
+
+#theList{
+    padding: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid;
+    border-radius: 6px;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+
+    &.crossed{
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+        
+        &:hover{
+            cursor: pointer;
+            background-color: #d6e9c6;
+        }
+    }
+
+    &:hover{
+        cursor: pointer;
+        background-color: #faebcc;
+    }
+}
+
+#check{
+    visibility: hidden;
+    margin-left: 5px;
+
+    &.crossed{
+        visibility: visible;
+    }
+}
+
+#checkandtext{
+    display: flex;
+}
+
+#checktextclose{
+    display: flex;
+}
+
+#timeandedit{
+    display: flex;
+}
+
+#edit{
+    margin-right: 5px;
+    margin-bottom: 2px;
+    float: right;
+    color: #999999;
+    display: block;
+    
+    &:hover{
+        cursor: pointer;
+        color: black;
+    }
+
+    &.editable{
+        display: none;
+    }
+}
+
+#save{
+
+    margin-right: 5px;
+    margin-bottom: 2px;
+    float: right;
+    color: #999999;
+    display: none;
+    
+    &:hover{
+        cursor: pointer;
+        color: black;
+    }
+
+    &.editable{
+        display: block;
     }
 }

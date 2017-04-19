@@ -3,14 +3,24 @@
     <h1 id = "title" >Tasks List</h1>
     <div id="newAdd">
       <input class= "form-control" type="text" id="newInputTask" placeholder="New Task"  [(ngModel)]='newTask'(keyup.enter)="addTask()">
-      <button class= "btn btn-lg btn-info" id="addBtn" (click)="addTask()"><span id= "plus" class="fa fa-plus"></span> Add</button>
+      <button class= "btn btn-lg btn-info" id="addBtn" (click)="addTask()" [disabled] = 'newTask == ""'><span id= "plus" class="fa fa-plus"></span> Add</button>
     </div>
     <div id ="tasklist">
-      <ul id ="list">
-        <li *ngFor="let item of items; let i = index">
-          <div class="view">
-            <label (click)="clickTask(item, i)" [class.crossed]="item.done">{{item.text}}<span id= "close" class="fa fa-times" (click)="removeTask(i)"></span></label>
+      <ul class="list-group" dnd-sortable-container [sortableData] = "items" id ="list">
+        <li id = "theList" *ngFor="let item of items; let i = index"  class="list-group-item" dnd-sortable [sortableIndex]="i" [class.crossed]="item.done" (onDragEnd) = "updateUser()">
+          <div id="itemWrapper" >
+              <div id="checkandtext" (click)="clickTask(item, i)">
+                <span [class.crossed]="item.done" id= "check" class="fa fa-check"></span>
+                <textarea rows="1"[class.crossed]="item.done" [class.editable]="item.edit"id="itemTextArea" (change)= "saveTask(item, i)" (blur)="blur(item, i)" (keypress)="auto_grow();" readonly>{{item.text}}</textarea>
+                <span id= "close" class="fa fa-times" (click)="removeTask(i)"></span>
+              </div>
+              <div id="timeandedit" >
+                <p id ="Timestamp" (click)="clickTask(item, i)">{{item.date}}{{item.editDate}}</p>
+                <span id= "edit" class="fa fa-pencil" [class.editable]="item.edit" (click)="editTask(item, i)"></span>
+                <span id= "save" class="fa fa-floppy-o" [class.editable]="item.edit" (click)="saveTask(item, i)"></span>
+              </div>
           </div>
+          {{auto_grow()}}
         </li>
       </ul>
     </div>
