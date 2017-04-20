@@ -94,7 +94,8 @@ function updateExam(req, res, next) {
 
 function collectExams(req, res, next) {
 	logger.debug("collecting exams");
-	fs.readFile('./../examwebscraper/exampages/UTM/dec16/dec16.json', function (err,data){
+	console.log(req.body.fileName);
+	fs.readFile(('./../examwebscraper/exampages/UTM/'+ req.body.fileName), function (err,data){
     	if (err === null){
     		var index = false;
     		var examsObj = JSON.parse(data);
@@ -111,16 +112,16 @@ function collectExams(req, res, next) {
 
 				// -- get rid of unnecessary characters from the date string
     			var properDate = newExam.date.replace(/\./g, "");
-    			if(req.body.year !== 'undefined' ){
+    			if(typeof(req.body.year) !== 'undefined' ){
     				properDate += (", " + req.body.year);
     			} else {
     				properDate += (", " + new Date().getFullYear());
     			}
-    			properDate += (", " + new Date().getFullYear());
 				properDate = properDate.substring( properDate.indexOf(",")+2, properDate.length);
 				properDate = properDate.replace("th,", ",");
                 properDate = properDate.replace("st,", ",");
                 properDate = properDate.replace("rd,", ",");
+                properDate = properDate.replace("nd,", ",");
 
                 // -- convert date to milliseconds
 				var dateTemplate = Date.parse(properDate);
@@ -155,6 +156,8 @@ function collectExams(req, res, next) {
 				newExam.date = newDate;
 				newExam.start = startDate;
 				newExam.end = endDate;
+				logger.debug("FINAL: ----------------------------------------");
+				logger.debug(newExam);
 
 				if (i == examsObj.length-1) index = true;
 				addNewExam(res, newExam, index );
