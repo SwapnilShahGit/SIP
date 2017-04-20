@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnDestroy} from '@angular/core';
 import { User} from '../../../meta/user';
-import {TaskStore}from './TaskStore';
+import {TaskStore}from './task-store';
 import { DatabaseService } from '../../../meta/database.service';
 
 @Component({
