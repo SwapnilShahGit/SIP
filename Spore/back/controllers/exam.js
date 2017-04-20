@@ -1,6 +1,8 @@
 const logger = require('winston');
 const fs = require('fs');
 const moment = require('moment');
+const pythonShell = require('python-shell');
+const exec = global.Promise.promisify(require('child_process').exec);
 
 const coroutine = global.Promise.coroutine;
 const mongoose = require('mongoose');
@@ -94,81 +96,69 @@ function updateExam(req, res, next) {
 
 function collectExams(req, res, next) {
 	logger.debug("collecting exams");
-	console.log(req.body.fileName);
-	fs.readFile(('./../examwebscraper/exampages/UTM/'+ req.body.fileName), function (err,data){
-    	if (err === null){
-    		var index = false;
-    		var examsObj = JSON.parse(data);
-    		for (var i =0; i < examsObj.length; i++ ){
-    			var newExam = {
-    				course : examsObj[i][0],
-    				duration : examsObj[i][1][0][1],
-    			 	date : examsObj[i][1][1][1],
-    			 	start : examsObj[i][1][2][1],
-    			 	end : examsObj[i][1][3][1],
-    			 	location : examsObj[i][1][4][1],
-    			 	instructor : examsObj[i][1][5][1],
-    			}
+	exec('python ./../examwebscraper/exampages/UTM/scraper.py')
+		.then(function (stdout){
+			if (stdout !== null){
+				var index = false;
+				var examsObj = JSON.parse(stdout);
+				for (var i =0; i < examsObj.length; i++ ){
+					var newExam = {
+						course : examsObj[i][0],
+						duration : examsObj[i][1][0][1],
+						date : examsObj[i][1][1][1],
+						start : examsObj[i][1][2][1],
+						end : examsObj[i][1][3][1],
+						location : examsObj[i][1][4][1],
+						instructor : examsObj[i][1][5][1],
+					}
 
-				// -- get rid of unnecessary characters from the date string
-    			var properDate = newExam.date.replace(/\./g, "");
-    			if(typeof(req.body.year) !== 'undefined' ){
-    				properDate += (", " + req.body.year);
-    			} else {
-    				properDate += (", " + new Date().getFullYear());
-    			}
-				properDate = properDate.substring( properDate.indexOf(",")+2, properDate.length);
-				properDate = properDate.replace("th,", ",");
-                properDate = properDate.replace("st,", ",");
-                properDate = properDate.replace("rd,", ",");
-                properDate = properDate.replace("nd,", ",");
+					// -- get rid of unnecessary characters from the date string
+					var properDate = newExam.date.replace(/\./g, "");
+					if(typeof(req.body.year) !== 'undefined' ){
+						properDate += (", " + req.body.year);
+					} else {
+						properDate += (", " + new Date().getFullYear());
+					}
+					properDate = properDate.substring( properDate.indexOf(",")+2, properDate.length);
+					properDate = properDate.replace("th,", ",");
+					properDate = properDate.replace("st,", ",");
+					properDate = properDate.replace("rd,", ",");
+					properDate = properDate.replace("nd,", ",");
 
-                // -- convert date to milliseconds
-				var dateTemplate = Date.parse(properDate);
+					// -- convert date to milliseconds
+					var dateTemplate = Date.parse(properDate);
 
-                // -- convert to date format
-				var newDate = new Date(dateTemplate);
+					// -- convert to date format
+					var newDate = new Date(dateTemplate);
 
-				// -- use start time to derive start date and time (for calendar)
-				var startTime = moment(newExam.start, ["h A"]).format("H");
-				startTime = startTime*3600000;
-				startTime = startTime + dateTemplate;
-				var startDate = new Date(startTime);
+					// -- use start time to derive start date and time (for calendar)
+					var startTime = moment(newExam.start, ["h A"]).format("H");
+					startTime = startTime*3600000;
+					startTime = startTime + dateTemplate;
+					var startDate = new Date(startTime);
 
-				// -- use end time to derive end date and time (for calendar)
-                var endTime = moment(newExam.end, ["h A"]).format("H");
-                endTime = endTime*3600000;
-                endTime = endTime + dateTemplate;
-                var endDate = new Date(endTime);
+					// -- use end time to derive end date and time (for calendar)
+					var endTime = moment(newExam.end, ["h A"]).format("H");
+					endTime = endTime*3600000;
+					endTime = endTime + dateTemplate;
+					var endDate = new Date(endTime);
 
+					newExam.date = newDate;
+					newExam.start = startDate;
+					newExam.end = endDate;
 
-				// -- print values
-				logger.debug(newExam.date);
-				logger.debug(newExam.start);
-				logger.debug(newExam.duration);
-				logger.debug(newExam.end);
-				logger.debug("CALCULATED: ----------------------------------------");
-				logger.debug("Date: " + newDate.toString());
-				logger.debug("StartDate: " + startDate.toString());
-				logger.debug("EndDate: " + endDate.toString());
-				logger.debug("");
+					// -- print values
+					logger.debug(newExam);
 
-				newExam.date = newDate;
-				newExam.start = startDate;
-				newExam.end = endDate;
-				logger.debug("FINAL: ----------------------------------------");
-				logger.debug(newExam);
-
-				if (i == examsObj.length-1) index = true;
-				addNewExam(res, newExam, index );
-    		}
-
-    	} else {
-    		res.send({
-              	error: 110,
-                data: err
-            });
-    	}
+					if (i == examsObj.length-1) index = true;
+					addNewExam(res, newExam, index );
+				}
+			} else {
+				res.send({
+					error: 110,
+					data: err
+				});
+			}
     });
     next();
 }
