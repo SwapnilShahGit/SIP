@@ -7,7 +7,7 @@ export class Event implements IEvent {
     public description: string;
     public colour: string = '#33cccc';
     public dow: number[] = [];
-    public range: {start, end}[] = [{start: '', end: ''}];
+    public ranges: {start, end}[] = [{start: '', end: ''}];
 }
 
 export interface IEvent {
@@ -18,5 +18,5 @@ export interface IEvent {
     description: string;
     colour: string;
     dow: number[];
-    range: {start, end}[];
+    ranges: {start, end}[];
 }

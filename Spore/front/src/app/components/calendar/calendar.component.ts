@@ -93,6 +93,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.event.title = e.calEvent.title;
     this.event.id = e.calEvent.id;
     this.event.colour = e.calEvent.color;
+    //this.event.ranges = e.calEvent.ranges;
     this.dialogUpdate = true;
     this.toggleModal();
   }
@@ -122,7 +123,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
       } else {
         this.events.splice(this.EventIndexById(newEvent.id), 1);
         this.events.push({id: newEvent.id, title: newEvent.title,
-          start: newEvent.startDate.toISOString(), end: newEvent.endDate.toISOString(), color: newEvent.colour});
+          start: newEvent.startDate.toISOString(), end: newEvent.endDate ? newEvent.endDate.toISOString() : '', color: newEvent.colour});
         /*this.renderColours();*/
       }
     });
@@ -137,11 +138,17 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
     let end = this.event.endDate ? this.event.endDate.toISOString() : '';
     let title = this.event.title ? this.event.title : 'No Title';
     let colour = this.event.colour ? this.event.colour : '#E7EAEE';
+    let ranges = this.event.ranges ? this.event.ranges : [{start: '', end: ''}];
+    this.event.dow = [2,3,4];
     this.databaseService.addEvent(this.userId, this.event).then(response => {
       if (response.error !== 0) {
         window.alert('Error during addEvent API call: ' + response.data);
       } else {
-        this.events.push({id: response.data._id, title: title, start: start, end: end, color: colour});
+        if (ranges[0].start !== '' && ranges[0].end !== '') {
+          this.events.push({id: response.data._id, title: title, start: start, end: end, color: colour, dow: [2,3,4], ranges: ranges});
+        } else {
+          this.events.push({id: response.data._id, title: title, start: start, end: end, color: colour});
+        }
       }
     });
 
@@ -157,13 +164,19 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
     let end = this.event.endDate ? this.event.endDate.toISOString() : '';
     let title = this.event.title ? this.event.title : 'No Title';
     let colour = this.event.colour ? this.event.colour : '#E7EAEE';
+    let ranges = this.event.ranges ? this.event.ranges: [{start: '', end: ''}];
     let id = this.event.id;
+    this.event.dow = [2,3,4];
     this.databaseService.updateEvent(this.event).then(response => {
       if (response.error !== 0) {
         window.alert('Error during event update: ' + response.data);
       } else {
         this.events.splice(this.EventIndexById(id), 1);
-        this.events.push({id: id, title: title, start: start, end: end, color: colour});
+        if (ranges[0].start !== '' && ranges[0].end !== '') {
+          this.events.push({id: response.data._id, title: title, start: start, end: end, color: colour, dow: [2,3,4], ranges: ranges});
+        } else {
+          this.events.push({id: response.data._id, title: title, start: start, end: end, color: colour});
+        }
       }
     });
 
@@ -206,8 +219,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
     document.getElementById("hiddenModalOpener").click();
     let restyleInput = this.restyleInput;
     setTimeout(function() {
-      restyleInput("startTime", "3");
-      restyleInput("endTime", "2");
+      restyleInput("startTime", "5");
+      restyleInput("endTime", "4");
+      restyleInput('startRangeTime', '3');
+      restyleInput('endRangeTime', '2');
     }, 1);
   }
 

@@ -86,6 +86,45 @@
               </div>
             </div>
           </div>
+
+          <div class="container-fluid form-group row">
+            <label class="col-sm-2 col-form-label">Start Range:</label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <div class="inputSideButton">
+                    <button class="btn btn-warning" (click)="event.endDate=null">
+                      <span class="fa fa-trash"></span>
+                    </button>
+                  </div>
+                </span>
+                <p-calendar [(ngModel)]="event.ranges[0].start" [monthNavigator]="true" [yearNavigator]="true" [minDate]="event.startDate"
+                            yearRange="1900:2100" placeholder="(day) month date, year" dateFormat="(DD) MM d, yy"
+                            [showTime]="true" hourFormat="12" inputStyleClass="form-control startRangeTimeInner"
+                            styleClass="form-control startRangeTimeOuter" name="endDate"></p-calendar>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid form-group row">
+            <label class="col-sm-2 col-form-label">End Range:</label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <div class="inputSideButton">
+                    <button class="btn btn-warning" (click)="event.endDate=null">
+                      <span class="fa fa-trash"></span>
+                    </button>
+                  </div>
+                </span>
+                <p-calendar [(ngModel)]="event.ranges[0].end" [monthNavigator]="true" [yearNavigator]="true" [minDate]="event.startDate"
+                            yearRange="1900:2100" placeholder="(day) month date, year" dateFormat="(DD) MM d, yy"
+                            [showTime]="true" hourFormat="12" inputStyleClass="form-control endRangeTimeInner"
+                            styleClass="form-control endRangeTimeOuter" name="endDate"></p-calendar>
+              </div>
+            </div>
+          </div>
+
         </form>
       </div>
       <div *ngIf="!event" class="modal-body">
