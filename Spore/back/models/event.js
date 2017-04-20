@@ -11,7 +11,7 @@ const eventSchema = new Schema({
 	contact: String,
 	course: String,
 	dow: [],
-	range: []
+	ranges: []
 });
 
 mongoose.model('event', eventSchema);

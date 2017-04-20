@@ -19,7 +19,7 @@ function addEvent(req, res, next) {
 		contact: req.body.contact,
 		course: req.body.course,
 		dow: req.body.dow,
-		range: req.body.range
+		ranges: req.body.ranges
 	});
 	event.save(event)
 		.then(coroutine(function*(doc) {
@@ -95,7 +95,7 @@ function updateEvent(req, res, next) {
 		contact: req.body.contact,
 		course: req.body.course,
 		dow: req.body.dow,
-		range: req.body.range
+		ranges: req.body.ranges
 	};
 	utility.removeUndefined(updated);
 	model.findByIdAndUpdate(req.body.event, updated)
