@@ -42,13 +42,19 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
           let start = event.start ? event.start : '';
           let end = event.end ? event.end : '';
           let colour = event.colour ? event.colour : '#E7EAEE';
-          this.events.push({id: event._id, title: title, start: start, end: end, colour: colour});
+          let dow = event.dow ? event.dow : [];
+          let ranges = event.ranges ? event.ranges : [];
+          if (dow.length > 0) {
+            this.events.push({id: event._id, title: title, start: start, end: end, dow: dow, color: colour,  ranges: ranges});
+          } else {
+            this.events.push({id: event._id, title: title, start: start, end: end, color: colour,  ranges: ranges});
+          }
+
         }
-        /*this.events.push({id: '111', title: 'test', start: '10:00', end: '14:00', dow: [1,4], color: '#000000', ranges: [{
-          start: moment().startOf('week'), //next two weeks
-          end: moment().endOf('week').add(7,'d'),
-        }] });*/
       }
+/*
+      this.events.push({id: '123', title: 'recurring-event', start: moment().startOf('week').toISOString(), end: moment().startOf('week').add(7,'d').toISOString(), dow: [2,3,4], color: 'black', ranges: [{start: moment().startOf('week'), end: moment().startOf('week').add(7,'d')}]});
+*/
     });
   }
 
@@ -68,7 +74,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   public ngAfterViewChecked() {
-    this.renderColours();
+    //this.renderColours();
   }
 
   public ngOnDestroy() {
@@ -86,7 +92,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
       e.calEvent.start.date(), e.calEvent.start.hours(), e.calEvent.start.minutes());
     this.event.title = e.calEvent.title;
     this.event.id = e.calEvent.id;
-    this.event.colour = e.calEvent.colour;
+    this.event.colour = e.calEvent.color;
     this.dialogUpdate = true;
     this.toggleModal();
   }
@@ -108,7 +114,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
     newEvent.endDate = e.event.end;
     newEvent.title = e.event.title;
     newEvent.id = e.event.id;
-    newEvent.colour = e.event.colour;
+    newEvent.colour = e.event.color;
     this.databaseService.updateEvent(newEvent).then(response => {
       if (response.error !== 0) {
         e.revertFunc();
@@ -116,8 +122,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
       } else {
         this.events.splice(this.EventIndexById(newEvent.id), 1);
         this.events.push({id: newEvent.id, title: newEvent.title,
-          start: newEvent.startDate.toISOString(), end: newEvent.endDate.toISOString(), colour: newEvent.colour});
-        this.renderColours();
+          start: newEvent.startDate.toISOString(), end: newEvent.endDate.toISOString(), color: newEvent.colour});
+        /*this.renderColours();*/
       }
     });
   }
@@ -135,7 +141,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
       if (response.error !== 0) {
         window.alert('Error during addEvent API call: ' + response.data);
       } else {
-        this.events.push({id: response.data._id, title: title, start: start, end: end, colour: colour});
+        this.events.push({id: response.data._id, title: title, start: start, end: end, color: colour});
       }
     });
 
@@ -157,7 +163,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
         window.alert('Error during event update: ' + response.data);
       } else {
         this.events.splice(this.EventIndexById(id), 1);
-        this.events.push({id: id, title: title, start: start, end: end, colour: colour});
+        this.events.push({id: id, title: title, start: start, end: end, color: colour});
       }
     });
 
@@ -260,9 +266,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   public eventRender(event, element, view) {
-    if (event.ranges) {
+    if (event.ranges && event.ranges.length > 0) {
       return event.ranges.filter((range) => {
-        return event.start.isBefore(range.end) && event.end.isAfter(range.start);
+        return event.start.isBefore(range.end) &&  (event.end ? event.end.isAfter(range.start) : event.start.isAfter(range.start));
       }).length > 0;
     }
   }
