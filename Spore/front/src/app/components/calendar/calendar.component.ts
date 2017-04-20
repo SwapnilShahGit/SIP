@@ -44,6 +44,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
           let colour = event.colour ? event.colour : '#E7EAEE';
           this.events.push({id: event._id, title: title, start: start, end: end, colour: colour});
         }
+        /*this.events.push({id: '111', title: 'test', start: '10:00', end: '14:00', dow: [1,4], color: '#000000', ranges: [{
+          start: moment().startOf('week'), //next two weeks
+          end: moment().endOf('week').add(7,'d'),
+        }] });*/
       }
     });
   }
@@ -252,6 +256,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
           }
         }
       }
+    }
+  }
+
+  public eventRender(event, element, view) {
+    if (event.ranges) {
+      return event.ranges.filter((range) => {
+        return event.start.isBefore(range.end) && event.end.isAfter(range.start);
+      }).length > 0;
     }
   }
 

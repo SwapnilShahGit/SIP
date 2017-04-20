@@ -1,4 +1,4 @@
-<p-schedule [events]="events" [editable]="true" [header]="header" (onDayClick)="handleDayClick($event)"
+<p-schedule [events]="events" [editable]="true" [header]="header" [eventRender]="eventRender" (onDayClick)="handleDayClick($event)"
   [timezone]="'local'" (onEventClick)="handleEventClick($event)" (onEventDrop)="handleEventDrop($event)" (onViewRender)="renderColours()"></p-schedule>
 <br>
 
