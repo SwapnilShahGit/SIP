@@ -18,7 +18,8 @@ function addEvent(req, res, next) {
 		location: req.body.location,
 		contact: req.body.contact,
 		course: req.body.course,
-		repeat: req.body.repeat
+		dow: req.body.dow,
+		range: req.body.range
 	});
 	event.save(event)
 		.then(coroutine(function*(doc) {
@@ -93,7 +94,8 @@ function updateEvent(req, res, next) {
 		location: req.body.location,
 		contact: req.body.contact,
 		course: req.body.course,
-		repeat: req.body.repeat
+		dow: req.body.dow,
+		range: req.body.range
 	};
 	utility.removeUndefined(updated);
 	model.findByIdAndUpdate(req.body.event, updated)
