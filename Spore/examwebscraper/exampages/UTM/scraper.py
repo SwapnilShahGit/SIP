@@ -74,3 +74,6 @@ for class_exam in class_exams:
 #save matched rows and columns into a JSON file inside newly created folder
 with io.open(fileName + '/' + fileName + ".json", 'w', encoding='utf-8') as f:
   f.write(unicode(json.dumps(final_list)))
+
+#print the output file
+print json.dumps(final_list)
