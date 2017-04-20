@@ -13,7 +13,7 @@ const event = mongoose.model('event');
 const user = mongoose.model('user');
 
 
-function addNewExam(res, examObj, index) {
+function addNewExam(examObj, index) {
 	let exam = new model({
     	course_code: examObj.course,
     	date: examObj.date,
@@ -26,17 +26,13 @@ function addNewExam(res, examObj, index) {
 	exam.save(examObj)
 		.then((function(doc) {
 			if (index)
-				res.send({
+				logger.debug({
             		error: 0,
-            		data: "Finished"
+            		data: "Finished collecting exams"
            		});
 		}))
 		.catch(function (err) {
-			logger.debug("error adding course " + examObj.course + " because: "+ err);
-			res.send({
-            	error: 110,
-            	data: "error adding course " + examObj.course + " because: "+ err
-            });
+			logger.error("error adding course " + examObj.course + " because: "+ err);
 		});
 }
 
@@ -65,36 +61,7 @@ function getExam(req, res, next) {
 		.finally(next);
 }
 
-function updateExam(req, res, next) {
-	let updated = {
-		course_code: req.body.course,
-    	date: req.body.title.date ? new Date(req.body.date) : undefined,
-		start: req.body.start,
-		end: req.body.end,
-    	duration: req.body.duration,
-    	location: req.body.location,
-    	instructor: req.body.instructor
-	};
-	utility.removeUndefined(updated);
-	model.findByIdAndUpdate(req.body.course, updated)
-		.then(function (doc) {
-			res.send({
-				error: 0,
-				data: doc
-			});
-		})
-		.catch(function (err) {
-			res.send({
-				error: 110,
-				data: err
-			});
-		})
-		.finally(next);
-}
-
-
-
-function collectExams(req, res, next) {
+function collectExams() {
 	logger.debug("collecting exams");
 	exec('python ./../examwebscraper/exampages/UTM/scraper.py')
 		.then(function (stdout){
@@ -114,11 +81,7 @@ function collectExams(req, res, next) {
 
 					// -- get rid of unnecessary characters from the date string
 					var properDate = newExam.date.replace(/\./g, "");
-					if(typeof(req.body.year) !== 'undefined' ){
-						properDate += (", " + req.body.year);
-					} else {
-						properDate += (", " + new Date().getFullYear());
-					}
+					properDate += (", " + new Date().getFullYear());
 					properDate = properDate.substring( properDate.indexOf(",")+2, properDate.length);
 					properDate = properDate.replace("th,", ",");
 					properDate = properDate.replace("st,", ",");
@@ -151,20 +114,21 @@ function collectExams(req, res, next) {
 					logger.debug(newExam);
 
 					if (i == examsObj.length-1) index = true;
-					addNewExam(res, newExam, index );
+					addNewExam(newExam, index);
 				}
 			} else {
-				res.send({
+				logger.error({
 					error: 110,
 					data: err
 				});
 			}
     });
-    next();
+
+    setTimeout(collectExams, 86400000);
 }
+
+setTimeout(collectExams, 1);
 
 module.exports = function (server) {
 	server.get('/api/exam', getExam);
-	server.post('/api/exam', collectExams);
-
 };
