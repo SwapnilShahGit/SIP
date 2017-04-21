@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Event } from '../meta/event';
 import { Moment } from 'moment';
+import { Course } from '../meta/course';
 
 @Injectable()
 export class DatabaseService {
@@ -99,7 +100,8 @@ export class DatabaseService {
         return this.http
             .post(this.BuildAddEventRequest(userId, event),
               {
-                user: userId, start: event.startDate, end: event.endDate, title: event.title, colour: event.colour, ranges: event.ranges, dow: event.dow
+                user: userId, start: event.startDate, end: event.endDate, title: event.title,
+                colour: event.colour, ranges: event.ranges, dow: event.dow
               })
             .toPromise()
             .then(response => response.json())
@@ -134,8 +136,49 @@ export class DatabaseService {
         return this.http
             .put(this.BuildUpdateEventRequest(event),
               {
-                title: event.title, start: event.startDate, end: event.endDate, event: event.id, colour: event.colour, ranges: event.ranges, dow: event.dow
+                title: event.title, start: event.startDate, end: event.endDate, event: event.id,
+                colour: event.colour, ranges: event.ranges, dow: event.dow
               })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
+    public addCourse(userId: string, course: Course) {
+        return this.http
+            .post(this.BuildAddCourseRequest(userId, course.code), {
+                instructor: course.instructor, description: course.description,
+                lectures: course.lectures, tutorials: course.tutorials,
+                practicals: course.practicals, exams: course.examNotifications
+              })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
+    public deleteCourse(userId: string, course: Course) {
+        return this.http
+            .delete(this.BuildDeleteCourseRequest(userId, course.id))
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
+    public updateCourse(userId: string, course: Course) {
+        return this.http
+            .put(this.BuildUpdateCourseRequest(course.id), {
+                code: course.code, instructor: course.instructor, description: course.description,
+                lectures: course.lectures, tutorials: course.tutorials,
+                practicals: course.practicals, exams: course.examNotifications
+              })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
+    public getUserCourses(userId: string) {
+        return this.http
+            .get(this.BuildGetUserCoursesRequest(userId))
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -194,6 +237,28 @@ export class DatabaseService {
 
     private BuildUpdateEventRequest(event: Event): string {
         return this.server + '/api/events';
+    }
+
+    private BuildAddCourseRequest(userId: string, courseCode: string) {
+        return this.server + '/api/courses?'
+            + 'user=' + encodeURIComponent(userId)
+            + 'code=' + encodeURIComponent(courseCode);
+    }
+
+    private BuildDeleteCourseRequest(userId: string, courseId: string) {
+        return this.server + '/api/courses?'
+            + 'user=' + encodeURIComponent(userId)
+            + 'course=' + encodeURIComponent(courseId);
+    }
+
+    private BuildUpdateCourseRequest(courseId: string) {
+        return this.server + '/api/courses?'
+            + 'course=' + encodeURIComponent(courseId);
+    }
+
+    private BuildGetUserCoursesRequest(userId: string) {
+        return this.server + '/api/courses?'
+            + 'user=' + encodeURIComponent(userId);
     }
 
     private BuildUserFromResponse(response: any): User {
