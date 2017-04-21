@@ -1,17 +1,13 @@
 const logger = require('winston');
 const fs = require('fs');
 const moment = require('moment');
-const pythonShell = require('python-shell');
 const exec = global.Promise.promisify(require('child_process').exec);
-
-const coroutine = global.Promise.coroutine;
 const mongoose = require('mongoose');
-const utility = require('../libs/utility');
-
 const model = mongoose.model('exam');
-const event = mongoose.model('event');
-const user = mongoose.model('user');
 
+// -- time constants
+const hourToMil = 3600000;
+const dayToMil = 86400000;
 
 function addNewExam(examObj, index) {
 	let exam = new model({
@@ -23,17 +19,17 @@ function addNewExam(examObj, index) {
     	location: examObj.location,
     	instructor: examObj.instructor
     });
-	exam.save(examObj)
-		.then((function(doc) {
+	model.findOneAndUpdate({course_code: examObj.course}, examObj, {upsert:true}, function(err, doc){
+		if (err === null) {
 			if (index)
 				logger.debug({
             		error: 0,
             		data: "Finished collecting exams"
            		});
-		}))
-		.catch(function (err) {
+		} else {
 			logger.error("error adding course " + examObj.course + " because: "+ err);
-		});
+		}
+	});
 }
 
 function getExam(req, res, next) {
@@ -76,9 +72,8 @@ function collectExams() {
 						start : examsObj[i][1][2][1],
 						end : examsObj[i][1][3][1],
 						location : examsObj[i][1][4][1],
-						instructor : examsObj[i][1][5][1],
+						instructor : examsObj[i][1][5][1]
 					}
-
 					// -- get rid of unnecessary characters from the date string
 					var properDate = newExam.date.replace(/\./g, "");
 					properDate += (", " + new Date().getFullYear());
@@ -87,29 +82,23 @@ function collectExams() {
 					properDate = properDate.replace("st,", ",");
 					properDate = properDate.replace("rd,", ",");
 					properDate = properDate.replace("nd,", ",");
-
 					// -- convert date to milliseconds
 					var dateTemplate = Date.parse(properDate);
-
 					// -- convert to date format
 					var newDate = new Date(dateTemplate);
-
 					// -- use start time to derive start date and time (for calendar)
 					var startTime = moment(newExam.start, ["h A"]).format("H");
-					startTime = startTime*3600000;
+					startTime = startTime*hourToMil;
 					startTime = startTime + dateTemplate;
 					var startDate = new Date(startTime);
-
 					// -- use end time to derive end date and time (for calendar)
 					var endTime = moment(newExam.end, ["h A"]).format("H");
-					endTime = endTime*3600000;
+					endTime = endTime*hourToMil;
 					endTime = endTime + dateTemplate;
 					var endDate = new Date(endTime);
-
 					newExam.date = newDate;
 					newExam.start = startDate;
 					newExam.end = endDate;
-
 					// -- print values
 					logger.debug(newExam);
 
@@ -119,15 +108,14 @@ function collectExams() {
 			} else {
 				logger.error({
 					error: 110,
-					data: err
+					data: "cannot get info from scraper"
 				});
 			}
     });
-
-    setTimeout(collectExams, 86400000);
+    setTimeout(collectExams, dayToMil);
 }
 
-setTimeout(collectExams, 1);
+setTimeout(collectExams);
 
 module.exports = function (server) {
 	server.get('/api/exam', getExam);
