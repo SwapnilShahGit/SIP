@@ -1,5 +1,5 @@
 <p-schedule [events]="events" [editable]="true" [header]="header" [eventRender]="eventRender" (onDayClick)="handleDayClick($event)"
-  [timezone]="'local'" (onEventClick)="handleEventClick($event)" (onEventDrop)="handleEventDrop($event)" (onViewRender)="renderColours()"></p-schedule>
+  [timezone]="'local'" (onEventClick)="handleEventClick($event)" (onEventDrop)="handleEventDrop($event)"></p-schedule>
 <br>
 
 <button id="hiddenModalOpener" data-toggle="modal" data-target=".eventModal"></button>
@@ -101,7 +101,7 @@
                 <p-calendar [(ngModel)]="event.ranges[0].start" [monthNavigator]="true" [yearNavigator]="true" [minDate]="event.startDate"
                             yearRange="1900:2100" placeholder="(day) month date, year" dateFormat="(DD) MM d, yy"
                             [showTime]="true" hourFormat="12" inputStyleClass="form-control startRangeTimeInner"
-                            styleClass="form-control startRangeTimeOuter" name="endDate"></p-calendar>
+                            styleClass="form-control startRangeTimeOuter" name="startRangeDate"></p-calendar>
               </div>
             </div>
           </div>
@@ -120,7 +120,22 @@
                 <p-calendar [(ngModel)]="event.ranges[0].end" [monthNavigator]="true" [yearNavigator]="true" [minDate]="event.startDate"
                             yearRange="1900:2100" placeholder="(day) month date, year" dateFormat="(DD) MM d, yy"
                             [showTime]="true" hourFormat="12" inputStyleClass="form-control endRangeTimeInner"
-                            styleClass="form-control endRangeTimeOuter" name="endDate"></p-calendar>
+                            styleClass="form-control endRangeTimeOuter" name="endRangeDate"></p-calendar>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid form-group row">
+            <label class="col-sm-2 col-form-label">Days of Week:</label>
+            <div class="col-sm-10">
+              <div class="input-group" style="margin: auto">
+                <input type="checkbox" name="dayOfWeek" value="Sunday" [(ngModel)]="sundayCheck" ngDefaultControl>Sunday
+                <input style="margin-left: 32px" type="checkbox" name="dayOfWeek" value="Monday" [(ngModel)]="mondayCheck" ngDefaultControl>Monday
+                <input style="margin-left: 32px" type="checkbox" name="dayOfWeek" value="Tuesday" [(ngModel)]="tuesdayCheck" ngDefaultControl>Tuesday
+                <input style="margin-left: 32px" type="checkbox" name="dayOfWeek" value="Wednesday" [(ngModel)]="wednesdayCheck" ngDefaultControl>Wednesday
+                <input style="margin-left: 32px" type="checkbox" name="dayOfWeek" value="Thursday" [(ngModel)]="thursdayCheck" ngDefaultControl>Thursday
+                <input style="margin-left: 32px" type="checkbox" name="dayOfWeek" value="Friday" [(ngModel)]="fridayCheck" ngDefaultControl>Friday
+                <input style="margin-left: 32px" type="checkbox" name="dayOfWeek" value="Saturday" [(ngModel)]="saturdayCheck" ngDefaultControl>Saturday
               </div>
             </div>
           </div>
