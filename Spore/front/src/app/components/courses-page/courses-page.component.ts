@@ -122,18 +122,19 @@ export class CoursesPageComponent implements OnInit {
 
   private deleteCourse(): any {
     let course = this.courses.find(c => c.id == this.currentSlide);
-    if (!course.isDraft || course.is_parse) {
+    if (!course.isDraft) {
+      console.log('API Call for delete called!');
+      // API Call to delete this course
+      // if (!successfulCall) { some error mssg + break; }
       this.databaseService.deleteCourse(this.userID, course).then(response => {
-        // TODO - this seems to be broken by backend. (returns 404 on successful deletion?)
+        console.log('USER COURSES DELETE: ' + response);
+        // 200 = good, 404 = bad ...???
       });
-    } else {
-      //splice it here since its just a local draft... TODO
     }
 
-    // TODO For now I remove the course regardless of above API call... fix later!
-    this.courses.splice(this.courses.indexOf(course), 1);
-    let courseMaster = this.coursesMaster.find(c => c.id == this.currentSlide);
-    this.coursesMaster.splice(this.coursesMaster.indexOf(courseMaster), 1);
+    // this.courses.splice(this.courses.indexOf(course), 1);
+    // let courseMaster = this.coursesMaster.find(c => c.id == this.currentSlide);
+    // this.coursesMaster.splice(this.coursesMaster.indexOf(courseMaster), 1);
   }
 
   private addCourseOption(course: Course, section: Array<CourseOption>): any {
