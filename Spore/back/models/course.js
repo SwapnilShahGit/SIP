@@ -6,15 +6,14 @@ const courseSchema = new Schema({
 	code: String,
 	instructor: String,
 	description: String,
-	lectureSelected: Number,
 	lectures: [],
-	tutorialSelected: Number,
 	tutorials: [],
-	practicalSelected: Number,
 	practicals: [],
-	office_hours: String,
-	office_location: String,
-	exams: Boolean,
+    officeHours: [],
+    isDraft: Boolean,
+    colour: String,
+    examNotifications: Boolean,
+    examInfo: String,
 	user: String
 });
 
