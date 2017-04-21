@@ -10,7 +10,8 @@ const eventSchema = new Schema({
 	location: String,
 	contact: String,
 	course: String,
-	repeat: Number
+	dow: [],
+	ranges: []
 });
 
 mongoose.model('event', eventSchema);

@@ -17,7 +17,7 @@ export class TasksComponent implements OnInit, OnDestroy{
   @Input()
   public user: User;
 
-  constructor(private databaseService: DatabaseService) {  
+  constructor(private databaseService: DatabaseService) {
   }
 
   public ngOnInit() {
@@ -26,7 +26,7 @@ export class TasksComponent implements OnInit, OnDestroy{
 
   public ngOnDestroy(){
     this.updateUser();
-  } 
+  }
 
   public auto_grow() {
       var textAreas= document.querySelectorAll("textArea");
@@ -45,7 +45,7 @@ export class TasksComponent implements OnInit, OnDestroy{
         } else{
           this.user = tempUser;
         }
-      }); 
+      });
    }
 
   public addTask() {
@@ -53,8 +53,8 @@ export class TasksComponent implements OnInit, OnDestroy{
     var tempdate = new Date();
     var currentdate = "Created " + tempdate.toLocaleString('en-US', { month: "long" }) + " " + tempdate.getDate() + ", " + tempdate.getFullYear() + " " + tempdate.toLocaleString('en-US', { hour: 'numeric',minute:'numeric', hour12: true });
     this.items.push({
-      text: this.newTask,  
-      done: false,  
+      text: this.newTask,
+      done: false,
       date: currentdate,
       edit: false,
       editDate: ""
