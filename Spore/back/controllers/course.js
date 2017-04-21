@@ -10,34 +10,35 @@ const user = mongoose.model('user');
 function addCourse(req, res, next) {
 	logger.debug("adding course for user id: " + req.body.user);
 	let course = new model({
-    	hash: req.body.hash,
-    	code: req.body.code,
-    	instructor: req.body.instructor,
-    	description: req.body.description,
-    	lectureSelected: req.body.lectureSelected,
-    	lectures: lecArray,
-    	tutorialSelected: req.body.tutorialSelected,
-    	tutorials: req.body.tutorial,
-    	practicalSelected: req.body.practicalSelected,
-    	practicals: req.body.practical,
-    	exams: req.body.exams,
-    	user: req.body.user
+		hash: req.body.hash,
+		code: req.body.code,
+		instructor: req.body.instructor,
+		description: req.body.description,
+		lectures: req.body.lectures,
+		tutorials: req.body.tutorials,
+		practicals: req.body.practicals,
+		officeHours: req.body.officeHours,
+		isDraft: req.body.isDraft,
+		colour: req.body.colour,
+		examNotifications: req.body.examNotifications,
+		examInfo: req.body.examInfo,
+		user: req.body.user
 	});
 	course.save(course)
-    		.then(coroutine(function*(doc) {
-    			yield user.update({_id: req.body.user}, {$push: {courses_id: doc.id}});
-    			res.send({
-    				error: 0,
-    				data: doc
-    			});
-    		}))
-    		.catch(function (err) {
-    			res.send({
-    				error: 110,
-    				data: err
-    			});
-    		})
-    		.finally(next);
+		.then(coroutine(function*(doc) {
+			yield user.update({_id: req.body.user}, {$push: {course_ids: doc.id}});
+			res.send({
+				error: 0,
+				data: doc
+			});
+		}))
+		.catch(function (err) {
+			res.send({
+				error: 110,
+				data: err
+			});
+		})
+		.finally(next);
 }
 
 function getUserCourses(req, res, next) {
@@ -45,7 +46,7 @@ function getUserCourses(req, res, next) {
 	user.findOne({_id: req.query.user})
 		.then(function (doc) {
 			return model.find({
-				_id: {$in: doc.courses_id}
+				_id: {$in: doc.course_ids}
 			});
 		})
 		.then(function (doc) {
@@ -71,9 +72,10 @@ function getUserCourses(req, res, next) {
 }
 
 function deleteCourse(req, res, next) {
-	user.update({_id: req.query.user}, {$pull: {courses_id: req.query.course}})
+	user.update({_id: req.query.user}, {$pull: {course_ids: req.query.id}})
 		.then(function (doc) {
-			res.send(200);
+			logger.debug("deleting course with id: " + req.body.id + "from user: " + req.body.user);
+			res.send(404);
 		})
 		.catch(function (err) {
 			res.send(404);
@@ -82,21 +84,23 @@ function deleteCourse(req, res, next) {
 }
 
 function updateCourse(req, res, next) {
+	logger.debug("updating courses with id: " + req.body.id);
 	let updated = {
 		hash: req.body.hash,
-    	code: req.body.code,
-    	instructor: req.body.instructor,
-    	description: req.body.description,
-    	lectureSelected: req.body.lectureSelected,
-    	lectures: req.body.lectures,
-    	tutorialSelected: req.body.tutorialSelected,
-    	tutorials: req.body.tutorial,
-    	practicalSelected: req.body.practicalSelected,
-    	practicals: req.body.practical,
-    	exams: req.body.exams
+		code: req.body.code,
+		instructor: req.body.instructor,
+		description: req.body.description,
+		lectures: req.body.lectures,
+		tutorials: req.body.tutorials,
+		practicals: req.body.practicals,
+		officeHours: req.body.officeHours,
+		isDraft: req.body.isDraft,
+		colour: req.body.colour,
+		examNotifications: req.body.examNotifications,
+		examInfo: req.body.examInfo
 	};
 	utility.removeUndefined(updated);
-	model.findByIdAndUpdate(req.body.course, updated)
+	model.findByIdAndUpdate(req.body.id, updated)
 		.then(function (doc) {
 			res.send({
 				error: 0,
