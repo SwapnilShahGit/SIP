@@ -6,6 +6,8 @@ export class Event implements IEvent {
     public endDate: Date;
     public description: string;
     public colour: string = '#33cccc';
+    public dow: number[] = [];
+    public ranges: {start, end}[] = [{start: '', end: ''}];
 }
 
 export interface IEvent {
@@ -15,4 +17,6 @@ export interface IEvent {
     endDate: Date;
     description: string;
     colour: string;
+    dow: number[];
+    ranges: {start, end}[];
 }
