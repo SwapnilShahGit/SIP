@@ -65,14 +65,12 @@ function parse(req, res, next) {
 				code: doc.course_code,
 				instructor: doc.instructor,
 				description: doc.description,
-				lectureSelected: req.body.lectureSelected,
 				lectures: doc.lectures,
-				tutorialSelected: req.body.tutorialSelected,
 				tutorials: doc.tutorials,
-				practicalSelected: req.body.practicalSelected,
 				practicals: doc.practicals,
 				office_hours: doc.office_hours,
 				office_location: doc.office_location,
+				is_draft: true,
 				exams: true
 			});
 			return courseData.save(courseData);
