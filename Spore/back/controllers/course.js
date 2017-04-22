@@ -104,7 +104,7 @@ function updateCourse(req, res, next) {
 		.then(function (doc) {
 			res.send({
 				error: 0,
-				data: updated
+				data: doc
 			});
 		})
 		.catch(function (err) {
