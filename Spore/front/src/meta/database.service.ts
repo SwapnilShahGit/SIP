@@ -98,7 +98,7 @@ export class DatabaseService {
 
     public addEvent(userId: string, event: Event): any {
         return this.http
-            .post(this.BuildAddEventRequest(userId, event),
+            .post(this.BuildAddEventRequest(),
               {
                 user: userId, start: event.startDate, end: event.endDate, title: event.title,
                 colour: event.colour, ranges: event.ranges, dow: event.dow
@@ -134,7 +134,7 @@ export class DatabaseService {
 
     public updateEvent(event: Event) {
         return this.http
-            .put(this.BuildUpdateEventRequest(event),
+            .put(this.BuildUpdateEventRequest(),
               {
                 title: event.title, start: event.startDate, end: event.endDate, event: event.id,
                 colour: event.colour, ranges: event.ranges, dow: event.dow
@@ -146,10 +146,12 @@ export class DatabaseService {
 
     public addCourse(userId: string, course: Course) {
         return this.http
-            .post(this.BuildAddCourseRequest(userId, course.code), {
+            .post(this.BuildAddCourseRequest(), {
+                code: course.code, user: userId,
                 instructor: course.instructor, description: course.description,
                 lectures: course.lectures, tutorials: course.tutorials,
-                practicals: course.practicals, exams: course.examNotifications
+                practicals: course.practicals, officeHours: course.officeHours,
+                isDraft: false, colour: course.colour, exams: course.examNotifications
               })
             .toPromise()
             .then(response => response.json())
@@ -164,12 +166,14 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
-    public updateCourse(userId: string, course: Course) {
+    public updateCourse(course: Course) {
         return this.http
-            .put(this.BuildUpdateCourseRequest(course.id), {
-                code: course.code, instructor: course.instructor, description: course.description,
+            .put(this.BuildUpdateCourseRequest(), {
+                id: course.id, code: course.code,
+                instructor: course.instructor, description: course.description,
                 lectures: course.lectures, tutorials: course.tutorials,
-                practicals: course.practicals, exams: course.examNotifications
+                practicals: course.practicals, officeHours: course.officeHours,
+                isDraft: course.isDraft, colour: course.colour, exams: course.examNotifications
               })
             .toPromise()
             .then(response => response.json())
@@ -213,8 +217,8 @@ export class DatabaseService {
             + 'value=' + encodeURIComponent(something);
     }
 
-    private BuildAddEventRequest(userId: string, event: Event): string {
-        return this.server + '/api/events';
+    private BuildAddEventRequest(): string {
+        return this.BuildEventRequest();
     }
 
     private BuildGetUserEventsRequest(userId: string, start: Moment, end: Moment): string {
@@ -232,33 +236,37 @@ export class DatabaseService {
     private BuildDeleteUserEventRequest(userId: string, eventId: string): string {
         return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
-            + '&event=' + encodeURIComponent(eventId);
     }
 
-    private BuildUpdateEventRequest(event: Event): string {
+    private BuildUpdateEventRequest(): string {
+        return this.BuildEventRequest();
+    }
+
+    private BuildEventRequest() {
         return this.server + '/api/events';
     }
 
-    private BuildAddCourseRequest(userId: string, courseCode: string) {
-        return this.server + '/api/courses?'
-            + 'user=' + encodeURIComponent(userId)
-            + 'code=' + encodeURIComponent(courseCode);
+    private BuildAddCourseRequest() {
+        return this.BuildCourseRequest();
+    }
+
+    private BuildUpdateCourseRequest() {
+        return this.BuildCourseRequest();
     }
 
     private BuildDeleteCourseRequest(userId: string, courseId: string) {
         return this.server + '/api/courses?'
             + 'user=' + encodeURIComponent(userId)
-            + 'course=' + encodeURIComponent(courseId);
-    }
-
-    private BuildUpdateCourseRequest(courseId: string) {
-        return this.server + '/api/courses?'
-            + 'course=' + encodeURIComponent(courseId);
+            + '&id=' + encodeURIComponent(courseId);
     }
 
     private BuildGetUserCoursesRequest(userId: string) {
         return this.server + '/api/courses?'
             + 'user=' + encodeURIComponent(userId);
+    }
+
+    private BuildCourseRequest() {
+        return this.server + '/api/courses';
     }
 
     private BuildUserFromResponse(response: any): User {
