@@ -2,18 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const courseSchema = new Schema({
-	hash: String,
 	code: String,
 	instructor: String,
 	description: String,
 	lectures: [],
 	tutorials: [],
 	practicals: [],
-    officeHours: [],
-    isDraft: Boolean,
-    colour: String,
-    examNotifications: Boolean,
-    examInfo: String,
+	office_hours: String,
+	office_location: String,
+	is_draft: Boolean,
+	colour: String,
+	exams: Boolean,
+	exam_info: String,
 	user: String
 });
 
