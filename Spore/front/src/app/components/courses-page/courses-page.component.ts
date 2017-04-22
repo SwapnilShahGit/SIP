@@ -31,60 +31,64 @@ export class CoursesPageComponent implements OnInit {
       this.userID = this.cookieService.get('userID');
       this.databaseService.getUserCourses(this.userID).then(response => {
         if (response.error === 0) {
+          for (var i = 0; i < response.data.length; i++) {
+            this.cleanUpCourse(response.data[i]);
+          }
+
           this.courses = response.data;
-          this.coursesMaster = response.data;
+          this.coursesMaster = JSON.parse(JSON.stringify(this.courses));
         } else {
           console.log('Error during course population: ' + response.data);
         }
       });
     }
-    // let lectures: Array<CourseOption> = [new CourseOption()];
-    // let tutorials: Array<CourseOption> = [new CourseOption()];
-    // let practicals: Array<CourseOption> = [new CourseOption(), new CourseOption()];
-    // let officeHours: Array<CourseOption> = [new CourseOption()];
-    // let course: Course = new Course(false, 'ABC123', 'Dr. Guy', 'No clue what this is...', null, true, "Exam will be held in IB 110 at 3:00pm until 5:00pm", lectures, tutorials, practicals, officeHours);
-    // this.courses.push(course);
-    // this.mockedSearchResults.push(course);
-    // let courseMaster = <Course>JSON.parse(JSON.stringify(course));
-    // this.coursesMaster.push(courseMaster);
-  }
-
-  private updateCourse(course: Course): any {
-    console.log('Course Update Called!');
-    console.log(course);
-    // API Update Existing Event call here
-    this.databaseService.updateCourse(this.userID, course).then(response => {
-      console.log('USER COURSES UPDATE: ' + response);
-      if (response.error === 0) {
-        //course updated, response.data should be the updated fields...?!
-      } else {
-        console.log('Error during course update: ' + response.data);
-      }
-    });
-
-    // let masterCourse = this.coursesMaster.find(c => c.id == course.id);
-    // this.coursesMaster[this.coursesMaster.indexOf(masterCourse)] = <Course>JSON.parse(JSON.stringify(course));
-    // let btn = document.getElementById(course.id + "UpdateButton");
-    // if (!btn.className.includes("disabled")) {
-    //   btn.className += " disabled";
-    // }
   }
 
   private saveCourse(course: Course): any {
-    console.log('Course Save Called!');
-    console.log(course);
-    // API Save New Event call here
     this.databaseService.addCourse(this.userID, course).then(response => {
-      console.log('USER COURSES ADD: ' + response);
       if (response.error === 0) {
-        //course added, response.data should be the course object!
+        this.cleanUpCourse(response.data);
+        this.courses.splice(this.courses.indexOf(course), 1);
+        let courseMaster = this.coursesMaster.find(c => c.id == course.id);
+        this.coursesMaster.splice(this.coursesMaster.indexOf(courseMaster), 1);
+        this.courses.push(response.data);
+        this.coursesMaster.push(<Course>JSON.parse(JSON.stringify(response.data)));
+        setTimeout(function() {
+          let panel = document.getElementById(response.data.id + 'Toggle');
+          this.currentSlide = response.data.id;
+          if (panel) {
+            panel.click();
+          }
+        }, 50);
       } else {
         console.log('Error during course addition: ' + response.data);
       }
     });
+  }
 
-    // course.isDraft = false;
-    // this.coursesMaster.push(<Course>JSON.parse(JSON.stringify(course)));
+  private updateCourse(course: Course): any {
+    this.databaseService.updateCourse(course).then(response => {
+      if (response.error === 0) {
+        this.cleanUpCourse(response.data);
+        this.courses.splice(this.courses.indexOf(course), 1);
+        let courseMaster = this.coursesMaster.find(c => c.id == course.id);
+        this.coursesMaster.splice(this.coursesMaster.indexOf(courseMaster), 1);
+        this.courses.push(response.data);
+        this.coursesMaster.push(<Course>JSON.parse(JSON.stringify(response.data)));
+
+        // TODO call is broken, update does not return the correct object.
+
+        setTimeout(function() {
+          let panel = document.getElementById(response.data.id + 'Toggle');
+          this.currentSlide = response.data.id;
+          if (panel) {
+            panel.click();
+          }
+        }, 50);
+      } else {
+        console.log('Error during course update: ' + response.data);
+      }
+    });
   }
 
   private switchSlide(course: Course): any {
@@ -102,6 +106,7 @@ export class CoursesPageComponent implements OnInit {
     } else {
       course = new Course();
     }
+
     this.courses.push(course);
     setTimeout(function() {
       let panel = document.getElementById(course.id + 'Toggle');
@@ -112,29 +117,24 @@ export class CoursesPageComponent implements OnInit {
           courseField.focus();
         }
       }
-    }, 50)
+    }, 50);
   }
 
   private deleteCourse(): any {
-    console.log('Delete Course Called!');
     let course = this.courses.find(c => c.id == this.currentSlide);
     if (!course.isDraft) {
-      console.log('API Call for delete called!');
-      // API Call to delete this course
-      // if (!successfulCall) { some error mssg + break; }
       this.databaseService.deleteCourse(this.userID, course).then(response => {
-        console.log('USER COURSES DELETE: ' + response);
-        // 200 = good, 404 = bad ...???
+        // TODO - this seems to be broken by backend. (returns 404 on successful deletion?)
       });
     }
 
-    // this.courses.splice(this.courses.indexOf(course), 1);
-    // let courseMaster = this.coursesMaster.find(c => c.id == this.currentSlide);
-    // this.coursesMaster.splice(this.coursesMaster.indexOf(courseMaster), 1);
+    // TODO For now I remove the course regardless of above API call... fix later!
+    this.courses.splice(this.courses.indexOf(course), 1);
+    let courseMaster = this.coursesMaster.find(c => c.id == this.currentSlide);
+    this.coursesMaster.splice(this.coursesMaster.indexOf(courseMaster), 1);
   }
 
   private addCourseOption(course: Course, section: Array<CourseOption>): any {
-    console.log('Add Course Option Called!');
     if (section.length < 5) {
       section.push(new CourseOption());
     }
@@ -142,13 +142,11 @@ export class CoursesPageComponent implements OnInit {
   }
 
   private removeCourseOption(course: Course, section: Array<CourseOption>, type: string): any {
-    console.log('Remove Course Option Called!');
     section.pop();
     this.updateButtonCheck(course);
   }
 
   private updateButtonCheck(course: Course): any {
-    console.log('In Update Button Check!');
     let masterCourse = this.coursesMaster.find(c => c.id == course.id);
     let btn = document.getElementById(course.id + "UpdateButton");
     if (btn && btn.className) {
@@ -174,5 +172,22 @@ export class CoursesPageComponent implements OnInit {
   private toggleSwitch(course: Course): any {
     course.examNotifications = !course.examNotifications;
     this.updateButtonCheck(course);
+  }
+
+  private cleanUpCourse(course: any) {
+    course.id = course._id;
+    for (var j = 0; j < course.lectures.length; j++) {
+      course.lectures[j].startTime = new Date(course.lectures[j].startTime);
+      course.lectures[j].endTime = new Date(course.lectures[j].endTime);
+    } for (j = 0; j < course.tutorials.length; j++) {
+      course.tutorials[j].startTime = new Date(course.tutorials[j].startTime);
+      course.tutorials[j].endTime = new Date(course.tutorials[j].endTime);
+    } for (j = 0; j < course.practicals.length; j++) {
+      course.practicals[j].startTime = new Date(course.practicals[j].startTime);
+      course.practicals[j].endTime = new Date(course.practicals[j].endTime);
+    } for (j = 0; j < course.officeHours.length; j++) {
+      course.officeHours[j].startTime = new Date(course.officeHours[j].startTime);
+      course.officeHours[j].endTime = new Date(course.officeHours[j].endTime);
+    }
   }
 }
