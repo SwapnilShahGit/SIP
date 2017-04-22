@@ -17,11 +17,12 @@ function addCourse(req, res, next) {
 		lectures: req.body.lectures,
 		tutorials: req.body.tutorials,
 		practicals: req.body.practicals,
-		officeHours: req.body.officeHours,
-		isDraft: req.body.isDraft,
+		office_hours: req.body.officeHours,
+		office_location: req.body.officeLocation,
+		is_draft: req.body.isParseDraft,
 		colour: req.body.colour,
-		examNotifications: req.body.examNotifications,
-		examInfo: req.body.examInfo,
+		exam_notifications: req.body.examNotifications,
+		exam_info: req.body.examInfo,
 		user: req.body.user
 	});
 	course.save(course)
@@ -93,11 +94,12 @@ function updateCourse(req, res, next) {
 		lectures: req.body.lectures,
 		tutorials: req.body.tutorials,
 		practicals: req.body.practicals,
-		officeHours: req.body.officeHours,
-		isDraft: req.body.isDraft,
+		office_hours: req.body.officeHours,
+		office_location: req.body.officeLocation,
+		is_draft: req.body.isParseDraft,
 		colour: req.body.colour,
-		examNotifications: req.body.examNotifications,
-		examInfo: req.body.examInfo
+		exam_notifications: req.body.examNotifications,
+		exam_info: req.body.examInfo
 	};
 	utility.removeUndefined(updated);
 	model.findByIdAndUpdate(req.body.id, updated)
