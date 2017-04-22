@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterContentChecked, OnDestroy, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DatabaseService } from '../../../meta/database.service';
 import { User } from '../../../meta/user';
 import { Subscription } from 'rxjs/Subscription';
 import { NavService } from '../../../meta/nav.service';
+import { TabService } from '../../../meta/tab.service';
 import { Observable } from 'rxjs/Rx';
 import { CookieService } from 'angular2-cookie/core';
 
@@ -12,9 +13,9 @@ import { CookieService } from 'angular2-cookie/core';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent implements OnInit, OnDestroy {
+export class MainPageComponent implements OnInit, AfterContentChecked, OnDestroy {
 
-  private currentTab: string;
+  private currentTab: String = 'CalendarTab';
   private slideOutWidth: string = '0px';
   private bodyLeftMargin: string = '0px';
   private bodyWidth: string = 'auto';
@@ -22,6 +23,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private user: Observable<User>;
   private userID: string;
+  private tabSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -29,7 +31,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     private databaseService: DatabaseService,
     private navService: NavService,
     private cookieService: CookieService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private tabService: TabService
   ) {
     this.currentTab = navService.calendarTab;
     this.subscription = navService.navOpen$.subscribe(
@@ -41,6 +44,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
         }
       }
     );
+    this.tabSubscription = tabService.tabSelectedSource.subscribe(
+      selectedTab => {
+        this.currentTab = selectedTab;
+      }
+    )
   }
 
   public ngOnInit() {
@@ -52,8 +60,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  public ngAfterContentChecked() {
+    this.switchTabs(this.currentTab);
+  }
+
   public ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.tabSubscription.unsubscribe();
   }
 
   public navigateToLoginPage() {
@@ -84,6 +97,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   public switchTabs(newTab) {
     this.currentTab = newTab;
+    this.tabService.switchTabs(newTab);
     if (window.innerHeight <= 767) {
       this.closeNav();
     }
