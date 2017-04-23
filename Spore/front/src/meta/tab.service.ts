@@ -15,7 +15,7 @@ export class TabService implements OnInit {
     public settingsTab: string = 'SettingsTab';
     public defaultTab: string = 'DefaultTab';
     public friendsTab: string = 'FriendsTab';
-
+    public appStoreTab: string = 'AppStoreTab';
     // Observable sources
     public tabSelectedSource = new Subject<String>();
 
