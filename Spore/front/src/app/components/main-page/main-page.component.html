@@ -17,25 +17,16 @@
     <a class="sidenav-item" [class.selected]="this.currentTab === 'HelpTab'" (click)="switchTabs('HelpTab')"><span class="fa fa-lg fa-question-circle sidenav-icon"></span>Help</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'MapTab'" (click)="switchTabs('MapTab')"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'SettingsTab'" (click)="switchTabs('SettingsTab')"><span class="fa fa-cogs sidenav-icon"></span>Settings</a>
-    <br> <span class="sidenav-header">Redirect</span>
-    <hr class="sidenav-hr">
-    <a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'AppStoreTab'" (click)="switchTabs('AppStoreTab')"><span class="fa fa-shopping-basket sidenav-icon"></span>App Store</a>
   </div>
 
   <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px', 'padding-top': '75px', 'padding-bottom': '75px'}">
 
     <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.calculatorTab" style="padding-bottom:50px">
-      <p>Spicy jalapeno bacon ipsum dolor amet ad est rump, short loin aute occaecat pork ex filet mignon kielbasa ham hock. Nisi
-        pancetta turducken ribeye irure lorem. Aliquip pancetta swine brisket pastrami. In culpa aute pork chop esse. Beef
-        turducken pariatur strip steak fugiat esse chicken pork chop cow nisi.</p>
-      <p>Beef flank eiusmod tri-tip officia short ribs drumstick andouille ut pariatur filet mignon minim shank chuck tail. Rump
-        salami meatloaf pork ut sunt. Duis enim in beef, pork chop nisi ham hock prosciutto shankle filet mignon ball tip t-bone
-        tempor salami veniam. Biltong nisi mollit leberkas, anim shank cupidatat adipisicing hamburger sausage.</p>
-      <p>Ex non biltong kielbasa shank do. Fatback consequat salami tongue frankfurter cow rump. Ad excepteur brisket dolor anim,
-        hamburger occaecat ex alcatra pork. Enim drumstick commodo kevin. Boudin salami ground round frankfurter in corned
-        beef proident consectetur, landjaeger incididunt laborum culpa pork loin. Non ball tip corned beef aliquip boudin turkey
-        enim elit pig laborum hamburger cupim bacon strip steak jerky.</p>
-      <p>Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!</p>
+      <div style="text-align: center">
+        <span style="margin: auto; font-size: 40px" class="fa fa-clock-o"></span><br>
+        Coming Soon!
+      </div>
     </div>
 
   <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.calendarTab">
@@ -55,27 +46,10 @@
     </div>
 
     <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.helpTab" style="padding-bottom:50px">
-      <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
-        facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
-        ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
-      <p>Nisl idque cu ius, iuvaret contentiones at qui, ne ferri fabulas his. Adipisci posidonium ei mel, per in dicta epicuri
-        insolens. Ea vis ubique tibique comprehensam, ne eros phaedrum mel. Vel at dolor appetere eleifend. Eruditi officiis
-        at pro. Tale viderer scriptorem cu pro, no sonet dolorem ius, qui ei dolor consul placerat. Ne vel option veritus.</p>
-      <p>Ad qui erroribus imperdiet, eum in dicant similique, at libris sententiae eos. Eum possim incorrupte et, quas cetero
-        detr
-      </p>
-      <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
-        facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
-        ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
-      <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
-        facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
-        ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
-      <p>Nisl idque cu ius, iuvaret contentiones at qui, ne ferri fabulas his. Adipisci posidonium ei mel, per in dicta epicuri
-        insolens. Ea vis ubique tibique comprehensam, ne eros phaedrum mel. Vel at dolor appetere eleifend. Eruditi officiis
-        at pro. Tale viderer scriptorem cu pro, no sonet dolorem ius, qui ei dolor consul placerat. Ne vel option veritus.</p>
-      <p>Ad qui erroribus imperdiet, eum in dicant similique, at libris sententiae eos. Eum possim incorrupte et, quas cetero
-        detr.
-      </p>
+      <div style="text-align: center">
+        <span style="margin: auto; font-size: 40px" class="fa fa-clock-o"></span><br>
+        Coming Soon!
+      </div>
     </div>
 
     <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.settingsTab">
@@ -87,7 +61,17 @@
     </div>
 
     <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.friendsTab">
-      <friends-page></friends-page>
+      <div style="text-align: center">
+        <span style="margin: auto; font-size: 40px" class="fa fa-clock-o"></span><br>
+        Coming Soon!
+      </div>
+    </div>
+
+    <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.appStoreTab">
+      <div style="text-align: center">
+        <span style="margin: auto; font-size: 40px" class="fa fa-clock-o"></span><br>
+        Coming Soon!
+      </div>
     </div>
 
   </div>
