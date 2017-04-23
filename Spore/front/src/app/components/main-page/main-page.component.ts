@@ -34,7 +34,7 @@ export class MainPageComponent implements OnInit, AfterContentChecked, OnDestroy
     private elementRef: ElementRef,
     private tabService: TabService
   ) {
-    this.currentTab = navService.calendarTab;
+    this.currentTab = tabService.calendarTab;
     this.subscription = navService.navOpen$.subscribe(
       isOpen => {
         if (isOpen) {
@@ -96,7 +96,6 @@ export class MainPageComponent implements OnInit, AfterContentChecked, OnDestroy
   }
 
   public switchTabs(newTab) {
-    this.currentTab = newTab;
     this.tabService.switchTabs(newTab);
     if (window.innerHeight <= 767) {
       this.closeNav();
