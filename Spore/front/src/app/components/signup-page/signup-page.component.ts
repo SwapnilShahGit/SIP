@@ -102,10 +102,9 @@ export class SignUpPageComponent implements OnInit {
   }
 
   public signUpUser() {
-    console.log(this.apiResponse);
     if (this.verifyForm()) {
       let pictureUrl = this.apiResponse.pictureUrl || this.userService.getRandomPicture();
-      let newUser = new User('', this.apiResponse.first_name, this.apiResponse.last_name, '',
+      let newUser = new User('', this.apiResponse.first_name, this.apiResponse.last_name, this.apiResponse.password,
         this.apiResponse.email, this.apiResponse.userId,
         pictureUrl, this.apiResponse.selectedSchool);
       this.databaseService.addUser(newUser).then((response) => {
