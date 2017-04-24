@@ -45,28 +45,6 @@
   height: 250px;
 }
 
-.button {
-  margin: 2px;
-  padding: 4px;
-  border-radius: 6px;
-}
-
-.sm {
-  width: 65.5px;
-}
-
-.lg {
-  width: 145px;
-}
-
-.xl {
-  width: 195px
-}
-
-.high {
-  height: 35px;
-}
-
 select {
   padding: 8px 4px;
   margin: 5px 0;
@@ -75,4 +53,18 @@ select {
   box-sizing: border-box;
   background-color: #EBECED;
   width: 250px;
+}
+
+.colourResults {
+  cursor: default;
+  max-width: 200px;
+}
+
+.input-group-btn {
+  padding-right: 5px;
+}
+
+.pictureButton {
+  margin-top: 2px;
+  margin-bottom: 2px;
 }

@@ -1,72 +1,80 @@
-<div>
-  <div class="container-fluid">
+<div class="container-fluid">
+  <div class="col-lg-4">
+    <h2>User Details:</h2>
+    <div class="or-line"></div>
 
-    <div class="col-sm-4">
+    <label>First Name</label><br>
+    <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
+      [(ngModel)]="user.firstName" [textValue]="user.firstName" ngDefaultControl></text-box><br><br>
 
-      <h2>User Details:</h2>
-      <div class="or-line"></div>
+    <label>Last Name</label><br>
+    <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
+      [(ngModel)]="user.lastName" [textValue]="user.lastName" ngDefaultControl></text-box><br><br>
 
-      <label>First Name</label><br>
-      <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
-        [(ngModel)]="user.firstName" [textValue]="user.firstName" ngDefaultControl></text-box><br><br>
-
-      <label>Last Name</label><br>
-      <text-box [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'"
-        [(ngModel)]="user.lastName" [textValue]="user.lastName" ngDefaultControl></text-box><br><br>
-
-      <label>School</label><br>
-      <select *ngIf="user.userID != ''" [(ngModel)]="user.school" ngDefaultControl>
-        <option *ngFor="let school of supportedSchools" [selected]="school === user.school">{{school}}</option>
-      </select><br><br>
-
-    </div>
-
-    <div class="col-sm-4">
-
-      <h2>Profile Picture:</h2>
-      <div class="or-line"></div>
-
-      <img *ngIf="user.pictureURL" class="profile-picture" src="{{temporaryProfilePicture != '' ? temporaryProfilePicture : user.pictureURL}}" alt="Profile Picture"><br><br>
-
-      <button class="btn-primary button lg" (click)="setFacebookPicture()">Facebook Picture</button>
-      <button class="btn-primary button lg" (click)="randomizePicture()">Randomize Picture</button><br>
-
-      <h4>Custom:</h4>
-
-      <div style="display: inline-block;">
-        <button class="btn-primary button sm" (click)="customPicture('eyes')">Eyes</button>
-        <button class="btn-primary button sm" (click)="customPicture('nose')">Nose</button>
-        <button class="btn-primary button sm" (click)="customPicture('mouth')">Mouth</button>
-        <button class="btn-primary button sm" (click)="customPicture('colour')">Colour</button>
-      </div><br>
-
-    </div>
-
-    <div class="col-sm-4">
-
-      <h2>Theme:</h2>
-      <div class="or-line"></div>
-
-      <label>Primary</label><br>
-      <custom-colour-picker *ngIf="user.userID != ''" [(colour)]="user.theme.primaryColour" [buttonClass]="'btn'" [buttonColour]="user.theme.primaryColour"></custom-colour-picker><br><br>
-
-      <label>Secondary</label><br>
-      <custom-colour-picker *ngIf="user.userID != ''" [(colour)]="user.theme.secondaryColour" [buttonClass]="'btn'" [buttonColour]="user.theme.secondaryColour"></custom-colour-picker><br><br>
-
-      <label>Tertiary</label><br>
-      <custom-colour-picker *ngIf="user.userID != ''" [(colour)]="user.theme.tertiaryColour" [buttonClass]="'btn'" [buttonColour]="user.theme.tertiaryColour"></custom-colour-picker><br><br>
-
-    </div>
-
+    <label>School</label><br>
+    <select *ngIf="user.userID != ''" [(ngModel)]="user.school" ngDefaultControl>
+      <option *ngFor="let school of supportedSchools" [selected]="school === user.school">{{school}}</option>
+    </select><br><br>
   </div>
 
+  <div class="col-lg-4">
+    <h2>Profile Picture:</h2>
+    <div class="or-line"></div>
+    <img *ngIf="user.pictureURL" class="profile-picture" src="{{temporaryProfilePicture != '' ? temporaryProfilePicture : user.pictureURL}}" alt="Profile Picture"><br><br>
+    <button class="btn btn-primary btn-md pictureButton" (click)="setFacebookPicture()">Facebook Picture</button>
+    <button class="btn btn-primary btn-md pictureButton" (click)="randomizePicture()">Randomize Picture</button>
+
+    <h4>Custom:</h4>
+    <button class="btn btn-primary" (click)="customPicture('eyes')">Eyes</button>
+    <button class="btn btn-primary" (click)="customPicture('nose')">Nose</button>
+    <button class="btn btn-primary" (click)="customPicture('mouth')">Mouth</button>
+    <button class="btn btn-primary" (click)="customPicture('colour')">Colour</button>
+  </div>
+
+  <div class="col-lg-4">
+    <h2>Theme:</h2>
+    <div class="or-line"></div>
+
+    <label>Primary</label>
+    <div class="input-group">
+      <span class="input-group-btn">
+        <custom-colour-picker *ngIf="user.userID != ''" [(colour)]="user.theme.primaryColour"
+          [buttonClass]="'btn btn-info'" name="colour"></custom-colour-picker>
+      </span>
+      <input class="form-control colourResults" [style.background-color]="user.theme.primaryColour"
+        style="border-top-left-radius: 4px; border-bottom-left-radius: 4px;" disabled>
+    </div><br>
+
+    <label>Secondary</label>
+    <div class="input-group">
+      <span class="input-group-btn">
+        <custom-colour-picker *ngIf="user.userID != ''" [(colour)]="user.theme.secondaryColour"
+          [buttonClass]="'btn btn-info'" name="colour"></custom-colour-picker>
+      </span>
+      <input class="form-control colourResults" [style.background-color]="user.theme.secondaryColour"
+        style="border-top-left-radius: 4px; border-bottom-left-radius: 4px;" disabled>
+    </div><br>
+
+    <label>Tertiary</label>
+    <div class="input-group">
+      <span class="input-group-btn">
+        <custom-colour-picker *ngIf="user.userID != ''" [(colour)]="user.theme.tertiaryColour"
+          [buttonClass]="'btn btn-info'" name="colour"></custom-colour-picker>
+      </span>
+      <input class="form-control colourResults" [style.background-color]="user.theme.tertiaryColour"
+        style="border-top-left-radius: 4px; border-bottom-left-radius: 4px;" disabled>
+    </div><br>
+  </div>
+</div>
+
+<div class="container-fluid">
   <div class="or-line"></div>
   <div class="inline">
-    <button class="btn-warning btn-lg lg" (click)="primaryColourToggle=false;secondaryColourToggle=false;tertiaryColourToggle=false;
+    <button class="btn btn-warning btn-lg" (click)="primaryColourToggle=false;secondaryColourToggle=false;tertiaryColourToggle=false;
       avatarColourToggle=false;updateUser();">Update</button>
   </div>
   <div class="inline alert" [ngStyle]="{'opacity': successOpacity, 'display': successDisplay}">
     Success!<span class="closebtn" (click)="closeAlert(false)">&times;</span>
   </div>
-
 </div>
+
