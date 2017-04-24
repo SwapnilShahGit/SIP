@@ -66,7 +66,7 @@
               </div>
             </div>
           </form>
-          <div>
+          <div *ngIf="course.lectures">
             <h2>
               Lectures
               <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);" [disabled]="course.lectures.length >= 5">
@@ -103,11 +103,11 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="!course.lectures || course.lectures.length == 0">
-              <h4>No lectures.</h4>
-            </div>
           </div>
-          <div>
+          <div *ngIf="!course.lectures || course.lectures.length == 0">
+            <h4>No lectures.</h4>
+          </div>
+          <div *ngIf="course.tutorials">
             <h2>
               Tutorials
               <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.tutorials);" [disabled]="course.tutorials.length >= 5">
@@ -144,11 +144,11 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="!course.tutorials || course.tutorials.length == 0">
-              <h4>No tutorials.</h4>
-            </div>
           </div>
-          <div>
+          <div *ngIf="!course.tutorials || course.tutorials.length == 0">
+            <h4>No tutorials.</h4>
+          </div>
+          <div *ngIf="course.practicals">
             <h2>
               Practicals
               <button class="btn btn-xs btn-info " (click)="addCourseOption(course, course.practicals);" [disabled]="course.practicals.length >= 5">
@@ -185,11 +185,11 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="!course.practicals || course.practicals.length == 0">
-              <h4>No practicals.</h4>
-            </div>
           </div>
-          <div>
+          <div *ngIf="!course.practicals || course.practicals.length == 0">
+            <h4>No practicals.</h4>
+          </div>
+          <div *ngIf="course.officeHours">
             <h2>
               Office Hours
               <button class="btn btn-xs btn-info " (click)="addCourseOption(course, course.officeHours);" [disabled]="course.officeHours.length >= 5">
@@ -226,9 +226,9 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="!course.officeHours || course.officeHours.length == 0">
-              <h4>No office hours.</h4>
-            </div>
+          </div>
+          <div *ngIf="!course.officeHours || course.officeHours.length == 0">
+            <h4>No office hours.</h4>
           </div>
         </div>
       </div>

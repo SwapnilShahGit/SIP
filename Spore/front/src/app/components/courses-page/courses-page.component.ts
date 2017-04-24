@@ -31,6 +31,7 @@ export class CoursesPageComponent implements OnInit {
       this.userID = this.cookieService.get('userID');
       this.databaseService.getUserCourses(this.userID).then(response => {
         if (response.error === 0) {
+          console.log(response.data[0]); //delete this after TODO
           for (var i = 0; i < response.data.length; i++) {
             this.cleanUpCourse(response.data[i]);
           }
@@ -176,18 +177,40 @@ export class CoursesPageComponent implements OnInit {
 
   private cleanUpCourse(course: any) {
     course.id = course._id;
-    for (var j = 0; j < course.lectures.length; j++) {
-      course.lectures[j].startTime = new Date(course.lectures[j].startTime);
-      course.lectures[j].endTime = new Date(course.lectures[j].endTime);
-    } for (j = 0; j < course.tutorials.length; j++) {
-      course.tutorials[j].startTime = new Date(course.tutorials[j].startTime);
-      course.tutorials[j].endTime = new Date(course.tutorials[j].endTime);
-    } for (j = 0; j < course.practicals.length; j++) {
-      course.practicals[j].startTime = new Date(course.practicals[j].startTime);
-      course.practicals[j].endTime = new Date(course.practicals[j].endTime);
-    } for (j = 0; j < course.officeHours.length; j++) {
-      course.officeHours[j].startTime = new Date(course.officeHours[j].startTime);
-      course.officeHours[j].endTime = new Date(course.officeHours[j].endTime);
+    if (course.lectures) {
+      for (var j = 0; j < course.lectures.length; j++) {
+        course.lectures[j].startTime = new Date(course.lectures[j].startTime);
+        course.lectures[j].endTime = new Date(course.lectures[j].endTime);
+      }
+    } else {
+      course.lectures = Array<CourseOption>();
+    }
+
+    if (course.tutorials) {
+      for (j = 0; j < course.tutorials.length; j++) {
+        course.tutorials[j].startTime = new Date(course.tutorials[j].startTime);
+        course.tutorials[j].endTime = new Date(course.tutorials[j].endTime);
+      }
+    } else {
+      course.tutorials = Array<CourseOption>();
+    }
+
+    if (course.practicals) {
+      for (j = 0; j < course.practicals.length; j++) {
+        course.practicals[j].startTime = new Date(course.practicals[j].startTime);
+        course.practicals[j].endTime = new Date(course.practicals[j].endTime);
+      }
+    } else {
+      course.practicals = Array<CourseOption>();
+    }
+
+    if (course.officeHours) {
+      for (j = 0; j < course.officeHours.length; j++) {
+        course.officeHours[j].startTime = new Date(course.officeHours[j].startTime);
+        course.officeHours[j].endTime = new Date(course.officeHours[j].endTime);
+      }
+    } else {
+      course.officeHours = Array<CourseOption>();
     }
   }
 }
