@@ -32,7 +32,8 @@ import { MapPageComponent } from './components/map-page/map-page.component';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import { GMapsService, DirectionsMapDirective } from '../meta/googleMapService';
 import { TasksComponent } from './components/tasks/tasks.component';
-import {DndModule} from 'ng2-dnd';
+import { DndModule } from 'ng2-dnd';
+import { TabService } from '../meta/tab.service';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -109,7 +110,8 @@ type StoreType = {
     NavService,
     UserService,
     GMapsService,
-    GoogleMapsAPIWrapper
+    GoogleMapsAPIWrapper,
+    TabService
   ]
 })
 export class AppModule {

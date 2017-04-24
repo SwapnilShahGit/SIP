@@ -24,7 +24,7 @@
 
   <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px', 'padding-top': '75px', 'padding-bottom': '75px'}">
 
-    <div *ngIf="currentTab == this.navService.calculatorTab" style="padding-bottom:50px">
+    <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.calculatorTab" style="padding-bottom:50px">
       <p>Spicy jalapeno bacon ipsum dolor amet ad est rump, short loin aute occaecat pork ex filet mignon kielbasa ham hock. Nisi
         pancetta turducken ribeye irure lorem. Aliquip pancetta swine brisket pastrami. In culpa aute pork chop esse. Beef
         turducken pariatur strip steak fugiat esse chicken pork chop cow nisi.</p>
@@ -38,23 +38,23 @@
       <p>Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!</p>
     </div>
 
-  <div *ngIf="currentTab == this.navService.calendarTab">
+  <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.calendarTab">
     <calendar *ngIf="(user | async).userID" [userId]="(user | async).userID"></calendar>
   </div>
 
-    <div *ngIf="currentTab == this.navService.coursesTab">
+    <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.coursesTab">
       <courses-page></courses-page>
     </div>
 
-    <div *ngIf="currentTab == this.navService.tasksTab">
+    <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.tasksTab">
       <tasks [user]="(user | async)"></tasks>
     </div>
 
-    <div *ngIf="currentTab == this.navService.filesTab">
+    <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.filesTab">
       <upload-factory></upload-factory>
     </div>
 
-    <div *ngIf="currentTab == this.navService.helpTab" style="padding-bottom:50px">
+    <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.helpTab" style="padding-bottom:50px">
       <p>Mel accusam partiendo in, his et possim fierent intellegat. His ut tempor platonem, ei eius omittam duo, cum no regione
         facilisis. Eam vide fierent te. Eu cibo nostro adipiscing quo, nulla clita dissentias vel ea. Denique dignissim assentior
         ut sit, ea cum oratio everti efficiendi, duo nihil sententiae ut.</p>
@@ -78,15 +78,15 @@
       </p>
     </div>
 
-    <div *ngIf="currentTab == this.navService.settingsTab">
+    <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.settingsTab">
       <settings *ngIf="user | async" [user]="user | async"></settings>
     </div>
 
-    <div *ngIf="currentTab == this.navService.mapTab">
+    <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.mapTab">
       <map-page></map-page>
     </div>
 
-    <div *ngIf="currentTab == this.navService.friendsTab">
+    <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.friendsTab">
       <friends-page></friends-page>
     </div>
 
