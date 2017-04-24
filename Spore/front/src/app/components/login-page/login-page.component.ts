@@ -43,6 +43,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   public sporeLogin(event: Event) {
+    if (this.email.length === 0 || this.password.length === 0) {
+      window.alert('Error: Please fill all fields');
+      return;
+    }
     this.databaseService.getUserFromEmailPassword(this.email, this.password).then(response => {
       if (response.error !== 0) {
         window.alert('Error: Please try again');
