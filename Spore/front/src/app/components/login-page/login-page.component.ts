@@ -18,6 +18,8 @@ export class LoginPageComponent implements OnInit {
   private bottomRightColour = '#ffd700';
   private gradient = 'linear-gradient(to bottom right, #ff7373, #ffd700)';
   private fontColour = '#337ab7';
+  private email: string = '';
+  private password: string = '';
 
   constructor(
     private router: Router,
@@ -41,8 +43,18 @@ export class LoginPageComponent implements OnInit {
   }
 
   public sporeLogin(event: Event) {
-    this.router.navigate(['/main-page']);
-    console.log('Spore Login');
+    if (this.email.length === 0 || this.password.length === 0) {
+      window.alert('Error: Please fill all fields');
+      return;
+    }
+    this.databaseService.getUserFromEmailPassword(this.email, this.password).then(response => {
+      if (response.error !== 0) {
+        window.alert('Error: Please try again');
+      } else {
+        this.cookieService.put('userID', response.data._id);
+        this.router.navigate(['/main-page']);
+      }
+    });
   }
 
   public sporeSignUp(event: Event) {
