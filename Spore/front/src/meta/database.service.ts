@@ -49,6 +49,18 @@ export class DatabaseService {
             .catch(this.handleError);
     }
 
+    public getUserFromEmailPassword(email: string, password: string) : any {
+        return this.http
+            .get(this.BuildGetUserRequestWithEmailPassword(email, password))
+            .toPromise()
+            .then(response => {
+                let responseObj = response.json();
+                this.loadUser(responseObj.data._id);
+                return responseObj;
+            })
+            .catch(this.handleError);
+    }
+
     public addUser(user: User): any {
         return this.http
             .post(this.BuildPostUserRequest(user),
@@ -137,6 +149,12 @@ export class DatabaseService {
     private BuildGetUserRequestWithFacebook(id: string): string {
         return this.server + '/api/users?'
             + 'fb=' + encodeURIComponent(id);
+    }
+
+    private BuildGetUserRequestWithEmailPassword(email: string, password: string): string {
+        return this.server + '/api/users?'
+            + 'email=' + encodeURIComponent(email)
+            + '&pass=' + encodeURIComponent(password);
     }
 
     private BuildPutUserRequest(user: User): string {

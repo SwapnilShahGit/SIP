@@ -39,7 +39,9 @@ function getUser(req, res, next) {
 	logger.debug("fetching user with id:" + req.query.user);
 	let query = {
 		_id: req.query.user,
-		facebook_id: req.query.fb
+		facebook_id: req.query.fb,
+		email: req.query.email,
+		pass: req.query.pass
 	};
 	utility.removeUndefined(query);
 	model.findOne(query)
