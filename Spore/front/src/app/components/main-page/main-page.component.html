@@ -11,15 +11,10 @@
     <a class="sidenav-item" [class.selected]="this.currentTab === 'CoursesTab'" (click)="switchTabs('CoursesTab')"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'TasksTab'" (click)="switchTabs('TasksTab')"><span class="fa fa-list sidenav-icon"></span>Tasks</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'FilesTab'" (click)="switchTabs('FilesTab')"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
-    <a class="sidenav-item" [class.selected]="this.currentTab === 'FriendsTab'" (click)="switchTabs('FriendsTab')"><span class="fa fa-heart sidenav-icon"></span>Friends</a>
     <br> <span class="sidenav-header">More</span>
     <hr class="sidenav-hr">
-    <a class="sidenav-item" [class.selected]="this.currentTab === 'HelpTab'" (click)="switchTabs('HelpTab')"><span class="fa fa-lg fa-question-circle sidenav-icon"></span>Help</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'MapTab'" (click)="switchTabs('MapTab')"><span class="fa fa-lg fa-globe sidenav-icon"></span>Map</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'SettingsTab'" (click)="switchTabs('SettingsTab')"><span class="fa fa-cogs sidenav-icon"></span>Settings</a>
-    <br> <span class="sidenav-header">Redirect</span>
-    <hr class="sidenav-hr">
-    <a class="sidenav-item" (click)="navigateToLoginPage()"><span class="fa fa-arrow-right sidenav-icon"></span>Login Page</a>
   </div>
 
   <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px', 'padding-top': '75px', 'padding-bottom': '75px'}">
