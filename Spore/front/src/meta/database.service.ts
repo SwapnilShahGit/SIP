@@ -151,7 +151,8 @@ export class DatabaseService {
                 instructor: course.instructor, description: course.description,
                 lectures: course.lectures, tutorials: course.tutorials,
                 practicals: course.practicals, officeHours: course.officeHours,
-                isDraft: false, colour: course.colour, exams: course.examNotifications
+                isParseDraft: false, colour: course.colour,
+                examNotifications: course.examNotifications, examInfo: course.examInfo
               })
             .toPromise()
             .then(response => response.json())
@@ -173,7 +174,8 @@ export class DatabaseService {
                 instructor: course.instructor, description: course.description,
                 lectures: course.lectures, tutorials: course.tutorials,
                 practicals: course.practicals, officeHours: course.officeHours,
-                isDraft: course.isDraft, colour: course.colour, exams: course.examNotifications
+                isParseDraft: false, colour: course.colour,
+                examNotifications: course.examNotifications, examInfo: course.examInfo
               })
             .toPromise()
             .then(response => response.json())
