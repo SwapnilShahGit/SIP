@@ -31,6 +31,7 @@ export class CoursesPageComponent implements OnInit {
       this.userID = this.cookieService.get('userID');
       this.databaseService.getUserCourses(this.userID).then(response => {
         if (response.error === 0) {
+          console.log(response.data[0]); //delete this after TODO
           for (var i = 0; i < response.data.length; i++) {
             this.cleanUpCourse(response.data[i]);
           }
