@@ -75,7 +75,7 @@ function getUserCourses(req, res, next) {
 function deleteCourse(req, res, next) {
 	user.update({_id: req.query.user}, {$pull: {course_ids: req.query.id}})
 		.then(function (doc) {
-			logger.debug("deleting course with id: " + req.body.id + "from user: " + req.body.user);
+			logger.debug("deleting course with id: " + req.query.id + "from user: " + req.query.user);
 			res.send(200);
 		})
 		.catch(function (err) {
