@@ -126,9 +126,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
     newEvent.id = e.event.id;
     newEvent.colour = e.event.color;
     newEvent.ranges = e.event.ranges;
-    newEvent.dow = [e.event.start.day()];
-    for (let i = 0; i < e.event.dow.length; i ++) {
-      if (e.event.dow[i] !== oldDow && e.event.dow !== e.event.start.day()) newEvent.dow.push(e.event.dow[i]);
+    if (e.event.dow) {
+      newEvent.dow = [e.event.start.day()];
+      for (let i = 0; i < e.event.dow.length; i ++) {
+        if (e.event.dow[i] !== oldDow && e.event.dow !== e.event.start.day()) newEvent.dow.push(e.event.dow[i]);
+      }
     }
     this.databaseService.updateEvent(newEvent).then(response => {
       if (response.error !== 0) {
@@ -136,7 +138,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
         window.alert('Error during updateEvent API call: ' + response.data);
       } else {
         this.events.splice(this.EventIndexById(newEvent.id), 1);
-        if (newEvent.ranges[0].start !== '' || newEvent.ranges[0].end !== '') {
+        if (newEvent.ranges && (newEvent.ranges[0].start !== '' || newEvent.ranges[0].end !== '')) {
           this.events.push({id: newEvent.id, title: newEvent.title, start: newEvent.startDate.toISOString(), end: newEvent.endDate ? newEvent.endDate.toISOString() : '', color: newEvent.colour, dow: newEvent.dow, ranges: newEvent.ranges});
         } else {
           this.events.push({id: newEvent.id, title: newEvent.title, start: newEvent.startDate.toISOString(), end: newEvent.endDate ? newEvent.endDate.toISOString() : '', color: newEvent.colour});
