@@ -10,7 +10,7 @@ const courseSchema = new Schema({
 	practicals: [],
 	office_hours: String,
 	office_location: String,
-	is_draft: Boolean,
+	is_parse: Boolean,
 	colour: String,
 	exams: Boolean,
 	exam_info: String,

@@ -10,19 +10,18 @@ const user = mongoose.model('user');
 function addCourse(req, res, next) {
 	logger.debug("adding course for user id: " + req.body.user);
 	let course = new model({
-		hash: req.body.hash,
 		code: req.body.code,
 		instructor: req.body.instructor,
 		description: req.body.description,
 		lectures: req.body.lectures,
 		tutorials: req.body.tutorials,
 		practicals: req.body.practicals,
-		office_hours: req.body.officeHours,
-		office_location: req.body.officeLocation,
-		is_draft: req.body.isParseDraft,
+		office_hours: req.body.office_hours,
+		office_location: req.body.office_location,
+		is_parse: req.body.is_parse,
 		colour: req.body.colour,
-		exam_notifications: req.body.examNotifications,
-		exam_info: req.body.examInfo,
+		exams: req.body.exams,
+		exam_info: req.body.exam_info,
 		user: req.body.user
 	});
 	course.save(course)
@@ -87,19 +86,18 @@ function deleteCourse(req, res, next) {
 function updateCourse(req, res, next) {
 	logger.debug("updating courses with id: " + req.body.id);
 	let updated = {
-		hash: req.body.hash,
 		code: req.body.code,
 		instructor: req.body.instructor,
 		description: req.body.description,
 		lectures: req.body.lectures,
 		tutorials: req.body.tutorials,
 		practicals: req.body.practicals,
-		office_hours: req.body.officeHours,
-		office_location: req.body.officeLocation,
-		is_draft: req.body.isParseDraft,
+		office_hours: req.body.office_hours,
+		office_location: req.body.office_location,
+		is_parse: req.body.is_parse,
 		colour: req.body.colour,
-		exam_notifications: req.body.examNotifications,
-		exam_info: req.body.examInfo
+		exams: req.body.exams,
+		exam_info: req.body.exam_info
 	};
 	utility.removeUndefined(updated);
 	model.findByIdAndUpdate(req.body.id, updated)

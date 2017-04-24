@@ -70,7 +70,7 @@ function parse(req, res, next) {
 				practicals: doc.practicals,
 				office_hours: doc.office_hours,
 				office_location: doc.office_location,
-				is_draft: true,
+				is_parse: true,
 				exams: true
 			});
 			return courseData.save(courseData);
