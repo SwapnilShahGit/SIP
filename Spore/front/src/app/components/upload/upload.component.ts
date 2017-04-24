@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { CookieService } from 'angular2-cookie/core';
+import { TabService } from '../../../meta/tab.service';
 
 @Component({
     selector: 'upload-factory',
@@ -17,7 +18,8 @@ export class UploadComponent implements OnInit {
 
     constructor(
       private changeDetector: ChangeDetectorRef,
-      private cookieService: CookieService
+      private cookieService: CookieService,
+      private tabService: TabService
     ) {
       this.userID = this.cookieService.get('userID');
       this.uploader = new FileUploader({
@@ -28,6 +30,9 @@ export class UploadComponent implements OnInit {
           user: this.userID
         }
       });
+      this.uploader.onCompleteItem = () => {
+        this.tabService.switchTabs(tabService.coursesTab);
+      };
     }
 
     public ngOnInit() {

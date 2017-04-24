@@ -65,15 +65,15 @@
           <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
       </div>
     </div>
-    <button type="button" class="btn btn-success btn-s"
+    <button type="button" class="btn btn-success btn-s inLineButtons"
             (click)="startUpload()" [disabled]="!uploader.getNotUploadedItems().length">
       <span class="glyphicon glyphicon-upload"></span> Upload all
     </button>
-    <button type="button" class="btn btn-warning btn-s"
+    <button type="button" class="btn btn-warning btn-s inLineButtons"
             (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
       <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
     </button>
-    <button type="button" class="btn btn-danger btn-s"
+    <button type="button" class="btn btn-danger btn-s inLineButtons"
             (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
       <span class="glyphicon glyphicon-trash"></span> Remove all
     </button>
