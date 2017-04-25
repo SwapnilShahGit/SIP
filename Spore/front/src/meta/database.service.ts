@@ -147,12 +147,11 @@ export class DatabaseService {
     public addCourse(userId: string, course: Course) {
         return this.http
             .post(this.BuildAddCourseRequest(), {
-                code: course.code, user: userId,
+                code: course.code, user: userId, is_parse: false,
                 instructor: course.instructor, description: course.description,
                 lectures: course.lectures, tutorials: course.tutorials,
-                practicals: course.practicals, officeHours: course.officeHours,
-                isParseDraft: false, colour: course.colour,
-                examNotifications: course.examNotifications, examInfo: course.examInfo
+                practicals: course.practicals, colour: course.colour,
+                exams: course.exams, exam_info: course.exam_info
               })
             .toPromise()
             .then(response => response.json())
@@ -170,12 +169,11 @@ export class DatabaseService {
     public updateCourse(course: Course) {
         return this.http
             .put(this.BuildUpdateCourseRequest(), {
-                id: course.id, code: course.code,
+                id: course.id, code: course.code, is_parse: false,
                 instructor: course.instructor, description: course.description,
                 lectures: course.lectures, tutorials: course.tutorials,
-                practicals: course.practicals, officeHours: course.officeHours,
-                isParseDraft: false, colour: course.colour,
-                examNotifications: course.examNotifications, examInfo: course.examInfo
+                practicals: course.practicals, colour: course.colour,
+                exams: course.exams, exam_info: course.exam_info
               })
             .toPromise()
             .then(response => response.json())
