@@ -53,10 +53,14 @@ export class MainPageComponent implements OnInit, AfterContentChecked, OnDestroy
 
   public ngOnInit() {
     this.user = this.databaseService.user;
-    console.log('_______ in main _______');
     if (this.cookieService.get('userID')) {
       this.userID = this.cookieService.get('userID');
       this.databaseService.loadUser(this.userID);
+    }
+    if (this.cookieService.get('userTab')) {
+      this.tabService.switchTabs(this.cookieService.get('userTab'));
+    } else {
+      this.cookieService.put('userTab', this.tabService.calendarTab);
     }
   }
 
