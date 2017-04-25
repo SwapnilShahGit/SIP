@@ -34,7 +34,7 @@ export class MainPageComponent implements OnInit, AfterContentChecked, OnDestroy
     private elementRef: ElementRef,
     private tabService: TabService
   ) {
-    this.currentTab = tabService.calendarTab;
+    this.currentTab = tabService.coursesTab;
     this.subscription = navService.navOpen$.subscribe(
       isOpen => {
         if (isOpen) {
