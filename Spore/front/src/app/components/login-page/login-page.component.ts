@@ -59,7 +59,6 @@ export class LoginPageComponent implements OnInit {
 
   public sporeSignUp(event: Event) {
     this.router.navigate(['/sign-up']);
-    console.log('Spore Sign Up');
   }
 
   public facebookLogin(event: Event) {
@@ -69,7 +68,7 @@ export class LoginPageComponent implements OnInit {
 
     function checkLogin(response: FB.LoginStatusResponse): void {
       if (response.status === 'connected') {
-        console.log('connected');
+        // connected...
         let userId = response.authResponse.userID;
         FB.api('/me', { fields: 'last_name,first_name,email,age_range,cover,name,' +
         'link,gender,locale,picture,timezone,updated_time,verified' }, function (response) {
@@ -78,10 +77,10 @@ export class LoginPageComponent implements OnInit {
           handleUser(user);
         });
       } else if (response.status === 'unknown') {
-        console.log('not logged in, logging in');
+        // not logged in, logging in...
         FB.login(checkLogin, { scope: 'public_profile,email,user_friends' });
       } else if (response.status === 'not_authorized') {
-        console.log('not authorized');
+        // not authorized...
       }
     }
 
