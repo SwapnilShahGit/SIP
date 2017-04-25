@@ -31,7 +31,6 @@ export class CoursesPageComponent implements OnInit {
       this.userID = this.cookieService.get('userID');
       this.databaseService.getUserCourses(this.userID).then(response => {
         if (response.error === 0) {
-          console.log(response.data[0]); //delete this after TODO
           for (var i = 0; i < response.data.length; i++) {
             this.cleanUpCourse(response.data[i]);
           }
@@ -123,10 +122,12 @@ export class CoursesPageComponent implements OnInit {
 
   private deleteCourse(): any {
     let course = this.courses.find(c => c.id == this.currentSlide);
-    if (!course.isDraft) {
+    if (!course.isDraft || course.is_parse) {
       this.databaseService.deleteCourse(this.userID, course).then(response => {
         // TODO - this seems to be broken by backend. (returns 404 on successful deletion?)
       });
+    } else {
+      //splice it here since its just a local draft... TODO
     }
 
     // TODO For now I remove the course regardless of above API call... fix later!
