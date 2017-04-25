@@ -27,10 +27,34 @@ export class CoursesPageComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
+    // Mocked search results ---
+    this.mockedSearchResults.push(new Course(true, false, 'CSC108', 'M. Jackson',
+    'This course provides an Introduction to Computer Programming. By the end of this course, ' +
+    'you should be comfortable programming in Python, understand why good style is critical, ' +
+    'and be familiar with core computer science topics like algorithms and complexity.',
+    'ABC-DEF-123-GHGH-ZACH-123-ZACH-456', true, 'Held in IB110 from 2:00pm to 5:00pm.',
+    [new CourseOption("Tuesday", new Date(1970, 1, 1, 10, 30, 0, 0), new Date(1970, 1, 1, 12, 0, 0, 0)),
+    new CourseOption("Thursday", new Date(1970, 1, 1, 4, 0, 0, 0), new Date(1970, 1, 1, 6, 0, 0, 0))],
+    [new CourseOption("Friday", new Date(1970, 1, 1, 12, 0, 0, 0), new Date(1970, 1, 1, 13, 0, 0, 0))],
+    [],
+    '9:00am to 11:30am', 'DH6060', '#fabf8f'));
+    this.mockedSearchResults.push(new Course(true, false, 'CSC148', 'Dr. A. Rosenbloom',
+    'An investigation of many aspects of modern information security. Major topics cover: Techniques to identify and avoid common ' +
+    'software development flaws which leave software vulnerable to crackers. Utilizing modern operating systems security features to ' +
+    'deploy software in a protected environment. Common threats to networks and networked computers and tools to deal with them. ' +
+    'Cryptography and the role it plays in software development, systems security and network security.',
+    'ZACH-ZACH-ZACH-1234-1234-ZACH-123', true, 'Held in CC1080 from 9:00am to 11:00am.',
+    [new CourseOption("Wednesday", new Date(1970, 1, 1, 12, 30, 0, 0), new Date(1970, 1, 1, 15, 30, 0, 0))],
+    [],
+    [new CourseOption("Monday", new Date(1970, 1, 1, 4, 0, 0, 0), new Date(1970, 1, 1, 8, 0, 0, 0))],
+    '1:30pm to 4:00pm', 'OPH7010', '#cc99cc'));
+    // Mocked search results ---
+
     if (this.cookieService.get('userID')) {
       this.userID = this.cookieService.get('userID');
       this.databaseService.getUserCourses(this.userID).then(response => {
         if (response.error === 0) {
+          console.log(response.data[0]); // TODO REMOVE AFTER
           for (var i = 0; i < response.data.length; i++) {
             this.cleanUpCourse(response.data[i]);
           }
@@ -69,6 +93,7 @@ export class CoursesPageComponent implements OnInit {
   private updateCourse(course: Course): any {
     this.databaseService.updateCourse(course).then(response => {
       if (response.error === 0) {
+        console.log(response); // TODO REMOVE AFTER
         this.cleanUpCourse(response.data);
         this.courses.splice(this.courses.indexOf(course), 1);
         let courseMaster = this.coursesMaster.find(c => c.id == course.id);
@@ -124,13 +149,18 @@ export class CoursesPageComponent implements OnInit {
     let course = this.courses.find(c => c.id == this.currentSlide);
     if (!course.isDraft || course.is_parse) {
       this.databaseService.deleteCourse(this.userID, course).then(response => {
-        // TODO - this seems to be broken by backend. (returns 404 on successful deletion?)
+        if (response.status === 200) {
+          this.removeFromCourseList(course);
+        } else {
+          console.log('Error during course delete, status: ' + response.status + '.');
+        }
       });
     } else {
-      //splice it here since its just a local draft... TODO
+      this.removeFromCourseList(course);
     }
+  }
 
-    // TODO For now I remove the course regardless of above API call... fix later!
+  private removeFromCourseList(course: Course): any {
     this.courses.splice(this.courses.indexOf(course), 1);
     let courseMaster = this.coursesMaster.find(c => c.id == this.currentSlide);
     this.coursesMaster.splice(this.coursesMaster.indexOf(courseMaster), 1);
@@ -203,6 +233,16 @@ export class CoursesPageComponent implements OnInit {
       }
     } else {
       course.practicals = Array<CourseOption>();
+    }
+
+    if (course.colour) {
+      course.colour = course.colour.toLowerCase();
+    } else {
+      course.colour = '#ffcc66';
+    }
+
+    if (course.office_hours && course.office_location) {
+      course.officeHoursInfo = 'Held in ' + course.office_location + ' from ' + course.office_hours + '.';
     }
   }
 }

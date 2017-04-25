@@ -151,7 +151,8 @@ export class DatabaseService {
                 instructor: course.instructor, description: course.description,
                 lectures: course.lectures, tutorials: course.tutorials,
                 practicals: course.practicals, colour: course.colour,
-                exams: course.exams, exam_info: course.exam_info
+                exams: course.exams, exam_info: course.exam_info,
+                office_hours: course.office_hours, office_location: course.office_location
               })
             .toPromise()
             .then(response => response.json())
@@ -162,7 +163,7 @@ export class DatabaseService {
         return this.http
             .delete(this.BuildDeleteCourseRequest(userId, course.id))
             .toPromise()
-            .then(response => response.json())
+            .then(response => response)
             .catch(this.handleError);
     }
 
@@ -173,7 +174,8 @@ export class DatabaseService {
                 instructor: course.instructor, description: course.description,
                 lectures: course.lectures, tutorials: course.tutorials,
                 practicals: course.practicals, colour: course.colour,
-                exams: course.exams, exam_info: course.exam_info
+                exams: course.exams, exam_info: course.exam_info,
+                office_hours: course.office_hours, office_location: course.office_location
               })
             .toPromise()
             .then(response => response.json())

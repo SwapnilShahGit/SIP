@@ -10,7 +10,7 @@ export class Course implements ICourse {
     public practicals: Array<CourseOption>;
     public isDraft: boolean = true;
     public is_parse: boolean = false;
-    public colour: string = '#F1AE03';
+    public colour: string = '#ffcc66';
     public exams: boolean = true;
     public exam_info: string;
     public office_hours: string;
@@ -21,7 +21,7 @@ export class Course implements ICourse {
                 description?: string, id?: string, exams?: boolean, exam_info?: string,
                 lectures?: Array<CourseOption>, tutorials?: Array<CourseOption>,
                 practicals?: Array<CourseOption>, office_hours?: string,
-                office_location?: string, officeHoursInfo?: string) {
+                office_location?: string, colour?: string, officeHoursInfo?: string, ) {
       this.isDraft = isDraft == undefined ? true : isDraft;
       this.is_parse = is_parse == undefined ? false : is_parse;
       this.code = code || 'Course Code';
@@ -36,6 +36,7 @@ export class Course implements ICourse {
       this.office_hours = office_hours || '';
       this.office_location = office_location || '';
       this.officeHoursInfo = officeHoursInfo || 'No information yet available.';
+      this.colour = colour || '#ffcc66';
     }
 }
 
