@@ -12,7 +12,7 @@ function addUser(req, res, next) {
 		last: req.body.last,
 		pass: req.body.pass,
 		email: req.body.email,
-		facebook_id: req.body.fb,
+		facebook_id: req.body.fb || undefined,
 		picture_uri: req.body.pic,
 		event_ids: req.body.events,
 		school: req.body.school,
