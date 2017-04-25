@@ -30,8 +30,12 @@ export class UploadComponent implements OnInit {
           user: this.userID
         }
       });
-      this.uploader.onCompleteItem = () => {
-        this.tabService.switchTabs(tabService.coursesTab);
+      this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+        if (status === 200) {
+          this.tabService.switchTabs(tabService.coursesTab);
+        } else {
+          console.log('Parse did not succeed.');
+        }
       };
     }
 
