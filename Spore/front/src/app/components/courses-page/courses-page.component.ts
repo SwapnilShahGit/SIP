@@ -54,7 +54,6 @@ export class CoursesPageComponent implements OnInit {
       this.userID = this.cookieService.get('userID');
       this.databaseService.getUserCourses(this.userID).then(response => {
         if (response.error === 0) {
-          console.log(response.data[0]); // TODO REMOVE AFTER
           for (var i = 0; i < response.data.length; i++) {
             this.cleanUpCourse(response.data[i]);
           }
@@ -93,16 +92,12 @@ export class CoursesPageComponent implements OnInit {
   private updateCourse(course: Course): any {
     this.databaseService.updateCourse(course).then(response => {
       if (response.error === 0) {
-        console.log(response); // TODO REMOVE AFTER
         this.cleanUpCourse(response.data);
         this.courses.splice(this.courses.indexOf(course), 1);
         let courseMaster = this.coursesMaster.find(c => c.id == course.id);
         this.coursesMaster.splice(this.coursesMaster.indexOf(courseMaster), 1);
         this.courses.push(response.data);
         this.coursesMaster.push(<Course>JSON.parse(JSON.stringify(response.data)));
-
-        // TODO call is broken, update does not return the correct object.
-
         setTimeout(function() {
           let panel = document.getElementById(response.data.id + 'Toggle');
           this.currentSlide = response.data.id;
