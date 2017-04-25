@@ -100,7 +100,7 @@ function updateCourse(req, res, next) {
 		exam_info: req.body.exam_info
 	};
 	utility.removeUndefined(updated);
-	model.findByIdAndUpdate(req.body.id, updated)
+	model.findByIdAndUpdate(req.body.id, updated, {new: true})
 		.then(function (doc) {
 			res.send({
 				error: 0,
