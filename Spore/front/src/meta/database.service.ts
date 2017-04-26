@@ -32,7 +32,6 @@ export class DatabaseService {
             .get(this.BuildGetUserRequest(id))
             .map(response => this.BuildUserFromResponse(response.json()))
             .subscribe(data => {
-                console.log('IN LOADUSER');
                 this.dataStore.user = data;
                 this._user.next(Object.assign({}, this.dataStore).user);
             }, error => console.log('Could not load user.'));
