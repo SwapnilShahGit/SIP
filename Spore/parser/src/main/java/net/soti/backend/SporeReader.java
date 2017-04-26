@@ -15,6 +15,8 @@ import java.net.URLConnection;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class SporeReader {
 	public static String rawtext;
@@ -68,7 +70,7 @@ public class SporeReader {
 		obj.put("level", json.get("level").toString());
 		obj.put("campus", json.get("campus").toString());
 		obj.put("term", json.get("term").toString());
-		obj.put("meeting_sections", json.get("meeting_sections"));
+		obj.put("meeting_sections", changeTimesForMeetingSections((JSONArray) json.get("meeting_sections")));
 		obj.put("graded_evaluations", getassignments());
 		obj.put("office_hours", getOfficeHours());
 		obj.put("office_location", getOfficeLocation());
@@ -246,6 +248,23 @@ public class SporeReader {
 		} else {
 			return "UTSG";
 		}
+	}
+
+	private static JSONArray changeTimesForMeetingSections(JSONArray sections){
+		for (int i = 0; i < sections.size(); i++) {
+			JSONObject section = (JSONObject) sections.get(i);
+			JSONArray times = (JSONArray) section.get("times");
+			for (int j = 0; j < times.size(); j++) {
+				JSONObject time = (JSONObject) times.get(j);
+				Date startDate = new Date((Long) time.get("start") * 1000);
+        		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+        		format.setTimeZone(TimeZone.getTimeZone("UTC"));
+				time.put("start", format.format(startDate));
+				Date endDate = new Date((Long) time.get("end") * 1000);
+				time.put("end", format.format(endDate));
+			}
+		}
+		return sections;	
 	}
 
 	private static JSONArray processeventsformongo(JSONObject json) {
