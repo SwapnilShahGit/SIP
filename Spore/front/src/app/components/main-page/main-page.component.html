@@ -7,7 +7,7 @@
     <br> <span class="sidenav-header">Tools</span>
     <hr class="sidenav-hr">
     <a class="sidenav-item" [class.selected]="this.currentTab === 'CalendarTab'" (click)="switchTabs('CalendarTab')"><span class="fa fa-calendar-o sidenav-icon"></span>Calendar</a>
-    <a class="sidenav-item" [class.selected]="this.currentTab === 'CalculatorTab'" (click)="switchTabs('CalculatorTab')"><span class="fa fa-calculator sidenav-icon"></span>Calculator</a>
+    <a class="sidenav-item" [class.selected]="this.currentTab === 'CalculatorTab'" (click)="switchTabs('CalculatorTab')"><span class="fa fa-calculator sidenav-icon"></span>GPA Calculator</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'CoursesTab'" (click)="switchTabs('CoursesTab')"><span class="fa fa-pencil-square-o sidenav-icon"></span>Courses</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'TasksTab'" (click)="switchTabs('TasksTab')"><span class="fa fa-list sidenav-icon"></span>Tasks</a>
     <a class="sidenav-item" [class.selected]="this.currentTab === 'FilesTab'" (click)="switchTabs('FilesTab')"><span class="fa fa-files-o sidenav-icon"></span>Files</a>
@@ -23,10 +23,7 @@
   <div *ngIf="bodyWidth == 'auto'" id="main" class="container-fluid" [ngStyle]="{'margin-left': bodyLeftMargin, 'width': bodyWidth, 'padding-left': '20px', 'padding-top': '75px', 'padding-bottom': '75px'}">
 
     <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.calculatorTab" style="padding-bottom:50px">
-      <div style="text-align: center">
-        <span style="margin: auto; font-size: 40px" class="fa fa-clock-o"></span><br>
-        Coming Soon!
-      </div>
+      <calculator-page></calculator-page>
     </div>
 
   <div *ngIf="(tabService.tabSelectedSource | async) == this.tabService.calendarTab">
