@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Calendar;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,6 +75,8 @@ public class SporeReader {
 		obj.put("graded_evaluations", getassignments());
 		obj.put("office_hours", getOfficeHours());
 		obj.put("office_location", getOfficeLocation());
+		obj.put("semesterStart", getSemesterStart());
+		obj.put("semesterEnd", getSemesterEnd());
 		String returnpath = saveAsJSON(name);
 		obj.put("mongodbevents", processeventsformongo(json).toString());
 		System.out.println(obj);
@@ -265,6 +268,34 @@ public class SporeReader {
 			}
 		}
 		return sections;	
+	}
+
+	private static String getSemesterStart() {
+		Date date = null;
+		if (session == "1") {
+			date = new GregorianCalendar(1970, GregorianCalendar.JANUARY, 2).getTime();
+		} else if (session == "5") {
+			date = new GregorianCalendar(1970, GregorianCalendar.MAY, 8).getTime();
+		} else if (session == "9"){
+        	date = new GregorianCalendar(1970, GregorianCalendar.SEPTEMBER, 6).getTime();
+		}
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		return dateFormat.format(date);
+	}
+
+	private static String getSemesterEnd() {
+		Date date = null;
+		if (session == "1") {
+			date = new GregorianCalendar(1970, GregorianCalendar.MARCH, 31).getTime();
+		} else if (session == "5") {
+			date = new GregorianCalendar(1970, GregorianCalendar.AUGUST, 14).getTime();
+		} else if (session == "9"){
+        	date = new GregorianCalendar(1970, GregorianCalendar.DECEMBER, 5).getTime();
+		}
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		return dateFormat.format(date);
 	}
 
 	private static JSONArray processeventsformongo(JSONObject json) {
