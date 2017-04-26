@@ -54,11 +54,9 @@ export class SettingsComponent implements OnInit {
     }
 
     tempUser.theme = this.user.theme;
-    console.log(tempUser);
     this.databaseService.updateUser(tempUser).then(response => {
       if (response.error != '0') {
         window.alert('Error occured during update API call: ' + response.data);
-        console.log(response.data);
       } else {
         this.user = tempUser;
         this.successDisplay = '';
