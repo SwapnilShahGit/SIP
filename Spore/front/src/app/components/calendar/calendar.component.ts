@@ -55,7 +55,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
           if (dow.length > 0) {
             this.events.push({id: event._id, title: title, start: start, end: end, dow: dow, color: colour,  ranges: ranges});
           } else {
-            this.events.push({id: event._id, title: title, start: start, end: end, color: colour,  ranges: ranges});
+            this.events.push({id: event._id, title: title, start: start, end: end, color: colour});
           }
 
         }
