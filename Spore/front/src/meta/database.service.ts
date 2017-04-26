@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Event } from '../meta/event';
 import { Moment } from 'moment';
+import { Course } from '../meta/course';
 
 @Injectable()
 export class DatabaseService {
@@ -97,9 +98,10 @@ export class DatabaseService {
 
     public addEvent(userId: string, event: Event): any {
         return this.http
-            .post(this.BuildAddEventRequest(userId, event),
+            .post(this.BuildAddEventRequest(),
               {
-                user: userId, start: event.startDate, end: event.endDate, title: event.title, colour: event.colour, ranges: event.ranges, dow: event.dow
+                user: userId, start: event.startDate, end: event.endDate, title: event.title,
+                colour: event.colour, ranges: event.ranges, dow: event.dow
               })
             .toPromise()
             .then(response => response.json())
@@ -132,10 +134,57 @@ export class DatabaseService {
 
     public updateEvent(event: Event) {
         return this.http
-            .put(this.BuildUpdateEventRequest(event),
+            .put(this.BuildUpdateEventRequest(),
               {
-                title: event.title, start: event.startDate, end: event.endDate, event: event.id, colour: event.colour, ranges: event.ranges, dow: event.dow
+                title: event.title, start: event.startDate, end: event.endDate, event: event.id,
+                colour: event.colour, ranges: event.ranges, dow: event.dow
               })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
+    public addCourse(userId: string, course: Course) {
+        return this.http
+            .post(this.BuildAddCourseRequest(), {
+                code: course.code, user: userId, is_parse: false,
+                instructor: course.instructor, description: course.description,
+                lectures: course.lectures, tutorials: course.tutorials,
+                practicals: course.practicals, colour: course.colour,
+                exams: course.exams, exam_info: course.exam_info,
+                office_hours: course.office_hours, office_location: course.office_location
+              })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
+    public deleteCourse(userId: string, course: Course) {
+        return this.http
+            .delete(this.BuildDeleteCourseRequest(userId, course.id))
+            .toPromise()
+            .then(response => response)
+            .catch(this.handleError);
+    }
+
+    public updateCourse(course: Course) {
+        return this.http
+            .put(this.BuildUpdateCourseRequest(), {
+                id: course.id, code: course.code, is_parse: false,
+                instructor: course.instructor, description: course.description,
+                lectures: course.lectures, tutorials: course.tutorials,
+                practicals: course.practicals, colour: course.colour,
+                exams: course.exams, exam_info: course.exam_info,
+                office_hours: course.office_hours, office_location: course.office_location
+              })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
+    public getUserCourses(userId: string) {
+        return this.http
+            .get(this.BuildGetUserCoursesRequest(userId))
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -170,8 +219,8 @@ export class DatabaseService {
             + 'value=' + encodeURIComponent(something);
     }
 
-    private BuildAddEventRequest(userId: string, event: Event): string {
-        return this.server + '/api/events';
+    private BuildAddEventRequest(): string {
+        return this.BuildEventRequest();
     }
 
     private BuildGetUserEventsRequest(userId: string, start: Moment, end: Moment): string {
@@ -189,11 +238,37 @@ export class DatabaseService {
     private BuildDeleteUserEventRequest(userId: string, eventId: string): string {
         return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
-            + '&event=' + encodeURIComponent(eventId);
     }
 
-    private BuildUpdateEventRequest(event: Event): string {
+    private BuildUpdateEventRequest(): string {
+        return this.BuildEventRequest();
+    }
+
+    private BuildEventRequest() {
         return this.server + '/api/events';
+    }
+
+    private BuildAddCourseRequest() {
+        return this.BuildCourseRequest();
+    }
+
+    private BuildUpdateCourseRequest() {
+        return this.BuildCourseRequest();
+    }
+
+    private BuildDeleteCourseRequest(userId: string, courseId: string) {
+        return this.server + '/api/courses?'
+            + 'user=' + encodeURIComponent(userId)
+            + '&id=' + encodeURIComponent(courseId);
+    }
+
+    private BuildGetUserCoursesRequest(userId: string) {
+        return this.server + '/api/courses?'
+            + 'user=' + encodeURIComponent(userId);
+    }
+
+    private BuildCourseRequest() {
+        return this.server + '/api/courses';
     }
 
     private BuildUserFromResponse(response: any): User {
