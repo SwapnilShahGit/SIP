@@ -128,6 +128,11 @@ select option {
   }
 }
 
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
 @media screen and (max-width: 767px) {
   #left-box, #right-box {
     text-align: center;
