@@ -17,62 +17,73 @@
       </div>
     </div>
     <div>
-      <div id="left-box" class="col-sm-6">
-        <label class="required-field">{{requiredField.firstName}}</label>
-        <text-box [placeholderText]="'First Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.first_name" [(ngModel)]="apiResponse.first_name" ngDefaultControl></text-box>
-      </div>
-      <div id="right-box" class="col-sm-6 text-left">
-        <label class="required-field">{{requiredField.lastName}}</label>
-        <text-box [placeholderText]="'Last Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.last_name" [(ngModel)]="apiResponse.last_name" ngDefaultControl></text-box>
-      </div>
-
-      <div id="left-box" class="col-sm-6">
-        <label class="required-field">{{requiredField.email}}</label>
-        <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.email" [(ngModel)]="apiResponse.email" ngDefaultControl></text-box>
-      </div>
-      <div id="right-box" class="col-sm-6 text-left">
-        <label class="required-field">{{requiredField.confirmEmail}}</label>
-        <text-box [placeholderText]="'Confirm Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="apiResponse.confirmEmail" ngDefaultControl></text-box>
-      </div>
-
-      <div id="left-box" class="col-sm-6">
-        <label class="required-field">{{requiredField.password}}</label>
-        <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.password" ngDefaultControl></text-box>
-      </div>
-      <div id="right-box" class="col-sm-6 text-left">
-        <label class="required-field">{{requiredField.confirmPassword}}</label>
-        <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.confirmPassword" ngDefaultControl></text-box>
-      </div>
-
-      <div id="left-box" class="col-sm-6">
-        <div class="select-school-label">Select a School:</div>
-      </div>
-
-      <div id="right-box" class="col-sm-6 text-left select-school-container">
-        <select [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
-          <option *ngFor="let school of supportedSchools" [selected]="school === apiResponse.selectedSchool">{{school}}</option>
-        </select>
-      </div>
-
-      <div id="left-box" class="col-sm-6">
-        <div class="date-of-birth-text">Date of Birth:</div>
-      </div>
-      <div id="right-box" class="col-sm-6 text-left">
-        <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" [maxDate]="currentDate"></p-calendar>
-      </div>
-
-      <div id="left-box" class="col-sm-6 gender-terms-container">
-        <div class="terms-conditions-container">
-          <label class="required-field" [class.termsAndConditions]="true">{{requiredField.termsAndConditions}}</label>
-          <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl><span style="font-size: 16px"><div class="terms-conditions-text" (click)="this.apiResponse.termsAndConditions = !this.apiResponse.termsAndConditions">I agree to the terms and conditions</div></span>
+      <div class="row">
+        <div id="left-box" class="col-sm-6">
+          <label class="required-field">{{requiredField.firstName}}</label>
+          <text-box [placeholderText]="'First Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.first_name" [(ngModel)]="apiResponse.first_name" ngDefaultControl></text-box>
+        </div>
+        <div id="right-box" class="col-sm-6 text-left">
+          <label class="required-field">{{requiredField.lastName}}</label>
+          <text-box [placeholderText]="'Last Name'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.last_name" [(ngModel)]="apiResponse.last_name" ngDefaultControl></text-box>
         </div>
       </div>
 
-      <div id="right-box" class="col-sm-6 text-left">
-        <div id="sign-up-button-container">
-          <button class="btn-warning btn-lg sign-up-button" (click)="signUpUser()">Sign Up</button><br>
+      <div class="row">
+        <div id="left-box" class="col-sm-6">
+          <label class="required-field">{{requiredField.email}}</label>
+          <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [textValue]="apiResponse.email" [(ngModel)]="apiResponse.email" ngDefaultControl></text-box>
+        </div>
+        <div id="right-box" class="col-sm-6 text-left">
+          <label class="required-field">{{requiredField.confirmEmail}}</label>
+          <text-box [placeholderText]="'Confirm Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxBorder]="'none'" [(ngModel)]="apiResponse.confirmEmail" ngDefaultControl></text-box>
         </div>
       </div>
+
+      <div class="row">
+        <div id="left-box" class="col-sm-6">
+          <label class="required-field">{{requiredField.password}}</label>
+          <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.password" ngDefaultControl></text-box>
+        </div>
+        <div id="right-box" class="col-sm-6 text-left">
+          <label class="required-field">{{requiredField.confirmPassword}}</label>
+          <text-box [placeholderText]="'Confirm Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'#EBECED'" [boxWidth]="'250px'" [textboxType]="'password'" [textboxBorder]="'none'" [isDisabled]="disabledField" [showBox]="hidePasswordField" [(ngModel)]="apiResponse.confirmPassword" ngDefaultControl></text-box>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="left-box" class="col-sm-6">
+          <div class="select-school-label">Select a School:</div>
+        </div>
+        <div id="right-box" class="col-sm-6 text-left select-school-container">
+          <select [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
+            <option *ngFor="let school of supportedSchools" [selected]="school === apiResponse.selectedSchool">{{school}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="left-box" class="col-sm-6">
+          <div class="date-of-birth-text">Date of Birth:</div>
+        </div>
+        <div id="right-box" class="col-sm-6 text-left">
+          <p-calendar [(ngModel)]="apiResponse.dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2100" [maxDate]="currentDate"></p-calendar>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="left-box" class="col-sm-6 gender-terms-container">
+          <div class="terms-conditions-container">
+            <label class="required-field" [class.termsAndConditions]="true">{{requiredField.termsAndConditions}}</label>
+            <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl><span style="font-size: 16px"><div class="terms-conditions-text" (click)="this.apiResponse.termsAndConditions = !this.apiResponse.termsAndConditions">I agree to the terms and conditions</div></span>
+          </div>
+        </div>
+        <div id="right-box" class="col-sm-6 text-left">
+          <div id="sign-up-button-container">
+            <button class="btn-warning btn-lg sign-up-button" (click)="signUpUser()">Sign Up</button><br>
+          </div>
+        </div>
+      </div>
+
     </div>
     <div class="footer-container">
       <footer-bar></footer-bar>
