@@ -2,28 +2,34 @@ const logger = require('winston');
 
 const mongoose = require('mongoose');
 const utility = require('../libs/utility');
+const moment = require('moment');
+const coroutine = global.Promise.coroutine;
 
 const model = mongoose.model('courseTemplate');
+const exam = mongoose.model('exam');
 
-function addCourseTemplate() {
+function addCourseTemplate(newCourseTemp) {
 	logger.debug("adding course template");
 	let courseTemplate = new model({
-		hash:  req.body.hash,
-        course_code: req.body.course,
-        instructor: req.body.instructor,
-        description: req.body.description,
-        lectures: req.body.lectures,
-        tutorials: req.body.tutorials,
-        practicals: req.body.practical
-
+		hash:  newCourseTemp.hash,
+        course_code: newCourseTemp.course,
+        instructor: newCourseTemp.instructor,
+        description: newCourseTemp.description,
+        lectures: newCourseTemp.lectures,
+        tutorials: newCourseTemp.tutorials,
+        practicals: newCourseTemp.practical,
+        office_hours: newCourseTemp.office_hours,
+        office_location: newCourseTemp.office_location,
+        exam_info: "Exam not yet available"
 	});
 	courseTemplate.save(courseTemplate)
 		.then(function (doc) {
-			console.log ("course template saved");
+			logger.debug("course template saved");
 		})
 		.catch(function (err) {
-			console.log ("course template saving ERROR: " + err);
-		});
+			logger.debug("course template saving ERROR: " + err);
+		})
+		.finally(next);
 }
 
 function getCourseTemplate() {
@@ -35,13 +41,13 @@ function getCourseTemplate() {
 	return model.findOne(query)
 		.then(function (courseTemplate) {
 			if (courseTemplate === null) {
-				console.log ("course template NOT FOUND");
+				logger.debug("course template NOT FOUND");
 			} else {
-				("course template found");
+				logger.debug("course template found");
 			}
 		})
 		.catch(function (err) {
-			("course template UNKNOWN ERROR: " + err);
+			logger.debug("course template UNKNOWN ERROR: " + err);
 		})
 }
 

@@ -38,7 +38,7 @@ function processFile(file) {
 			let sections = getSections(parsedData.meeting_sections);
 			let templateData = new template({
 				hash: file.hash,
-				course_code: parsedData.code,
+				course_code: parsedData.id,
 				instructor: sections.primary.instructors[0],
 				description: parsedData.description,
 				lectures: sections.lectures,
