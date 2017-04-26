@@ -127,14 +127,13 @@ function getCourseTemplateExam() {
 						.then(function(exam){
 							if (exam != null) {
 								newExamInfo =
-									"Exam is on "+
-									moment(exam.date).format('MMMM DD YYYY') +
-									" at " +
-									moment(exam.start).format('hh:mm A') +
-									" for " +
-									exam.duration +
+									moment(exam.date).format('MMMM Do, YYYY,') +
+									" from " +
+									moment(exam.start).format('h:mma') +
+									" to " +
+									moment(exam.end).format('h:mma') +
 									" in room(s): " +
-									exam.location;
+									exam.location + ".";
 							}
 							template.findOneAndUpdate({_id : courseTemplates[courseTemplate]._id}, {$set:{exam_info: newExamInfo}})
 								.then(function (doc){
