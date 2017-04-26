@@ -3,7 +3,9 @@ const fs = require('fs');
 const moment = require('moment');
 const exec = global.Promise.promisify(require('child_process').exec);
 const mongoose = require('mongoose');
+const coroutine = global.Promise.coroutine;
 const model = mongoose.model('exam');
+const template = mongoose.model('courseTemplate');
 
 // -- time constants
 const hourToMil = 3600000;
@@ -23,8 +25,8 @@ function addNewExam(examObj, index) {
 		if (err === null) {
 			if (index)
 				logger.debug({
-            		error: 0,
-            		data: "Finished collecting exams"
+					error: 0,
+					data: "Finished collecting exams"
            		});
 		} else {
 			logger.error("error adding course " + examObj.course + " because: "+ err);
@@ -99,8 +101,6 @@ function collectExams() {
 					newExam.date = newDate;
 					newExam.start = startDate;
 					newExam.end = endDate;
-					// -- print values
-					logger.debug(newExam);
 
 					if (i == examsObj.length-1) index = true;
 					addNewExam(newExam, index);
@@ -112,7 +112,48 @@ function collectExams() {
 				});
 			}
     });
-    setTimeout(collectExams, dayToMil);
+	getCourseTemplateExam();
+	setTimeout(collectExams, dayToMil);
+}
+
+// -- update exam section of coursetemplates
+function getCourseTemplateExam() {
+	template.find()
+		.then(coroutine (function*(courseTemplates) {
+			if (courseTemplates != null) {
+				for (var courseTemplate in courseTemplates){
+					var newExamInfo = "Exam not yet available";
+					yield model.findOne({course_code: courseTemplates[courseTemplate].course_code})
+						.then(function(exam){
+							if (exam != null) {
+								newExamInfo =
+									"Exam is on "+
+									moment(exam.date).format('MMMM DD YYYY') +
+									" at " +
+									moment(exam.start).format('hh:mm A') +
+									" for " +
+									exam.duration +
+									" in room(s): " +
+									exam.location;
+							}
+							template.findOneAndUpdate({_id : courseTemplates[courseTemplate]._id}, {$set:{exam_info: newExamInfo}})
+								.then(function (doc){
+								})
+								.catch(function (err) {
+									logger.debug({
+										error: 110,
+										data: "Unknown error."
+									});
+								})
+						})
+				}
+			} else {
+				logger.debug("No course templates found");
+			}
+		}))
+		.catch(function (err) {
+			logger.debug("course template UNKNOWN ERROR: " + err);
+		});
 }
 
 setTimeout(collectExams);
