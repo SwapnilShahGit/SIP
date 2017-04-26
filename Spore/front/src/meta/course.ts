@@ -8,27 +8,35 @@ export class Course implements ICourse {
     public lectures: Array<CourseOption>;
     public tutorials: Array<CourseOption>;
     public practicals: Array<CourseOption>;
-    public officeHours: Array<CourseOption>;
     public isDraft: boolean = true;
-    public colour: string = '#F1AE03';
-    public examNotifications: boolean = true;
-    public examInfo: string;
+    public is_parse: boolean = false;
+    public colour: string = '#ffcc66';
+    public exams: boolean = true;
+    public exam_info: string;
+    public office_hours: string;
+    public office_location: string;
+    public officeHoursInfo: string;
 
-    constructor(isDraft?: boolean, code?: string, instructor?: string,
-                description?: string, id?: string, examNotification?: boolean, examInfo?: string,
+    constructor(isDraft?: boolean, is_parse?: boolean, code?: string, instructor?: string,
+                description?: string, id?: string, exams?: boolean, exam_info?: string,
                 lectures?: Array<CourseOption>, tutorials?: Array<CourseOption>,
-                practicals?: Array<CourseOption>, officeHours?: Array<CourseOption>) {
+                practicals?: Array<CourseOption>, office_hours?: string,
+                office_location?: string, colour?: string, officeHoursInfo?: string, ) {
       this.isDraft = isDraft == undefined ? true : isDraft;
+      this.is_parse = is_parse == undefined ? false : is_parse;
       this.code = code || 'Course Code';
       this.instructor = instructor || 'Instructors Name';
       this.description = description || '';
       this.id = id || Guid.newGuid();
-      this.examNotifications = examNotification || true;
-      this.examInfo = examInfo || "No results yet available.";
+      this.exams = exams || true;
+      this.exam_info = exam_info || 'No information yet available.';
       this.lectures = lectures || [];
       this.tutorials = tutorials || [];
       this.practicals = practicals || [];
-      this.officeHours = officeHours || [];
+      this.office_hours = office_hours || '';
+      this.office_location = office_location || '';
+      this.officeHoursInfo = officeHoursInfo || 'No information yet available.';
+      this.colour = colour || '#ffcc66';
     }
 }
 
@@ -40,11 +48,14 @@ export interface ICourse {
     lectures: Array<CourseOption>;
     tutorials: Array<CourseOption>;
     practicals: Array<CourseOption>;
-    officeHours: Array<CourseOption>;
     isDraft: boolean;
+    is_parse: boolean;
     colour: string;
-    examNotifications: boolean;
-    examInfo: string;
+    exams: boolean;
+    exam_info: string;
+    office_hours: string;
+    office_location: string;
+    officeHoursInfo: string;
 }
 
 class Guid {
