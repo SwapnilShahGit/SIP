@@ -203,32 +203,72 @@ export class CoursesPageComponent implements OnInit {
 
   private cleanUpCourse(course: any) {
     course.id = course._id;
+
+    var lec = Array<CourseOption>();
     if (course.lectures) {
       for (var j = 0; j < course.lectures.length; j++) {
-        course.lectures[j].startTime = new Date(course.lectures[j].startTime);
-        course.lectures[j].endTime = new Date(course.lectures[j].endTime);
+        if (course.lectures[j].times) {
+          for (var i = 0; i < course.lectures[j].times.length; i++) {
+            lec.push(new CourseOption(
+              course.lectures[j].times[i].day.charAt(0).toUpperCase() + course.lectures[j].times[i].day.slice(1).toLowerCase(),
+              new Date(course.lectures[j].times[i].start),
+              new Date(course.lectures[j].times[i].end)
+            ));
+          }
+        } else if (course.lectures[j].day && course.lectures[j].startTime && course.lectures[j].endTime) {
+          lec.push(new CourseOption(
+            course.lectures[j].day.charAt(0).toUpperCase() + course.lectures[j].day.slice(1).toLowerCase(),
+            new Date(course.lectures[j].startTime),
+            new Date(course.lectures[j].endTime)
+          ));
+        }
       }
-    } else {
-      course.lectures = Array<CourseOption>();
     }
+    course.lectures = lec;
 
-    if (course.tutorials) {
-      for (j = 0; j < course.tutorials.length; j++) {
-        course.tutorials[j].startTime = new Date(course.tutorials[j].startTime);
-        course.tutorials[j].endTime = new Date(course.tutorials[j].endTime);
-      }
-    } else {
-      course.tutorials = Array<CourseOption>();
-    }
-
+    var pra = Array<CourseOption>();
     if (course.practicals) {
-      for (j = 0; j < course.practicals.length; j++) {
-        course.practicals[j].startTime = new Date(course.practicals[j].startTime);
-        course.practicals[j].endTime = new Date(course.practicals[j].endTime);
+      for (var j = 0; j < course.practicals.length; j++) {
+        if (course.practicals[j].times) {
+          for (var i = 0; i < course.practicals[j].times.length; i++) {
+            pra.push(new CourseOption(
+              course.practicals[j].times[i].day.charAt(0).toUpperCase() + course.practicals[j].times[i].day.slice(1).toLowerCase(),
+              new Date(course.practicals[j].times[i].start),
+              new Date(course.practicals[j].times[i].end)
+            ));
+          }
+        } else if (course.practicals[j].day && course.practicals[j].startTime && course.practicals[j].endTime) {
+          pra.push(new CourseOption(
+            course.practicals[j].day.charAt(0).toUpperCase() + course.practicals[j].day.slice(1).toLowerCase(),
+            new Date(course.practicals[j].startTime),
+            new Date(course.practicals[j].endTime)
+          ));
+        }
       }
-    } else {
-      course.practicals = Array<CourseOption>();
     }
+    course.practicals = pra;
+
+    var tut = Array<CourseOption>();
+    if (course.tutorials) {
+      for (var j = 0; j < course.tutorials.length; j++) {
+        if (course.tutorials[j].times) {
+          for (var i = 0; i < course.tutorials[j].times.length; i++) {
+            tut.push(new CourseOption(
+              course.tutorials[j].times[i].day.charAt(0).toUpperCase() + course.tutorials[j].times[i].day.slice(1).toLowerCase(),
+              new Date(course.tutorials[j].times[i].start),
+              new Date(course.tutorials[j].times[i].end)
+            ));
+          }
+        } else if (course.tutorials[j].day && course.tutorials[j].startTime && course.tutorials[j].endTime) {
+          tut.push(new CourseOption(
+            course.tutorials[j].day.charAt(0).toUpperCase() + course.tutorials[j].day.slice(1).toLowerCase(),
+            new Date(course.tutorials[j].startTime),
+            new Date(course.tutorials[j].endTime)
+          ));
+        }
+      }
+    }
+    course.tutorials = tut;
 
     if (course.colour) {
       course.colour = course.colour.toLowerCase();
@@ -239,5 +279,6 @@ export class CoursesPageComponent implements OnInit {
     if (course.office_hours && course.office_location) {
       course.officeHoursInfo = 'Held in ' + course.office_location + ' from ' + course.office_hours + '.';
     }
+
   }
 }
