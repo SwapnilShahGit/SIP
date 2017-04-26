@@ -34,6 +34,7 @@ import { GMapsService, DirectionsMapDirective } from '../meta/googleMapService';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { DndModule } from 'ng2-dnd';
 import { TabService } from '../meta/tab.service';
+import { CalculatorComponent } from './components/calculator-page/calculator-page.component';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -85,7 +86,8 @@ type StoreType = {
     CustomColourPickerComponent,
     MapPageComponent,
     TasksComponent,
-    DirectionsMapDirective
+    DirectionsMapDirective,
+    CalculatorComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

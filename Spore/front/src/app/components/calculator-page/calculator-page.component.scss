@@ -1,0 +1,132 @@
+body{
+  background-color: #465775;
+  padding: 20px;
+}
+#title-block{
+  
+  height: 100px;
+  width: 420px;
+  margin: 0em auto;
+}
+.main-title{ 
+  text-align: center;
+  top: 20px;
+  font-size: 60px;
+  position: absolute;
+  margin-top: 50px;
+}
+
+.outer{
+    margin: 0em auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+  width: 900px;
+  height: 730px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 0em auto;
+}
+
+.content{
+
+    height: 250px;  
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+#gpa{
+  font-size: 120px;
+  padding-top: 60px;
+}
+
+.buttons{
+  position: absolute;
+  display: inline-flex;
+  margin-top: 15%;
+  cursor: pointer;
+}
+
+.button{
+  border: 2px solid black;
+  border-radius: 50%;
+  width: 80px;
+  font-size: 55px;
+  margin: 20px;
+  text-align: center;
+  transition: color .5s, border .5s;
+
+  &:hover {
+      .tooltiptext {
+          visibility: visible;
+      }
+  }
+}
+
+#a:hover{
+  color: #2ecc71;
+  border: 2px solid #2ecc71;
+}
+
+#b:hover{
+  color: #1abc9c;
+  border: 2px solid #1abc9c;
+}
+
+#c:hover{
+  color: #f1c40f;
+  border: 2px solid #f1c40f;
+}
+
+#d:hover{
+  color: #e67e22;
+  border: 2px solid #e67e22;
+}
+
+#f:hover{
+  color: #e74c3c;
+  border: 2px solid #e74c3c;
+}
+
+.reset {
+  position: absolute;
+  display: inline-block;
+  margin-top: 22%;
+
+  .reset-button {
+    padding: 10px 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    transition: background-color .5s,
+              color .5s;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+}
+
+.button .tooltiptext {
+    font-size: 16px;
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
