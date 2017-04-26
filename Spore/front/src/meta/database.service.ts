@@ -79,7 +79,7 @@ export class DatabaseService {
         return this.http
             .put(this.BuildPutUserRequest(user),
               {
-                user: user.userID, fb: user.facebookID, first: user.firstName,
+                user: user.userID, fb: user.facebookID ? user.facebookID : undefined, first: user.firstName,
                 last: user.lastName, email: user.email, pic: user.pictureURL,
                 pass: user.password, school: user.school, theme: user.theme, tasks: user.tasks
               })
