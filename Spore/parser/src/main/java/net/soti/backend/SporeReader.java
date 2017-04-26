@@ -273,11 +273,11 @@ public class SporeReader {
 	private static String getSemesterStart() {
 		Date date = null;
 		if (session == "1") {
-			date = new GregorianCalendar(1970, GregorianCalendar.JANUARY, 2).getTime();
+			date = new GregorianCalendar(currentyear, GregorianCalendar.JANUARY, 2).getTime();
 		} else if (session == "5") {
-			date = new GregorianCalendar(1970, GregorianCalendar.MAY, 8).getTime();
+			date = new GregorianCalendar(currentyear, GregorianCalendar.MAY, 8).getTime();
 		} else if (session == "9"){
-        	date = new GregorianCalendar(1970, GregorianCalendar.SEPTEMBER, 6).getTime();
+        	date = new GregorianCalendar(currentyear, GregorianCalendar.SEPTEMBER, 6).getTime();
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -287,11 +287,11 @@ public class SporeReader {
 	private static String getSemesterEnd() {
 		Date date = null;
 		if (session == "1") {
-			date = new GregorianCalendar(1970, GregorianCalendar.MARCH, 31).getTime();
+			date = new GregorianCalendar(currentyear, GregorianCalendar.MARCH, 31).getTime();
 		} else if (session == "5") {
-			date = new GregorianCalendar(1970, GregorianCalendar.AUGUST, 14).getTime();
+			date = new GregorianCalendar(currentyear, GregorianCalendar.AUGUST, 14).getTime();
 		} else if (session == "9"){
-        	date = new GregorianCalendar(1970, GregorianCalendar.DECEMBER, 5).getTime();
+        	date = new GregorianCalendar(currentyear, GregorianCalendar.DECEMBER, 5).getTime();
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
