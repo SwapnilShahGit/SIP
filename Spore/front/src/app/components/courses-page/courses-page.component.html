@@ -80,18 +80,18 @@
           <div *ngIf="course.lectures">
             <h2>
               Lectures
-              <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);" [disabled]="course.lectures.length >= 5">
+              <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);" [disabled]="course.lectures[0].times.length >= 5">
                 <span class="fa fa-plus"></span></button>
               <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures);" [disabled]="course.lectures.length <= 0">
                 <span class="fa fa-minus"></span></button>
             </h2>
-            <div *ngIf="course.lectures[0] || course.lectures.length > 0">
-              <div *ngFor="let lecture of course.lectures[0].times">
+            <div *ngIf="course.lectures || course.lectures.length > 0">
+              <div *ngFor="let lecture of course.lectures">
                 <hr>
                 <div class="form-inline">
                   <div class="form-group">
                       <label class="courseOptionLabel">Day:</label>
-                      <select class="form-control courseOptionInput" [(ngModel)]="lecture.day" (change)="updateButtonCheck(course)">
+                      <select class="form-control courseOptionInput" [(ngModel)]="lecture.times[0].day" (change)="updateButtonCheck(course)">
                         <option [value]="'Sunday'">Sunday</option>
                         <option [value]="'Monday'">Monday</option>
                         <option [value]="'Tuesday'">Tuesday</option>
@@ -103,13 +103,13 @@
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">From:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.start"
-                      (input)="lecture.start=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.times[0].start"
+                      (input)="lecture.times[0].start=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">To:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.end"
-                      (input)="lecture.end=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.times[0].end"
+                      (input)="lecture.times[0].end=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
@@ -126,13 +126,13 @@
               <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.tutorials);" [disabled]="course.tutorials.length <= 0">
                 <span class="fa fa-minus"></span></button>
             </h2>
-            <div *ngIf="course.tutorials[0] || course.tutorials.length > 0">
-              <div *ngFor="let tutorial of course.tutorials[0].times">
+            <div *ngIf="course.tutorials || course.tutorials.length > 0">
+              <div *ngFor="let tutorial of course.tutorials">
                 <hr>
                 <div class="form-inline">
                   <div class="form-group">
                       <label class="courseOptionLabel">Day:</label>
-                      <select class="form-control courseOptionInput" [(ngModel)]="tutorial.day" (change)="updateButtonCheck(course)">
+                      <select class="form-control courseOptionInput" [(ngModel)]="tutorial.times[0].day" (change)="updateButtonCheck(course)">
                         <option [value]="'Sunday'">Sunday</option>
                         <option [value]="'Monday'">Monday</option>
                         <option [value]="'Tuesday'">Tuesday</option>
@@ -144,13 +144,13 @@
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">From:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.start"
-                      (input)="tutorial.start=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.times[0].start"
+                      (input)="tutorial.times[0].start=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">To:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.end"
-                      (input)="tutorial.end=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.times[0].end"
+                      (input)="tutorial.times[0].end=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
@@ -168,12 +168,12 @@
                 <span class="fa fa-minus"></span></button>
             </h2>
             <div *ngIf="course.practicals[0] || course.practicals.length > 0">
-              <div *ngFor="let practical of course.practicals[0].times">
+              <div *ngFor="let practical of course.practicals">
                 <hr>
                 <div class="form-inline">
                   <div class="form-group">
                       <label class="courseOptionLabel">Day:</label>
-                      <select class="form-control courseOptionInput" [(ngModel)]="practical.day" (change)="updateButtonCheck(course)">
+                      <select class="form-control courseOptionInput" [(ngModel)]="practical.times[0].day" (change)="updateButtonCheck(course)">
                         <option [value]="'Sunday'">Sunday</option>
                         <option [value]="'Monday'">Monday</option>
                         <option [value]="'Tuesday'">Tuesday</option>
@@ -185,13 +185,13 @@
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">From:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.start"
-                      (input)="practical.start=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.times[0].start"
+                      (input)="practical.times[0].start=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">To:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.end"
-                      (input)="practical.end=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.times[0].end"
+                      (input)="practical.times[0].end=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
