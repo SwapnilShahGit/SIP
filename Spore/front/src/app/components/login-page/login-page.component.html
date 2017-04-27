@@ -13,9 +13,9 @@
       <text-box [placeholderText]="'Email'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'" [(ngModel)]="email" ngDefaultControl></text-box><br>
       <text-box [placeholderText]="'Password'" [fontColor]="'#4c4c4d'" [textboxColor]="'white'" [boxWidth]="'225px'" [textboxType]="'password'" [(ngModel)]="password" ngDefaultControl></text-box><br>
       <check-box [checkboxText]="'Remember Me'" [fontWeight]="'500'" [fontColor]="'white'" style="padding-right: 8px"></check-box>
-      <a id="forgot-password" target="_blank" href="https://johnsmith:smith123@www.example.com" [style.color]="fontColour">Forgot password?</a><br>
-      <button id="log-in" class="btn-primary" (click)="sporeLogin()">Log In</button>
-      <button id="sign-up" class="btn-primary" (click)="sporeSignUp()">Sign Up</button> <br>
+      <a id="forgot-password" [style.color]="fontColour">Forgot password?</a><br>
+      <button id="log-in" class="btn btn-primary" (click)="sporeLogin()">Log In</button>
+      <button id="sign-up" class="btn btn-primary" (click)="sporeSignUp()">Sign Up</button> <br>
     </div>
   </div>
   <div>

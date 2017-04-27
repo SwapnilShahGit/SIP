@@ -99,7 +99,8 @@ select option {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  display: inline-block
+  display: inline-block;
+  cursor: pointer;
 }
 
 #sign-up-button-container {
