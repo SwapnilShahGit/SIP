@@ -40,7 +40,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
   ) { }
 
   public ngOnInit() {
-    this.databaseService.getUserEvents(this.userId, moment('2016-01-01', 'YYYY-MM-DD'),
+    this.databaseService.getUserEvents(this.userId, moment('1960-01-01', 'YYYY-MM-DD'),
       moment('2018-01-01', 'YYYY-MM-DD')).then(response => {
       if (response.error !== 0) {
         console.log('Error during event population: ' + response.data);
