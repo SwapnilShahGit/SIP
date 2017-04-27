@@ -31,7 +31,8 @@ function createEventForSection(section, time, colour) {
 		title: section.code,
 		start: time.start ? new Date(time.start) : undefined,
 		end: time.end ? new Date(time.end) : undefined,
-		dow: getDayOfWeek(time.day.toUpperCase())
+		dow: getDayOfWeek(time.day.toUpperCase()),
+		ranges: [{start: new Date("2017-01-01"), end: new Date("2017-12-31")}]
 	};
 	utility.removeUndefined(query);
 	let event_mod = new event(query);
