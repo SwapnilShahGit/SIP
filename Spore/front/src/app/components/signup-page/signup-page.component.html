@@ -55,7 +55,7 @@
           <div class="select-school-label">Select a School:</div>
         </div>
         <div id="right-box" class="col-sm-6 text-left select-school-container">
-          <select [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
+          <select style="cursor: pointer" [(ngModel)]="this.apiResponse.selectedSchool" ngDefaultControl>
             <option *ngFor="let school of supportedSchools" [selected]="school === apiResponse.selectedSchool">{{school}}</option>
           </select>
         </div>
@@ -74,7 +74,10 @@
         <div id="left-box" class="col-sm-6 gender-terms-container">
           <div class="terms-conditions-container">
             <label class="required-field" [class.termsAndConditions]="true">{{requiredField.termsAndConditions}}</label>
-            <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl><span style="font-size: 16px"><div class="terms-conditions-text" (click)="this.apiResponse.termsAndConditions = !this.apiResponse.termsAndConditions">I agree to the terms and conditions</div></span>
+            <input type="checkbox" name="termsAndConditions" value="agree" [(ngModel)]="this.apiResponse.termsAndConditions" ngDefaultControl>
+            <span style="font-size: 16px">
+              <div class="terms-conditions-text" (click)="this.apiResponse.termsAndConditions = !this.apiResponse.termsAndConditions">I agree to the terms and conditions</div>
+            </span>
           </div>
         </div>
         <div id="right-box" class="col-sm-6 text-left">
