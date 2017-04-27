@@ -129,7 +129,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
     if (e.event.dow) {
       newEvent.dow = [e.event.start.day()];
       for (let i = 0; i < e.event.dow.length; i ++) {
-        if (e.event.dow[i] !== oldDow && e.event.dow !== e.event.start.day()) newEvent.dow.push(e.event.dow[i]);
+        if (e.event.dow[i] !== oldDow && e.event.dow[i] !== e.event.start.day()) newEvent.dow.push(e.event.dow[i]);
       }
     }
     this.databaseService.updateEvent(newEvent).then(response => {
