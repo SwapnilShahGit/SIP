@@ -237,6 +237,7 @@ export class DatabaseService {
     private BuildDeleteUserEventRequest(userId: string, eventId: string): string {
         return this.server + '/api/events?'
             + 'user=' + encodeURIComponent(userId)
+            + '&event=' + encodeURIComponent(eventId)
     }
 
     private BuildUpdateEventRequest(): string {
