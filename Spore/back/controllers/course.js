@@ -64,7 +64,7 @@ let addEventForSections = coroutine(function* (req) {
 			yield user.update({_id: req.body.user}, {$addToSet: {event_ids: event_obj._id}});
 		}
 	}
-	let oldEvents = req.body.event_ids.diff(new_events);
+	let oldEvents = (req.body.event_ids || []).diff(new_events);
 	for (let i = 0; i < oldEvents.length; i++) {
 		yield user.update({_id: req.body.user}, {$pull: {event_ids: oldEvents[i]}});
 	}
@@ -168,7 +168,7 @@ function deleteCourse(req, res, next) {
 function updateCourse(req, res, next) {
 	logger.debug("updating courses with id: " + req.body.id);
 	addEventForSections(req)
-		.then(function (doc) {
+		.then(function (events) {
 			let updated = {
 				code: req.body.code,
 				instructor: req.body.instructor,
@@ -181,7 +181,8 @@ function updateCourse(req, res, next) {
 				is_parse: req.body.is_parse,
 				colour: req.body.colour,
 				exams: req.body.exams,
-				exam_info: req.body.exam_info
+				exam_info: req.body.exam_info,
+				event_ids: events
 			};
 			utility.removeUndefined(updated);
 			return model.findByIdAndUpdate(req.body.id, updated, {new: true})

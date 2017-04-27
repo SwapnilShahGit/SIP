@@ -90,7 +90,7 @@ export class CoursesPageComponent implements OnInit {
   }
 
   private updateCourse(course: Course): any {
-    this.databaseService.updateCourse(course).then(response => {
+    this.databaseService.updateCourse(this.userID, course).then(response => {
       if (response.error === 0) {
         this.cleanUpCourse(response.data);
         this.courses.splice(this.courses.indexOf(course), 1);
