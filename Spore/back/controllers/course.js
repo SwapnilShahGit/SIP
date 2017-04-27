@@ -6,27 +6,93 @@ const coroutine = global.Promise.coroutine;
 
 const model = mongoose.model('course');
 const user = mongoose.model('user');
+const event = mongoose.model('event');
 const courseTemplate = mongoose.model('courseTemplate');
+
+Array.prototype.diff = function(array) {
+	return this.filter(function(i) {return a.indexOf(i) < 0;});
+};
+
+function getDayOfWeek(day) {
+	let days = {
+		SUNDAY: 1,
+		MONDAY: 2,
+		TUESDAY: 3,
+		WEDNESDAY: 4,
+		THURSDAY: 5,
+		FRIDAY: 6,
+		SATURDAY: 7
+	};
+	return days[day];
+}
+
+function createEventForSection(section, time, colour) {
+	let query = {
+		title: section.code,
+		start: time.start ? new Date(time.start) : undefined,
+		end: time.end ? new Date(time.end) : undefined,
+		dow: getDayOfWeek(time.day.toUpperCase())
+	};
+	utility.removeUndefined(query);
+	let event_mod = new event(query);
+	return time._id ? event.findByIdAndUpdate(time._id, event_mod, {new: true}) : event_mod.save(event_mod);
+}
+
+let addEventForSections = coroutine(function* (req) {
+	let new_events = [];
+	for (let i = 0; i < req.body.lectures.length; i++) {
+		for (let j = 0; j < req.body.lectures[i].times.length; j++) {
+			event_obj = yield createEventForSection(req.body.lectures[i], req.body.lectures[i].times[j], req.body.colour);
+			req.body.lectures[i].times[j]._id = event_obj._id;
+			new_events.push(event_obj._id);
+			yield user.update({_id: req.body.user}, {$addToSet: {event_ids: event_obj._id}});
+		}
+	}
+	for (let i = 0; i < req.body.tutorials.length; i++) {
+		for (let j = 0; j < req.body.tutorials[i].times.length; j++) {
+			event_obj = yield createEventForSection(req.body.tutorials[i], req.body.tutorials[i].times[j], req.body.colour);
+			req.body.tutorials[i].times[j]._id = event_obj._id;
+			new_events.push(event_obj._id);
+			yield user.update({_id: req.body.user}, {$addToSet: {event_ids: event_obj._id}});
+		}
+	}
+	for (let i = 0; i < req.body.practicals.length; i++) {
+		for (let j = 0; j < req.body.practicals[i].times.length; j++) {
+			event_obj = yield createEventForSection(req.body.practicals[i], req.body.practicals[i].times[j], req.body.colour);
+			req.body.practicals[i].times[j]._id = event_obj._id;
+			new_events.push(event_obj._id);
+			yield user.update({_id: req.body.user}, {$addToSet: {event_ids: event_obj._id}});
+		}
+	}
+	let oldEvents = req.body.event_ids.diff(new_events);
+	for (let i = 0; i < oldEvents.length; i++) {
+		yield user.update({_id: req.body.user}, {$pull: {event_ids: oldEvents[i]}});
+	}
+	return new_events;
+});
 
 function addCourse(req, res, next) {
 	logger.debug("adding course for user id: " + req.body.user);
-	let course = new model({
-		code: req.body.code,
-		instructor: req.body.instructor,
-		description: req.body.description,
-		lectures: req.body.lectures,
-		tutorials: req.body.tutorials,
-		practicals: req.body.practicals,
-		office_hours: req.body.office_hours,
-		office_location: req.body.office_location,
-		is_parse: req.body.is_parse,
-		colour: req.body.colour,
-		exams: req.body.exams,
-		exam_info: req.body.exam_info,
-		user: req.body.user
-	});
-
-	course.save(course)
+	addEventForSections(req)
+		.then(function (events) {
+			let course = new model({
+				code: req.body.code,
+				instructor: req.body.instructor,
+				description: req.body.description,
+				lectures: req.body.lectures,
+				tutorials: req.body.tutorials,
+				practicals: req.body.practicals,
+				office_hours: req.body.office_hours,
+				office_location: req.body.office_location,
+				is_parse: req.body.is_parse,
+				colour: req.body.colour,
+				exams: req.body.exams,
+				exam_info: req.body.exam_info,
+				user: req.body.user,
+				event_ids: events
+			});
+			return course.save(course)
+		})
 		.then(coroutine(function*(doc) {
 			yield user.update({_id: req.body.user}, {$push: {course_ids: doc.id}});
 			res.send({
@@ -101,22 +167,25 @@ function deleteCourse(req, res, next) {
 
 function updateCourse(req, res, next) {
 	logger.debug("updating courses with id: " + req.body.id);
-	let updated = {
-		code: req.body.code,
-		instructor: req.body.instructor,
-		description: req.body.description,
-		lectures: req.body.lectures,
-		tutorials: req.body.tutorials,
-		practicals: req.body.practicals,
-		office_hours: req.body.office_hours,
-		office_location: req.body.office_location,
-		is_parse: req.body.is_parse,
-		colour: req.body.colour,
-		exams: req.body.exams,
-		exam_info: req.body.exam_info
-	};
-	utility.removeUndefined(updated);
-	model.findByIdAndUpdate(req.body.id, updated, {new: true})
+	addEventForSections(req)
+		.then(function (doc) {
+			let updated = {
+				code: req.body.code,
+				instructor: req.body.instructor,
+				description: req.body.description,
+				lectures: req.body.lectures,
+				tutorials: req.body.tutorials,
+				practicals: req.body.practicals,
+				office_hours: req.body.office_hours,
+				office_location: req.body.office_location,
+				is_parse: req.body.is_parse,
+				colour: req.body.colour,
+				exams: req.body.exams,
+				exam_info: req.body.exam_info
+			};
+			utility.removeUndefined(updated);
+			return model.findByIdAndUpdate(req.body.id, updated, {new: true})
+		})
 		.then(function (doc) {
 			res.send({
 				error: 0,

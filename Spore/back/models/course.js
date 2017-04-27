@@ -14,7 +14,8 @@ const courseSchema = new Schema({
 	colour: String,
 	exams: Boolean,
 	exam_info: String,
-	user: String
+	user: String,
+	event_ids: [Schema.Types.ObjectId]
 });
 
 mongoose.model('course', courseSchema);
