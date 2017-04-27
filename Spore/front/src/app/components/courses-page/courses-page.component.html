@@ -85,8 +85,8 @@
               <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures);" [disabled]="course.lectures.length <= 0">
                 <span class="fa fa-minus"></span></button>
             </h2>
-            <div *ngIf="course.lectures || course.lectures.length > 0">
-              <div *ngFor="let lecture of course.lectures">
+            <div *ngIf="course.lectures[0] || course.lectures.length > 0">
+              <div *ngFor="let lecture of course.lectures[0].times">
                 <hr>
                 <div class="form-inline">
                   <div class="form-group">
@@ -103,13 +103,13 @@
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">From:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.startTime"
-                      (input)="lecture.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.start"
+                      (input)="lecture.start=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">To:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.endTime"
-                      (input)="lecture.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="lecture.end"
+                      (input)="lecture.end=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
@@ -126,8 +126,8 @@
               <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.tutorials);" [disabled]="course.tutorials.length <= 0">
                 <span class="fa fa-minus"></span></button>
             </h2>
-            <div *ngIf="course.tutorials || course.tutorials.length > 0">
-              <div *ngFor="let tutorial of course.tutorials">
+            <div *ngIf="course.tutorials[0] || course.tutorials.length > 0">
+              <div *ngFor="let tutorial of course.tutorials[0].times">
                 <hr>
                 <div class="form-inline">
                   <div class="form-group">
@@ -144,13 +144,13 @@
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">From:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.startTime"
-                      (input)="tutorial.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.start"
+                      (input)="tutorial.start=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">To:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.endTime"
-                      (input)="tutorial.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="tutorial.end"
+                      (input)="tutorial.end=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
@@ -167,8 +167,8 @@
               <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.practicals);" [disabled]="course.practicals.length <= 0">
                 <span class="fa fa-minus"></span></button>
             </h2>
-            <div *ngIf="course.practicals || course.practicals.length > 0">
-              <div *ngFor="let practical of course.practicals">
+            <div *ngIf="course.practicals[0] || course.practicals.length > 0">
+              <div *ngFor="let practical of course.practicals[0].times">
                 <hr>
                 <div class="form-inline">
                   <div class="form-group">
@@ -185,13 +185,13 @@
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">From:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.startTime"
-                      (input)="practical.startTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.start"
+                      (input)="practical.start=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                   <div class="form-group">
                     <label class="courseOptionLabel">To:</label>
-                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.endTime"
-                      (input)="practical.endTime=$event.target.valueAsDate; updateButtonCheck(course)">
+                    <input class="form-control courseOptionInput" type="time" [(valueAsDate)]="practical.end"
+                      (input)="practical.end=$event.target.valueAsDate; updateButtonCheck(course)">
                   </div>
                 </div>
               </div>
