@@ -96,12 +96,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.event.title = e.calEvent.title;
     this.event.id = e.calEvent.id;
     this.event.colour = e.calEvent.color;
-    if (e.calEvent.ranges) {
+    if (e.calEvent.ranges && e.calEvent.ranges.length) {
       let eventStartRange = moment(e.calEvent.ranges[0].start);
       let eventEndRange = moment(e.calEvent.ranges[0].end);
       this.event.ranges = [{start: new Date(eventStartRange.year(), eventStartRange.month(), eventStartRange.date(), eventStartRange.hours(), eventStartRange.minutes()),
         end: new Date(eventEndRange.year(), eventEndRange.month(), eventEndRange.date(), eventEndRange.hours(), eventEndRange.minutes())}];
     }
+    this.event.dow = e.calEvent.dow;
     this.dialogUpdate = true;
     this.toggleModal();
   }
