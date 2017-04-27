@@ -1,8 +1,8 @@
 <div *ngIf="!courses || courses.length == 0">
-  <h2>Looks like you dont have any courses uploaded!</h2>
-  <h4 class="syllabiInstructions">- Upload your syllabus above</h4>
+  <h2>Looks like you don't have any courses uploaded!</h2>
+  <h4 class="syllabiInstructions">- Upload your syllabus on the files tab</h4>
   <h4 class="syllabiInstructions">- Or try the 'Search By Code' to check existing syllabi</h4>
-  <h4 class="syllabiInstructions">- Alternatively you can use 'Add Manually' button</h4>
+  <h4 class="syllabiInstructions">- Alternatively, you can use 'Add Manually' button</h4>
 </div>
 
 <div *ngIf="courses && courses.length > 0" class="panel-group" id="courses-accordion">
@@ -80,7 +80,7 @@
           <div *ngIf="course.lectures">
             <h2>
               Lectures
-              <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);" [disabled]="course.lectures[0].times.length >= 5">
+              <button class="btn btn-xs btn-info" (click)="addCourseOption(course, course.lectures);" [disabled]="course.lectures.length >= 5">
                 <span class="fa fa-plus"></span></button>
               <button class="btn btn-xs btn-danger" (click)="removeCourseOption(course, course.lectures);" [disabled]="course.lectures.length <= 0">
                 <span class="fa fa-minus"></span></button>
@@ -278,9 +278,9 @@
       </div>
       <div class="modal-body">
         <p>
-          You are about to delete
+          Are you sure you would like to delete
           '{{deleteCourseCode.length > 12 ? deleteCourseCode.substring(0,12) + '...' : deleteCourseCode}}'
-          from your calendar, continue?
+          ? This will also remove any events from the calendar. 
         </p>
       </div>
       <div class="modal-footer">
