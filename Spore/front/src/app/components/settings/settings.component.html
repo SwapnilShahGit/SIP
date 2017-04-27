@@ -21,7 +21,7 @@
     <h2>Profile Picture:</h2>
     <div class="or-line"></div>
     <img *ngIf="user.pictureURL" class="profile-picture" src="{{temporaryProfilePicture != '' ? temporaryProfilePicture : user.pictureURL}}" alt="Profile Picture"><br><br>
-    <button class="btn btn-primary btn-md pictureButton" (click)="setFacebookPicture()">Facebook Picture</button>
+    <button *ngIf="user.facebookID" class="btn btn-primary btn-md pictureButton" (click)="setFacebookPicture()">Facebook Picture</button>
     <button class="btn btn-primary btn-md pictureButton" (click)="randomizePicture()">Randomize Picture</button>
 
     <h4>Custom:</h4>
