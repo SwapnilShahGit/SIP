@@ -1,4 +1,6 @@
-# UUID      	Group Name
+# UUID                 	Group Name
 #
-user:anatale	user/Adam Natale (anatale)
-user:dhobin 	user/Darren Hobin (dhobin)
+global:Registered-Users	Registered Users
+user:anatale           	user/Adam Natale (anatale)
+user:dhobin            	user/Darren Hobin (dhobin)
+user:prathi            	user/Pranali Rathi (prathi)
